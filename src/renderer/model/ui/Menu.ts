@@ -1,11 +1,11 @@
 import { remote } from 'electron'
 
 export interface CallBack {
-    (item: any): void
+    (label: string): void
 }
 
 export default class Menu {
-    menu = new remote.Menu
+    menu: Electron.Menu = new remote.Menu
 
     add(label: string, lambda: CallBack) {
         let iii = new remote.MenuItem({
@@ -16,28 +16,31 @@ export default class Menu {
         return this
     }
 
+    addMenu(label: string, menu: Menu) {
+        let iii = new remote.MenuItem({
+            label: label,
+            submenu: menu.menu
+        })
+        this.menu.append(iii)
+        return this
+    }
+
     addSeparator() {
         let iii = new remote.MenuItem({
             type: 'separator'
-        })
-        this.menu.append(iii)
-    }
-
-    make(item: any, text: string, lambda: CallBack) {
-        let label = item
-        if (text) {
-            label = item[text]
-        }
-        let iii = new remote.MenuItem({
-            label: label,
-            click: () => lambda(item)
         })
         this.menu.append(iii)
         return this
     }
 
     makeList(list: Array<any>, text: string, lambda: CallBack) {
-        list.forEach(item => this.make(item, text, lambda))
+        list.forEach(item => {
+            let label = item
+            if (text) {
+                label = item[text]
+            }
+            this.add(label, lambda)
+        })
         return this
     }
 

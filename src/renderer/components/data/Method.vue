@@ -1,0 +1,47 @@
+<template>
+    <div>
+        <div v-if="editing">
+            <span @click="$emit('remove')" class="button"> - </span>
+            <Variable :variable="member" noValue="true" :editing="true" inClass="true"></Variable>
+
+            <ParameterList :manager="member.ParameterManager"></ParameterList>
+
+            <span @click="editing=false" class="btn btn-success ok">OK</span>
+        </div>
+
+        <template v-else>
+            <span v-if="member.hasBlock" @click="visible=!visible" class="button"> * </span>
+
+            <span @click="editing=true">
+                <Variable :variable="member" noValue="true" :editing="false">
+                    <span slot="parameter">( {{member.ParameterManager.text}} )</span>
+                </Variable>
+            </span>
+        </template>
+
+        <Block v-if="visible && member.hasBlock" :block="member.block"></Block>
+        <hr v-if="visible && member.hasBlock">
+    </div>
+</template>
+
+<script>
+    import Block from '../code/Block'
+    import ParameterList from './ParameterList'
+    import Variable from './Variable'
+
+    export default {
+        name: 'Method',
+        components: { Block, ParameterList, Variable },
+        props: ['member'],
+        data() {
+            return {
+                editing: false,
+                visible: false
+            }
+        },
+        computed: {
+        },
+        methods: {
+        }
+    }
+</script>
