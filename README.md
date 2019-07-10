@@ -21,3 +21,15 @@ npm run dev
 
 ## ScreenShot
 
+View Mode
+
+![viewmode](https://github.com/GooGee/Code-Builder/raw/develop/image/viewmode.png)
+
+Editing Mode
+
+![editingmode](https://github.com/GooGee/Code-Builder/raw/develop/image/editingmode.png)
+
+Generated Code
+
+![code](https://github.com/GooGee/Code-Builder/raw/develop/image/code.png)
+
