@@ -21,6 +21,8 @@ npm run dev
 
 ## ScreenShot
 
+![gif](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
+
 View Mode
 
 ![viewmode](https://github.com/GooGee/Code-Builder/raw/develop/image/viewmode.png)
