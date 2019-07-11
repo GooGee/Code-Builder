@@ -12,6 +12,7 @@
             </div>
 
             <div v-else @click="editing=true">
+                <span class="syntax">Property</span>
                 <Variable :variable="member" :editing="false"></Variable>
             </div>
         </template>
