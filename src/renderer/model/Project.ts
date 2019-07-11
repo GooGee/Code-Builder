@@ -85,25 +85,9 @@ export default class Project {
         return []
     }
 
-    /**
-     * get Parameter List of Method
-     * @param node 
-     */
-    getCallArgumentList(node: Node) {
-        let signature = this.getCallSignature(node)
-        if (signature) {
-            return signature.parameters
-        }
-        return []
-    }
-
-    getCallSignature(node: Node) {
+    getCallSignatureList(node: Node) {
         let ttt = this.getType(node)
-        let list = ttt.getCallSignatures()
-        if (list.length) {
-            return list[0]
-        }
-        return null
+        return ttt.getCallSignatures()
     }
 
     /**

@@ -59,13 +59,16 @@ export default class ChainMenu {
     }
 
     addArgument(menu: Menu) {
-        let signature = this.project.getCallSignature(this.chain.root)
-        if (signature) {
-            menu.add('Call', label => {
-                this.chain.call(signature!.parameters)
+        let list = this.project.getCallSignatureList(this.chain.root)
+        list.forEach(signature => {
+            const list: string[] = []
+            signature.parameters.forEach(parameter => list.push(parameter.name))
+            const label = this.chain.root.text + ' ( ' + list.join(', ') + ' )'
+            menu.add(label, label => {
+                this.chain.call(signature.parameters)
                 this.module.save()
             })
-        }
+        })
     }
 
     addProperty(menu: Menu) {
