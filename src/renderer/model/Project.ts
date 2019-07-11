@@ -73,18 +73,6 @@ export default class Project {
         return []
     }
 
-    /**
-     * get Parameter List of Constructor
-     * @param node 
-     */
-    getArgumentList(node: TypeName) {
-        let signature = this.getTypeSignature(node)
-        if (signature) {
-            return signature.parameters
-        }
-        return []
-    }
-
     getCallSignatureList(node: Node) {
         let ttt = this.getType(node)
         return ttt.getCallSignatures()
@@ -149,14 +137,10 @@ export default class Project {
         return this.checker.getSymbolsInScope(node.source!, ts.SymbolFlags.Type)
     }
 
-    getTypeSignature(node: TypeName) {
+    getTypeSignatureList(node: TypeName) {
         let ttt = this.getType(node)
         let sss = this.checker.getTypeOfSymbolAtLocation(ttt.symbol, node.source!)
-        let list = sss.getConstructSignatures()
-        if (list.length) {
-            return list[0]
-        }
-        return null
+        return sss.getConstructSignatures()
     }
 
     getVariableList(node: Node) {

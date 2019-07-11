@@ -78,10 +78,15 @@
 
                 menu.addSeparator()
 
-                menu.add('New', label => {
-                    let list = builder.project.getArgumentList(this.variable.type.type)
-                    this.variable.makeNew(list)
-                    builder.module.save()
+                let list = builder.project.getTypeSignatureList(this.variable.type.type)
+                list.forEach(signature => {
+                    const list = []
+                    signature.parameters.forEach(parameter => list.push(parameter.name))
+                    const label = 'new ( ' + list.join(', ') + ' )'
+                    menu.add(label, label => {
+                        this.variable.makeNew(signature.parameters)
+                        builder.module.save()
+                    })
                 })
 
                 menu.add('null', label => {
