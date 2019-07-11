@@ -59,11 +59,12 @@ export default class ChainMenu {
     }
 
     addArgument(menu: Menu) {
-        let list = this.project.getCallSignatureList(this.chain.root)
+        const eee = this.chain.root
+        let list = this.project.getCallSignatureList(eee)
         list.forEach(signature => {
             const list: string[] = []
             signature.parameters.forEach(parameter => list.push(parameter.name))
-            const label = this.chain.root.text + ' ( ' + list.join(', ') + ' )'
+            const label = eee.value + ' ( ' + list.join(', ') + ' )'
             menu.add(label, label => {
                 this.chain.call(signature.parameters)
                 this.module.save()

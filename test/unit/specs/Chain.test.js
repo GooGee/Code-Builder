@@ -11,7 +11,7 @@ test(`load`, () => {
         age
     )
     chain.load(node)
-    expect(chain.root.name).toEqual(age)
+    expect(chain.root.value).toEqual(age)
 })
 
 test(`toNode`, () => {
@@ -49,18 +49,18 @@ test(`makeNew`, () => {
 
 test(`remove`, () => {
     chain.remove(chain.root)
-    expect(chain.root.name).toEqual(user)
+    expect(chain.root.value).toEqual(user)
 })
 
 test(`access`, () => {
     chain.access(age)
-    expect(chain.root.name).toEqual(age)
+    expect(chain.root.value).toEqual(age)
 })
 
 test(`change`, () => {
     const value = 'say'
     chain.change(value, chain.root)
-    expect(chain.root.name).toEqual(value)
+    expect(chain.root.value).toEqual(value)
 })
 
 test(`call`, () => {

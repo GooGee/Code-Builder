@@ -13,15 +13,11 @@ export abstract class Expression implements Node {
     readonly isKeyword: boolean = false
     readonly isNew: boolean = false
     readonly isNot: boolean = false
-    private _text: string = ''
+    value: string = ''
     abstract source: ts.Node | null
 
     get text(): string {
-        return this._text
-    }
-
-    set text(text: string) {
-        this._text = text
+        return this.value
     }
 
     static load(node: ts.Expression): Expression {
@@ -93,7 +89,7 @@ export abstract class Keyword extends Expression {
 }
 
 export class FalseKeyword extends Keyword {
-    readonly text: string = 'false'
+    readonly value: string = 'false'
 
     toNode() {
         return ts.createFalse()
@@ -101,7 +97,7 @@ export class FalseKeyword extends Keyword {
 }
 
 export class NullKeyword extends Keyword {
-    readonly text: string = 'null'
+    readonly value: string = 'null'
 
     toNode() {
         return ts.createNull()
@@ -109,7 +105,7 @@ export class NullKeyword extends Keyword {
 }
 
 export class ThisKeyword extends Keyword {
-    readonly text: string = 'this'
+    readonly value: string = 'this'
 
     toNode() {
         return ts.createThis()
@@ -117,7 +113,7 @@ export class ThisKeyword extends Keyword {
 }
 
 export class TrueKeyword extends Keyword {
-    readonly text: string = 'true'
+    readonly value: string = 'true'
 
     toNode() {
         return ts.createTrue()
@@ -176,16 +172,15 @@ export class CallExpression extends ExpressionWithArgument {
 
 export class Identifier extends Expression {
     readonly isIdentifier: boolean = true
-    name: string
     source: ts.Identifier | null = null
 
     get text(): string {
-        return this.name
+        return this.value
     }
 
     constructor(name: string) {
         super()
-        this.name = name
+        this.value = name
     }
 
     static load(node: ts.Identifier) {
@@ -199,7 +194,7 @@ export class Identifier extends Expression {
     }
 
     toNode() {
-        return ts.createIdentifier(this.name)
+        return ts.createIdentifier(this.value)
     }
 }
 
@@ -245,9 +240,9 @@ export class NumericLiteral extends Expression {
     readonly isKeyword: boolean = true
     source: ts.NumericLiteral | null = null
 
-    constructor(text: string) {
+    constructor(value: string) {
         super()
-        this.text = text
+        this.value = value
     }
 
     static load(node: ts.NumericLiteral) {
@@ -301,18 +296,17 @@ export class PrefixUnaryExpression extends Expression {
 
 export class PropertyAccessExpression extends Expression {
     readonly isAccess: boolean = true
-    name: string
     readonly expression: Expression
     source: ts.PropertyAccessExpression | null = null
 
     get text(): string {
-        return `${this.expression.text} ${Project.PointSign} ${this.name}`
+        return `${this.expression.text} ${Project.PointSign} ${this.value}`
     }
 
     constructor(expression: Expression, name: string) {
         super()
         this.expression = expression
-        this.name = name
+        this.value = name
     }
 
     static load(node: ts.PropertyAccessExpression) {
@@ -330,7 +324,7 @@ export class PropertyAccessExpression extends Expression {
     toNode() {
         let node = ts.createPropertyAccess(
             this.expression.toNode(),
-            this.name
+            this.value
         )
         return node
     }
@@ -345,9 +339,9 @@ export class StringLiteral extends Expression {
         return `\`${this.value}\``
     }
 
-    constructor(text: string) {
+    constructor(value: string) {
         super()
-        this.value = text
+        this.value = value
     }
 
     static load(node: ts.StringLiteral) {
@@ -370,7 +364,7 @@ export class TypeExpression {
     type: Identifier | PropertyAccessExpression
 
     get name(): string {
-        return this.type.name
+        return this.type.value
     }
 
     get text(): string {

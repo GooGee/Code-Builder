@@ -11,7 +11,7 @@ test(`load`, () => {
         []
     )
     expression = NewExpression.load(node)
-    expect(expression.expression.name).toEqual(name)
+    expect(expression.expression.value).toEqual(name)
 })
 
 test(`toNode`, () => {

@@ -11,7 +11,7 @@ test(`load`, () => {
         name
     )
     expression = PropertyAccessExpression.load(node)
-    expect(expression.name).toEqual(name)
+    expect(expression.value).toEqual(name)
 })
 
 test(`toNode`, () => {
