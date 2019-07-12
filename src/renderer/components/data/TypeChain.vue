@@ -37,7 +37,7 @@
             access() {
                 let menu = new Menu()
 
-                let list = builder.project.getExportList(this.ctype.type, builder)
+                let list = builder.project.getExportList(this.ctype.type)
                 if (list.length) {
                     list.forEach(exported => {
                         menu.add(exported.name, label => {

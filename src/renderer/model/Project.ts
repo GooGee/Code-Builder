@@ -60,12 +60,11 @@ export default class Project {
     /**
      * get export types of module
      * @param type 
-     * @param builder 
      */
-    getExportList(type: TypeName, builder: Builder) {
+    getExportList(type: TypeName) {
         // do not know how to do it yet
         if (type.isSingle) {
-            let mmm = builder.project!.ModuleManager.find(type.name)
+            let mmm = this.ModuleManager.find(type.name)
             if (mmm) {
                 return mmm.TypeManager.list
             }
