@@ -30,7 +30,7 @@
         methods: {
             access() {
                 let menu = new ChainMenu(this.chain, builder)
-                menu.show()
+                menu.access()
             }
         }
     }

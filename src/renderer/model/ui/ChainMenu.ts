@@ -21,10 +21,37 @@ export default class ChainMenu {
         return this.builder.module!
     }
 
-    show() {
+    access() {
         let menu = new Menu()
-        this.addArgument(menu)
-        this.addProperty(menu)
+
+        const owner = this.chain.root
+
+        this.addArgument(owner, menu)
+
+        this.addProperty(owner, menu)
+
+        menu.show()
+    }
+
+    change(expression: PropertyAccessExpression) {
+        const owner = expression.expression
+        if (owner) {
+            // go on
+        } else {
+            this.changeRoot()
+            return
+        }
+
+        let menu = new Menu()
+
+        menu.add('Delete', label => this.remove(expression))
+
+        menu.addSeparator()
+
+        this.addArgument(owner, menu)
+
+        this.addProperty(owner, menu)
+
         menu.show()
     }
 
@@ -39,56 +66,24 @@ export default class ChainMenu {
         menu.show()
     }
 
-    change(expression: PropertyAccessExpression) {
-        if (expression.expression) {
-            // go on
-        } else {
-            this.changeRoot()
-            return
-        }
-
-        let menu = new Menu()
-
-        menu.add('Delete', label => this.remove(expression))
-
-        menu.addSeparator()
-
-        this.changeProperty(expression, menu)
-
-        menu.show()
-    }
-
-    addArgument(menu: Menu) {
-        const eee = this.chain.root
-        let list = this.project.getCallSignatureList(eee)
+    addArgument(owner: Expression, menu: Menu) {
+        let list = this.project.getCallSignatureList(owner)
         list.forEach(signature => {
             const list: string[] = []
             signature.parameters.forEach(parameter => list.push(parameter.name))
-            const label = eee.value + ' ( ' + list.join(', ') + ' )'
+            const label = owner.value + ' ( ' + list.join(', ') + ' )'
             menu.add(label, label => {
-                this.chain.call(signature.parameters)
+                this.chain.call(signature.parameters, owner)
                 this.module.save()
             })
         })
     }
 
-    addProperty(menu: Menu) {
-        let expression = this.chain.root
-        let list = this.project.getPropertyList(expression)
-        list.forEach(property => {
-            menu.add(property.name, label => {
-                this.chain.access(label)
-                this.module.save()
-            })
-        })
-    }
-
-    changeProperty(expression: PropertyAccessExpression, menu: Menu) {
-        let owner = expression.expression
+    addProperty(owner: Expression, menu: Menu) {
         let list = this.project.getPropertyList(owner)
         list.forEach(property => {
             menu.add(property.name, label => {
-                this.chain.change(label, expression)
+                this.chain.access(label, owner)
                 this.module.save()
             })
         })
