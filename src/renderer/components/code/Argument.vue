@@ -1,7 +1,7 @@
 <template>
     <span>
         <span class="syntax">(</span>
-        <div v-if="manager.list" v-for="box in manager.list">
+        <div v-if="manager.list" v-for="box in manager.list" class="argument">
             <Box :box="box" :editing="editing"></Box>
         </div>
         <span class="syntax">)</span>
@@ -23,3 +23,10 @@
         }
     }
 </script>
+
+<style>
+    .argument {
+        padding-left: 44px
+    }
+
+</style>
