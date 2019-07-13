@@ -1,14 +1,18 @@
 import * as ts from 'typescript'
-import Chain from './Chain';
+import Chain from './Chain'
+import ParameterManager from '../data/ParameterManager'
 
 export default abstract class Box {
     isAssign: boolean = false
     isChain: boolean = false
-    abstract operator: ts.BinaryOperator
 
-    static load(node: ts.Expression) {
-        if (node.kind == ts.SyntaxKind.BinaryExpression) {
-            return BinaryBox.load(node as ts.BinaryExpression)
+    static load(node: ts.Expression): BinaryBox | ChainBox | LambdaBox {
+        if (ts.isBinaryExpression(node)) {
+            return BinaryBox.load(node)
+        }
+
+        if (ts.isArrowFunction(node)) {
+            return LambdaBox.load(node)
         }
 
         let box = new ChainBox
@@ -17,7 +21,6 @@ export default abstract class Box {
     }
 
     abstract text: string
-    abstract load(node: ts.Expression): void
     abstract update(node: ts.Expression): void
     abstract toNode(): ts.Expression
 }
@@ -26,7 +29,6 @@ export class ChainBox extends Box {
     isChain: boolean = true
     readonly canBeConstant: boolean
     chain: Chain = new Chain
-    operator: ts.BinaryOperator = ts.SyntaxKind.CommaToken
 
     constructor(canBeConstant: boolean = true) {
         super()
@@ -47,6 +49,48 @@ export class ChainBox extends Box {
 
     toNode() {
         return this.chain.toNode()
+    }
+}
+
+export class LambdaBox extends Box {
+    readonly ParameterManager: ParameterManager = new ParameterManager
+    body: ChainBox | ComputeBox
+    source: ts.ArrowFunction | null = null
+
+    constructor(body: ChainBox | ComputeBox) {
+        super()
+        this.body = body
+    }
+
+    get text(): string {
+        return this.body.text
+    }
+
+    static load(node: ts.ArrowFunction) {
+        const body = Box.load(node.body as ts.Expression)
+        const lambda = new LambdaBox(body as any)
+        lambda.source = node
+        lambda.ParameterManager.load(node.parameters)
+        return lambda
+    }
+
+    update(node: ts.ArrowFunction) {
+        this.source = node
+        this.ParameterManager.update(node.parameters)
+        this.body.update(node.body as any)
+    }
+
+    toNode() {
+        let token = ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken)
+        let node = ts.createArrowFunction(
+            undefined,
+            undefined,
+            this.ParameterManager.toNodeArray(),
+            undefined,
+            token,
+            this.body.toNode()
+        )
+        return node
     }
 }
 

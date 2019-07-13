@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { ChainBox, ComputeBox } from '@/model/code/Box'
+import { ChainBox, ComputeBox, LambdaBox } from '@/model/code/Box'
 
 const age = 'age'
 const box = new ChainBox
@@ -31,4 +31,24 @@ test(`ComputeBox load`, () => {
 test(`ComputeBox toNode`, () => {
     const node = bb.toNode()
     expect(node.left.text).toEqual(age)
+})
+
+
+const node = ts.createArrowFunction(
+    undefined,
+    undefined,
+    [],
+    undefined,
+    ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+    ts.createFalse()
+)
+const lb = LambdaBox.load(node)
+
+test(`LambdaBox load`, () => {
+    expect(lb.ParameterManager.list.length).toEqual(0)
+})
+
+test(`LambdaBox toNode`, () => {
+    const node = lb.toNode()
+    expect(node.parameters.length).toEqual(0)
 })
