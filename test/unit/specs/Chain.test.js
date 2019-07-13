@@ -53,17 +53,11 @@ test(`remove`, () => {
 })
 
 test(`access`, () => {
-    chain.access(age)
+    chain.access(age, chain.root)
     expect(chain.root.value).toEqual(age)
 })
 
-test(`change`, () => {
-    const value = 'say'
-    chain.change(value, chain.root)
-    expect(chain.root.value).toEqual(value)
-})
-
 test(`call`, () => {
-    chain.call([])
+    chain.call([], chain.root)
     expect(chain.root.isCall).toBeTruthy()
 })

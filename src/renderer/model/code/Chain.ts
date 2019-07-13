@@ -14,21 +14,15 @@ export default class Chain {
         return this.root.text
     }
 
-    access(name: string) {
-        let eee = new Expression.PropertyAccessExpression(this.root, name)
-        this.root = eee
-    }
-
-    call(list: ReadonlyArray<ts.Symbol>) {
-        let eee = new Expression.CallExpression(this.root)
-        this.root = eee
-        eee.updateArgument(list)
-    }
-
-    change(name: string, child: Expression.PropertyAccessExpression) {
-        let owner = child.expression
+    access(name: string, owner: Expression.Expression) {
         let eee = new Expression.PropertyAccessExpression(owner, name)
         this.root = eee
+    }
+
+    call(list: ReadonlyArray<ts.Symbol>, owner: Expression.Expression) {
+        let eee = new Expression.CallExpression(owner)
+        this.root = eee
+        eee.updateArgument(list)
     }
 
     input(text: string) {

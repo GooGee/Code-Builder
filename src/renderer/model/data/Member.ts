@@ -93,15 +93,16 @@ export abstract class TypeMember extends Member {
             type = ttt.left
         }
         list.push(type.name)
+        const chain = initializer.chain
         list.reverse().forEach(name => {
             if (first) {
-                initializer.chain.start(name)
+                chain.start(name)
             } else {
-                initializer.chain.access(name)
+                chain.access(name, chain.root)
             }
             first = false
         })
-        initializer.chain.makeNew(slist)
+        chain.makeNew(slist)
     }
 }
 
