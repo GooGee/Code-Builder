@@ -1,8 +1,8 @@
 import * as ts from 'typescript'
 import Manager from '../Manager'
-import { ChainBox } from './Box'
+import Box from './Box'
 
-export default class ArgumentManager extends Manager<ChainBox> {
+export default class ArgumentManager extends Manager<Box> {
 
     get text(): string {
         let list: string[] = []
@@ -15,8 +15,7 @@ export default class ArgumentManager extends Manager<ChainBox> {
     load(list?: ReadonlyArray<ts.Expression>) {
         if (list) {
             list.forEach(expression => {
-                let box = new ChainBox
-                box.load(expression)
+                let box = Box.load(expression)
                 this.add(box)
             })
         }
