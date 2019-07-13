@@ -1,6 +1,6 @@
 <template>
     <span>
-        <span class="syntax">(</span>
+        <span @click="$emit('change')" class="btn btn-default syntax">(</span>
         <div v-if="manager.list" v-for="box in manager.list" class="argument">
             <Box :box="box" :editing="editing"></Box>
         </div>
@@ -14,9 +14,10 @@
         beforeCreate() {
             this.$options.components.Box = require('./Box').default
         },
-        props: ['manager', 'expression', 'editing'],
+        props: ['expression', 'editing'],
         data() {
             return {
+                manager: this.expression.ArgumentManager
             }
         },
         methods: {

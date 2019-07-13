@@ -1,14 +1,14 @@
 <template>
     <span>
         <template v-if="expression.isAccess">
-            <Expression :expression="expression.expression" :chain="chain" :editing="editing"></Expression>
+            <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
             <span> ∙ </span>
             <span @click="change" class="btn btn-default">{{expression.value}}</span>
         </template>
 
         <template v-if="expression.isCall">
-            <Expression :expression="expression.expression" :chain="chain" :editing="editing"></Expression>
-            <Argument :manager="expression.ArgumentManager" :expression="expression" :editing="editing"></Argument>
+            <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
+            <Argument @change="change" :expression="expression" :editing="editing"></Argument>
         </template>
 
         <template v-if="expression.isIdentifier">
@@ -17,13 +17,13 @@
 
         <template v-if="expression.isNew">
             <span class="syntax">new</span>
-            <Expression :expression="expression.expression" :chain="chain" :editing="editing"></Expression>
-            <Argument :manager="expression.ArgumentManager" :expression="expression" :editing="editing"></Argument>
+            <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
+            <Argument @change="change" :expression="expression" :editing="editing"></Argument>
         </template>
 
         <template v-if="expression.isNot">
             <span class="syntax">Not</span>
-            <Expression :expression="expression.expression" :chain="chain" :editing="editing"></Expression>
+            <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
         </template>
 
         <template v-if="expression.isKeyword">
@@ -44,6 +44,11 @@
         props: ['chain', 'expression', 'editing'],
         data() {
             return {
+            }
+        },
+        computed: {
+            owner() {
+                return this.expression.expression
             }
         },
         methods: {
