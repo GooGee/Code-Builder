@@ -47,15 +47,7 @@
             <CaseBlock :block="statement.block"></CaseBlock>
         </template>
 
-        <template v-if="statement.isTry">
-            <span class="syntax">try</span>
-            <Block :block="statement.tryBlock"></Block>
-            <span class="syntax">catch</span>
-            <Variable :variable="statement.clause.variable" noValue="true" :editing="false"></Variable>
-            <Block :block="statement.clause.block"></Block>
-            <label class="syntax"><input v-model="statement.hasFinally" type="checkbox"> finally</label>
-            <Block v-if="statement.hasFinally" :block="statement.finallyBlock"></Block>
-        </template>
+        <Try v-if="statement.isTry" :statement="statement" :editing="editing" @ok="editing=false"></Try>
 
         <template v-if="statement.isWhile">
             <span class="syntax">while</span>
@@ -75,6 +67,7 @@
     import Each from './Each'
     import From from './From'
     import If from './If'
+    import Try from './Try'
     import Variable from '../data/Variable'
 
     export default {
@@ -82,7 +75,7 @@
         beforeCreate() {
             this.$options.components.Block = require('./Block').default
         },
-        components: { Box, CaseBlock, Each, From, If, Variable },
+        components: { Box, CaseBlock, Each, From, If, Try, Variable },
         props: ['statement', 'block'],
         data() {
             return {
