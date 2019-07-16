@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import Name from './Name'
 import ModifierManager from './ModifierManager'
 import ParameterManager from './ParameterManager'
-import TypeChain, { QualifiedName } from './TypeChain'
+import TypeNode, { QualifiedName, ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
 import { ChainBox } from '../code/Box'
@@ -73,35 +73,43 @@ export abstract class TypeMember extends Member {
     hasType: boolean = true
     hasBlock: boolean = false
     hasQuestionToken: boolean = false
-    type: TypeChain
+    type: TypeNode
     readonly modifier: ModifierManager = new ModifierManager
 
-    constructor(name: string, type: TypeChain) {
+    constructor(name: string, type: TypeNode) {
         super(name)
         this.type = type
     }
 
-    makeNew(slist: ReadonlyArray<ts.Symbol>) {
-        let initializer = new ChainBox
-        this.initializer = initializer
-        let first = true
-        let list: string[] = []
-        let type = this.type.type
-        while (!type.isSingle) {
-            let ttt = type as QualifiedName
-            list.push(ttt.right)
-            type = ttt.left
+    setType(name: string) {
+        this.type = TypeNode.make(name)
+    }
+
+    typeToArray(type: ReferenceType) {
+        const list: string[] = []
+        let ttt = type.type
+        while (ttt instanceof QualifiedName) {
+            list.push(ttt.name)
+            ttt = ttt.left
         }
-        list.push(type.name)
-        const chain = initializer.chain
-        list.reverse().forEach(name => {
-            if (first) {
-                chain.start(name)
-            } else {
-                chain.access(name, chain.root)
-            }
-            first = false
-        })
+        return list
+    }
+
+    makeNew(slist: ReadonlyArray<ts.Symbol>) {
+        this.initializer = new ChainBox
+        const chain = this.initializer.chain
+        if (this.type instanceof ReferenceType) {
+            let first = true
+            let list: string[] = this.typeToArray(this.type)
+            list.reverse().forEach(name => {
+                if (first) {
+                    chain.start(name)
+                } else {
+                    chain.access(name, chain.root)
+                }
+                first = false
+            })
+        }
         chain.makeNew(slist)
     }
 }
@@ -129,7 +137,7 @@ export class ClassConstructor extends ClassMember {
     source: ts.ConstructorDeclaration | null = null
 
     constructor() {
-        super(ConstructorKeyWord, TypeChain.make('void'))
+        super(ConstructorKeyWord, TypeNode.make('void'))
     }
 
     static load(node: ts.ConstructorDeclaration) {
@@ -166,7 +174,7 @@ export class ClassMethod extends ClassMember {
 
     static load(node: ts.MethodDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let mmm = new ClassMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -217,7 +225,7 @@ export class ClassProperty extends ClassMember {
         }
 
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let mmm = new ClassProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -265,11 +273,11 @@ export class ClassLambda extends ClassMember {
         this.lambda = lambda
     }
 
-    get type(): TypeChain {
+    get type(): TypeNode {
         return this.lambda.type
     }
 
-    set type(type: TypeChain) {
+    set type(type: TypeNode) {
         if (this.lambda) {
             this.lambda.type = type
         }
@@ -320,7 +328,7 @@ export class InterfaceMethod extends InterfaceMember {
 
     static load(node: ts.MethodSignature) {
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let mmm = new InterfaceMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -360,7 +368,7 @@ export class InterfaceProperty extends InterfaceMember {
 
     static load(node: ts.PropertySignature) {
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let mmm = new InterfaceProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -399,7 +407,7 @@ export class Parameter extends TypeMember {
 
     static load(node: ts.ParameterDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let ppp = new Parameter(name.text, type)
         ppp.source = node
         if (node.questionToken) {
@@ -444,7 +452,7 @@ export class Variable extends TypeMember {
 
     static load(node: ts.VariableDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeChain.load(node.type)
+        let type = TypeNode.load(node.type)
         let vvv = new Variable(name.text, type)
         vvv.source = node
         vvv.loadValue(node.initializer)

@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import * as Statement from "./Statement"
 import { CatchClause } from './Clause'
-import TypeChain from '../data/TypeChain'
+import TypeNode from '../data/TypeNode'
 import { Variable } from '../data/Member'
 import { BlockBase } from './Block'
 import { ChainBox } from './Box'
@@ -85,7 +85,7 @@ export default class Line {
     }
 
     makeVariable(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         return new Variable(name, node)
     }
 

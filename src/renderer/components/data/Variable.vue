@@ -11,7 +11,7 @@
 
             <template v-if="variable.hasType">
                 <span class="syntax">as</span>
-                <TypeChain :ctype="variable.type"></TypeChain>
+                <TypeNode @changeType="changeType" :ctype="variable.type"></TypeNode>
             </template>
 
             <template v-if="hasValue">
@@ -42,13 +42,14 @@
     import builder from '@/model/builder'
     import { enter, look } from '@/model/ui/Dialogue'
     import Menu from '@/model/ui/Menu'
+    import TypeMenu from '@/model/ui/TypeMenu'
     import Box from '../code/Box'
     import Modifier from './Modifier'
-    import TypeChain from './TypeChain'
+    import TypeNode from './TypeNode'
 
     export default {
         name: 'Variable',
-        components: { Box, Modifier, TypeChain },
+        components: { Box, Modifier, TypeNode },
         props: ['variable', 'noValue', 'editing', 'inClass', 'isProperty'],
         data() {
             return {
@@ -95,6 +96,13 @@
                 })
 
                 menu.show()
+            },
+            changeType() {
+                let tm = new TypeMenu(builder)
+                tm.show(name => {
+                    this.variable.setType(name)
+                    builder.module.save()
+                })
             }
         }
     }

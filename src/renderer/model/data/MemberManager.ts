@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
 import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassLambda, ClassConstructor, ConstructorKeyWord } from './Member'
-import TypeChain from './TypeChain'
+import TypeNode from './TypeNode'
 import Lambda from './Lambda'
 
 export class ClassMemberManager extends NameManager<ClassMember> {
@@ -60,19 +60,19 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     makeMethod(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let item = new ClassMethod(name, node)
         return item
     }
 
     makeProperty(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let item = new ClassProperty(name, node)
         return item
     }
 
     makeLambda(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let lambda = new Lambda(node)
         lambda.makeBlock()
         let item = new ClassLambda(name, lambda)
@@ -122,13 +122,13 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     makeMethod(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let item = new InterfaceMethod(name, node)
         return item
     }
 
     makeProperty(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let item = new InterfaceProperty(name, node)
         return item
     }

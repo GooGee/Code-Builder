@@ -1,16 +1,27 @@
 <template>
     <span>
-        <Name :name="ctype.type" :ctype="ctype"></Name>
-
-        <template v-if="argumentList.length">
-            <span class="syntax">&lt;</span>
-            <template v-for="(argument, index) in argumentList">
-                <TypeChain :ctype="argument"></TypeChain>
-                <span v-if="index < argumentList.length - 1">,</span>
-            </template>
-            <span class="syntax">&gt;</span>
+        <template v-if="ctype.isArray">
+            <TypeNode :ctype="ctype.type"></TypeNode>
         </template>
-        <span @click="access" class="button"> ∙ </span>
+
+        <template v-if="ctype.isKeyWord">
+            <span @click="$emit('changeType')" class="btn btn-default">{{ctype.name}}</span>
+        </template>
+
+        <template v-if="ctype.isReference">
+            <Name :name="ctype.type" :ctype="ctype"></Name>
+
+            <template v-if="argumentList.length">
+                <span class="syntax">&lt;</span>
+                <template v-for="(argument, index) in argumentList">
+                    <TypeNode :ctype="argument"></TypeNode>
+                    <span v-if="index < argumentList.length - 1">,</span>
+                </template>
+                <span class="syntax">&gt;</span>
+            </template>
+
+            <span @click="access" class="button"> ∙ </span>
+        </template>
     </span>
 </template>
 
@@ -18,11 +29,11 @@
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
     import Name from './Name'
-    import TypeChain from './TypeChain'
+    import TypeNode from './TypeNode'
 
     export default {
-        name: 'TypeChain',
-        components: { Name, TypeChain },
+        name: 'TypeNode',
+        components: { Name, TypeNode },
         props: ['ctype'],
         data() {
             return {

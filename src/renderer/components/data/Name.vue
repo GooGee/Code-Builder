@@ -1,10 +1,13 @@
 <template>
     <span>
-        <span v-if="name.isSingle" @click="setRootType" class="btn btn-default">{{name.name}}</span>
+        <template v-if="name.isSingle">
+            <span @click="setType" class="btn btn-default">{{name.name}}</span>
+        </template>
+
         <template v-else>
             <Name :name="name.left" :ctype="ctype"></Name>
             <span> ∙ </span>
-            <span @click="setChildType" class="btn btn-default">{{name.right}}</span>
+            <span @click="setType" class="btn btn-default">{{name.name}}</span>
         </template>
     </span>
 </template>
@@ -12,7 +15,6 @@
 <script>
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
-    import TypeMenu from '@/model/ui/TypeMenu'
     import Name from './Name'
 
     export default {
@@ -24,25 +26,18 @@
             }
         },
         methods: {
-            setChildType() {
+            setType() {
                 let menu = new Menu()
 
                 let list = builder.project.getExportList(this.name.left, builder)
                 list.forEach(exported => {
                     menu.add(exported.name, label => {
-                        this.name.right = label
+                        this.name.access(label)
                         builder.module.save()
                     })
                 })
 
                 menu.show()
-            },
-            setRootType() {
-                let tm = new TypeMenu(builder)
-                tm.show(name => {
-                    this.ctype.setType(name)
-                    builder.module.save()
-                })
             }
         }
     }

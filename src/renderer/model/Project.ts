@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import * as fs from 'fs'
 import ModuleManager from './data/ModuleManager'
 import Node from './Node'
-import { TypeName } from './data/TypeChain'
+import { TypeName } from './data/TypeNode'
 import Module from './data/Module'
 import { Builder } from './Builder'
 

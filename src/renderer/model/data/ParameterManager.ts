@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
-import TypeChain from './TypeChain'
+import TypeNode from './TypeNode'
 import { Parameter } from './Member'
 
 export default class ParameterManager extends NameManager<Parameter> {
@@ -39,7 +39,7 @@ export default class ParameterManager extends NameManager<Parameter> {
     }
 
     make(name: string, type: string) {
-        let node = TypeChain.make(type)
+        let node = TypeNode.make(type)
         let ppp = new Parameter(name, node)
         return ppp
     }
