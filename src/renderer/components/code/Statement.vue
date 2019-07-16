@@ -18,17 +18,9 @@
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
 
-        <Each v-if="statement.isEach" :statement="statement" :editing="editing">
-            <template slot="ok">
-                <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
-            </template>
-        </Each>
+        <Each v-if="statement.isEach" :statement="statement" :editing="editing" @ok="editing=false"></Each>
 
-        <From v-if="statement.isFrom" :statement="statement" :editing="editing">
-            <template slot="ok">
-                <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
-            </template>
-        </From>
+        <From v-if="statement.isFrom" :statement="statement" :editing="editing" @ok="editing=false"></From>
 
         <If v-if="statement.isIf" :statement="statement" :editing="editing" @ok="editing=false"></If>
 

@@ -8,7 +8,7 @@
             <Box :box="statement.list" :editing="editing"></Box>
         </div>
 
-        <slot name="ok"></slot>
+        <span v-if="editing" @click.stop="$emit('ok')" class="btn btn-success ok">OK</span>
 
         <Block :block="statement.block"></Block>
     </div>
