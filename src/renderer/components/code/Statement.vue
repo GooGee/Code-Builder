@@ -30,15 +30,7 @@
             </template>
         </From>
 
-        <template v-if="statement.isIf">
-            <span class="syntax">if</span>
-            <Box :box="statement.box" :editing="editing"></Box>
-            <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
-
-            <Block :block="statement.block"></Block>
-            <label class="syntax"><input v-model="statement.hasElse" type="checkbox"> else</label>
-            <Block v-if="statement.hasElse" :block="statement.elseBlock"></Block>
-        </template>
+        <If v-if="statement.isIf" :statement="statement" :editing="editing" @ok="editing=false"></If>
 
         <template v-if="statement.isReturn">
             <span class="syntax">return</span>
@@ -82,6 +74,7 @@
     import CaseBlock from './CaseBlock'
     import Each from './Each'
     import From from './From'
+    import If from './If'
     import Variable from '../data/Variable'
 
     export default {
@@ -89,7 +82,7 @@
         beforeCreate() {
             this.$options.components.Block = require('./Block').default
         },
-        components: { Box, CaseBlock, Each, From, Variable },
+        components: { Box, CaseBlock, Each, From, If, Variable },
         props: ['statement', 'block'],
         data() {
             return {
