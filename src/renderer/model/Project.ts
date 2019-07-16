@@ -58,16 +58,14 @@ export default class Project {
     }
 
     /**
-     * get export types of module
+     * get export members of module
      * @param type 
      */
     getExportList(type: TypeName) {
-        // do not know how to do it yet
-        if (type.isSingle) {
-            let mmm = this.ModuleManager.find(type.name)
-            if (mmm) {
-                return mmm.TypeManager.list
-            }
+        const symbol = this.getSymbol(type)
+        if (symbol) {
+            const ms = this.checker.getAliasedSymbol(symbol)
+            return this.checker.getExportsOfModule(ms)
         }
         return []
     }
