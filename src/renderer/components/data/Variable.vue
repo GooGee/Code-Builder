@@ -73,7 +73,7 @@
                 let menu = new Menu()
 
                 menu.add('Remove value', label => {
-                    this.variable.noValue()
+                    this.variable.clearValue()
                     builder.module.save()
                 })
 

@@ -30,7 +30,7 @@ export abstract class Member extends Name implements Node {
         return initializer
     }
 
-    noValue() {
+    clearValue() {
         this.initializer = null
     }
 
