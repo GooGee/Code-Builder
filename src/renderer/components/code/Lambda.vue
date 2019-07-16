@@ -1,20 +1,10 @@
 <template>
     <span>
-        <div v-if="editing">
-            (
-            <ParameterList :manager="box.ParameterManager" noAdd="true"></ParameterList>
-            )
-            <span> => </span>
-            <Box :box="box.body" :editing="editing"></Box>
-        </div>
-
-        <template v-else>
-            (
-            <span>{{member.ParameterManager.text}}</span>
-            )
-            <span> => </span>
-            <Box :box="box.body" :editing="editing"></Box>
-        </template>
+        (
+        <ParameterList :manager="box.ParameterManager" :editing="editing" noAdd="true"></ParameterList>
+        )
+        <span> => </span>
+        <Box :box="box.body" :editing="editing"></Box>
     </span>
 </template>
 

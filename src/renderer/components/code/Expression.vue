@@ -3,7 +3,8 @@
         <template v-if="expression.isAccess">
             <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
             <span> ∙ </span>
-            <span @click="change" class="btn btn-default">{{expression.value}}</span>
+            <span v-if="editing" @click="change" class="btn btn-default">{{expression.value}}</span>
+            <span v-else>{{expression.value}}</span>
         </template>
 
         <template v-if="expression.isCall">
@@ -12,11 +13,12 @@
         </template>
 
         <template v-if="expression.isIdentifier">
-            <span @click="change" class="btn btn-default">{{expression.value}}</span>
+            <span v-if="editing" @click="change" class="btn btn-default">{{expression.value}}</span>
+            <span v-else>{{expression.value}}</span>
         </template>
 
         <template v-if="expression.isNew">
-            <span class="syntax">new</span>
+            <span class="syntax">New</span>
             <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
             <Argument @change="change" :expression="expression" :editing="editing"></Argument>
         </template>
@@ -27,7 +29,8 @@
         </template>
 
         <template v-if="expression.isKeyword">
-            <span @click="change" class="btn btn-default">{{expression.text}}</span>
+            <span v-if="editing" @click="change" class="btn btn-default">{{expression.value}}</span>
+            <span v-else>{{expression.value}}</span>
         </template>
     </span>
 </template>

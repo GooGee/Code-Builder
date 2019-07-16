@@ -1,12 +1,18 @@
 <template>
-    <div class="ParameterList">
-        <div v-for="parameter in manager.list" :key="parameter.name">
-            <Parameter :parameter="parameter" @remove="remove"></Parameter>
-        </div>
-        <div v-if="!noAdd">
-            <span @click="add" class="button"> + Parameter</span>
-        </div>
-    </div>
+    <span class="ParameterList">
+        <template v-if="editing">
+            <div v-for="parameter in manager.list" :key="parameter.name">
+                <Parameter :parameter="parameter" @remove="remove" :editing="editing"></Parameter>
+            </div>
+            <div v-if="!noAdd">
+                <span @click="add" class="button"> + Parameter</span>
+            </div>
+        </template>
+
+        <span v-else>
+            {{manager.text}}
+        </span>
+    </span>
 </template>
 
 <script>
@@ -18,7 +24,7 @@
     export default {
         name: 'ParameterList',
         components: { Parameter },
-        props: ['manager', 'noAdd'],
+        props: ['manager', 'editing', 'noAdd'],
         data() {
             return {
             }

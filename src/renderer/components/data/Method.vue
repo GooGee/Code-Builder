@@ -5,7 +5,7 @@
 
             <Variable :variable="member" noValue="true" :editing="true" inClass="true"></Variable>
 
-            <ParameterList :manager="member.ParameterManager"></ParameterList>
+            <ParameterList :manager="member.ParameterManager" :editing="editing"></ParameterList>
 
             <span @click="editing=false" class="btn btn-success ok">OK</span>
         </div>

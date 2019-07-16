@@ -2,7 +2,8 @@
     <span>
         <template v-if="box.isBinary">
             <Box :box="box.left" :editing="editing"></Box>
-            <span @click="operate" class="button">{{operator}}</span>
+            <span v-if="editing" @click="operate" class="button">{{operator}}</span>
+            <span v-else>{{operator}}</span>
             <Box :box="box.right" :editing="editing"></Box>
         </template>
 

@@ -1,14 +1,7 @@
 <template>
     <span>
-        <template v-if="editing">
-            <Expression :expression="chain.root" :chain="chain" :editing="editing"></Expression>
-            <span @click="access" class="button"> ∙ </span>
-        </template>
-
-        <template v-else>
-            <span v-if="chain.root.isNew" class="syntax">new</span>
-            <span>{{chain.text}}</span>
-        </template>
+        <Expression :expression="chain.root" :chain="chain" :editing="editing"></Expression>
+        <span v-if="editing" @click="access" class="button"> ∙ </span>
     </span>
 </template>
 

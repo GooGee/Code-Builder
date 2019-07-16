@@ -1,7 +1,7 @@
 <template>
     <div>
-        <span @click="$emit('remove', parameter)" class="button"> - </span>
-        <Variable :variable="parameter" :editing="true"></Variable>
+        <span v-if="editing" @click="$emit('remove', parameter)" class="button"> - </span>
+        <Variable :variable="parameter" :editing="editing"></Variable>
     </div>
 </template>
 
@@ -11,7 +11,7 @@
     export default {
         name: 'Parameter',
         components: { Variable },
-        props: ['parameter'],
+        props: ['parameter', 'editing'],
         data() {
             return {
             }
