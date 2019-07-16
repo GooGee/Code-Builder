@@ -3,7 +3,7 @@
         <div v-for="parameter in manager.list" :key="parameter.name">
             <Parameter :parameter="parameter" @remove="remove"></Parameter>
         </div>
-        <div>
+        <div v-if="!noAdd">
             <span @click="add" class="button"> + Parameter</span>
         </div>
     </div>
@@ -18,7 +18,7 @@
     export default {
         name: 'ParameterList',
         components: { Parameter },
-        props: ['manager'],
+        props: ['manager', 'noAdd'],
         data() {
             return {
             }

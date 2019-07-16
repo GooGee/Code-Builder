@@ -1,12 +1,14 @@
 <template>
     <span>
-        <Chain v-if="box.isChain" :chain="box.chain" :editing="editing"></Chain>
-
-        <template v-else>
+        <template v-if="box.isBinary">
             <Box :box="box.left" :editing="editing"></Box>
             <span @click="operate" class="button">{{operator}}</span>
             <Box :box="box.right" :editing="editing"></Box>
         </template>
+
+        <Chain v-if="box.isChain" :chain="box.chain" :editing="editing"></Chain>
+
+        <Lambda v-if="box.isLambda" :box="box" :editing="editing"></Lambda>
     </span>
 </template>
 
@@ -16,10 +18,11 @@
     import Box from './Box'
     import Chain from './Chain'
     import Expression from './Expression'
+    import Lambda from './Lambda'
 
     export default {
         name: 'Box',
-        components: { Box, Chain, Expression },
+        components: { Box, Chain, Expression, Lambda },
         props: ['box', 'editing'],
         data() {
             return {

@@ -3,8 +3,9 @@ import Chain from './Chain'
 import ParameterManager from '../data/ParameterManager'
 
 export default abstract class Box {
-    isAssign: boolean = false
+    isBinary: boolean = false
     isChain: boolean = false
+    isLambda: boolean = false
 
     static load(node: ts.Expression): BinaryBox | ChainBox | LambdaBox {
         if (ts.isBinaryExpression(node)) {
@@ -53,6 +54,7 @@ export class ChainBox extends Box {
 }
 
 export class LambdaBox extends Box {
+    isLambda: boolean = true
     readonly ParameterManager: ParameterManager = new ParameterManager
     body: ChainBox | ComputeBox
     source: ts.ArrowFunction | null = null
@@ -63,7 +65,9 @@ export class LambdaBox extends Box {
     }
 
     get text(): string {
-        return this.body.text
+        const parameter = this.ParameterManager.text
+        const value = this.body.text
+        return `( ${parameter} ) => ${value}`
     }
 
     static load(node: ts.ArrowFunction) {
@@ -96,6 +100,7 @@ export class LambdaBox extends Box {
 
 export abstract class BinaryBox extends Box {
     isAssign: boolean = false
+    isBinary: boolean = true
     abstract left: Box
     abstract right: Box
     abstract operator: ts.BinaryOperator
