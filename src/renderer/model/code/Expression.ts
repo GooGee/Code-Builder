@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import ArgumentManager from './ArgumentManager'
 import Node from '../Node'
-import { ChainBox } from './Box'
+import { ChainBox, LambdaBox } from './Box'
 import Project from '../Project'
 
 export abstract class Expression implements Node {
@@ -123,11 +123,25 @@ export class TrueKeyword extends Keyword {
 export abstract class ExpressionWithArgument extends Expression {
     readonly ArgumentManager: ArgumentManager = new ArgumentManager
 
+    loadLambda(argument: ts.Symbol) {
+        const declaration = argument.valueDeclaration as ts.ParameterDeclaration
+        const type = declaration.type as ts.FunctionTypeNode
+        const box = new LambdaBox(new ChainBox)
+        const list = type.parameters.slice().reverse()
+        box.ParameterManager.load(list)
+        return box
+    }
+
     updateArgument(list: ReadonlyArray<ts.Symbol>) {
         this.ArgumentManager.clear()
-        list.forEach(parameter => {
-            let box = new ChainBox
-            this.ArgumentManager.add(box)
+        list.forEach(argument => {
+            if (argument.name == 'predicate') {
+                const box = this.loadLambda(argument)
+                this.ArgumentManager.add(box)
+            } else {
+                const box = new ChainBox
+                this.ArgumentManager.add(box)
+            }
         })
     }
 }
