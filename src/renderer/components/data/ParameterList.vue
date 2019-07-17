@@ -1,12 +1,16 @@
 <template>
-    <span class="ParameterList">
+    <span>
         <template v-if="editing">
-            <div v-for="parameter in manager.list" :key="parameter.name">
-                <Parameter :parameter="parameter" @remove="remove" :editing="editing"></Parameter>
+            <div>(</div>
+            <div class="ParameterList">
+                <div v-for="parameter in manager.list" :key="parameter.name">
+                    <Parameter :parameter="parameter" @remove="remove" :editing="editing"></Parameter>
+                </div>
+                <div>
+                    <span @click="add" class="button"> + Parameter</span>
+                </div>
             </div>
-            <div>
-                <span @click="add" class="button"> + Parameter</span>
-            </div>
+            <div>)</div>
         </template>
 
         <span v-else>
@@ -62,7 +66,7 @@
 
 <style>
     .ParameterList {
-        padding-left: 33px
+        padding-left: 44px
     }
 
 </style>

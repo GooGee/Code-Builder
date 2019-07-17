@@ -1,8 +1,6 @@
 <template>
     <span>
-        (
         <ParameterList :manager="box.ParameterManager" :editing="editing"></ParameterList>
-        )
         <span> => </span>
         <Box :box="box.body" :editing="editing"></Box>
     </span>
