@@ -2,7 +2,7 @@
     <div>
         <div v-if="editing">
             <span @click="$emit('remove')" class="button"> - </span>
-            <Variable :variable="member" noValue="true" :editing="true"></Variable>
+            <Variable :variable="member" :editing="true"></Variable>
 
             <ParameterList :manager="member.lambda.ParameterManager"></ParameterList>
 
@@ -13,7 +13,7 @@
             <span @click="visible=!visible" class="button"> * </span>
 
             <span @click="editing=true">
-                <Variable :variable="member" noValue="true" :editing="false">
+                <Variable :variable="member" :editing="false">
                     <span slot="parameter">( {{member.lambda.ParameterManager.text}} )</span>
                 </Variable>
             </span>

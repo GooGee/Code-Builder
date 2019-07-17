@@ -19,7 +19,7 @@
 
         <div>
             <span class="syntax">Index</span>
-            <Variable :variable="statement.index" noValue="true" :editing="editing"></Variable>
+            <Variable :variable="statement.index" :editing="editing"></Variable>
         </div>
 
         <span v-if="editing" @click.stop="$emit('ok')" class="btn btn-success ok">OK</span>

@@ -4,7 +4,7 @@
         <Block v-if="!editing" :block="statement.tryBlock"></Block>
 
         <span class="syntax">Catch</span>
-        <Variable :variable="statement.clause.variable" noValue="true" :editing="false"></Variable>
+        <Variable :variable="statement.clause.variable" :editing="false"></Variable>
         <Block v-if="!editing" :block="statement.clause.block"></Block>
 
         <div v-if="editing">

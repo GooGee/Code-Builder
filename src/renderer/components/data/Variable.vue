@@ -14,7 +14,7 @@
                 <TypeNode @changeType="changeType" :ctype="variable.type"></TypeNode>
             </template>
 
-            <template v-if="hasValue">
+            <template v-if="variable.hasValue">
                 <span @click="setValue" class="button"> = </span>
                 <Box v-if="variable.initializer" :box="variable.initializer" :editing="true"></Box>
             </template>
@@ -30,7 +30,7 @@
                 <span>{{variable.type.text}}</span>
             </template>
 
-            <template v-if="hasValue && variable.initializer">
+            <template v-if="variable.hasValue && variable.initializer">
                 <span> = </span>
                 <Box :box="variable.initializer" :editing="false"></Box>
             </template>
@@ -50,10 +50,9 @@
     export default {
         name: 'Variable',
         components: { Box, Modifier, TypeNode },
-        props: ['variable', 'noValue', 'editing', 'inClass', 'isProperty'],
+        props: ['variable', 'editing', 'inClass', 'isProperty'],
         data() {
             return {
-                hasValue: !this.noValue
             }
         },
         methods: {

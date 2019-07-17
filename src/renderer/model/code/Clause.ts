@@ -82,6 +82,7 @@ export class CatchClause extends Clause {
         super()
         this.variable = variable
         variable.hasType = false
+        variable.hasValue = false
     }
 
     static load(clause: ts.CatchClause) {

@@ -258,6 +258,8 @@ export class ForStatement extends Statement {
     constructor(vdl: VariableList) {
         super()
         this.vdl = vdl
+        vdl.variable.hasType = false
+        vdl.variable.hasValue = false
     }
 
     static load(statement: ts.ForStatement) {
@@ -307,6 +309,7 @@ export class ForOfStatement extends StatementWithBox {
         super(false)
         this.vdl = vdl
         vdl.variable.hasType = false
+        vdl.variable.hasValue = false
     }
 
     static load(statement: ts.ForOfStatement) {

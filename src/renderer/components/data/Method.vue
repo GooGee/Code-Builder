@@ -3,7 +3,7 @@
         <div v-if="editing">
             <span @click="$emit('remove')" class="button"> - </span>
 
-            <Variable :variable="member" noValue="true" :editing="true" inClass="true"></Variable>
+            <Variable :variable="member" :editing="true" inClass="true"></Variable>
 
             <ParameterList :manager="member.ParameterManager" :editing="editing"></ParameterList>
 
@@ -15,7 +15,7 @@
 
             <span @click="editing=true">
                 <span class="syntax">Method</span>
-                <Variable :variable="member" noValue="true" :editing="false">
+                <Variable :variable="member" :editing="false">
                     <span slot="parameter">( {{member.ParameterManager.text}} )</span>
                 </Variable>
             </span>

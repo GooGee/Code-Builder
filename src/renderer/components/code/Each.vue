@@ -1,7 +1,7 @@
 <template>
     <div>
         <span class="syntax">Each</span>
-        <Variable :variable="statement.item" noValue="true" :editing="editing"></Variable>
+        <Variable :variable="statement.item" :editing="editing"></Variable>
 
         <div>
             <span class="syntax">In</span>
