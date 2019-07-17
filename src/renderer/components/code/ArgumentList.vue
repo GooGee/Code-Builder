@@ -6,6 +6,9 @@
                 <span @click="remove(box)" class="button"> - </span>
                 <Box :box="box" :editing="editing"></Box>
             </div>
+            <div>
+                <span @click="add" class="button"> + Argument</span>
+            </div>
             <span class="syntax">)</span>
         </template>
 
@@ -20,6 +23,7 @@
 <script>
     import builder from '@/model/builder'
     import { sure } from '@/model/ui/Dialogue'
+    import { ChainBox } from '@/model/code/Box'
 
     export default {
         name: 'ArgumentList',
@@ -33,6 +37,10 @@
             }
         },
         methods: {
+            add() {
+                const box = new ChainBox()
+                this.manager.add(box)
+            },
             remove(box) {
                 sure('Are you sure?').then(result => {
                     if (result.value) {
