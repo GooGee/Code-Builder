@@ -86,6 +86,13 @@ export abstract class TypeMember extends Member {
         this.type = TypeNode.make(name)
     }
 
+    typeToNode() {
+        if (this.hasType) {
+            return this.type.toNode()
+        }
+        return undefined
+    }
+
     typeToArray(type: ReferenceType) {
         const list: string[] = []
         let ttt = type.type
@@ -441,7 +448,7 @@ export class Parameter extends TypeMember {
             undefined,
             this.name,
             QuestionToken,
-            this.type.toNode(),
+            this.typeToNode(),
             this.value
         )
         return node
@@ -471,13 +478,9 @@ export class Variable extends TypeMember {
     }
 
     toNode() {
-        let type = undefined
-        if (this.hasType) {
-            type = this.type.toNode()
-        }
         let node = ts.createVariableDeclaration(
             this.name,
-            type,
+            this.typeToNode(),
             this.value
         )
         return node
