@@ -39,6 +39,9 @@ export default abstract class TypeNode implements Node {
     }
 }
 
+/**
+ * predicate lambda
+ */
 export class ArrayType extends TypeNode {
     isArray = true
     elementType: TypeNode

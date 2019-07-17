@@ -1,5 +1,6 @@
 <template>
     <span>
+        <!-- predicate lambda -->
         <template v-if="ctype.isArray">
             <TypeNode @changeType="$emit('changeType')" :ctype="ctype.type"></TypeNode>
         </template>
