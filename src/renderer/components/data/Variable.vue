@@ -78,7 +78,17 @@
 
                 menu.addSeparator()
 
+                menu.add('null', label => {
+                    this.variable.setValue(label)
+                    builder.module.save()
+                })
+
                 let list = builder.project.getTypeSignatureList(this.variable.type.type)
+
+                if (list.length) {
+                    menu.addSeparator()
+                }
+
                 list.forEach(signature => {
                     const list = []
                     signature.parameters.forEach(parameter => list.push(parameter.name))
@@ -87,11 +97,6 @@
                         this.variable.makeNew(signature.parameters)
                         builder.module.save()
                     })
-                })
-
-                menu.add('null', label => {
-                    this.variable.setValue(label)
-                    builder.module.save()
                 })
 
                 menu.show()
