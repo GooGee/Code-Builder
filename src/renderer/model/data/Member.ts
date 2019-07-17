@@ -149,6 +149,7 @@ export class ClassConstructor extends ClassMember {
     readonly isConstructor: boolean = true
     readonly hasBlock: boolean = true
     readonly hasType: boolean = false
+    readonly hasValue: boolean = false
     readonly ParameterManager: ParameterManager = new ParameterManager
     readonly block: Block = new Block(this)
     source: ts.ConstructorDeclaration | null = null
@@ -185,6 +186,7 @@ export class ClassConstructor extends ClassMember {
 
 export class ClassMethod extends ClassMember {
     readonly hasBlock: boolean = true
+    readonly hasValue: boolean = false
     readonly ParameterManager: ParameterManager = new ParameterManager
     readonly block: Block = new Block(this)
     source: ts.MethodDeclaration | null = null
@@ -272,6 +274,7 @@ export class ClassProperty extends ClassMember {
 
 export class ClassLambda extends ClassMember {
     readonly isLambda: boolean = true
+    readonly hasValue: boolean = false
     lambda: Lambda
     source: ts.PropertyDeclaration | null = null
 
@@ -330,6 +333,7 @@ export abstract class InterfaceMember extends TypeMember {
 }
 
 export class InterfaceMethod extends InterfaceMember {
+    readonly hasValue: boolean = false
     readonly ParameterManager: ParameterManager = new ParameterManager
     source: ts.MethodSignature | null = null
 
