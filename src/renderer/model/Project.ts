@@ -4,7 +4,6 @@ import ModuleManager from './data/ModuleManager'
 import Node from './Node'
 import { TypeName } from './data/TypeNode'
 import Module from './data/Module'
-import { Builder } from './Builder'
 
 export const ProjectPath = 'project'
 

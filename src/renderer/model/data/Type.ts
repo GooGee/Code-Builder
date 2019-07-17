@@ -42,10 +42,6 @@ export class Class extends Type {
         }
     }
 
-    get text(): string {
-        return `class ${this.name}`
-    }
-
     extend(type: string) {
         this.base = this.HeritageManager.make(type, false)
         this.HeritageManager.add(this.base)
