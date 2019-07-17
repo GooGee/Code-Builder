@@ -41,7 +41,7 @@
                     if (result.value) {
                         try {
                             let manager = this.ctype.MemberManager
-                            if (name === 'constructor') {
+                            if (result.value === 'constructor') {
                                 this.kind = 'Constructor'
                                 let mmm = manager.makeConstructor()
                                 manager.add(mmm)
