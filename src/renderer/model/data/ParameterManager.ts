@@ -13,9 +13,10 @@ export default class ParameterManager extends NameManager<Parameter> {
         return list.join(', ')
     }
 
-    load(list: ReadonlyArray<ts.ParameterDeclaration>) {
+    load(list: ReadonlyArray<ts.ParameterDeclaration>, hasType: boolean = true) {
         list.forEach(node => {
             let ppp = Parameter.load(node)
+            ppp.hasType = hasType
             this.add(ppp)
         })
     }

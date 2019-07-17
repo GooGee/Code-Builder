@@ -128,7 +128,7 @@ export abstract class ExpressionWithArgument extends Expression {
         const type = declaration.type as ts.FunctionTypeNode
         const box = new LambdaBox(new ChainBox)
         const list = type.parameters.slice().reverse()
-        box.ParameterManager.load(list)
+        box.ParameterManager.load(list, false)
         return box
     }
 
