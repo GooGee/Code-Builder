@@ -71,6 +71,7 @@ export abstract class TypeMember extends Member {
     inClass: boolean = false
     isConstructor: boolean = false
     hasType: boolean = true
+    hasValue: boolean = true
     hasBlock: boolean = false
     hasQuestionToken: boolean = false
     type: TypeNode
