@@ -1,7 +1,7 @@
 <template>
     <span>
         <template v-if="ctype.isArray">
-            <TypeNode :ctype="ctype.type"></TypeNode>
+            <TypeNode @changeType="$emit('changeType')" :ctype="ctype.type"></TypeNode>
         </template>
 
         <template v-if="ctype.isKeyWord">
@@ -9,12 +9,12 @@
         </template>
 
         <template v-if="ctype.isReference">
-            <Name :name="ctype.type" :ctype="ctype"></Name>
+            <Name :name="ctype.type" :ctype="ctype" @changeType="$emit('changeType')"></Name>
 
             <template v-if="argumentList.length">
                 <span class="syntax">&lt;</span>
                 <template v-for="(argument, index) in argumentList">
-                    <TypeNode :ctype="argument"></TypeNode>
+                    <TypeNode @changeType="$emit('changeType')" :ctype="argument"></TypeNode>
                     <span v-if="index < argumentList.length - 1">,</span>
                 </template>
                 <span class="syntax">&gt;</span>
@@ -47,18 +47,6 @@
         methods: {
             access() {
                 let menu = new Menu()
-
-                let list = builder.project.getExportList(this.ctype.type)
-                if (list.length) {
-                    list.forEach(exported => {
-                        menu.add(exported.name, label => {
-                            this.ctype.access(label)
-                            builder.module.save()
-                        })
-                    })
-
-                    menu.addSeparator()
-                }
 
                 let GenericList = builder.project.getGenericList(this.ctype.type)
                 if (GenericList.length) {

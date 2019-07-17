@@ -1,13 +1,13 @@
 <template>
     <span>
         <template v-if="name.isSingle">
-            <span @click="setType" class="btn btn-default">{{name.name}}</span>
+            <span @click.stop="$emit('changeType')" class="btn btn-default">{{name.name}}</span>
         </template>
 
         <template v-else>
-            <Name :name="name.left" :ctype="ctype"></Name>
+            <Name :name="name.left" :ctype="ctype" @changeType="$emit('changeType')"></Name>
             <span> ∙ </span>
-            <span @click="setType" class="btn btn-default">{{name.name}}</span>
+            <span @click.stop="setType" class="btn btn-default">{{name.name}}</span>
         </template>
     </span>
 </template>
@@ -27,9 +27,9 @@
         },
         methods: {
             setType() {
-                let menu = new Menu()
+                const menu = new Menu()
 
-                let list = builder.project.getExportList(this.name.left, builder)
+                const list = builder.project.getExportList(this.name.left, builder)
                 list.forEach(exported => {
                     menu.add(exported.name, label => {
                         this.name.access(label)
