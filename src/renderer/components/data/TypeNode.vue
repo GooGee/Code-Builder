@@ -21,7 +21,7 @@
                 <span class="syntax">&gt;</span>
             </template>
 
-            <span @click="access" class="button"> ∙ </span>
+            <span v-else @click="access" class="button"> ∙ </span>
         </template>
     </span>
 </template>
