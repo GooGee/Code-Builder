@@ -70,11 +70,20 @@ export class LambdaBox extends Box {
         return `( ${parameter} ) => ${value}`
     }
 
+    static make(argument: ts.Symbol) {
+        const declaration = argument.valueDeclaration as ts.ParameterDeclaration
+        const type = declaration.type as ts.FunctionTypeNode
+        const box = new LambdaBox(new ChainBox)
+        const list = type.parameters.slice().reverse()
+        box.ParameterManager.load(list, false, false)
+        return box
+    }
+
     static load(node: ts.ArrowFunction) {
         const body = Box.load(node.body as ts.Expression)
         const lambda = new LambdaBox(body as any)
         lambda.source = node
-        lambda.ParameterManager.load(node.parameters)
+        lambda.ParameterManager.load(node.parameters, false, false)
         return lambda
     }
 
