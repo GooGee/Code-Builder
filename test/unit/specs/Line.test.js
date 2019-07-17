@@ -1,6 +1,5 @@
 import * as ts from 'typescript'
 import Block from '@/model/code/Block'
-import Line from '@/model/code/Line'
 
 /**
  * need to search the block before defining a variable
@@ -28,7 +27,7 @@ test(`makeAssign`, () => {
 
 test(`makeBreak`, () => {
     line.makeBreak()
-    expect(line.statement.label).toEqual('break')
+    expect(line.statement.label).toEqual('Break')
 })
 
 test(`makeCall`, () => {
@@ -38,7 +37,7 @@ test(`makeCall`, () => {
 
 test(`makeContinue`, () => {
     line.makeContinue()
-    expect(line.statement.label).toEqual('continue')
+    expect(line.statement.label).toEqual('Continue')
 })
 
 test(`makeFor`, () => {

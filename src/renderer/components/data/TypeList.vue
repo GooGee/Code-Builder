@@ -2,7 +2,9 @@
     <div>
         <div v-for="ctype in cmodule.TypeManager.list" :key="ctype.name" class="type-list">
             <span @click="remove(ctype)" class="button"> - </span>
-            <span class="syntax">{{ctype.typeLabel}}</span>
+            <span v-if="ctype.isClass" class="syntax">Class</span>
+            <span v-if="ctype.isEnum" class="syntax">Enum</span>
+            <span v-if="ctype.isInterface" class="syntax">Interface</span>
             <span @click="show(ctype)" class="button">{{ctype.name}}</span>
         </div>
     </div>

@@ -3,6 +3,7 @@
         <span v-if="statement.isSimple" class="syntax">{{statement.label}}</span>
 
         <template v-if="statement.isAssign">
+            <span class="syntax">Set</span>
             <Box :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
@@ -13,7 +14,7 @@
         </template>
 
         <template v-if="statement.isDefine">
-            <span class="syntax">let</span>
+            <span class="syntax">Let</span>
             <Variable :variable="statement.vdl.variable" :editing="editing"></Variable>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
@@ -25,14 +26,14 @@
         <If v-if="statement.isIf" :statement="statement" :editing="editing" @ok="editing=false"></If>
 
         <template v-if="statement.isReturn">
-            <span class="syntax">return</span>
+            <span class="syntax">Return</span>
             <span v-if="editing" @click="emptyBox" class="btn btn-danger"> X </span>
             <Box v-if="statement.box" :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
 
         <template v-if="statement.isSwitch">
-            <span class="syntax">switch</span>
+            <span class="syntax">Select</span>
             <Box :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
 
@@ -42,7 +43,7 @@
         <Try v-if="statement.isTry" :statement="statement" :editing="editing" @ok="editing=false"></Try>
 
         <template v-if="statement.isWhile">
-            <span class="syntax">while</span>
+            <span class="syntax">Repeat If</span>
             <Box :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
 

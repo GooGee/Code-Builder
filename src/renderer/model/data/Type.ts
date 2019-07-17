@@ -10,6 +10,9 @@ import Node from '../Node'
 import GenericManager from './GenericManager'
 
 export default abstract class Type extends Name implements Node {
+    isClass: boolean = false
+    isEnum: boolean = false
+    isInterface: boolean = false
     opened: boolean = false
     abstract source: ts.Node | null
     readonly modifier: ModifierManager = new ModifierManager
@@ -19,22 +22,10 @@ export default abstract class Type extends Name implements Node {
     abstract update(node: ts.Statement): void
 
     abstract toNode(): ts.Statement
-
-    get isClass(): boolean {
-        return false
-    }
-
-    get isEnum(): boolean {
-        return false
-    }
-
-    get isInterface(): boolean {
-        return false
-    }
 }
 
 export class Class extends Type {
-    readonly typeLabel: string = 'class'
+    isClass: boolean = true
     source: ts.ClassDeclaration | null = null
     private base: Heritage | null = null
     readonly MemberManager: ClassMemberManager = new ClassMemberManager
@@ -53,10 +44,6 @@ export class Class extends Type {
 
     get text(): string {
         return `class ${this.name}`
-    }
-
-    get isClass(): boolean {
-        return true
     }
 
     extend(type: string) {
@@ -107,7 +94,7 @@ export class Class extends Type {
 }
 
 export class Enum extends Type {
-    readonly typeLabel: string = 'enum'
+    isEnum: boolean = true
     source: ts.EnumDeclaration | null = null
     readonly MemberManager: NameManager<EnumMember> = new NameManager<EnumMember>()
 
@@ -168,15 +155,10 @@ export class Enum extends Type {
         let item = new EnumMember(name)
         return item
     }
-
-    get isEnum(): boolean {
-        return true
-    }
-
 }
 
 export class Interface extends Type {
-    readonly typeLabel: string = 'interface'
+    isInterface: boolean = true
     source: ts.InterfaceDeclaration | null = null
     readonly MemberManager: InterfaceMemberManager = new InterfaceMemberManager
     readonly HeritageManager: HeritageManager = new HeritageManager(false)
@@ -193,10 +175,6 @@ export class Interface extends Type {
     extend(type: string) {
         let hhh = this.HeritageManager.make(type, false)
         this.HeritageManager.add(hhh)
-    }
-
-    get isInterface(): boolean {
-        return true
     }
 
     static load(node: ts.InterfaceDeclaration) {

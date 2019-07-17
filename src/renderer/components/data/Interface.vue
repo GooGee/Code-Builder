@@ -4,7 +4,7 @@
 
         <div v-if="editing">
             <Modifier :modifier="ctype.modifier" kind="export"></Modifier>
-            <span class="syntax">{{ctype.typeLabel}}</span>
+            <span class="syntax">Interface</span>
             <span @click="setName" class="button">{{ctype.name}}</span>
 
             <HeritageList :ctype="ctype"></HeritageList>
@@ -14,7 +14,7 @@
 
         <div v-else @click="editing=true">
             <span class="syntax">{{ctype.modifier.text}}</span>
-            <span class="syntax">{{ctype.typeLabel}}</span>
+            <span class="syntax">Interface</span>
             <span>{{ctype.name}}</span>
 
             <template v-if="ctype.HeritageManager.list.length">

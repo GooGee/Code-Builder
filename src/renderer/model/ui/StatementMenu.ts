@@ -74,7 +74,7 @@ export default class StatementMenu {
             this.line.makeIf()
             this.module.save()
         })
-        menu.add('Loop', item => {
+        menu.add('Repeat', item => {
             this.line.makeWhile()
             this.module.save()
         })

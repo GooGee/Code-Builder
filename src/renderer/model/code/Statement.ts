@@ -99,7 +99,7 @@ export abstract class StatementWithBox extends Statement {
 }
 
 export class BreakStatement extends Statement {
-    readonly label: string = 'break'
+    readonly label: string = 'Break'
     readonly isSimple: boolean = true
     source: ts.BreakStatement | null = null
 
@@ -120,7 +120,7 @@ export class BreakStatement extends Statement {
 }
 
 export class ContinueStatement extends Statement {
-    readonly label: string = 'continue'
+    readonly label: string = 'Continue'
     readonly isSimple: boolean = true
     source: ts.ContinueStatement | null = null
 
