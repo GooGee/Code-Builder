@@ -84,6 +84,13 @@ export abstract class TypeMember extends Member {
         this.type = type
     }
 
+    get QuestionToken() {
+        if (this.hasQuestionToken) {
+            return ts.createToken(ts.SyntaxKind.QuestionToken)
+        }
+        return undefined
+    }
+
     setType(name: string) {
         this.type = TypeNode.make(name)
     }
@@ -204,17 +211,12 @@ export class ClassMethod extends ClassMember {
     }
 
     toNode(): ts.MethodDeclaration {
-        let QuestionToken = undefined
-        if (this.hasQuestionToken) {
-            QuestionToken = ts.createToken(ts.SyntaxKind.QuestionToken)
-        }
-
         let node = ts.createMethod(
             undefined,
             this.modifier.toNodeArray(),
             undefined,
             this.name,
-            QuestionToken,
+            this.QuestionToken,
             undefined,
             this.ParameterManager.toNodeArray(),
             this.type.toNode(),
@@ -255,16 +257,11 @@ export class ClassProperty extends ClassMember {
     }
 
     toNode(): ts.PropertyDeclaration {
-        let QuestionToken = undefined
-        if (this.hasQuestionToken) {
-            QuestionToken = ts.createToken(ts.SyntaxKind.QuestionToken)
-        }
-
         let node = ts.createProperty(
             undefined,
             this.modifier.toNodeArray(),
             this.name,
-            QuestionToken,
+            this.QuestionToken,
             this.type.toNode(),
             this.valueToNode()
         )
@@ -356,17 +353,12 @@ export class InterfaceMethod extends InterfaceMember {
     }
 
     toNode() {
-        let QuestionToken = undefined
-        if (this.hasQuestionToken) {
-            QuestionToken = ts.createToken(ts.SyntaxKind.QuestionToken)
-        }
-
         let node = ts.createMethodSignature(
             undefined,
             this.ParameterManager.toNodeArray(),
             this.type.toNode(),
             this.name,
-            QuestionToken
+            this.QuestionToken
         )
         return node
     }
@@ -395,15 +387,10 @@ export class InterfaceProperty extends InterfaceMember {
     }
 
     toNode() {
-        let QuestionToken = undefined
-        if (this.hasQuestionToken) {
-            QuestionToken = ts.createToken(ts.SyntaxKind.QuestionToken)
-        }
-
         let node = ts.createPropertySignature(
             this.modifier.toNodeArray(),
             this.name,
-            QuestionToken,
+            this.QuestionToken,
             this.type.toNode(),
             this.valueToNode()
         )
@@ -439,17 +426,12 @@ export class Parameter extends TypeMember {
     }
 
     toNode() {
-        let QuestionToken = undefined
-        if (this.hasQuestionToken) {
-            QuestionToken = ts.createToken(ts.SyntaxKind.QuestionToken)
-        }
-
         let node = ts.createParameter(
             undefined,
             this.modifier.toNodeArray(),
             undefined,
             this.name,
-            QuestionToken,
+            this.QuestionToken,
             this.typeToNode(),
             this.valueToNode()
         )
