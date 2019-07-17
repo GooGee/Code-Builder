@@ -1,6 +1,7 @@
 import * as ts from 'typescript'
-import Import from './Import'
+import Import, { ImportClause } from './Import'
 import NameManager from './NameManager'
+import Module from './Module'
 
 export default class ImportManager extends NameManager<Import> {
 
@@ -27,7 +28,8 @@ export default class ImportManager extends NameManager<Import> {
     }
 
     make(path: string) {
-        let item = new Import(path)
+        const clause = new ImportClause(Module.BaseName(path))
+        const item = new Import(path, clause)
         return item
     }
 

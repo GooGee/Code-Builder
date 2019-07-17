@@ -1,29 +1,27 @@
 import * as ts from 'typescript'
 import Name from './Name'
 import ModifierManager from './ModifierManager'
-import Module from './Module'
 import Node from '../Node'
 
 export default class Import extends Name implements Node {
     readonly modifier: ModifierManager = new ModifierManager
     readonly path: string
+    clause: ImportClause
     source: ts.ImportDeclaration | null = null
-    nsi: ts.NamespaceImport | null = null
 
-    constructor(path: string) {
-        super(Module.BaseName(path))
+    constructor(path: string, clause: ImportClause) {
+        super(clause.name)
         this.path = path
+        this.clause = clause
     }
 
     static load(node: ts.ImportDeclaration) {
-        let sl = node.moduleSpecifier as ts.StringLiteral
-        let path = sl.text
-        let item = new Import(path)
+        const sl = node.moduleSpecifier as ts.StringLiteral
+        const path = sl.text
+        const clause = ImportClause.load(node.importClause!)
+        const item = new Import(path, clause)
         item.source = node
         item.modifier.load(node.modifiers)
-
-        item.nsi = node.importClause!.namedBindings as ts.NamespaceImport
-        item.name = item.nsi.name.text
 
         return item
     }
@@ -33,15 +31,38 @@ export default class Import extends Name implements Node {
     }
 
     toNode() {
-        let iii = ts.createIdentifier(this.name)
-        let ic = ts.createImportClause(undefined, ts.createNamespaceImport(iii))
-        let node = ts.createImportDeclaration(
+        const node = ts.createImportDeclaration(
             undefined,
             this.modifier.toNodeArray(),
-            ic,
+            this.clause.toNode(),
             ts.createLiteral(this.path)
         )
         return node
     }
 
+}
+
+export class ImportClause implements Node {
+    name: string
+    source: ts.ImportClause | null = null
+
+    constructor(name: string) {
+        this.name = name
+    }
+
+    static load(node: ts.ImportClause) {
+        const nsi = node.namedBindings as ts.NamespaceImport
+        const clause = new ImportClause(nsi.name.text)
+        clause.source = node
+        return clause
+    }
+
+    toNode() {
+        const iii = ts.createIdentifier(this.name)
+        const node = ts.createImportClause(
+            undefined,
+            ts.createNamespaceImport(iii)
+        )
+        return node
+    }
 }

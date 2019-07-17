@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import Import from '@/model/data/Import'
+import Import, { ImportClause } from '@/model/data/Import'
 
 const name = 'ts'
 let iii = null
@@ -23,4 +23,21 @@ test(`toNode`, () => {
     const node = iii.toNode()
     const nsi = node.importClause.namedBindings
     expect(nsi.name.text).toEqual(name)
+})
+
+
+let clause = null
+
+test(`load ImportClause`, () => {
+    const node = ts.createImportClause(
+        undefined,
+        ts.createNamespaceImport(ts.createIdentifier(name))
+    )
+    clause = ImportClause.load(node)
+    expect(clause.name).toEqual(name)
+})
+
+test(`ImportClause toNode`, () => {
+    const node = clause.toNode()
+    expect(node.namedBindings.name.text).toEqual(name)
 })
