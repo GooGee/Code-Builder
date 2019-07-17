@@ -33,7 +33,7 @@
             add(kind) {
                 this.kind = kind
                 let tm = new TypeMenu(builder)
-                tm.show(this.make)
+                tm.show(this.make, kind)
             },
             make(typeName) {
                 let name = typeName.toLowerCase()

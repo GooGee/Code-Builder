@@ -16,17 +16,17 @@ export default class TypeMenu {
         return this.builder.module!
     }
 
-    show(CallBack: CallBack) {
+    show(CallBack: CallBack, kind: string= 'Property') {
         let menu = new Menu()
 
-        menu.addMenu('Basic', this.makeBasicMenu(CallBack))
+        menu.addMenu('Basic', this.makeBasicMenu(CallBack, kind))
         menu.addMenu('Module', this.makeModuleMenu(CallBack))
         menu.addMenu('Type', this.makeTypeMenu(CallBack))
 
         menu.show()
     }
 
-    makeBasicMenu(CallBack: CallBack) {
+    makeBasicMenu(CallBack: CallBack, kind: string) {
         let menu = new Menu()
         let list = [
             { name: 'boolean' },
@@ -34,6 +34,9 @@ export default class TypeMenu {
             { name: 'string' },
             { name: 'void' }
         ]
+        if (kind == 'Property') {
+            list.pop() // remove type void
+        }
         list.forEach(type => {
             menu.add(type.name, lable => CallBack(lable))
         })
