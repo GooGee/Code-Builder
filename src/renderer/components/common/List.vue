@@ -78,4 +78,10 @@
         cursor: pointer;
     }
 
+    .list-group {
+        max-height: 400px;
+        margin-bottom: 10px;
+        overflow-y: auto;
+    }
+
 </style>
