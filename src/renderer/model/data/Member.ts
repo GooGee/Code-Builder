@@ -109,10 +109,11 @@ export abstract class TypeMember extends Member {
             list.push(ttt.name)
             ttt = ttt.left
         }
+        list.push(ttt.name)
         return list
     }
 
-    makeNew(slist: ReadonlyArray<ts.Symbol>) {
+    makeNew(list: ReadonlyArray<ts.Symbol>) {
         this.initializer = new ChainBox
         const chain = this.initializer.chain
         if (this.type instanceof ReferenceType) {
@@ -127,7 +128,7 @@ export abstract class TypeMember extends Member {
                 first = false
             })
         }
-        chain.makeNew(slist)
+        chain.makeNew(list)
     }
 }
 
