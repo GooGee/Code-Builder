@@ -3,6 +3,7 @@
         <template v-if="editing">
             <span @click="$emit('change')" class="btn btn-default syntax">(</span>
             <div v-if="manager.list" v-for="box in manager.list" class="argument">
+                <span @click="remove(box)" class="button"> - </span>
                 <Box :box="box" :editing="editing"></Box>
             </div>
             <span class="syntax">)</span>
@@ -17,6 +18,9 @@
 </template>
 
 <script>
+    import builder from '@/model/builder'
+    import { sure } from '@/model/ui/Dialogue'
+
     export default {
         name: 'ArgumentList',
         beforeCreate() {
@@ -29,6 +33,14 @@
             }
         },
         methods: {
+            remove(box) {
+                sure('Are you sure?').then(result => {
+                    if (result.value) {
+                        this.manager.remove(box)
+                        builder.module.save()
+                    }
+                })
+            }
         }
     }
 </script>
