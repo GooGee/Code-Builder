@@ -2,13 +2,17 @@
     <span>
         <template v-if="editing">
             <span @click="$emit('change')" class="btn btn-default syntax">(</span>
-            <div v-if="manager.list" v-for="box in manager.list" class="argument">
-                <span @click="remove(box)" class="button"> - </span>
-                <Box :box="box" :editing="editing"></Box>
+
+            <div class="ArgumentList">
+                <div v-if="manager.list" v-for="box in manager.list">
+                    <span @click="remove(box)" class="button"> - </span>
+                    <Box :box="box" :editing="editing"></Box>
+                </div>
+                <div>
+                    <span @click="add" class="button"> + Argument</span>
+                </div>
             </div>
-            <div>
-                <span @click="add" class="button"> + Argument</span>
-            </div>
+
             <span class="syntax">)</span>
         </template>
 
@@ -54,7 +58,7 @@
 </script>
 
 <style>
-    .argument {
+    .ArgumentList {
         padding-left: 44px
     }
 
