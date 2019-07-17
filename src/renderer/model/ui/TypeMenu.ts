@@ -38,7 +38,7 @@ export default class TypeMenu {
             list.pop() // remove type void
         }
         list.forEach(type => {
-            menu.add(type.name, lable => CallBack(lable))
+            menu.add(type.name, label => CallBack(label))
         })
         return menu
     }
@@ -47,7 +47,7 @@ export default class TypeMenu {
         let menu = new Menu()
         let importList = this.module.ImportManager.list
         importList.forEach(type => {
-            menu.add(type.name, lable => CallBack(lable))
+            menu.add(type.name, label => CallBack(label))
         })
         return menu
     }
@@ -56,7 +56,7 @@ export default class TypeMenu {
         let menu = new Menu()
         let list = this.project.getTypeList(this.module)
         list.forEach(type => {
-            menu.add(type.name, lable => CallBack(lable))
+            menu.add(type.name, label => CallBack(label))
         })
         return menu
     }

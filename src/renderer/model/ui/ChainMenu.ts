@@ -150,7 +150,7 @@ export default class ChainMenu {
         let menu = new Menu()
         let importList = this.module.ImportManager.list
         importList.forEach(type => {
-            menu.add(type.name, lable => this.start(lable))
+            menu.add(type.name, label => this.start(label))
         })
         return menu
     }
@@ -159,7 +159,7 @@ export default class ChainMenu {
         let menu = new Menu()
         let list = this.project.getTypeList(this.module)
         list.forEach(type => {
-            menu.add(type.name, lable => this.start(lable))
+            menu.add(type.name, label => this.start(label))
         })
         return menu
     }
@@ -175,15 +175,15 @@ export default class ChainMenu {
             let index = list.findIndex(item => item.name == 'NaN')
             list.splice(index)
             list.forEach(vriable => {
-                menu.add(vriable.name, lable => this.start(lable))
+                menu.add(vriable.name, label => this.start(label))
             })
         }
 
         return menu
     }
 
-    start(lable: string) {
-        this.chain.start(lable)
+    start(label: string) {
+        this.chain.start(label)
         this.module.save()
     }
 
