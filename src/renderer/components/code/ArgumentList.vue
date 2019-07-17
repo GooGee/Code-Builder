@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        name: 'Argument',
+        name: 'ArgumentList',
         beforeCreate() {
             this.$options.components.Box = require('./Box').default
         },

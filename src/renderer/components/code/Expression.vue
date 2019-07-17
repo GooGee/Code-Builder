@@ -9,7 +9,7 @@
 
         <template v-if="expression.isCall">
             <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
-            <Argument @change="change" :expression="expression" :editing="editing"></Argument>
+            <ArgumentList @change="change" :expression="expression" :editing="editing"></ArgumentList>
         </template>
 
         <template v-if="expression.isIdentifier">
@@ -20,7 +20,7 @@
         <template v-if="expression.isNew">
             <span class="syntax">New</span>
             <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
-            <Argument @change="change" :expression="expression" :editing="editing"></Argument>
+            <ArgumentList @change="change" :expression="expression" :editing="editing"></ArgumentList>
         </template>
 
         <template v-if="expression.isNot">
@@ -38,12 +38,12 @@
 <script>
     import builder from '@/model/builder'
     import ChainMenu from '@/model/ui/ChainMenu'
-    import Argument from './Argument'
+    import ArgumentList from './ArgumentList'
     import Expression from './Expression'
 
     export default {
         name: 'Expression',
-        components: { Argument, Expression },
+        components: { ArgumentList, Expression },
         props: ['chain', 'expression', 'editing'],
         data() {
             return {
