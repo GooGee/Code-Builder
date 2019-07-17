@@ -22,12 +22,11 @@ export abstract class Member extends Name implements Node {
         }
     }
 
-    get value() {
-        let initializer = undefined
+    valueToNode() {
         if (this.initializer) {
-            initializer = this.initializer.toNode()
+            return this.initializer.toNode()
         }
-        return initializer
+        return undefined
     }
 
     clearValue() {
@@ -62,7 +61,10 @@ export class EnumMember extends Member {
     }
 
     toNode() {
-        let node = ts.createEnumMember(this.name, this.value)
+        let node = ts.createEnumMember(
+            this.name,
+            this.valueToNode()
+        )
         return node
     }
 }
@@ -264,7 +266,7 @@ export class ClassProperty extends ClassMember {
             this.name,
             QuestionToken,
             this.type.toNode(),
-            this.value
+            this.valueToNode()
         )
         return node
     }
@@ -403,7 +405,7 @@ export class InterfaceProperty extends InterfaceMember {
             this.name,
             QuestionToken,
             this.type.toNode(),
-            this.value
+            this.valueToNode()
         )
         return node
     }
@@ -449,7 +451,7 @@ export class Parameter extends TypeMember {
             this.name,
             QuestionToken,
             this.typeToNode(),
-            this.value
+            this.valueToNode()
         )
         return node
     }
@@ -481,7 +483,7 @@ export class Variable extends TypeMember {
         let node = ts.createVariableDeclaration(
             this.name,
             this.typeToNode(),
-            this.value
+            this.valueToNode()
         )
         return node
     }
