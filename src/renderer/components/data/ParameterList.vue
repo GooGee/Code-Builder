@@ -1,16 +1,27 @@
 <template>
     <span>
         <template v-if="editing">
-            <div>(</div>
-            <div class="ParameterList">
-                <div v-for="parameter in manager.list" :key="parameter.name">
+            <span v-if="manager.inLambda">
+                <span>(</span>
+                <template v-for="(parameter, index) in manager.list">
+                    <span v-if="index > 0">, </span>
                     <Parameter :parameter="parameter" @remove="remove" :editing="editing"></Parameter>
+                </template>
+                <span>)</span>
+            </span>
+
+            <template v-else>
+                <div>(</div>
+                <div class="ParameterList">
+                    <div v-for="parameter in manager.list" :key="parameter.name">
+                        <Parameter :parameter="parameter" @remove="remove" :editing="editing"></Parameter>
+                    </div>
+                    <div>
+                        <span @click="add" class="button"> + Parameter</span>
+                    </div>
                 </div>
-                <div>
-                    <span @click="add" class="button"> + Parameter</span>
-                </div>
-            </div>
-            <div>)</div>
+                <div>)</div>
+            </template>
         </template>
 
         <span v-else>

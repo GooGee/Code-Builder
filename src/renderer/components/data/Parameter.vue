@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <span>
         <span v-if="editing" @click="$emit('remove', parameter)" class="button"> - </span>
         <Variable :variable="parameter" :editing="editing"></Variable>
-    </div>
+    </span>
 </template>
 
 <script>
