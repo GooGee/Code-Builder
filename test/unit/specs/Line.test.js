@@ -70,8 +70,8 @@ test(`makeTry`, () => {
     expect(line.statement.isTry).toBeTruthy()
 })
 
-test(`makeDefine`, () => {
-    line.makeDefine('name', 'string')
+test(`makeVariableStatement`, () => {
+    line.makeVariableStatement('name', ['string'])
     expect(line.statement.isDefine).toBeTruthy()
 })
 

@@ -28,6 +28,8 @@ test(`open`, () => {
 })
 
 test(`extend`, () => {
-    type.extend('Shape')
-    expect(type.HeritageManager.list.length).toEqual(1)
+    const name = 'Shape'
+    type.extend([name])
+    const heritage = type.HeritageManager.list[0]
+    expect(heritage.name).toEqual(name)
 })

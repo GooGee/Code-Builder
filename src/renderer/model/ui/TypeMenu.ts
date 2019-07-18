@@ -3,9 +3,11 @@ import { Builder } from "../Builder"
 
 export default class TypeMenu {
     builder: Builder
-
-    constructor(builder: Builder) {
+    kind: string
+    
+    constructor(builder: Builder, kind: string = 'Property') {
         this.builder = builder
+        this.kind = kind
     }
 
     get project() {
@@ -16,17 +18,19 @@ export default class TypeMenu {
         return this.builder.module!
     }
 
-    show(CallBack: CallBack, kind: string= 'Property') {
+    show(CallBack: CallBack) {
         let menu = new Menu()
 
-        menu.addMenu('Basic', this.makeBasicMenu(CallBack, kind))
-        menu.addMenu('Module', this.makeModuleMenu(CallBack))
+        menu.addMenu('Basic', this.makeBasicMenu(CallBack))
+
+        menu.add('Module', label => CallBack('$Module'))
+
         menu.addMenu('Type', this.makeTypeMenu(CallBack))
 
         menu.show()
     }
 
-    makeBasicMenu(CallBack: CallBack, kind: string) {
+    makeBasicMenu(CallBack: CallBack) {
         let menu = new Menu()
         let list = [
             { name: 'boolean' },
@@ -34,19 +38,10 @@ export default class TypeMenu {
             { name: 'string' },
             { name: 'void' }
         ]
-        if (kind == 'Property') {
+        if (this.kind == 'Property') {
             list.pop() // remove type void
         }
         list.forEach(type => {
-            menu.add(type.name, label => CallBack(label))
-        })
-        return menu
-    }
-
-    makeModuleMenu(CallBack: CallBack) {
-        let menu = new Menu()
-        let importList = this.module.ImportManager.list
-        importList.forEach(type => {
             menu.add(type.name, label => CallBack(label))
         })
         return menu

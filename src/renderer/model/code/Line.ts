@@ -7,6 +7,7 @@ import { BlockBase } from './Block'
 import { ChainBox } from './Box'
 
 export default class Line {
+    isDefine: boolean = false
     readonly owner: BlockBase
     statement: Statement.Statement | null = null
 
@@ -34,12 +35,16 @@ export default class Line {
         this.statement = new Statement.ContinueStatement
     }
 
+    makeDefine() {
+        this.isDefine = true
+    }
+
     makeFrom() {
         return this.makeFor()
     }
 
     makeFor() {
-        let vdl = this.makeVariableList('index', 'number')
+        let vdl = this.makeVariableList('index', ['number'])
         vdl.variable.initializer = new ChainBox
         vdl.variable.initializer.chain.inputNumber(0)
 
@@ -62,7 +67,7 @@ export default class Line {
     }
 
     makeForOf() {
-        let vdl = this.makeVariableList('item', 'any')
+        let vdl = this.makeVariableList('item', ['any'])
         this.statement = new Statement.ForOfStatement(vdl)
     }
 
@@ -79,26 +84,26 @@ export default class Line {
     }
 
     makeTry() {
-        let vvv = this.makeVariable('error', 'Error')
+        let vvv = this.makeVariable('error', ['Error'])
         let clause = new CatchClause(vvv)
         this.statement = new Statement.TryStatement(clause)
     }
 
-    makeVariable(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeVariable(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         return new Variable(name, node)
     }
 
-    makeVariableList(name: string, type: string) {
-        let vvv = this.makeVariable(name, type)
+    makeVariableList(name: string, list: string[]) {
+        let vvv = this.makeVariable(name, list)
         return new Statement.VariableList(vvv)
     }
 
-    makeDefine(name: string, type: string) {
+    makeVariableStatement(name: string, list: string[]) {
         if (this.VariableList.indexOf(name) > -1) {
             throw `${name} already exists!`
         }
-        let vdl = this.makeVariableList(name, type)
+        let vdl = this.makeVariableList(name, list)
         this.statement = new Statement.VariableStatement(vdl)
     }
 

@@ -35,6 +35,8 @@
                 <Box :box="variable.initializer" :editing="false"></Box>
             </template>
         </template>
+
+        <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
     </span>
 </template>
 
@@ -42,17 +44,18 @@
     import builder from '@/model/builder'
     import { enter, look } from '@/model/ui/Dialogue'
     import Menu from '@/model/ui/Menu'
-    import TypeMenu from '@/model/ui/TypeMenu'
     import Box from '../code/Box'
     import Modifier from './Modifier'
     import TypeNode from './TypeNode'
+    import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
     export default {
         name: 'Variable',
-        components: { Box, Modifier, TypeNode },
+        components: { Box, Modifier, TypeNode, TypeMenu },
         props: ['variable', 'editing', 'inClass', 'isProperty'],
         data() {
             return {
+                tmData: null
             }
         },
         methods: {
@@ -102,9 +105,15 @@
                 menu.show()
             },
             changeType() {
-                let tm = new TypeMenu(builder)
-                tm.show(name => {
-                    this.variable.setType(name)
+                if (!this.tmData) {
+                    this.tmData = new TypeMenuData(builder)
+                }
+                this.tmData.show(list => {
+                    if (list.length === 0) {
+                        return
+                    }
+
+                    this.variable.setType(list)
                     builder.module.save()
                 })
             }

@@ -380,8 +380,12 @@ export class TypeExpression {
         this.type = type
     }
 
-    static make(name: string) {
-        return new TypeExpression(new Identifier(name))
+    static from(list: string[]) {
+        let left: Identifier | PropertyAccessExpression = new Identifier(list[0])
+        for (let index = 1; index < list.length; index++) {
+            left = new PropertyAccessExpression(left, list[index])
+        }
+        return new TypeExpression(left)
     }
 
     static load(node: ts.ExpressionWithTypeArguments) {

@@ -16,40 +16,50 @@
         <span v-else>
             {{manager.text}}
         </span>
+
+        <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
     </span>
 </template>
 
 <script>
     import builder from '@/model/builder'
     import { enter, look, sure } from '@/model/ui/Dialogue'
-    import TypeMenu from '@/model/ui/TypeMenu'
     import Parameter from './Parameter'
+    import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
     export default {
         name: 'ParameterList',
-        components: { Parameter },
+        components: { Parameter, TypeMenu },
         props: ['manager', 'editing'],
         data() {
             return {
+                tmData: null
             }
         },
         methods: {
             add() {
-                let tm = new TypeMenu(builder)
-                tm.show((typeName) => {
-                    let name = typeName.toLowerCase()
-                    enter('Please enter the name', name).then(result => {
-                        if (result.value) {
-                            try {
-                                let manager = this.manager
-                                let ppp = manager.make(result.value, typeName)
-                                manager.add(ppp)
-                                builder.module.save()
-                            } catch (error) {
-                                look(error, 400)
-                            }
+                if (!this.tmData) {
+                    this.tmData = new TypeMenuData(builder)
+                }
+                this.tmData.show(this.make.bind(this))
+            },
+            make(list) {
+                if (list.length === 0) {
+                    return
+                }
+
+                const last = list[list.length - 1]
+                const name = last.toLowerCase()
+                enter('Please enter the name', name).then(result => {
+                    if (result.value) {
+                        try {
+                            const ppp = this.manager.make(result.value, list)
+                            this.manager.add(ppp)
+                            builder.module.save()
+                        } catch (error) {
+                            look(error, 400)
                         }
-                    })
+                    }
                 })
             },
             remove(parameter) {

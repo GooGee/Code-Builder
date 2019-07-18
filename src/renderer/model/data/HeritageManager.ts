@@ -132,8 +132,8 @@ export default class HeritageManager extends NameManager<Heritage> {
         return null
     }
 
-    make(type: string, isImplement: boolean) {
-        let node = TypeExpression.make(type)
+    make(list: string[], isImplement: boolean) {
+        let node = TypeExpression.from(list)
         let hhh = new Heritage(node, isImplement)
         return hhh
     }

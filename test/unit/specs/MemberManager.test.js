@@ -11,7 +11,7 @@ test(`makeConstructor`, () => {
 test(`makeMethod`, () => {
     const name = 'say'
     const type = 'string'
-    const member = manager.makeMethod(name, type)
+    const member = manager.makeMethod(name, [type])
     list.push(member.toNode())
     expect(member.name).toEqual(name)
 })
@@ -19,7 +19,7 @@ test(`makeMethod`, () => {
 test(`makeProperty`, () => {
     const name = 'name'
     const type = 'string'
-    const member = manager.makeProperty(name, type)
+    const member = manager.makeProperty(name, [type])
     list.push(member.toNode())
     expect(member.name).toEqual(name)
 })
@@ -41,7 +41,7 @@ const ilist = []
 test(`makeMethod Interface`, () => {
     const name = 'say'
     const type = 'string'
-    const member = imanager.makeMethod(name, type)
+    const member = imanager.makeMethod(name, [type])
     ilist.push(member.toNode())
     expect(member.name).toEqual(name)
 })
@@ -49,7 +49,7 @@ test(`makeMethod Interface`, () => {
 test(`makeProperty Interface`, () => {
     const name = 'name'
     const type = 'string'
-    const member = imanager.makeProperty(name, type)
+    const member = imanager.makeProperty(name, [type])
     ilist.push(member.toNode())
     expect(member.name).toEqual(name)
 })

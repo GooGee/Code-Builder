@@ -6,7 +6,7 @@ let heritage = null
 
 test(`make`, () => {
     const name = 'Shape'
-    heritage = manager.make(name, true)
+    heritage = manager.make([name], true)
     expect(heritage.name).toEqual(name)
 })
 

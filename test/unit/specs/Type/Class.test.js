@@ -28,11 +28,15 @@ test(`open`, () => {
 })
 
 test(`extend`, () => {
-    type.extend('Item')
-    expect(type.HeritageManager.extendList.length).toEqual(1)
+    const name = 'Item'
+    type.extend([name])
+    const heritage = type.HeritageManager.extendList[0]
+    expect(heritage.name).toEqual(name)
 })
 
 test(`implement`, () => {
-    type.implement('Node')
-    expect(type.HeritageManager.implementList.length).toEqual(1)
+    const name = 'Node'
+    type.implement([name])
+    const heritage = type.HeritageManager.implementList[0]
+    expect(heritage.name).toEqual(name)
 })

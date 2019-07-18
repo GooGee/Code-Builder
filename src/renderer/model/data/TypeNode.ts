@@ -12,13 +12,26 @@ export default abstract class TypeNode implements Node {
     abstract update(node: ts.TypeNode): void
     abstract toNode(): ts.TypeNode
 
+    static from(list: string[]) {
+        if (list.length <= 1) {
+            return TypeNode.make(list[0])
+        }
+
+        let left: Identifier | QualifiedName = new Identifier(list[0])
+        for (let index = 1; index < list.length; index++) {
+            const right = new Identifier(list[index])
+            left = new QualifiedName(left, right)
+        }
+        return new ReferenceType(left)
+    }
+
     static make(name: string) {
         const kw = KeyWordType.findByName(name)
         if (kw) {
             return new KeyWordType(kw.kind)
         }
 
-        return new ReferenceType(Identifier.make(name))
+        return new ReferenceType(new Identifier(name))
     }
 
     static load(node?: ts.TypeNode): ArrayType | KeyWordType | ReferenceType {
@@ -161,7 +174,7 @@ export class ReferenceType extends TypeNode {
     }
 
     access(name: string) {
-        this.type = new QualifiedName(this.type, Identifier.make(name))
+        this.type = new QualifiedName(this.type, new Identifier(name))
     }
 
     addGeneric(length: number) {
@@ -242,10 +255,6 @@ export class Identifier extends TypeName {
         return this.name
     }
 
-    static make(name: string) {
-        return new Identifier(name)
-    }
-
     static load(node: ts.Identifier) {
         let name = new Identifier(node.text)
         name.source = node
@@ -284,7 +293,7 @@ export class QualifiedName extends TypeName {
     }
 
     access(name: string) {
-        this.right = Identifier.make(name)
+        this.right = new Identifier(name)
     }
 
     static load(node: ts.QualifiedName): QualifiedName {

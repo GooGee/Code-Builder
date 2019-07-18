@@ -21,42 +21,42 @@
                 <span>{{heritage.type.text}}</span>
             </div>
         </div>
+
+        <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
     </div>
 </template>
 
 <script>
     import builder from '@/model/builder'
-    import { look, sure } from '@/model/ui/Dialogue'
-    import TypeMenu from '@/model/ui/TypeMenu'
+    import { sure } from '@/model/ui/Dialogue'
+    import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
     export default {
         name: 'HeritageList',
+        components: { TypeMenu },
         props: ['ctype'],
         data() {
             return {
+                tmData: null
             }
         },
         methods: {
             extend() {
-                let tm = new TypeMenu(builder)
-                tm.show((typeName) => {
-                    try {
-                        this.ctype.extend(typeName)
-                        builder.module.save()
-                    } catch (error) {
-                        look(error, 400)
-                    }
+                if (!this.tmData) {
+                    this.tmData = new TypeMenuData(builder)
+                }
+                this.tmData.show(list => {
+                    this.ctype.extend(list)
+                    builder.module.save()
                 })
             },
             implement() {
-                let tm = new TypeMenu(builder)
-                tm.show((typeName) => {
-                    try {
-                        this.ctype.implement(typeName)
-                        builder.module.save()
-                    } catch (error) {
-                        look(error, 400)
-                    }
+                if (!this.tmData) {
+                    this.tmData = new TypeMenuData(builder)
+                }
+                this.tmData.show(list => {
+                    this.ctype.implement(list)
+                    builder.module.save()
                 })
             },
             remove(heritage) {

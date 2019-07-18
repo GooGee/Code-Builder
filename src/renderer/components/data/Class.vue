@@ -37,9 +37,7 @@
 </template>
 
 <script>
-    import builder from '@/model/builder'
     import { enter, look } from '@/model/ui/Dialogue'
-    import TypeMenu from '@/model/ui/TypeMenu'
     import Modifier from './Modifier'
     import ImportList from './ImportList'
     import MemberList from './MemberList'
@@ -56,13 +54,6 @@
             }
         },
         methods: {
-            extend(typeName) {
-                let tm = new TypeMenu(builder)
-                tm.show((typeName) => {
-                    this.ctype.extend(typeName)
-                    this.cmodule.save()
-                })
-            },
             setName() {
                 enter('Please enter the name', this.ctype.name).then(result => {
                     if (result.value) {

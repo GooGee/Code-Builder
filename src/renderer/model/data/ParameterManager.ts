@@ -40,9 +40,9 @@ export default class ParameterManager extends NameManager<Parameter> {
         return list
     }
 
-    make(name: string, type: string) {
-        let node = TypeNode.make(type)
-        let ppp = new Parameter(name, node)
+    make(name: string, list: string[]) {
+        const node = TypeNode.from(list)
+        const ppp = new Parameter(name, node)
         return ppp
     }
 }

@@ -59,20 +59,20 @@ export class ClassMemberManager extends NameManager<ClassMember> {
         return item
     }
 
-    makeMethod(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeMethod(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         let item = new ClassMethod(name, node)
         return item
     }
 
-    makeProperty(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeProperty(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         let item = new ClassProperty(name, node)
         return item
     }
 
-    makeLambda(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeLambda(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         let lambda = new Lambda(node)
         lambda.makeBlock()
         let item = new ClassLambda(name, lambda)
@@ -121,14 +121,14 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
         return list
     }
 
-    makeMethod(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeMethod(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         let item = new InterfaceMethod(name, node)
         return item
     }
 
-    makeProperty(name: string, type: string) {
-        let node = TypeNode.make(type)
+    makeProperty(name: string, list: string[]) {
+        let node = TypeNode.from(list)
         let item = new InterfaceProperty(name, node)
         return item
     }

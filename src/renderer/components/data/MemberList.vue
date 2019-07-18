@@ -9,22 +9,25 @@
         <div v-for="member in ctype.MemberManager.list" :key="member.name">
             <Member :member="member" @remove="remove"></Member>
         </div>
+
+        <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
     </div>
 </template>
 
 <script>
     import builder from '@/model/builder'
     import { enter, look, sure } from '@/model/ui/Dialogue'
-    import TypeMenu from '@/model/ui/TypeMenu'
     import Member from './Member'
+    import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
     export default {
         name: 'MemberList',
-        components: { Member },
+        components: { Member, TypeMenu },
         props: ['ctype', 'cmodule'],
         data() {
             return {
-                kind: ''
+                kind: '',
+                tmData: null
             }
         },
         created() {
@@ -32,33 +35,40 @@
         methods: {
             add(kind) {
                 this.kind = kind
-                let tm = new TypeMenu(builder)
-                tm.show(this.make, kind)
+                if (!this.tmData) {
+                    this.tmData = new TypeMenuData(builder, kind)
+                }
+                this.tmData.show(this.make.bind(this))
             },
-            make(typeName) {
-                let name = typeName.toLowerCase()
+            make(list) {
+                if (list.length === 0) {
+                    return
+                }
+
+                const last = list[list.length - 1]
+                const name = last.toLowerCase()
                 enter('Please enter the name', name).then(result => {
                     if (result.value) {
                         try {
-                            let manager = this.ctype.MemberManager
+                            const manager = this.ctype.MemberManager
                             if (result.value === 'constructor') {
                                 this.kind = 'Constructor'
-                                let mmm = manager.makeConstructor()
+                                const mmm = manager.makeConstructor()
                                 manager.add(mmm)
                             }
 
                             if (this.kind === 'Method') {
-                                let mmm = manager.makeMethod(result.value, typeName)
+                                const mmm = manager.makeMethod(result.value, list)
                                 manager.add(mmm)
                             }
 
                             if (this.kind === 'Lambda') {
-                                let mmm = manager.makeLambda(result.value, typeName)
+                                const mmm = manager.makeLambda(result.value, list)
                                 manager.add(mmm)
                             }
 
                             if (this.kind === 'Property') {
-                                let ppp = manager.makeProperty(result.value, typeName)
+                                const ppp = manager.makeProperty(result.value, list)
                                 manager.add(ppp)
                             }
                             this.cmodule.save()

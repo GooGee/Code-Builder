@@ -20,7 +20,7 @@ test(`load`, () => {
 
 test(`make`, () => {
     const name = 'text'
-    const parameter = manager.make(name, 'string')
+    const parameter = manager.make(name, ['string'])
     manager.add(parameter)
     expect(parameter.name).toEqual(name)
 })

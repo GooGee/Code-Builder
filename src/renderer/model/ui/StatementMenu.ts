@@ -3,8 +3,7 @@ import Menu from "./Menu"
 import Line from "../code/Line"
 import LineManager from "../code/LineManager"
 import Block from "../code/Block"
-import TypeMenu from "./TypeMenu"
-import { enter, look, sure } from "./Dialogue"
+import { sure } from "./Dialogue"
 
 export default class StatementMenu {
     line: Line
@@ -59,8 +58,7 @@ export default class StatementMenu {
             })
         }
 
-        let tm = new TypeMenu(this.builder)
-        menu.add('Define', item => tm.show(name => this.makeName(name)))
+        menu.add('Define', item => this.line.makeDefine())
 
         menu.add('Each', item => {
             this.line.makeForOf()
@@ -114,17 +112,4 @@ export default class StatementMenu {
         })
     }
 
-    makeName(typeName: string) {
-        let name = typeName.toLowerCase()
-        enter('Please enter the name', name).then(result => {
-            if (result.value) {
-                try {
-                    this.line.makeDefine(result.value, typeName)
-                    this.module.save()
-                } catch (error) {
-                    look(error, 400)
-                }
-            }
-        })
-    }
 }

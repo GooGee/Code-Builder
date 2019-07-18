@@ -91,8 +91,8 @@ export abstract class TypeMember extends Member {
         return undefined
     }
 
-    setType(name: string) {
-        this.type = TypeNode.make(name)
+    setType(list: string[]) {
+        this.type = TypeNode.from(list)
     }
 
     typeToNode() {

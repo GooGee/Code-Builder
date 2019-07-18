@@ -42,13 +42,13 @@ export class Class extends Type {
         }
     }
 
-    extend(type: string) {
-        this.base = this.HeritageManager.make(type, false)
+    extend(list: string[]) {
+        this.base = this.HeritageManager.make(list, false)
         this.HeritageManager.add(this.base)
     }
 
-    implement(type: string) {
-        let hhh = this.HeritageManager.make(type, true)
+    implement(list: string[]) {
+        let hhh = this.HeritageManager.make(list, true)
         this.HeritageManager.add(hhh)
     }
 
@@ -168,8 +168,8 @@ export class Interface extends Type {
         }
     }
 
-    extend(type: string) {
-        let hhh = this.HeritageManager.make(type, false)
+    extend(list: string[]) {
+        let hhh = this.HeritageManager.make(list, false)
         this.HeritageManager.add(hhh)
     }
 
