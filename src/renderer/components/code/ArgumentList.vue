@@ -44,6 +44,7 @@
             add() {
                 const box = new ChainBox()
                 this.manager.add(box)
+                builder.module.save()
             },
             remove(box) {
                 sure('Are you sure?').then(result => {
