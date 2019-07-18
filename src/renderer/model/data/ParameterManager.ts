@@ -4,6 +4,12 @@ import TypeNode from './TypeNode'
 import { Parameter } from './Member'
 
 export default class ParameterManager extends NameManager<Parameter> {
+    inLambda: boolean
+
+    constructor(inLambda: boolean = false) {
+        super()
+        this.inLambda = inLambda
+    }
 
     get text() {
         let list = Array<string>()
@@ -13,11 +19,11 @@ export default class ParameterManager extends NameManager<Parameter> {
         return list.join(', ')
     }
 
-    load(list: ReadonlyArray<ts.ParameterDeclaration>, hasType: boolean = true, hasValue: boolean = true) {
+    load(list: ReadonlyArray<ts.ParameterDeclaration>) {
         list.forEach(node => {
             let ppp = Parameter.load(node)
-            ppp.hasType = hasType
-            ppp.hasValue = hasValue
+            ppp.hasType = !this.inLambda
+            ppp.hasValue = !this.inLambda
             this.add(ppp)
         })
     }
@@ -43,6 +49,8 @@ export default class ParameterManager extends NameManager<Parameter> {
     make(name: string, list: string[]) {
         const node = TypeNode.from(list)
         const ppp = new Parameter(name, node)
+        ppp.hasType = !this.inLambda
+        ppp.hasValue = !this.inLambda
         return ppp
     }
 }

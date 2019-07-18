@@ -55,7 +55,7 @@ export class ChainBox extends Box {
 
 export class LambdaBox extends Box {
     isLambda: boolean = true
-    readonly ParameterManager: ParameterManager = new ParameterManager
+    readonly ParameterManager: ParameterManager = new ParameterManager(true)
     body: ChainBox | ComputeBox
     source: ts.ArrowFunction | null = null
 
@@ -75,7 +75,7 @@ export class LambdaBox extends Box {
         const type = declaration.type as ts.FunctionTypeNode
         const box = new LambdaBox(new ChainBox)
         const list = type.parameters.slice().reverse()
-        box.ParameterManager.load(list, false, false)
+        box.ParameterManager.load(list)
         return box
     }
 
@@ -83,7 +83,7 @@ export class LambdaBox extends Box {
         const body = Box.load(node.body as ts.Expression)
         const lambda = new LambdaBox(body as any)
         lambda.source = node
-        lambda.ParameterManager.load(node.parameters, false, false)
+        lambda.ParameterManager.load(node.parameters)
         return lambda
     }
 
