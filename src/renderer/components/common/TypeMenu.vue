@@ -83,6 +83,7 @@
 
         show(CallBack) {
             this.CallBack = CallBack
+            this.list.splice(0, this.list.length)
             const menu = new TypeMenu(this.builder, this.kind)
             menu.show(this.checkResult.bind(this))
         }
