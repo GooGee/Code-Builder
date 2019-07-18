@@ -14,7 +14,7 @@
     export default {
         name: 'TypeBox',
         components: { TypeNode, TypeMenu },
-        props: ['box'],
+        props: ['box', 'isProperty'],
         data() {
             return {
                 tmData: null
@@ -24,6 +24,11 @@
             setType() {
                 if (!this.tmData) {
                     this.tmData = new TypeMenuData(builder)
+                }
+                if (this.isProperty) {
+                    this.tmData.kind = 'Property'
+                } else {
+                    this.tmData.kind = 'Method'
                 }
                 this.tmData.show(list => {
                     if (list.length === 0) {
