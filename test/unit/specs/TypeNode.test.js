@@ -31,6 +31,18 @@ test(`load ReferenceType`, () => {
     expect(type.type.name).toEqual('List')
 })
 
+test(`load UnionType`, () => {
+    const list = [
+        ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+        ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+    ]
+    const node = ts.createUnionTypeNode(
+        list
+    )
+    const type = TypeNode.load(node)
+    expect(type.list.length).toEqual(list.length)
+})
+
 test(`load Identifier`, () => {
     const name = 'List'
     const node = ts.createIdentifier(name)

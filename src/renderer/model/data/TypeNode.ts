@@ -34,7 +34,7 @@ export default abstract class TypeNode implements Node {
         return new ReferenceType(new Identifier(name))
     }
 
-    static load(node?: ts.TypeNode): ArrayType | KeyWordType | ReferenceType {
+    static load(node?: ts.TypeNode): TypeNode {
         if (!node) {
             return new KeyWordType(ts.SyntaxKind.AnyKeyword)
         }
@@ -45,6 +45,10 @@ export default abstract class TypeNode implements Node {
 
         if (ts.isArrayTypeNode(node)) {
             return ArrayType.load(node)
+        }
+
+        if (ts.isUnionTypeNode(node)) {
+            return UnionType.load(node)
         }
 
         let keyword = node as ts.KeywordTypeNode
@@ -219,6 +223,44 @@ export class ReferenceType extends TypeNode {
 
         let node = ts.createTypeReferenceNode(
             this.type.toNode(),
+            list
+        )
+        return node
+    }
+}
+
+export class UnionType extends TypeNode {
+    list: Array<TypeNode> = []
+    source: ts.UnionTypeNode | null = null
+
+    get text() {
+        const list: Array<string> = []
+        this.list.forEach(type => {
+            list.push(type.text)
+        })
+        return list.join(' | ')
+    }
+
+    static load(node: ts.UnionTypeNode) {
+        const type = new UnionType
+        type.update(node)
+        return type
+    }
+
+    update(node: ts.UnionTypeNode) {
+        this.source = node
+        this.list.splice(0, this.list.length)
+        node.types.forEach(node => {
+            this.list.push(TypeNode.load(node))
+        })
+    }
+
+    toNode() {
+        const list: Array<ts.TypeNode> = []
+        this.list.forEach(type => {
+            list.push(type.toNode())
+        })
+        const node = ts.createUnionTypeNode(
             list
         )
         return node
