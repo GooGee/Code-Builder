@@ -38,6 +38,7 @@
                 if (!this.tmData) {
                     this.tmData = new TypeMenuData(builder, kind)
                 }
+                this.tmData.kind = kind
                 this.tmData.show(this.make.bind(this))
             },
             make(list) {
