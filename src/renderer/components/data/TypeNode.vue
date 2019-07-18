@@ -10,7 +10,7 @@
         </template>
 
         <template v-if="ctype.isReference">
-            <Name :name="ctype.type" @setType="$emit('setType')"></Name>
+            <TypeName :name="ctype.type" @setType="$emit('setType')"></TypeName>
 
             <template v-if="argumentList.length">
                 <span class="syntax">&lt;</span>
@@ -29,14 +29,14 @@
 <script>
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
-    import Name from './Name'
+    import TypeName from './TypeName'
 
     export default {
         name: 'TypeNode',
         beforeCreate() {
             this.$options.components.TypeBox = require('./TypeBox').default
         },
-        components: { Name },
+        components: { TypeName },
         props: ['ctype'],
         data() {
             return {

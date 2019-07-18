@@ -5,7 +5,7 @@
         </template>
 
         <template v-else>
-            <Name :name="name.left" @setType="$emit('setType')"></Name>
+            <TypeName :name="name.left" @setType="$emit('setType')"></TypeName>
             <span> ∙ </span>
             <span @click.stop="setType" class="btn btn-default">{{name.name}}</span>
         </template>
@@ -15,11 +15,11 @@
 <script>
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
-    import Name from './Name'
+    import TypeName from './TypeName'
 
     export default {
-        name: 'Name',
-        components: { Name },
+        name: 'TypeName',
+        components: { TypeName },
         props: ['name'],
         data() {
             return {
