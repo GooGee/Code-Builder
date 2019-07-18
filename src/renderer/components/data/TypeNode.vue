@@ -15,8 +15,8 @@
             <template v-if="argumentList.length">
                 <span class="syntax">&lt;</span>
                 <template v-for="(argument, index) in argumentList">
+                    <span v-if="index > 0">, </span>
                     <TypeNode @changeType="$emit('changeType')" :ctype="argument"></TypeNode>
-                    <span v-if="index < argumentList.length - 1">,</span>
                 </template>
                 <span class="syntax">&gt;</span>
             </template>
