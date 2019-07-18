@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import * as Statement from "./Statement"
 import { CatchClause } from './Clause'
-import TypeNode from '../data/TypeNode'
+import TypeBox from '../data/TypeBox'
 import { Variable } from '../data/Member'
 import { BlockBase } from './Block'
 import { ChainBox } from './Box'
@@ -90,7 +90,7 @@ export default class Line {
     }
 
     makeVariable(name: string, list: string[]) {
-        let node = TypeNode.from(list)
+        let node = TypeBox.from(list)
         return new Variable(name, node)
     }
 

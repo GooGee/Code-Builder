@@ -1,15 +1,15 @@
 import * as ts from 'typescript'
-import TypeNode from './TypeNode'
+import TypeBox from './TypeBox'
 import Name from './Name'
 
 export default class Generic extends Name {
-    constraint: TypeNode | null = null
+    constraint: TypeBox | null = null
     source: ts.TypeParameterDeclaration | null = null
 
     static load(node: ts.TypeParameterDeclaration) {
         let ppp = new Generic(node.name.text)
         if (node.constraint) {
-            ppp.constraint = TypeNode.load(node.constraint)
+            ppp.constraint = TypeBox.load(node.constraint)
         }
         return ppp
     }

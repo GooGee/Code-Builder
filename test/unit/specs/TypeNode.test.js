@@ -7,7 +7,7 @@ test(`load ArrayType`, () => {
         ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
     )
     const type = TypeNode.load(node)
-    expect(type.elementType.name).toEqual('any')
+    expect(type.elementType.type.name).toEqual('any')
 })
 
 test(`load KeyWordType`, () => {

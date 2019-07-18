@@ -2,11 +2,13 @@ import * as ts from 'typescript'
 import Manager from '../Manager'
 import Project from '../Project'
 import Node from '../Node'
+import TypeBox from './TypeBox'
 
 export default abstract class TypeNode implements Node {
     isArray = false
     isKeyWord = false
     isReference = false
+    isUnion = false
     abstract source: ts.TypeNode | null
     abstract text: string
     abstract update(node: ts.TypeNode): void
@@ -61,10 +63,10 @@ export default abstract class TypeNode implements Node {
  */
 export class ArrayType extends TypeNode {
     isArray = true
-    elementType: TypeNode
+    elementType: TypeBox
     source: ts.ArrayTypeNode | null = null
 
-    constructor(type: TypeNode) {
+    constructor(type: TypeBox) {
         super()
         this.elementType = type
     }
@@ -78,7 +80,7 @@ export class ArrayType extends TypeNode {
     }
 
     static load(node: ts.ArrayTypeNode) {
-        const type = TypeNode.load(node.elementType)
+        const type = TypeBox.load(node.elementType)
         const ttt = new ArrayType(type)
         ttt.source = node
         return ttt
@@ -158,7 +160,7 @@ export class KeyWordType extends TypeNode {
 export class ReferenceType extends TypeNode {
     isReference = true
     type: Identifier | QualifiedName
-    readonly ArgumentManager = new Manager<TypeNode>()
+    readonly ArgumentManager = new Manager<TypeBox>()
     source: ts.TypeReferenceNode | null = null
 
     constructor(type: Identifier | QualifiedName) {
@@ -184,7 +186,7 @@ export class ReferenceType extends TypeNode {
     addGeneric(length: number) {
         this.ArgumentManager.clear()
         for (let index = 0; index < length; index++) {
-            const ttt = TypeNode.make('string')
+            const ttt = TypeBox.make('string')
             this.ArgumentManager.add(ttt)
         }
     }
@@ -194,7 +196,7 @@ export class ReferenceType extends TypeNode {
         const list = node.typeArguments
         if (list) {
             list.forEach(argument => {
-                this.ArgumentManager.add(TypeNode.load(argument))
+                this.ArgumentManager.add(TypeBox.load(argument))
             })
         }
     }
@@ -230,7 +232,8 @@ export class ReferenceType extends TypeNode {
 }
 
 export class UnionType extends TypeNode {
-    list: Array<TypeNode> = []
+    isUnion: boolean = true
+    list: Array<TypeBox> = []
     source: ts.UnionTypeNode | null = null
 
     get text() {
@@ -251,7 +254,7 @@ export class UnionType extends TypeNode {
         this.source = node
         this.list.splice(0, this.list.length)
         node.types.forEach(node => {
-            this.list.push(TypeNode.load(node))
+            this.list.push(TypeBox.load(node))
         })
     }
 

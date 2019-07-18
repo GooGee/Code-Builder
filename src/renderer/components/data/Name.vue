@@ -1,11 +1,11 @@
 <template>
     <span>
         <template v-if="name.isSingle">
-            <span @click.stop="$emit('changeType')" class="btn btn-default">{{name.name}}</span>
+            <span @click.stop="$emit('setType')" class="btn btn-default">{{name.name}}</span>
         </template>
 
         <template v-else>
-            <Name :name="name.left" :ctype="ctype" @changeType="$emit('changeType')"></Name>
+            <Name :name="name.left" @setType="$emit('setType')"></Name>
             <span> ∙ </span>
             <span @click.stop="setType" class="btn btn-default">{{name.name}}</span>
         </template>
@@ -20,7 +20,7 @@
     export default {
         name: 'Name',
         components: { Name },
-        props: ['ctype', 'name'],
+        props: ['name'],
         data() {
             return {
             }

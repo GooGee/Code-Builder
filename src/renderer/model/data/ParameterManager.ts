@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
-import TypeNode from './TypeNode'
+import TypeBox from './TypeBox'
 import { Parameter } from './Member'
 
 export default class ParameterManager extends NameManager<Parameter> {
@@ -47,7 +47,7 @@ export default class ParameterManager extends NameManager<Parameter> {
     }
 
     make(name: string, list: string[]) {
-        const node = TypeNode.from(list)
+        const node = TypeBox.from(list)
         const ppp = new Parameter(name, node)
         ppp.hasType = !this.inLambda
         ppp.hasValue = !this.inLambda

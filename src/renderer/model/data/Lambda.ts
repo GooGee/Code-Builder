@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import Node from '../Node'
-import TypeNode from './TypeNode'
+import TypeBox from './TypeBox'
 import Block from '../code/Block'
 import { ChainBox, ComputeBox } from '../code/Box'
 import GenericManager from './GenericManager'
@@ -8,14 +8,14 @@ import ParameterManager from './ParameterManager'
 import ModifierManager from './ModifierManager'
 
 export default class Lambda implements Node {
-    type: TypeNode
+    type: TypeBox
     readonly modifier: ModifierManager = new ModifierManager
     readonly ParameterManager: ParameterManager = new ParameterManager
     readonly GenericManager: GenericManager = new GenericManager
     body: Block | ChainBox | ComputeBox
     source: ts.ArrowFunction | null = null
 
-    constructor(type: TypeNode) {
+    constructor(type: TypeBox) {
         this.type = type
         this.body = new ChainBox
     }
@@ -70,7 +70,7 @@ export default class Lambda implements Node {
     }
 
     static load(node: ts.ArrowFunction) {
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let lambda = new Lambda(type)
         lambda.source = node
         lambda.modifier.load(node.modifiers)

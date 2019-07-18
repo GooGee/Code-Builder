@@ -2,21 +2,21 @@
     <span>
         <!-- predicate lambda -->
         <template v-if="ctype.isArray">
-            <TypeNode @changeType="$emit('changeType')" :ctype="ctype.type"></TypeNode>
+            <TypeBox :box="ctype.type"></TypeBox>
         </template>
 
         <template v-if="ctype.isKeyWord">
-            <span @click="$emit('changeType')" class="btn btn-default">{{ctype.name}}</span>
+            <span class="btn btn-default" @click="$emit('setType')">{{ctype.name}}</span>
         </template>
 
         <template v-if="ctype.isReference">
-            <Name :name="ctype.type" :ctype="ctype" @changeType="$emit('changeType')"></Name>
+            <Name :name="ctype.type" @setType="$emit('setType')"></Name>
 
             <template v-if="argumentList.length">
                 <span class="syntax">&lt;</span>
                 <template v-for="(argument, index) in argumentList">
                     <span v-if="index > 0">, </span>
-                    <TypeNode @changeType="$emit('changeType')" :ctype="argument"></TypeNode>
+                    <TypeBox :box="argument"></TypeBox>
                 </template>
                 <span class="syntax">&gt;</span>
             </template>
@@ -30,11 +30,13 @@
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
     import Name from './Name'
-    import TypeNode from './TypeNode'
 
     export default {
         name: 'TypeNode',
-        components: { Name, TypeNode },
+        beforeCreate() {
+            this.$options.components.TypeBox = require('./TypeBox').default
+        },
+        components: { Name },
         props: ['ctype'],
         data() {
             return {

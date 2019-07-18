@@ -2,7 +2,8 @@ import * as ts from 'typescript'
 import Name from './Name'
 import ModifierManager from './ModifierManager'
 import ParameterManager from './ParameterManager'
-import TypeNode, { QualifiedName, ReferenceType } from './TypeNode'
+import TypeBox from './TypeBox'
+import { QualifiedName, ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
 import { ChainBox } from '../code/Box'
@@ -76,10 +77,10 @@ export abstract class TypeMember extends Member {
     hasValue: boolean = true
     hasBlock: boolean = false
     hasQuestionToken: boolean = false
-    type: TypeNode
+    type: TypeBox
     readonly modifier: ModifierManager = new ModifierManager
 
-    constructor(name: string, type: TypeNode) {
+    constructor(name: string, type: TypeBox) {
         super(name)
         this.type = type
     }
@@ -89,10 +90,6 @@ export abstract class TypeMember extends Member {
             return ts.createToken(ts.SyntaxKind.QuestionToken)
         }
         return undefined
-    }
-
-    setType(list: string[]) {
-        this.type = TypeNode.from(list)
     }
 
     typeToNode() {
@@ -116,9 +113,9 @@ export abstract class TypeMember extends Member {
     makeNew(list: ReadonlyArray<ts.Symbol>) {
         this.initializer = new ChainBox
         const chain = this.initializer.chain
-        if (this.type instanceof ReferenceType) {
+        if (this.type.type instanceof ReferenceType) {
             let first = true
-            let list: string[] = this.typeToArray(this.type)
+            let list: string[] = this.typeToArray(this.type.type)
             list.reverse().forEach(name => {
                 if (first) {
                     chain.start(name)
@@ -156,7 +153,7 @@ export class ClassConstructor extends ClassMember {
     source: ts.ConstructorDeclaration | null = null
 
     constructor() {
-        super(ConstructorKeyWord, TypeNode.make('void'))
+        super(ConstructorKeyWord, TypeBox.make('void'))
     }
 
     static load(node: ts.ConstructorDeclaration) {
@@ -194,7 +191,7 @@ export class ClassMethod extends ClassMember {
 
     static load(node: ts.MethodDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let mmm = new ClassMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -240,7 +237,7 @@ export class ClassProperty extends ClassMember {
         }
 
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let mmm = new ClassProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -284,11 +281,11 @@ export class ClassLambda extends ClassMember {
         this.lambda = lambda
     }
 
-    get type(): TypeNode {
+    get type(): TypeBox {
         return this.lambda.type
     }
 
-    set type(type: TypeNode) {
+    set type(type: TypeBox) {
         if (this.lambda) {
             this.lambda.type = type
         }
@@ -340,7 +337,7 @@ export class InterfaceMethod extends InterfaceMember {
 
     static load(node: ts.MethodSignature) {
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let mmm = new InterfaceMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -375,7 +372,7 @@ export class InterfaceProperty extends InterfaceMember {
 
     static load(node: ts.PropertySignature) {
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let mmm = new InterfaceProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -409,7 +406,7 @@ export class Parameter extends TypeMember {
 
     static load(node: ts.ParameterDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let ppp = new Parameter(name.text, type)
         ppp.source = node
         if (node.questionToken) {
@@ -449,7 +446,7 @@ export class Variable extends TypeMember {
 
     static load(node: ts.VariableDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeNode.load(node.type)
+        let type = TypeBox.load(node.type)
         let vvv = new Variable(name.text, type)
         vvv.source = node
         vvv.loadValue(node.initializer)
