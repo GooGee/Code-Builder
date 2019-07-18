@@ -43,7 +43,7 @@
         methods: {
             extend() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder)
+                    this.tmData = new TypeMenuData(builder, 'Type')
                 }
                 this.tmData.show(list => {
                     this.ctype.extend(list)
@@ -52,7 +52,7 @@
             },
             implement() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder)
+                    this.tmData = new TypeMenuData(builder, 'Type')
                 }
                 this.tmData.show(list => {
                     this.ctype.implement(list)

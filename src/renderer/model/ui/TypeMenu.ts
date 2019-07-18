@@ -4,7 +4,7 @@ import { Builder } from "../Builder"
 export default class TypeMenu {
     builder: Builder
     kind: string
-    
+
     constructor(builder: Builder, kind: string = 'Property') {
         this.builder = builder
         this.kind = kind
@@ -21,7 +21,9 @@ export default class TypeMenu {
     show(CallBack: CallBack) {
         let menu = new Menu()
 
-        menu.addMenu('Basic', this.makeBasicMenu(CallBack))
+        if (this.kind != 'Type') {
+            menu.addMenu('Basic', this.makeBasicMenu(CallBack))
+        }
 
         menu.add('Module', label => CallBack('$Module'))
 
