@@ -2,7 +2,7 @@
     <div>
         <div>
             <Modifier :modifier="ctype.modifier" kind="export"></Modifier>
-            <span class="syntax">Enum</span>
+            <span class="syntax">{{ctype.label}}</span>
             <span @click="setName" class="button">{{ctype.name}}</span>
             <span @click="add" class="button"> + </span>
         </div>

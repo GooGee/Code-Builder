@@ -5,7 +5,7 @@
         <div v-if="editing">
             <Modifier :modifier="ctype.modifier" kind="export"></Modifier>
             <Modifier :modifier="ctype.modifier" kind="abstract"></Modifier>
-            <span class="syntax">Class</span>
+            <span class="syntax">{{ctype.label}}</span>
             <span @click="setName" class="btn btn-default">{{ctype.name}}</span>
 
             <Generic :ctype="ctype"></Generic>
@@ -17,7 +17,7 @@
 
         <div v-else @click="editing=true">
             <span class="syntax">{{ctype.modifier.text}}</span>
-            <span class="syntax">Class</span>
+            <span class="syntax">{{ctype.label}}</span>
             <span>{{ctype.name}}</span>
             <span v-if="ctype.GenericManager.list.length">&lt; {{ctype.GenericManager.text}} &gt;</span>
 

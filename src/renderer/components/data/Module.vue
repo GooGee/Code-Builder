@@ -14,7 +14,7 @@
     import Menu from '@/model/ui/Menu'
     import StructureList from './StructureList'
 
-    const BasicStructureList = ['class', 'enum', 'interface']
+    const BasicStructureList = ['Class', 'Enum', 'Interface']
 
     export default {
         name: 'Module',
@@ -36,15 +36,15 @@
                 enter('Please enter the name').then(result => {
                     if (result.value) {
                         let manager = this.cmodule.StructureManager
-                        if (kind === 'class') {
+                        if (kind === 'Class') {
                             let member = manager.makeClass(result.value)
                             manager.add(member)
                         }
-                        if (kind === 'enum') {
+                        if (kind === 'Enum') {
                             let member = manager.makeEnum(result.value)
                             manager.add(member)
                         }
-                        if (kind === 'interface') {
+                        if (kind === 'Interface') {
                             let member = manager.makeInterface(result.value)
                             manager.add(member)
                         }

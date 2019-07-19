@@ -14,6 +14,7 @@ export default abstract class Structure extends Name implements Node {
     isEnum: boolean = false
     isInterface: boolean = false
     opened: boolean = false
+    abstract label: string
     abstract source: ts.Node | null
     readonly modifier: ModifierManager = new ModifierManager
 
@@ -25,6 +26,7 @@ export default abstract class Structure extends Name implements Node {
 }
 
 export class Class extends Structure {
+    label: string = 'Class'
     isClass: boolean = true
     source: ts.ClassDeclaration | null = null
     private base: Heritage | null = null
@@ -95,6 +97,7 @@ export class Class extends Structure {
 }
 
 export class Enum extends Structure {
+    label: string = 'Enum'
     isEnum: boolean = true
     source: ts.EnumDeclaration | null = null
     readonly MemberManager: NameManager<EnumMember> = new NameManager<EnumMember>()
@@ -159,6 +162,7 @@ export class Enum extends Structure {
 }
 
 export class Interface extends Structure {
+    label: string = 'Interface'
     isInterface: boolean = true
     source: ts.InterfaceDeclaration | null = null
     readonly MemberManager: InterfaceMemberManager = new InterfaceMemberManager
