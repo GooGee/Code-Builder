@@ -134,7 +134,11 @@ export default class Project {
     }
 
     getTypeSignatureList(node: TypeName) {
-        let ttt = this.getType(node)
+        let ttt = this.getType(node) as any
+        // basic type
+        if (ttt.intrinsicName) {
+            return []
+        }
         let sss = this.checker.getTypeOfSymbolAtLocation(ttt.symbol, node.source!)
         return sss.getConstructSignatures()
     }
