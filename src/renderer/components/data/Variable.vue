@@ -77,8 +77,8 @@
 
                 menu.addSeparator()
 
-                menu.add('null', label => {
-                    this.variable.setValue(label)
+                menu.add('Add value', label => {
+                    this.variable.setValue('null')
                     builder.module.save()
                 })
 
