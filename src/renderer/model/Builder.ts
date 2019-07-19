@@ -1,13 +1,13 @@
 import * as fs from 'fs'
 import Project, { ProjectPath } from './Project'
 import Module from './data/Module'
-import Type from './data/Type'
+import Structure from './data/Structure'
 import { Statement } from './code/Statement'
 
 export class Builder {
     project: Project | null = null
     module: Module | null = null
-    type: Type | null = null
+    type: Structure | null = null
     statement: Statement | null = null
 
     get projectList() {
@@ -26,7 +26,7 @@ export class Builder {
         return this.project = Project.load(name)
     }
 
-    show(module: Module, type: Type) {
+    show(module: Module, type: Structure) {
         this.module = module
         this.type = type
         this.type.open()

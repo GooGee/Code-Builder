@@ -12,7 +12,7 @@ const mmm = new Module(sf)
 test(`load`, () => {
     mmm.load()
     expect(mmm.ImportManager.list.length).toEqual(1)
-    expect(mmm.TypeManager.list.length).toEqual(1)
+    expect(mmm.StructureManager.list.length).toEqual(1)
 })
 
 test(`toNodeArray`, () => {

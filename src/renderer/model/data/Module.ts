@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import * as fs from 'fs'
 import * as path from 'path'
 import Name from './Name'
-import TypeManager from './TypeManager'
+import StructureManager from './StructureManager'
 import ImportManager from './ImportManager'
 import { Change } from '../Item'
 import { Event } from '../Event'
@@ -14,7 +14,7 @@ export class ModuleChange extends Change<Module> {
 }
 
 export default class Module extends Name {
-    readonly TypeManager: TypeManager = new TypeManager
+    readonly StructureManager: StructureManager = new StructureManager
     readonly ImportManager: ImportManager = new ImportManager(this)
     sf: ts.SourceFile
     static TypeKindList: ts.SyntaxKind[] = [
@@ -40,15 +40,15 @@ export default class Module extends Name {
     private loadStatement(statement: ts.Statement) {
         switch (statement.kind) {
             case ts.SyntaxKind.ClassDeclaration:
-                this.TypeManager.loadClass(statement as ts.ClassDeclaration)
+                this.StructureManager.loadClass(statement as ts.ClassDeclaration)
                 break
 
             case ts.SyntaxKind.EnumDeclaration:
-                this.TypeManager.loadEnum(statement as ts.EnumDeclaration)
+                this.StructureManager.loadEnum(statement as ts.EnumDeclaration)
                 break
 
             case ts.SyntaxKind.InterfaceDeclaration:
-                this.TypeManager.loadInterface(statement as ts.InterfaceDeclaration)
+                this.StructureManager.loadInterface(statement as ts.InterfaceDeclaration)
                 break
 
             case ts.SyntaxKind.ImportDeclaration:
@@ -83,13 +83,13 @@ export default class Module extends Name {
         })
 
         typeList.forEach(item => {
-            this.TypeManager.update(item)
+            this.StructureManager.update(item)
         })
     }
 
     toNodeArray() {
         let ImportList = this.ImportManager.toNodeArray()
-        let TypeList = this.TypeManager.toNodeArray()
+        let TypeList = this.StructureManager.toNodeArray()
         return ImportList.concat(TypeList)
     }
 

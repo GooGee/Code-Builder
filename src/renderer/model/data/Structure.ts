@@ -9,7 +9,7 @@ import HeritageManager from './HeritageManager'
 import Node from '../Node'
 import GenericManager from './GenericManager'
 
-export default abstract class Type extends Name implements Node {
+export default abstract class Structure extends Name implements Node {
     isClass: boolean = false
     isEnum: boolean = false
     isInterface: boolean = false
@@ -24,7 +24,7 @@ export default abstract class Type extends Name implements Node {
     abstract toNode(): ts.Statement
 }
 
-export class Class extends Type {
+export class Class extends Structure {
     isClass: boolean = true
     source: ts.ClassDeclaration | null = null
     private base: Heritage | null = null
@@ -94,7 +94,7 @@ export class Class extends Type {
 
 }
 
-export class Enum extends Type {
+export class Enum extends Structure {
     isEnum: boolean = true
     source: ts.EnumDeclaration | null = null
     readonly MemberManager: NameManager<EnumMember> = new NameManager<EnumMember>()
@@ -158,7 +158,7 @@ export class Enum extends Type {
     }
 }
 
-export class Interface extends Type {
+export class Interface extends Structure {
     isInterface: boolean = true
     source: ts.InterfaceDeclaration | null = null
     readonly MemberManager: InterfaceMemberManager = new InterfaceMemberManager

@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { Interface } from '@/model/data/Type'
+import { Interface } from '@/model/data/Structure'
 
 let type = null
 

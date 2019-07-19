@@ -127,7 +127,7 @@ export default class Project {
     }
 
     getTypeList(node: Module) {
-        let list: any[] = node.TypeManager.list
+        let list: any[] = node.StructureManager.list
         return list.concat(ESTypeList)
         // too many useless Types
         return this.checker.getSymbolsInScope(node.source!, ts.SymbolFlags.Type)

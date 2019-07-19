@@ -5,20 +5,20 @@
             <span class="syntax">{{cmodule.name}}</span>
             <span @click="add" class="button"> + </span>
         </div>
-        <TypeList :cmodule="cmodule"></TypeList>
+        <StructureList :cmodule="cmodule"></StructureList>
     </div>
 </template>
 
 <script>
     import { enter } from '@/model/ui/Dialogue'
     import Menu from '@/model/ui/Menu'
-    import TypeList from './TypeList'
+    import StructureList from './StructureList'
 
     const BasicStructureList = ['class', 'enum', 'interface']
 
     export default {
         name: 'Module',
-        components: { TypeList },
+        components: { StructureList },
         props: ['cmodule'],
         data() {
             return {
@@ -35,7 +35,7 @@
             make(kind) {
                 enter('Please enter the name').then(result => {
                     if (result.value) {
-                        let manager = this.cmodule.TypeManager
+                        let manager = this.cmodule.StructureManager
                         if (kind === 'class') {
                             let member = manager.makeClass(result.value)
                             manager.add(member)

@@ -1,6 +1,6 @@
-import TypeManager from '@/model/data/TypeManager'
+import StructureManager from '@/model/data/StructureManager'
 
-const manager = new TypeManager
+const manager = new StructureManager
 
 test(`makeClass`, () => {
     const name = 'Animal'

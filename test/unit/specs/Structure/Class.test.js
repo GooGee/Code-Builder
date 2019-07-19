@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { Class } from '@/model/data/Type'
+import { Class } from '@/model/data/Structure'
 
 let type = null
 

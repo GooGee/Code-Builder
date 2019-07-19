@@ -1,8 +1,8 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
-import Type, { Class, Enum, Interface } from './Type'
+import Structure, { Class, Enum, Interface } from './Structure'
 
-export default class TypeManager extends NameManager<Type> {
+export default class StructureManager extends NameManager<Structure> {
 
     loadClass(node: ts.ClassDeclaration) {
         let ccc = Class.load(node)

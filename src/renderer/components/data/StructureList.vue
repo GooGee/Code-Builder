@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="ctype in cmodule.TypeManager.list" :key="ctype.name" class="type-list">
+        <div v-for="ctype in cmodule.StructureManager.list" :key="ctype.name" class="type-list">
             <span @click="remove(ctype)" class="button"> - </span>
             <span v-if="ctype.isClass" class="syntax">Class</span>
             <span v-if="ctype.isEnum" class="syntax">Enum</span>
@@ -15,7 +15,7 @@
     import { sure } from '@/model/ui/Dialogue'
 
     export default {
-        name: 'TypeList',
+        name: 'StructureList',
         props: ['cmodule'],
         data() {
             return {
@@ -28,7 +28,7 @@
             remove(ctype) {
                 sure('Are you sure?').then(result => {
                     if (result.value) {
-                        this.cmodule.TypeManager.remove(ctype)
+                        this.cmodule.StructureManager.remove(ctype)
                         this.cmodule.save()
                     }
                 })

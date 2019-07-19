@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { Enum } from '@/model/data/Type'
+import { Enum } from '@/model/data/Structure'
 
 let type = null
 
