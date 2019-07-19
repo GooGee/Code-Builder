@@ -40,7 +40,7 @@
 
 <script>
     import builder from '@/model/builder'
-    import { enter, look } from '@/model/ui/Dialogue'
+    import { enter, look, sure } from '@/model/ui/Dialogue'
     import Menu from '@/model/ui/Menu'
     import Box from '../code/Box'
     import Modifier from './Modifier'
@@ -71,8 +71,12 @@
                 let menu = new Menu()
 
                 menu.add('Remove value', label => {
-                    this.variable.clearValue()
-                    builder.module.save()
+                    sure('Are you sure?').then(result => {
+                        if (result.value) {
+                            this.variable.clearValue()
+                            builder.module.save()
+                        }
+                    })
                 })
 
                 menu.addSeparator()
