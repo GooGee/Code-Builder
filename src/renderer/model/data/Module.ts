@@ -15,7 +15,7 @@ export class ModuleChange extends Change<Module> {
 
 export default class Module extends Name {
     readonly TypeManager: TypeManager = new TypeManager
-    readonly ImportManager: ImportManager = new ImportManager
+    readonly ImportManager: ImportManager = new ImportManager(this)
     sf: ts.SourceFile
     static TypeKindList: ts.SyntaxKind[] = [
         ts.SyntaxKind.ClassDeclaration,

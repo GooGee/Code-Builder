@@ -1,6 +1,10 @@
+import * as ts from 'typescript'
 import ImportManager from '@/model/data/ImportManager'
+import Module from '@/model/data/Module'
 
-const manager = new ImportManager
+const sf = ts.createSourceFile('Test.ts', '', ts.ScriptTarget.ES5)
+const module = new Module(sf)
+const manager = new ImportManager(module)
 
 const path = './App'
 const iii = manager.make(path)

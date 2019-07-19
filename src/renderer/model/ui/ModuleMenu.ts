@@ -1,4 +1,3 @@
-import * as path from 'path'
 import Menu, { CallBack } from "./Menu"
 import { Builder } from "../Builder"
 
@@ -25,12 +24,7 @@ export default class ModuleMenu {
             if (this.module.path == mmm.path) {
                 return
             }
-            menu.add(mmm.name, label => {
-                // not working
-                const folder = path.dirname(this.module.path)
-                const relativePath = path.relative(folder, mmm.path)
-                CallBack(relativePath)
-            })
+            menu.add(mmm.name, label => CallBack(mmm.path))
         })
 
         menu.addSeparator()
