@@ -28,9 +28,9 @@
             <Expression :expression="expression.operand" :chain="chain" :editing="editing"></Expression>
         </template>
 
-        <template v-if="expression.isKeyword">
+        <template v-if="expression.isKeyword || expression.isLiteral">
             <span v-if="editing" @click="change" class="btn btn-default">{{expression.value}}</span>
-            <span v-else>{{expression.value}}</span>
+            <span v-else>{{expression.text}}</span>
         </template>
     </span>
 </template>

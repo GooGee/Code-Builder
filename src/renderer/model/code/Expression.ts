@@ -11,14 +11,12 @@ export abstract class Expression implements Node {
     readonly isCompute: boolean = false
     readonly isIdentifier: boolean = false
     readonly isKeyword: boolean = false
+    readonly isLiteral: boolean = false
     readonly isNew: boolean = false
     readonly isNot: boolean = false
     value: string = ''
+    abstract text: string
     abstract source: ts.Node | null
-
-    get text(): string {
-        return this.value
-    }
 
     static load(node: ts.Expression): Expression {
         if (node.kind == ts.SyntaxKind.Identifier) {
@@ -81,6 +79,10 @@ export abstract class Keyword extends Expression {
     constructor(source: ts.Node | null = null) {
         super()
         this.source = source
+    }
+
+    get text(): string {
+        return this.value
     }
 
     update(node: ts.Expression) {
@@ -241,8 +243,15 @@ export class NewExpression extends ExpressionWithArgument {
     }
 }
 
-export class NumericLiteral extends Expression {
-    readonly isKeyword: boolean = true
+export abstract class Literal extends Expression {
+    readonly isLiteral: boolean = true
+
+    get text(): string {
+        return this.value
+    }
+}
+
+export class NumericLiteral extends Literal {
     source: ts.NumericLiteral | null = null
 
     constructor(value: string) {
@@ -276,6 +285,10 @@ export class PrefixUnaryExpression extends Expression {
         super()
         this.operator = operator
         this.operand = operand
+    }
+
+    get text(): string {
+        return this.operand.text
     }
 
     static load(node: ts.PrefixUnaryExpression) {
@@ -335,8 +348,7 @@ export class PropertyAccessExpression extends Expression {
     }
 }
 
-export class StringLiteral extends Expression {
-    readonly isKeyword: boolean = true
+export class StringLiteral extends Literal {
     value: string
     source: ts.StringLiteral | null = null
 
