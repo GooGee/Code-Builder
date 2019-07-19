@@ -42,7 +42,12 @@ export class Class extends Type {
         }
     }
 
+    clearExtendList() {
+        this.HeritageManager.extendList.forEach(heritage => this.HeritageManager.remove(heritage))
+    }
+
     extend(list: string[]) {
+        this.clearExtendList()
         this.base = this.HeritageManager.make(list, false)
         this.HeritageManager.add(this.base)
     }
