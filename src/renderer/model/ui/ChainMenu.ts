@@ -58,7 +58,9 @@ export default class ChainMenu {
     changeRoot() {
         let menu = new Menu()
 
-        menu.addMenu('Constant', this.makeConstantMenu())
+        if (this.chain.canBeConstant) {
+            menu.addMenu('Constant', this.makeConstantMenu())
+        }
         menu.addMenu('Module', this.makeModuleMenu())
         menu.addMenu('Type', this.makeTypeMenu())
         menu.addMenu('Variable', this.makeVariableMenu())

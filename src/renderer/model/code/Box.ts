@@ -29,11 +29,12 @@ export default abstract class Box {
 export class ChainBox extends Box {
     isChain: boolean = true
     readonly canBeConstant: boolean
-    chain: Chain = new Chain
+    readonly chain: Chain
 
     constructor(canBeConstant: boolean = true) {
         super()
         this.canBeConstant = canBeConstant
+        this.chain = new Chain(canBeConstant)
     }
 
     get text(): string {
