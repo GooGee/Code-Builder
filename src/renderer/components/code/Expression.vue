@@ -25,7 +25,7 @@
 
         <template v-if="expression.isNot">
             <span class="syntax">Not</span>
-            <Expression :expression="owner" :chain="chain" :editing="editing"></Expression>
+            <Expression :expression="expression.operand" :chain="chain" :editing="editing"></Expression>
         </template>
 
         <template v-if="expression.isKeyword">

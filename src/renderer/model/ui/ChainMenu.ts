@@ -22,9 +22,14 @@ export default class ChainMenu {
     }
 
     access() {
-        let menu = new Menu()
+        const menu = new Menu()
 
         const owner = this.chain.root
+
+        menu.add('Not', label => {
+            this.chain.not()
+            this.module.save()
+        })
 
         this.addArgument(owner, menu)
 
