@@ -19,10 +19,11 @@ export default class TypeMenu {
     }
 
     show(CallBack: CallBack) {
-        let menu = new Menu()
+        const menu = new Menu()
 
         if (this.kind != 'Type') {
-            menu.addMenu('Basic', this.makeBasicMenu(CallBack))
+            this.addBasicMenu(CallBack, menu)
+            menu.addSeparator()
         }
 
         menu.add('Module', label => CallBack('$Module'))
@@ -32,9 +33,8 @@ export default class TypeMenu {
         menu.show()
     }
 
-    makeBasicMenu(CallBack: CallBack) {
-        let menu = new Menu()
-        let list = [
+    addBasicMenu(CallBack: CallBack, menu: Menu) {
+        const list = [
             { name: 'boolean' },
             { name: 'number' },
             { name: 'string' },
@@ -46,7 +46,6 @@ export default class TypeMenu {
         list.forEach(type => {
             menu.add(type.name, label => CallBack(label))
         })
-        return menu
     }
 
     makeTypeMenu(CallBack: CallBack) {
