@@ -131,6 +131,7 @@ export default class ChainMenu {
         menu.add('null', label => this.input('null'))
         menu.add('false', label => this.input('false'))
         menu.add('true', label => this.input('true'))
+        menu.add('NaN', label => this.input('NaN'))
         menu.addSeparator()
 
         menu.add('-1', label => this.inputNumber(-1))

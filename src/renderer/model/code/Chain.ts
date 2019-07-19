@@ -31,6 +31,11 @@ export default class Chain {
             return
         }
 
+        if (text == 'NaN') {
+            this.root = new Expression.Identifier(text)
+            return
+        }
+
         if (text == 'false') {
             this.root = new Expression.FalseKeyword
             return
