@@ -204,6 +204,7 @@ export class ReferenceType extends TypeNode {
     static load(node: ts.TypeReferenceNode) {
         const type = TypeName.load(node.typeName)
         const rt = new ReferenceType(type)
+        rt.source = node
         rt.updateArgument(node)
         return rt
     }
