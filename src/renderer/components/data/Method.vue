@@ -11,14 +11,14 @@
         </div>
 
         <template v-else>
-            <span v-if="member.hasBlock" @click="visible=!visible" class="button"> * </span>
-
             <span @click="editing=true">
                 <span class="syntax">Method</span>
                 <Variable :variable="member" :editing="false">
                     <span slot="parameter">( {{member.ParameterManager.text}} )</span>
                 </Variable>
             </span>
+
+            <span v-if="member.hasBlock" @click="visible=!visible" class="button"> * </span>
         </template>
 
         <Block v-if="visible && member.hasBlock" :block="member.block"></Block>

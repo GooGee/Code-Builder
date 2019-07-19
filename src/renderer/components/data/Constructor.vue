@@ -10,11 +10,12 @@
         </div>
 
         <template v-else>
-            <span @click="visible=!visible" class="button"> * </span>
             <span @click="editing=true">
                 <span class="syntax">constructor</span>
                 <span>( {{member.ParameterManager.text}} )</span>
             </span>
+
+            <span @click="visible=!visible" class="button"> * </span>
         </template>
 
         <Block v-if="visible" :block="member.block"></Block>
