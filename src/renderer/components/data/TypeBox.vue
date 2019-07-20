@@ -1,6 +1,6 @@
 <template>
     <span>
-        <TypeNode :ctype="box.type" @setType="setType"></TypeNode>
+        <TypeNode :ctype="box.type" @setType="setType" :editing="editing"></TypeNode>
 
         <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
     </span>
@@ -14,7 +14,7 @@
     export default {
         name: 'TypeBox',
         components: { TypeNode, TypeMenu },
-        props: ['box', 'kind'],
+        props: ['box', 'kind', 'editing'],
         data() {
             return {
                 tmData: null
