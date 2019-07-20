@@ -45,12 +45,14 @@ export default class Checker {
 
         const symbol = this.getSymbol(node)
         if (symbol) {
-            const declaration = symbol.valueDeclaration
-            if (ts.isClassDeclaration(declaration)) {
-                // user made generic type
-                const list = declaration.typeParameters
-                if (list) {
-                    return list
+            if (symbol.valueDeclaration) {
+                const declaration = symbol.valueDeclaration
+                if (ts.isClassDeclaration(declaration)) {
+                    // user made generic type
+                    const list = declaration.typeParameters
+                    if (list) {
+                        return list
+                    }
                 }
             }
 
