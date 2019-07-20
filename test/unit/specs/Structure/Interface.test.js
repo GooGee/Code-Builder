@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import { Interface } from '@/model/data/Structure'
 
-let type = null
+let iii = null
 
 test(`load`, () => {
     const name = 'Shape'
@@ -13,23 +13,16 @@ test(`load`, () => {
         [],
         []
     )
-    type = Interface.load(node)
-    expect(type.name).toEqual(name)
+    iii = Interface.load(node)
+    expect(iii.name).toEqual(name)
 })
 
 test(`toNode`, () => {
-    const node = type.toNode()
+    const node = iii.toNode()
     expect(node.kind).toEqual(ts.SyntaxKind.InterfaceDeclaration)
 })
 
 test(`open`, () => {
-    type.open()
-    expect(type.opened).toBeTruthy()
-})
-
-test(`extend`, () => {
-    const name = 'Shape'
-    type.extend([name])
-    const heritage = type.HeritageManager.list[0]
-    expect(heritage.name).toEqual(name)
+    iii.open()
+    expect(iii.opened).toBeTruthy()
 })

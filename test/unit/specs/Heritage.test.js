@@ -14,10 +14,10 @@ test(`load`, () => {
         [type]
     )
     heritage = Heritage.load(node)
-    expect(heritage.type.name).toEqual(name)
+    expect(heritage.TypeManager.list.length).toEqual(1)
 })
 
 test(`toNode`, () => {
     const node = heritage.toNode()
-    expect(node.expression.text).toEqual(name)
+    expect(node.token).toEqual(ts.SyntaxKind.ExtendsKeyword)
 })
