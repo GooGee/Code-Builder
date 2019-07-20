@@ -7,8 +7,10 @@
             <span class="syntax">{{ctype.label}}</span>
             <span @click="setName" class="button">{{ctype.name}}</span>
 
+            <GenericList :ctype="ctype"></GenericList>
+
             <HeritageList :ctype="ctype"></HeritageList>
-    
+
             <span @click="editing=false" class="btn btn-success ok">OK</span>
         </div>
 
@@ -16,6 +18,7 @@
             <span class="syntax">{{ctype.modifier.text}}</span>
             <span class="syntax">{{ctype.label}}</span>
             <span>{{ctype.name}}</span>
+            <span v-if="ctype.GenericManager.list.length">&lt; {{ctype.GenericManager.text}} &gt;</span>
 
             <template v-if="ctype.HeritageManager.list.length">
                 <span class="syntax">extends</span>
@@ -33,10 +36,11 @@
     import ImportList from './ImportList'
     import MemberList from './MemberList'
     import HeritageList from './HeritageList'
+    import GenericList from './GenericList'
 
     export default {
         name: 'Interface',
-        components: { Modifier, ImportList, MemberList, HeritageList },
+        components: { Modifier, ImportList, MemberList, HeritageList, GenericList },
         props: ['ctype', 'cmodule'],
         data() {
             return {
