@@ -20,7 +20,7 @@
                 <span class="syntax">&lt;</span>
                 <template v-for="(argument, index) in argumentList">
                     <span v-if="index > 0">, </span>
-                    <TypeBox :box="argument" :isProperty="true"></TypeBox>
+                    <TypeBox :box="argument" kind="Property"></TypeBox>
                 </template>
                 <span class="syntax">&gt;</span>
             </template>

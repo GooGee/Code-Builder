@@ -7,7 +7,7 @@
         <template v-if="member.isProperty">
             <div v-if="editing">
                 <span @click="$emit('remove', member)" class="button"> - </span>
-                <Variable :variable="member" :editing="true" isProperty="true"></Variable>
+                <Variable :variable="member" :editing="true" kind="Property"></Variable>
                 <span @click="editing=false" class="btn btn-success ok">OK</span>
             </div>
 
