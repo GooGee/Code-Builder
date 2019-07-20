@@ -8,19 +8,26 @@
 </template>
 
 <script>
+    import builder from '@/model/builder'
+    import { sure } from '@/model/ui/Dialogue'
     import TypeBox from './TypeBox'
 
     export default {
         name: 'TypeList',
         components: { TypeBox },
-        props: ['manager'],
+        props: ['manager', 'editing'],
         data() {
             return {
             }
         },
         methods: {
-            remove() {
-
+            remove(type) {
+                sure('Are you sure?').then(result => {
+                    if (result.value) {
+                        this.manager.remove(type)
+                        builder.module.save()
+                    }
+                })
             }
         }
     }

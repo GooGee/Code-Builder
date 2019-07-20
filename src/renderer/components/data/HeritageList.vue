@@ -2,12 +2,12 @@
     <div>
         <template v-if="manager.extendClause">
             <span @click="extend" class="button">Extend</span>
-            <TypeList :manager="manager.extendClause.TypeManager"></TypeList>
+            <TypeList :manager="manager.extendClause.TypeManager" :editing="editing"></TypeList>
         </template>
 
         <template v-if="manager.implementClause">
             <span @click="implement" class="button">Implement</span>
-            <TypeList :manager="manager.implementClause.TypeManager"></TypeList>
+            <TypeList :manager="manager.implementClause.TypeManager" :editing="editing"></TypeList>
         </template>
 
         <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
@@ -16,7 +16,6 @@
 
 <script>
     import builder from '@/model/builder'
-    import { sure } from '@/model/ui/Dialogue'
     import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
     import TypeList from './TypeList'
 
@@ -46,14 +45,6 @@
                 this.tmData.show(list => {
                     this.manager.implement(list)
                     builder.module.save()
-                })
-            },
-            remove(heritage) {
-                sure('Are you sure?').then(result => {
-                    if (result.value) {
-                        this.manager.remove(heritage)
-                        builder.module.save()
-                    }
                 })
             }
         }
