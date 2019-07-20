@@ -18,6 +18,24 @@ export abstract class Expression implements Node {
     abstract text: string
     abstract source: ts.Node | null
 
+    static from(list: Array<string>) {
+        if (list.length == 0) {
+            throw 'Error in making Expression'
+        }
+
+        let first = true
+        let eee: Expression
+        list.forEach(name => {
+            if (first) {
+                first = false
+                eee = new Identifier(name)
+            } else {
+                eee = new PropertyAccessExpression(eee, name)
+            }
+        })
+        return eee!
+    }
+
     static load(node: ts.Expression): Expression {
         if (node.kind == ts.SyntaxKind.Identifier) {
             return Identifier.load(node as ts.Identifier)
@@ -374,46 +392,5 @@ export class StringLiteral extends Literal {
     toNode() {
         let node = ts.createStringLiteral(this.value)
         return node
-    }
-}
-
-export class TypeExpression {
-    type: Identifier | PropertyAccessExpression
-
-    get name(): string {
-        return this.type.value
-    }
-
-    get text(): string {
-        return this.type.text
-    }
-
-    constructor(type: Identifier | PropertyAccessExpression) {
-        this.type = type
-    }
-
-    static from(list: string[]) {
-        let left: Identifier | PropertyAccessExpression = new Identifier(list[0])
-        for (let index = 1; index < list.length; index++) {
-            left = new PropertyAccessExpression(left, list[index])
-        }
-        return new TypeExpression(left)
-    }
-
-    static load(node: ts.ExpressionWithTypeArguments) {
-        let eee
-        if (node.expression.kind == ts.SyntaxKind.Identifier) {
-            eee = Identifier.load(node.expression as ts.Identifier)
-        } else {
-            eee = PropertyAccessExpression.load(node.expression as ts.PropertyAccessExpression)
-        }
-        return new TypeExpression(eee)
-    }
-
-    toNode() {
-        return ts.createExpressionWithTypeArguments(
-            undefined,
-            this.type.toNode()
-        )
     }
 }

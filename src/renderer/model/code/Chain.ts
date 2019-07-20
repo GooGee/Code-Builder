@@ -25,6 +25,10 @@ export default class Chain {
         eee.updateArgument(list)
     }
 
+    from(list: Array<string>) {
+        this.root = Expression.Expression.from(list)
+    }
+
     input(text: string) {
         if (text == 'null') {
             this.root = new Expression.NullKeyword
