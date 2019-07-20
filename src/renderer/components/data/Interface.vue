@@ -20,7 +20,7 @@
             <span>{{ctype.name}}</span>
             <span v-if="ctype.GenericManager.list.length">&lt; {{ctype.GenericManager.text}} &gt;</span>
 
-            <template v-if="ctype.HeritageManager.extendClause">
+            <template v-if="ctype.HeritageManager.extendList.length">
                 <span class="syntax">Extend</span>
                 <span>{{ctype.HeritageManager.extendText}}</span>
             </template>

@@ -26,6 +26,22 @@ export default class HeritageManager extends Manager<Heritage> {
         return ''
     }
 
+    get extendList() {
+        let clause = this.extendClause
+        if (clause) {
+            return clause.TypeManager.list
+        }
+        return []
+    }
+
+    get implementList() {
+        let clause = this.implementClause
+        if (clause) {
+            return clause.TypeManager.list
+        }
+        return []
+    }
+
     get extendClause() {
         const list = this.list.filter(item => item.isImplement == false)
         if (list.length) {
@@ -76,7 +92,11 @@ export default class HeritageManager extends Manager<Heritage> {
 
     toNodeArray() {
         const list: Array<ts.HeritageClause> = []
-        this.list.forEach(item => list.push(item.toNode()))
+        this.list.forEach(item => {
+            if (item.TypeManager.list.length) {
+                list.push(item.toNode())
+            }
+        })
         return list
     }
 }
