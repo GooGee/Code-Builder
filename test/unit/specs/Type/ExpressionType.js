@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { TypeExpression } from '@/model/code/Expression'
+import { ExpressionType } from '@/model/data/TypeNode'
 
 const name = 'Item'
 let expression = null
@@ -9,7 +9,7 @@ test(`load`, () => {
         [ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)],
         ts.createIdentifier(name)
     )
-    expression = TypeExpression.load(node)
+    expression = ExpressionType.load(node)
     expect(expression.name).toEqual(name)
 })
 
