@@ -2,7 +2,7 @@
     <div @click.stop="stop" class="row">
         <div class="col-xs-11 block">
             <div v-for="clause in block.ClauseManager.list" class="row">
-                <Case :block="block" :clause="clause"></Case>
+                <Case :block="block" :clause="clause" @choose="choose"></Case>
             </div>
             <div class="row">
                 <div class="col-xs-11">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import builder from '@/model/builder'
     import { sure } from '@/model/ui/Dialogue'
     import Menu from '@/model/ui/Menu'
     import Case from './Case'
@@ -44,6 +45,7 @@
                     sure('Are you sure?').then(result => {
                         if (result.value) {
                             this.block.ClauseManager.remove(clause)
+                            builder.module.save()
                         }
                     })
                 })
