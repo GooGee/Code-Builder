@@ -2,11 +2,10 @@
     <div>
         <template v-if="manager.extendClause">
             <span @click="extend" class="button">Extend</span>
-            <TypeList :manager="manager.implementClause.TypeManager"></TypeList>
+            <TypeList :manager="manager.extendClause.TypeManager"></TypeList>
         </template>
 
         <template v-if="manager.implementClause">
-            <br>
             <span @click="implement" class="button">Implement</span>
             <TypeList :manager="manager.implementClause.TypeManager"></TypeList>
         </template>
@@ -24,7 +23,7 @@
     export default {
         name: 'HeritageList',
         components: { TypeMenu, TypeList },
-        props: ['manager'],
+        props: ['manager', 'editing'],
         data() {
             return {
                 tmData: null

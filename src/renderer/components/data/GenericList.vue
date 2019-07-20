@@ -15,7 +15,7 @@
 
     export default {
         name: 'GenericList',
-        props: ['ctype'],
+        props: ['ctype', 'editing'],
         data() {
             return {
             }

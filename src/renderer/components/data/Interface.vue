@@ -7,9 +7,9 @@
             <span class="syntax">{{ctype.label}}</span>
             <span @click="setName" class="button">{{ctype.name}}</span>
 
-            <GenericList :ctype="ctype"></GenericList>
+            <GenericList :ctype="ctype" :editing="editing"></GenericList>
 
-            <HeritageList :manager="ctype.HeritageManager"></HeritageList>
+            <HeritageList :manager="ctype.HeritageManager" :editing="editing"></HeritageList>
 
             <span @click="editing=false" class="btn btn-success ok">OK</span>
         </div>
