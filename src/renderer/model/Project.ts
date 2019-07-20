@@ -18,7 +18,7 @@ export default class Project {
     }
     readonly ModuleManager: ModuleManager = new ModuleManager(this)
     private program: ts.Program | null = null
-    private host: ts.CompilerHost | null = null
+    private host: ts.CompilerHost
     private _checker: ts.TypeChecker | null = null
 
     get checker() {
@@ -32,6 +32,7 @@ export default class Project {
     constructor(name: string) {
         this.name = name
         this.makeFolder()
+        this.host = ts.createCompilerHost(this.option)
     }
 
     get projectPath(): string {
@@ -165,7 +166,7 @@ export default class Project {
         this.program = ts.createProgram(
             this.fileList,
             this.option,
-            this.host!,
+            this.host,
             this.program!
         )
         this.checker = this.program.getTypeChecker()
@@ -185,7 +186,6 @@ export default class Project {
 
     private loadModule() {
         let list: string[] = this.fileList
-        this.host = ts.createCompilerHost(this.option)
         this.program = ts.createProgram(list, this.option, this.host)
         this.checker = this.program.getTypeChecker()
         // this.program.getSourceFiles().forEach(sf => {
