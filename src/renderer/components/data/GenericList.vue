@@ -14,7 +14,7 @@
     import { enter, look, sure } from '@/model/ui/Dialogue'
 
     export default {
-        name: 'Generic',
+        name: 'GenericList',
         props: ['ctype'],
         data() {
             return {

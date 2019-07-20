@@ -8,7 +8,7 @@
             <span class="syntax">{{ctype.label}}</span>
             <span @click="setName" class="btn btn-default">{{ctype.name}}</span>
 
-            <Generic :ctype="ctype"></Generic>
+            <GenericList :ctype="ctype"></GenericList>
 
             <HeritageList :ctype="ctype"></HeritageList>
     
@@ -42,11 +42,11 @@
     import ImportList from './ImportList'
     import MemberList from './MemberList'
     import HeritageList from './HeritageList'
-    import Generic from './Generic'
+    import GenericList from './GenericList'
 
     export default {
         name: 'Class',
-        components: { Modifier, ImportList, MemberList, HeritageList, Generic },
+        components: { Modifier, ImportList, MemberList, HeritageList, GenericList },
         props: ['ctype', 'cmodule'],
         data() {
             return {
