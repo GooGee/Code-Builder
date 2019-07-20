@@ -32,7 +32,7 @@ export class Class extends Structure {
     private base: Heritage | null = null
     readonly MemberManager: ClassMemberManager = new ClassMemberManager
     readonly HeritageManager: HeritageManager = new HeritageManager(true)
-    readonly GenericManager = new GenericManager()
+    readonly GenericManager: GenericManager = new GenericManager()
 
     open() {
         if (!this.opened && this.source) {
@@ -167,12 +167,14 @@ export class Interface extends Structure {
     source: ts.InterfaceDeclaration | null = null
     readonly MemberManager: InterfaceMemberManager = new InterfaceMemberManager
     readonly HeritageManager: HeritageManager = new HeritageManager(false)
+    readonly GenericManager: GenericManager = new GenericManager()
 
     open() {
         if (!this.opened && this.source) {
             this.modifier.load(this.source.modifiers)
             this.HeritageManager.load(this.source.heritageClauses)
             this.MemberManager.load(this.source.members)
+            this.GenericManager.load(this.source.typeParameters)
             this.opened = true
         }
     }
@@ -193,6 +195,7 @@ export class Interface extends Structure {
         if (this.opened) {
             this.HeritageManager.update(this.source.heritageClauses)
             this.MemberManager.update(this.source.members)
+            this.GenericManager.update(this.source.typeParameters)
         }
     }
 
@@ -209,7 +212,7 @@ export class Interface extends Structure {
             undefined,
             this.modifier.toNodeArray(),
             this.name,
-            undefined,
+            this.GenericManager.toNodeArray(),
             this.HeritageManager.toNodeArray(),
             this.MemberManager.toNodeArray()
         )
