@@ -1,10 +1,11 @@
 <template>
     <div>
-        <span @click="$emit('remove', cimport)" class="button"> - </span>
+        <span v-if="editing" @click="$emit('remove', cimport)" class="button"> - </span>
         <span class="syntax">import</span>
         <span class="name">*</span>
         <span class="syntax">as</span>
-        <span @click="alias" class="button">{{cimport.name}}</span>
+        <span v-if="editing" @click="alias" class="button">{{cimport.name}}</span>
+        <span v-else>{{cimport.name}}</span>
         <span class="syntax">from</span>
         <span>'{{cimport.path}}'</span>
     </div>
@@ -15,7 +16,7 @@
 
     export default {
         name: 'Import',
-        props: ['cimport'],
+        props: ['cimport', 'editing'],
         data() {
             return {
             }

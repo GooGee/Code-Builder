@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="cimport in cmodule.ImportManager.list" :key="cimport.name">
-            <Import :cimport="cimport" @remove="remove"></Import>
+            <Import :cimport="cimport" @remove="remove" :editing="editing"></Import>
         </div>
         <span v-if="editing" @click="add" class="button">+ Import</span>
     </div>
