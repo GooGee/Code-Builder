@@ -29,7 +29,7 @@ export default class ModuleMenu {
 
         menu.addSeparator()
 
-        const aml = this.project.AmbientModuleList
+        const aml = this.project.checker.getAmbientModuleList()
         aml.forEach(mmm => {
             const name = mmm.name.slice(1, -1) // trim quote
             menu.add(name, label => CallBack(label))

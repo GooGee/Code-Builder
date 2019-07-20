@@ -51,7 +51,7 @@
             access() {
                 let menu = new Menu()
 
-                let GenericList = builder.project.getGenericList(this.ctype.type)
+                let GenericList = builder.project.checker.getGenericList(this.ctype.type.source)
                 if (GenericList.length) {
                     menu.add('+ Generic', label => {
                         this.ctype.addGeneric(GenericList.length)

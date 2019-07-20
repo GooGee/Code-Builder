@@ -39,15 +39,12 @@
         }
 
         aliasNode(item) {
-            const node = {
-                source: item.clause.source.namedBindings.name
-            }
-            return node
+            return item.clause.source.namedBindings.name
         }
 
         selectModule(item) {
             this.list.push(item.name)
-            const list = builder.project.getExportList(this.aliasNode(item))
+            const list = builder.project.checker.getExportList(this.aliasNode(item))
             this.lData = new ListData(list,
                 'name',
                 null,

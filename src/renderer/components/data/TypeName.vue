@@ -29,7 +29,7 @@
             setType() {
                 const menu = new Menu()
 
-                const list = builder.project.getExportList(this.name.left, builder)
+                const list = builder.project.checker.getExportList(this.name.left.source, builder)
                 list.forEach(exported => {
                     menu.add(exported.name, label => {
                         this.name.access(label)

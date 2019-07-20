@@ -74,7 +74,7 @@ export default class ChainMenu {
     }
 
     addArgument(owner: Expression, menu: Menu) {
-        let list = this.project.getCallSignatureList(owner)
+        let list = this.project.checker.getCallSignatureList(owner.source!)
         list.forEach(signature => {
             const list: string[] = []
             signature.parameters.forEach(parameter => list.push(parameter.name))
@@ -87,7 +87,7 @@ export default class ChainMenu {
     }
 
     addProperty(owner: Expression, menu: Menu) {
-        let list = this.project.getPropertyList(owner)
+        let list = this.project.checker.getPropertyList(owner.source!)
         list.forEach(property => {
             menu.add(property.name, label => {
                 this.chain.access(label, owner)
@@ -165,7 +165,7 @@ export default class ChainMenu {
 
     makeTypeMenu() {
         let menu = new Menu()
-        let list = this.project.getTypeList(this.module)
+        let list = this.project.checker.getTypeList(this.module)
         list.forEach(type => {
             menu.add(type.name, label => this.start(label))
         })
@@ -178,7 +178,7 @@ export default class ChainMenu {
         menu.add('this', label => this.input('this'))
 
         if (this.builder.statement) {
-            let list = this.project.getVariableList(this.builder.statement)
+            let list = this.project.checker.getVariableList(this.builder.statement.source!)
             // filter list, too many useless items
             let index = list.findIndex(item => item.name == 'NaN')
             list.splice(index)

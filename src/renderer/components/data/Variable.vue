@@ -86,7 +86,7 @@
                     builder.module.save()
                 })
 
-                let list = builder.project.getTypeSignatureList(this.variable.type.type)
+                let list = builder.project.checker.getTypeSignatureList(this.variable.type.type.source)
 
                 if (list.length) {
                     menu.addSeparator()

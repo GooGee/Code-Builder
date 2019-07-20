@@ -1,9 +1,7 @@
 import * as ts from 'typescript'
 import * as fs from 'fs'
 import ModuleManager from './data/ModuleManager'
-import Node from './Node'
-import { TypeName } from './data/TypeNode'
-import Module from './data/Module'
+import Checker from './Checker'
 
 export const ProjectPath = 'project'
 
@@ -19,14 +17,10 @@ export default class Project {
     readonly ModuleManager: ModuleManager = new ModuleManager(this)
     private program: ts.Program | null = null
     private host: ts.CompilerHost
-    private _checker: ts.TypeChecker | null = null
+    private _checker: Checker | null = null
 
     get checker() {
         return this._checker!
-    }
-
-    set checker(checker: ts.TypeChecker) {
-        this._checker = checker
     }
 
     constructor(name: string) {
@@ -53,101 +47,6 @@ export default class Project {
         return list
     }
 
-    get AmbientModuleList() {
-        return this.checker.getAmbientModules()
-    }
-
-    /**
-     * get export members of module
-     * @param type 
-     */
-    getExportList(type: TypeName) {
-        const symbol = this.getSymbol(type)
-        if (symbol) {
-            const ms = this.checker.getAliasedSymbol(symbol)
-            return this.checker.getExportsOfModule(ms)
-        }
-        return []
-    }
-
-    getCallSignatureList(node: Node) {
-        let ttt = this.getType(node)
-        return ttt.getCallSignatures()
-    }
-
-    /**
-     * get generic types of type
-     * @param node 
-     */
-    getGenericList(node: TypeName) {
-        let type = this.getType(node) as any
-        // basic type
-        if (type.intrinsicName) {
-            return []
-        }
-
-        let symbol = this.getSymbol(node)
-        if (symbol) {
-            let declaration = symbol.valueDeclaration
-            if (ts.isClassDeclaration(declaration)) {
-                // user made generic type
-                let list = declaration.typeParameters
-                if (list) {
-                    return list
-                }
-            }
-
-            let sss = symbol as any
-            if (sss.declaredType) {
-                // Array
-                let dt = sss.declaredType
-                if (dt.typeParameters) {
-                    return dt.typeParameters
-                }
-            }
-        }
-
-        // Map Set
-        if (type.typeParameters) {
-            return type.typeParameters as ReadonlyArray<ts.TypeParameter>
-        }
-        return []
-    }
-
-    getPropertyList(node: Node) {
-        let type = this.getType(node)
-        return type.getProperties()
-    }
-
-    getSymbol(node: Node) {
-        return this.checker.getSymbolAtLocation(node.source!)
-    }
-
-    getType(node: Node) {
-        return this.checker.getTypeAtLocation(node.source!)
-    }
-
-    getTypeList(node: Module) {
-        let list: any[] = node.StructureManager.list
-        return list.concat(ESTypeList)
-        // too many useless Types
-        return this.checker.getSymbolsInScope(node.source!, ts.SymbolFlags.Type)
-    }
-
-    getTypeSignatureList(node: TypeName) {
-        let ttt = this.getType(node) as any
-        // basic type
-        if (ttt.intrinsicName) {
-            return []
-        }
-        let sss = this.checker.getTypeOfSymbolAtLocation(ttt.symbol, node.source!)
-        return sss.getConstructSignatures()
-    }
-
-    getVariableList(node: Node) {
-        return this.checker.getSymbolsInScope(node.source!, ts.SymbolFlags.Variable)
-    }
-
     find(file: string) {
         let sf = this.program!.getSourceFile(file)
         return sf
@@ -169,7 +68,7 @@ export default class Project {
             this.host,
             this.program!
         )
-        this.checker = this.program.getTypeChecker()
+        this._checker = new Checker(this.program)
 
         let list: string[] = this.fileList
         list.forEach(file => {
@@ -187,10 +86,7 @@ export default class Project {
     private loadModule() {
         let list: string[] = this.fileList
         this.program = ts.createProgram(list, this.option, this.host)
-        this.checker = this.program.getTypeChecker()
-        // this.program.getSourceFiles().forEach(sf => {
-        //     console.log(sf.fileName)
-        // })
+        this._checker = new Checker(this.program)
         list.forEach(file => {
             let sf = this.program!.getSourceFile(file)
             if (!sf) {
@@ -201,42 +97,9 @@ export default class Project {
     }
 
     static load(name: string) {
-        // let data = JSON.parse(fs.readFileSync(path, 'utf8'))
-        let project = new Project(name)
+        const project = new Project(name)
         project.loadModule()
         return project
     }
 
 }
-
-const TypeList = [
-    'Array',
-    'Boolean',
-    'Console',
-    'Date',
-    'Function',
-    'Generator',
-    'Iterable',
-    'Iterator',
-    'JSON',
-    'Map',
-    'Math',
-    'Number',
-    'Object',
-    'Set',
-    'String',
-    'Symbol'
-]
-
-class ESType {
-    name: string
-
-    constructor(name: string) {
-        this.name = name
-    }
-}
-
-const ESTypeList: ESType[] = []
-TypeList.forEach(name => {
-    ESTypeList.push(new ESType(name))
-})
