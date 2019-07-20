@@ -18,6 +18,12 @@ export default class TypeBox implements Node {
         this.type = TypeNode.from(list)
     }
 
+    static makeExpressionType(list: Array<string>) {
+        const eee = TypeNode.makeExpressionType(list)
+        const box = new TypeBox(eee)
+        return box
+    }
+
     static from(list: string[]) {
         const type = TypeNode.from(list)
         const box = new TypeBox(type)

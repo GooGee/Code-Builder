@@ -5,6 +5,10 @@
             <TypeBox :box="ctype.type"></TypeBox>
         </template>
 
+        <template v-if="ctype.isExpression">
+            <Chain :chain="ctype.chain" :editing="editing"></Chain>
+        </template>
+
         <template v-if="ctype.isKeyWord">
             <span class="btn btn-default" @click="$emit('setType')">{{ctype.name}}</span>
         </template>
@@ -30,14 +34,15 @@
     import builder from '@/model/builder'
     import Menu from '@/model/ui/Menu'
     import TypeName from './TypeName'
+    import Chain from '../code/Chain'
 
     export default {
         name: 'TypeNode',
         beforeCreate() {
             this.$options.components.TypeBox = require('./TypeBox').default
         },
-        components: { TypeName },
-        props: ['ctype'],
+        components: { Chain, TypeName },
+        props: ['ctype', 'editing'],
         data() {
             return {
             }

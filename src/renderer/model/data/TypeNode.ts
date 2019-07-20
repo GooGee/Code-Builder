@@ -3,9 +3,13 @@ import Manager from '../Manager'
 import Project from '../Project'
 import Node from '../Node'
 import TypeBox from './TypeBox'
+import TypeManager from './TypeManager'
+import { Expression } from '../code/Expression'
+import Chain from '../code/Chain';
 
 export default abstract class TypeNode implements Node {
     isArray = false
+    isExpression = false
     isKeyWord = false
     isReference = false
     isUnion = false
@@ -36,17 +40,27 @@ export default abstract class TypeNode implements Node {
         return new ReferenceType(new Identifier(name))
     }
 
+    static makeExpressionType(list: Array<string>) {
+        const type = new ExpressionType
+        type.chain.from(list)
+        return type
+    }
+
     static load(node?: ts.TypeNode): TypeNode {
         if (!node) {
             return new KeyWordType(ts.SyntaxKind.AnyKeyword)
         }
 
-        if (ts.isTypeReferenceNode(node)) {
-            return ReferenceType.load(node)
-        }
-
         if (ts.isArrayTypeNode(node)) {
             return ArrayType.load(node)
+        }
+
+        if (ts.isExpressionWithTypeArguments(node)) {
+            return ExpressionType.load(node)
+        }
+
+        if (ts.isTypeReferenceNode(node)) {
+            return ReferenceType.load(node)
         }
 
         if (ts.isUnionTypeNode(node)) {
@@ -96,6 +110,38 @@ export class ArrayType extends TypeNode {
             this.elementType.toNode()
         )
         return node
+    }
+}
+
+export class ExpressionType extends TypeNode {
+    isExpression = true
+    chain: Chain = new Chain
+    readonly TypeManager: TypeManager = new TypeManager
+    source: ts.ExpressionWithTypeArguments | null = null
+
+    get text(): string {
+        return this.chain.text
+    }
+
+    static load(node: ts.ExpressionWithTypeArguments) {
+        const te = new ExpressionType
+        te.source = node
+        te.chain.load(node.expression)
+        te.TypeManager.load(node.typeArguments)
+        return te
+    }
+
+    update(node: ts.ExpressionWithTypeArguments) {
+        this.source = node
+        this.chain.update(node.expression)
+        this.TypeManager.update(node.typeArguments)
+    }
+
+    toNode() {
+        return ts.createExpressionWithTypeArguments(
+            this.TypeManager.toNodeArray(),
+            this.chain.toNode()
+        )
     }
 }
 
