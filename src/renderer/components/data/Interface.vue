@@ -9,7 +9,7 @@
 
             <GenericList :ctype="ctype"></GenericList>
 
-            <HeritageList :ctype="ctype"></HeritageList>
+            <HeritageList :manager="ctype.HeritageManager"></HeritageList>
 
             <span @click="editing=false" class="btn btn-success ok">OK</span>
         </div>
@@ -20,9 +20,9 @@
             <span>{{ctype.name}}</span>
             <span v-if="ctype.GenericManager.list.length">&lt; {{ctype.GenericManager.text}} &gt;</span>
 
-            <template v-if="ctype.HeritageManager.list.length">
-                <span class="syntax">extends</span>
-                <span>{{ctype.HeritageManager.text}}</span>
+            <template v-if="ctype.HeritageManager.extendClause">
+                <span class="syntax">Extend</span>
+                <span>{{ctype.HeritageManager.extendText}}</span>
             </template>
         </div>
 

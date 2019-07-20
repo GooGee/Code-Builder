@@ -29,7 +29,6 @@ export class Class extends Structure {
     label: string = 'Class'
     isClass: boolean = true
     source: ts.ClassDeclaration | null = null
-    private base: Heritage | null = null
     readonly MemberManager: ClassMemberManager = new ClassMemberManager
     readonly HeritageManager: HeritageManager = new HeritageManager(true)
     readonly GenericManager: GenericManager = new GenericManager()
@@ -44,19 +43,12 @@ export class Class extends Structure {
         }
     }
 
-    clearExtendList() {
-        this.HeritageManager.extendList.forEach(heritage => this.HeritageManager.remove(heritage))
-    }
-
     extend(list: string[]) {
-        this.clearExtendList()
-        this.base = this.HeritageManager.make(list, false)
-        this.HeritageManager.add(this.base)
+        this.HeritageManager.extend(list)
     }
 
     implement(list: string[]) {
-        let hhh = this.HeritageManager.make(list, true)
-        this.HeritageManager.add(hhh)
+        this.HeritageManager.implement(list)
     }
 
     static load(node: ts.ClassDeclaration) {
@@ -180,8 +172,7 @@ export class Interface extends Structure {
     }
 
     extend(list: string[]) {
-        let hhh = this.HeritageManager.make(list, false)
-        this.HeritageManager.add(hhh)
+        this.HeritageManager.extend(list)
     }
 
     static load(node: ts.InterfaceDeclaration) {

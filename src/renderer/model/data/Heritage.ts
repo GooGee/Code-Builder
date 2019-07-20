@@ -1,47 +1,50 @@
 import * as ts from 'typescript'
-import Name from './Name'
 import Node from '../Node'
-import { TypeExpression } from '../code/Expression'
+import TypeManager from './TypeManager'
 
-export default class Heritage extends Name implements Node {
+type HeritageKind = ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword
+
+export default class Heritage implements Node {
     readonly isImplement: boolean
-    readonly type: TypeExpression
+    kind: HeritageKind
+    readonly TypeManager: TypeManager = new TypeManager
     source: ts.HeritageClause | null = null
 
-    constructor(type: TypeExpression, isImplement: boolean) {
-        super(type.name)
-        this.type = type
+    constructor(isImplement: boolean) {
         this.isImplement = isImplement
-    }
-
-    get name(): string {
-        return this._name
-    }
-
-    set name(name: string) {
-        this._name = name
+        this.kind = ts.SyntaxKind.ExtendsKeyword
+        if (isImplement) {
+            this.kind = ts.SyntaxKind.ImplementsKeyword
+        }
     }
 
     get text(): string {
-        return this.type.text
+        return this.TypeManager.text
+    }
+
+    make(list: Array<string>) {
+        const type = this.TypeManager.makeExpressionType(list)
+        this.TypeManager.add(type)
     }
 
     static load(node: ts.HeritageClause) {
-        let type: TypeExpression = TypeExpression.load(node.types[0])
-        let isImplement = false
-        if (node.token == ts.SyntaxKind.ImplementsKeyword) {
-            isImplement = true
-        }
-        let hhh = new Heritage(type, isImplement)
+        const hhh = new Heritage(node.token == ts.SyntaxKind.ImplementsKeyword)
+        hhh.TypeManager.load(node.types)
         hhh.source = node
         return hhh
     }
 
     update(node: ts.HeritageClause) {
         this.source = node
+        this.TypeManager.update(node.types)
     }
 
     toNode() {
-        return this.type.toNode()
+        const list: Array<ts.ExpressionWithTypeArguments> = this.TypeManager.toNodeArray() as any
+        const node = ts.createHeritageClause(
+            this.kind,
+            list
+        )
+        return node
     }
 }

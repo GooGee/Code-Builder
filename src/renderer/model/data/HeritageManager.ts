@@ -1,9 +1,8 @@
 import * as ts from 'typescript'
-import NameManager from './NameManager'
 import Heritage from './Heritage'
-import { TypeExpression } from '../code/Expression'
+import Manager from '../Manager'
 
-export default class HeritageManager extends NameManager<Heritage> {
+export default class HeritageManager extends Manager<Heritage> {
     readonly inClass: boolean
 
     constructor(inClass: boolean) {
@@ -11,143 +10,73 @@ export default class HeritageManager extends NameManager<Heritage> {
         this.inClass = inClass
     }
 
-    /**
-     * get extend list of class
-     */
-    get extendList() {
-        return this.list.filter(item => item.isImplement == false)
+    get extendText() {
+        let clause = this.extendClause
+        if (clause) {
+            return clause.text
+        }
+        return ''
     }
 
-    /**
-     * get implement list of class
-     */
-    get implementList() {
-        return this.list.filter(item => item.isImplement)
+    get implementText() {
+        let clause = this.implementClause
+        if (clause) {
+            return clause.text
+        }
+        return ''
     }
 
-    /**
-     * for class
-     */
-    get extendText(): string {
-        let list = Array<string>()
-        this.list.forEach(item => {
-            if (item.isImplement == false) {
-                list.push(item.name)
-            }
-        })
-
-        let text = ''
+    get extendClause() {
+        const list = this.list.filter(item => item.isImplement == false)
         if (list.length) {
-            text = list.join(', ')
-        }
-        return text
-    }
-
-    /**
-     * for class
-     */
-    get implementText(): string {
-        let list = Array<string>()
-        this.list.forEach(item => {
-            if (item.isImplement) {
-                list.push(item.name)
-            }
-        })
-
-        let text = ''
-        if (list.length) {
-            text = list.join(', ')
-        }
-        return text
-    }
-
-    /**
-     * for interface
-     */
-    get text() {
-        let list = Array<string>()
-        this.list.forEach(item => list.push(item.name))
-        let text = ''
-        if (list.length) {
-            text = list.join(', ')
-        }
-        return text
-    }
-
-    load(list?: ReadonlyArray<ts.HeritageClause>) {
-        if (!list) {
-            return
-        }
-
-        list.forEach(node => {
-            let hhh = Heritage.load(node)
-            this.add(hhh)
-        })
-    }
-
-    update(list?: ReadonlyArray<ts.HeritageClause>) {
-        if (!list) {
-            return
-        }
-
-        list.forEach((node, index) => {
-            this.list[index].update(node)
-        })
-    }
-
-    toNodeArray() {
-        let clauseList: ts.HeritageClause[] = []
-        if (this.inClass) {
-            let clause = this.makeClause(this.extendList)
-            if (clause) {
-                clauseList.push(clause)
-            }
-            let clause2 = this.makeClause(this.implementList, true)
-            if (clause2) {
-                clauseList.push(clause2)
-            }
-        } else {
-            let clause = this.makeClause(this.list)
-            if (clause) {
-                clauseList.push(clause)
-            }
-        }
-        return clauseList
-    }
-
-    makeClause(heritageList: Heritage[], isImplement: boolean = false) {
-        let kind = ts.SyntaxKind.ExtendsKeyword
-        if (isImplement) {
-            kind = ts.SyntaxKind.ImplementsKeyword
-        }
-        if (heritageList.length) {
-            let list: Array<ts.ExpressionWithTypeArguments> = []
-            heritageList.forEach(heritage => list.push(heritage.toNode()))
-            let node = ts.createHeritageClause(
-                kind,
-                list
-            )
-            return node
+            return list[0]
         }
         return null
     }
 
-    make(list: string[], isImplement: boolean) {
-        let node = TypeExpression.from(list)
-        let hhh = new Heritage(node, isImplement)
-        return hhh
-    }
-
-    add(item: Heritage) {
-        if (this.findType(item.text)) {
-            throw item.text + ' already exists!'
+    get implementClause() {
+        const list = this.list.filter(item => item.isImplement)
+        if (list.length) {
+            return list[0]
         }
-
-        super.add(item)
+        return null
     }
 
-    findType(text: string): Heritage | undefined {
-        return this.list.find(hhh => hhh.text == text)
+    extend(list: Array<string>) {
+        let clause = this.extendClause
+        if (clause == null) {
+            clause = new Heritage(false)
+            this.add(clause)
+        }
+        clause.make(list)
     }
 
+    implement(list: Array<string>) {
+        let clause = this.implementClause
+        if (clause == null) {
+            clause = new Heritage(true)
+            this.add(clause)
+        }
+        clause.make(list)
+    }
+
+    load(list?: ReadonlyArray<ts.HeritageClause>) {
+        if (list) {
+            list.forEach(node => {
+                const hhh = Heritage.load(node)
+                this.add(hhh)
+            })
+        }
+    }
+
+    update(list?: ReadonlyArray<ts.HeritageClause>) {
+        this.clear()
+        this.load(list)
+    }
+
+    toNodeArray() {
+        const list: Array<ts.HeritageClause> = []
+        this.list.forEach(item => list.push(item.toNode()))
+        return list
+    }
 }
