@@ -225,6 +225,17 @@ export class ReferenceType extends TypeNode {
         return text
     }
 
+    toArray() {
+        const list: Array<string> = []
+        let ttt = this.type
+        while (ttt instanceof QualifiedName) {
+            list.push(ttt.name)
+            ttt = ttt.left
+        }
+        list.push(ttt.name)
+        return list
+    }
+
     access(name: string) {
         this.type = new QualifiedName(this.type, new Identifier(name))
     }
