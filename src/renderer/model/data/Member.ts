@@ -99,31 +99,12 @@ export abstract class TypeMember extends Member {
         return undefined
     }
 
-    typeToArray(type: ReferenceType) {
-        const list: string[] = []
-        let ttt = type.type
-        while (ttt instanceof QualifiedName) {
-            list.push(ttt.name)
-            ttt = ttt.left
-        }
-        list.push(ttt.name)
-        return list
-    }
-
     makeNew(list: ReadonlyArray<ts.Symbol>) {
         this.initializer = new ChainBox
         const chain = this.initializer.chain
         if (this.type.type instanceof ReferenceType) {
-            let first = true
-            let list: string[] = this.typeToArray(this.type.type)
-            list.reverse().forEach(name => {
-                if (first) {
-                    chain.start(name)
-                } else {
-                    chain.access(name, chain.root)
-                }
-                first = false
-            })
+            const list: string[] = this.type.type.toArray()
+            chain.from(list.reverse())
         }
         chain.makeNew(list)
     }
