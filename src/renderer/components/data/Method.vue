@@ -18,7 +18,7 @@
                 </Variable>
             </span>
 
-            <span v-if="member.hasBlock" @click="visible=!visible" class="button"> * </span>
+            <span v-if="member.hasBlock" @click="visible=!visible" :class="{active: visible}" class="button"> * </span>
         </template>
 
         <Block v-if="visible && member.hasBlock" :block="member.block"></Block>

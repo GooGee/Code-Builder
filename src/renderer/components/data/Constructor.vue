@@ -15,7 +15,7 @@
                 <span>( {{member.ParameterManager.text}} )</span>
             </span>
 
-            <span @click="visible=!visible" class="button"> * </span>
+            <span @click="visible=!visible" :class="{active: visible}" class="button"> * </span>
         </template>
 
         <Block v-if="visible" :block="member.block"></Block>

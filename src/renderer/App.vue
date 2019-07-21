@@ -47,6 +47,13 @@
         text-align: center;
     }
 
+    .button.active {
+        color: dodgerblue;
+        border: solid 1px #ccc;
+        border-radius: 4px;
+        padding: 6px 12px;
+    }
+
     .button:hover {
         border: solid 1px #ccc;
         border-radius: 4px;
