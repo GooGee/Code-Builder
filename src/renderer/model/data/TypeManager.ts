@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import Manager from "../Manager"
-import TypeBox from './TypeBox'
+import TypeBox, { OwnerKind } from './TypeBox'
 
 export default class TypeManager extends Manager<TypeBox> {
 
@@ -17,7 +17,7 @@ export default class TypeManager extends Manager<TypeBox> {
     load(list?: ReadonlyArray<ts.TypeNode>) {
         if (list) {
             list.forEach(node => {
-                const te = TypeBox.load(node)
+                const te = TypeBox.load(node, OwnerKind.Type)
                 this.add(te)
             })
         }

@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import Name from './Name'
 import ModifierManager from './ModifierManager'
 import ParameterManager from './ParameterManager'
-import TypeBox from './TypeBox'
+import TypeBox, { OwnerKind } from './TypeBox'
 import { ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
@@ -133,7 +133,7 @@ export class ClassConstructor extends ClassMember {
     source: ts.ConstructorDeclaration | null = null
 
     constructor() {
-        super(ConstructorKeyWord, TypeBox.make(['void']))
+        super(ConstructorKeyWord, TypeBox.make(['void'], OwnerKind.Function))
     }
 
     static load(node: ts.ConstructorDeclaration) {
@@ -171,7 +171,7 @@ export class ClassMethod extends ClassMember {
 
     static load(node: ts.MethodDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Function)
         let mmm = new ClassMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -211,7 +211,7 @@ export class ClassProperty extends ClassMember {
 
     static load(node: ts.PropertyDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Variable)
         let mmm = new ClassProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -263,7 +263,7 @@ export class InterfaceMethod extends InterfaceMember {
 
     static load(node: ts.MethodSignature) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Function)
         let mmm = new InterfaceMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -298,7 +298,7 @@ export class InterfaceProperty extends InterfaceMember {
 
     static load(node: ts.PropertySignature) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Variable)
         let mmm = new InterfaceProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
@@ -332,7 +332,7 @@ export class Parameter extends TypeMember {
 
     static load(node: ts.ParameterDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Variable)
         let ppp = new Parameter(name.text, type)
         ppp.source = node
         if (node.questionToken) {
@@ -372,7 +372,7 @@ export class Variable extends TypeMember {
 
     static load(node: ts.VariableDeclaration) {
         let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type)
+        let type = TypeBox.load(node.type!, OwnerKind.Variable)
         let vvv = new Variable(name.text, type)
         vvv.source = node
         vvv.loadValue(node.initializer)

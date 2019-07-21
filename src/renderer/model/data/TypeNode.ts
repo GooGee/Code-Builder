@@ -1,16 +1,10 @@
 import * as ts from 'typescript'
 import Manager from '../Manager'
 import Node from '../Node'
-import TypeBox from './TypeBox'
+import TypeBox, { OwnerKind } from './TypeBox'
 import TypeManager from './TypeManager'
 import Chain from '../code/Chain'
 import TypeName, { QualifiedName, Identifier } from './TypeName'
-
-export enum OwnerKind {
-    Function,
-    Type,
-    Variable
-}
 
 export default abstract class TypeNode implements Node {
     isArray = false
@@ -92,7 +86,7 @@ export class ArrayType extends TypeNode {
     }
 
     static load(node: ts.ArrayTypeNode) {
-        const type = TypeBox.load(node.elementType)
+        const type = TypeBox.load(node.elementType, OwnerKind.Function)
         const ttt = new ArrayType(type)
         ttt.source = node
         return ttt
@@ -241,7 +235,7 @@ export class ReferenceType extends TypeNode {
     addGeneric(length: number) {
         this.ArgumentManager.clear()
         for (let index = 0; index < length; index++) {
-            const ttt = TypeBox.make(['string'])
+            const ttt = TypeBox.make(['string'], OwnerKind.Variable)
             this.ArgumentManager.add(ttt)
         }
     }
@@ -251,7 +245,7 @@ export class ReferenceType extends TypeNode {
         const list = node.typeArguments
         if (list) {
             list.forEach(argument => {
-                this.ArgumentManager.add(TypeBox.load(argument))
+                this.ArgumentManager.add(TypeBox.load(argument, OwnerKind.Variable))
             })
         }
     }
@@ -310,7 +304,7 @@ export class UnionType extends TypeNode {
         this.source = node
         this.list.splice(0, this.list.length)
         node.types.forEach(node => {
-            this.list.push(TypeBox.load(node))
+            this.list.push(TypeBox.load(node, OwnerKind.Variable))
         })
     }
 

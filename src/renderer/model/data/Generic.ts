@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import TypeBox from './TypeBox'
+import TypeBox, { OwnerKind } from './TypeBox'
 import Name from './Name'
 
 export default class Generic extends Name {
@@ -14,7 +14,7 @@ export default class Generic extends Name {
     }
 
     addConstraint() {
-        this.constraint = TypeBox.make(['Object'])
+        this.constraint = TypeBox.make(['Object'], OwnerKind.Type)
     }
 
     removeConstraint() {
@@ -24,7 +24,7 @@ export default class Generic extends Name {
     static load(node: ts.TypeParameterDeclaration) {
         let ppp = new Generic(node.name.text)
         if (node.constraint) {
-            ppp.constraint = TypeBox.load(node.constraint)
+            ppp.constraint = TypeBox.load(node.constraint, OwnerKind.Type)
         }
         return ppp
     }

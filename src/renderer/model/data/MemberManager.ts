@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
 import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassConstructor, ConstructorKeyWord } from './Member'
-import TypeBox from './TypeBox'
+import TypeBox, { OwnerKind } from './TypeBox'
 
 export class ClassMemberManager extends NameManager<ClassMember> {
 
@@ -59,13 +59,13 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     makeMethod(name: string, list: string[]) {
-        let node = TypeBox.make(list)
+        let node = TypeBox.make(list, OwnerKind.Function)
         let item = new ClassMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: string[]) {
-        let node = TypeBox.make(list)
+        let node = TypeBox.make(list, OwnerKind.Variable)
         let item = new ClassProperty(name, node)
         return item
     }
@@ -113,13 +113,13 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     makeMethod(name: string, list: string[]) {
-        let node = TypeBox.make(list)
+        let node = TypeBox.make(list, OwnerKind.Function)
         let item = new InterfaceMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: string[]) {
-        let node = TypeBox.make(list)
+        let node = TypeBox.make(list, OwnerKind.Variable)
         let item = new InterfaceProperty(name, node)
         return item
     }
