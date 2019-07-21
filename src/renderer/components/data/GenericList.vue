@@ -3,6 +3,8 @@
         <div v-for="parameter in ctype.GenericManager.list">
             <span @click="remove(parameter)" class="button"> - </span>
             <span @click="change(parameter)" class="button">{{parameter.name}}</span>
+            <span @click="constrain(parameter)" class="button">Extend</span>
+            <TypeBox v-if="parameter.constraint" :box="parameter.constraint" kind="Type"></TypeBox>
         </div>
 
         <span @click="add" class="button"> + Generic </span>
@@ -12,9 +14,12 @@
 <script>
     import builder from '@/model/builder'
     import { enter, look, sure } from '@/model/ui/Dialogue'
+    import Menu from '@/model/ui/Menu'
+    import TypeBox from './TypeBox'
 
     export default {
         name: 'GenericList',
+        components: { TypeBox },
         props: ['ctype', 'editing'],
         data() {
             return {
@@ -45,6 +50,23 @@
                         }
                     }
                 })
+            },
+            constrain(parameter) {
+                const menu = new Menu()
+                menu.add('Remove constraint', label => {
+                    sure('Are you sure?').then(result => {
+                        if (result.value) {
+                            parameter.removeConstraint()
+                            builder.module.save()
+                        }
+                    })
+                })
+                menu.addSeparator()
+                menu.add('Add constraint', label => {
+                    parameter.addConstraint()
+                    builder.module.save()
+                })
+                menu.show()
             },
             remove(parameter) {
                 sure('Are you sure?').then(result => {

@@ -6,6 +6,14 @@ export default class Generic extends Name {
     constraint: TypeBox | null = null
     source: ts.TypeParameterDeclaration | null = null
 
+    addConstraint() {
+        this.constraint = TypeBox.make('Object')
+    }
+
+    removeConstraint() {
+        this.constraint = null
+    }
+
     static load(node: ts.TypeParameterDeclaration) {
         let ppp = new Generic(node.name.text)
         if (node.constraint) {
