@@ -65,6 +65,9 @@ export default class HeritageManager extends Manager<Heritage> {
             this.add(clause)
         }
         const type = clause.make(list)
+        if (this.inClass) {
+            clause.TypeManager.clear()
+        }
         clause.TypeManager.add(type)
     }
 
