@@ -6,6 +6,13 @@ export default class Generic extends Name {
     constraint: TypeBox | null = null
     source: ts.TypeParameterDeclaration | null = null
 
+    get text() {
+        if (this.constraint) {
+            return `${this.name} Extend ${this.constraint.text}`
+        }
+        return this.name
+    }
+
     addConstraint() {
         this.constraint = TypeBox.make('Object')
     }

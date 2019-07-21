@@ -7,7 +7,7 @@ export default class GenericManager extends NameManager<Generic> {
     get text(): string {
         let list = Array<string>()
         this.list.forEach(item => {
-            list.push(item.name)
+            list.push(item.text)
         })
         return list.join(', ')
     }
