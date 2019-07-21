@@ -4,14 +4,14 @@
             <span @click="extend" class="button">Extend</span>
         </div>
         <template v-if="manager.extendClause">
-            <TypeList :manager="manager.extendClause.TypeManager" :editing="editing"></TypeList>
+            <TypeList :manager="manager.extendClause.TypeManager" :editing="false"></TypeList>
         </template>
 
         <div>
             <span @click="implement" class="button">Implement</span>
         </div>
         <template v-if="manager.implementClause">
-            <TypeList :manager="manager.implementClause.TypeManager" :editing="editing"></TypeList>
+            <TypeList :manager="manager.implementClause.TypeManager" :editing="false"></TypeList>
         </template>
 
         <TypeMenu v-if="tmData" :tmData="tmData"></TypeMenu>
