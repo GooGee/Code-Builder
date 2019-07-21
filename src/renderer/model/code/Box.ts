@@ -75,8 +75,7 @@ export class LambdaBox extends Box {
         const declaration = argument.valueDeclaration as ts.ParameterDeclaration
         const type = declaration.type as ts.FunctionTypeNode
         const box = new LambdaBox(new ChainBox)
-        const list = type.parameters.slice().reverse()
-        box.ParameterManager.load(list)
+        box.ParameterManager.load(type.parameters)
         return box
     }
 

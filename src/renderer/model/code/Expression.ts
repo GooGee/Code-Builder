@@ -146,13 +146,19 @@ export abstract class ExpressionWithArgument extends Expression {
     updateArgument(list: ReadonlyArray<ts.Symbol>) {
         this.ArgumentManager.clear()
         list.forEach(argument => {
-            if (argument.name == 'predicate') {
-                const box = LambdaBox.make(argument)
-                this.ArgumentManager.add(box)
-            } else {
-                const box = new ChainBox
-                this.ArgumentManager.add(box)
+            const parameter = argument.valueDeclaration
+            if (ts.isParameter(parameter)) {
+                if (parameter.type) {
+                    if (ts.isFunctionTypeNode(parameter.type)) { // Lambda
+                        const box = LambdaBox.make(argument)
+                        this.ArgumentManager.add(box)
+                        return
+                    }
+                }
             }
+
+            const box = new ChainBox
+            this.ArgumentManager.add(box)
         })
     }
 }
