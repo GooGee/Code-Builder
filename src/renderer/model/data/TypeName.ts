@@ -9,6 +9,25 @@ export default abstract class TypeName implements Node {
     abstract source: ts.Node | null
     abstract toNode(): ts.Node
 
+    static make(list: Array<string>) {
+        if (list.length == 0) {
+            throw 'Error in making Expression'
+        }
+
+        let first = true
+        let left: QualifiedName | Identifier
+        list.forEach(name => {
+            if (first) {
+                first = false
+                left = new Identifier(name)
+            } else {
+                const right = new Identifier(name)
+                left = new QualifiedName(left, right)
+            }
+        })
+        return left!
+    }
+
     static load(node: ts.EntityName) {
         if (ts.isIdentifier(node)) {
             return Identifier.load(node)
