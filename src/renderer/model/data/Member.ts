@@ -133,7 +133,7 @@ export class ClassConstructor extends ClassMember {
     source: ts.ConstructorDeclaration | null = null
 
     constructor() {
-        super(ConstructorKeyWord, TypeBox.make('void'))
+        super(ConstructorKeyWord, TypeBox.make(['void']))
     }
 
     static load(node: ts.ConstructorDeclaration) {

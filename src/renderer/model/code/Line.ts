@@ -90,7 +90,7 @@ export default class Line {
     }
 
     makeVariable(name: string, list: string[]) {
-        let node = TypeBox.from(list)
+        let node = TypeBox.make(list)
         return new Variable(name, node)
     }
 

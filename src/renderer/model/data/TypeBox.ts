@@ -15,7 +15,7 @@ export default class TypeBox implements Node {
     }
 
     setType(list: string[]) {
-        this.type = TypeNode.from(list)
+        this.type = TypeNode.make(list)
     }
 
     static makeExpressionType(list: Array<string>) {
@@ -24,14 +24,8 @@ export default class TypeBox implements Node {
         return box
     }
 
-    static from(list: string[]) {
-        const type = TypeNode.from(list)
-        const box = new TypeBox(type)
-        return box
-    }
-
-    static make(name: string) {
-        const type = TypeNode.make(name)
+    static make(list: Array<string>) {
+        const type = TypeNode.make(list)
         const box = new TypeBox(type)
         return box
     }

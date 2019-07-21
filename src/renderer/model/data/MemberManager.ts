@@ -59,13 +59,13 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     makeMethod(name: string, list: string[]) {
-        let node = TypeBox.from(list)
+        let node = TypeBox.make(list)
         let item = new ClassMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: string[]) {
-        let node = TypeBox.from(list)
+        let node = TypeBox.make(list)
         let item = new ClassProperty(name, node)
         return item
     }
@@ -113,13 +113,13 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     makeMethod(name: string, list: string[]) {
-        let node = TypeBox.from(list)
+        let node = TypeBox.make(list)
         let item = new InterfaceMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: string[]) {
-        let node = TypeBox.from(list)
+        let node = TypeBox.make(list)
         let item = new InterfaceProperty(name, node)
         return item
     }

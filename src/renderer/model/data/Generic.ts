@@ -14,7 +14,7 @@ export default class Generic extends Name {
     }
 
     addConstraint() {
-        this.constraint = TypeBox.make('Object')
+        this.constraint = TypeBox.make(['Object'])
     }
 
     removeConstraint() {
