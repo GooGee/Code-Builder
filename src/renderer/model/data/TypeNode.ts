@@ -4,8 +4,13 @@ import Project from '../Project'
 import Node from '../Node'
 import TypeBox from './TypeBox'
 import TypeManager from './TypeManager'
-import { Expression } from '../code/Expression'
-import Chain from '../code/Chain';
+import Chain from '../code/Chain'
+
+export enum OwnerKind {
+    Function,
+    Type,
+    Variable
+}
 
 export default abstract class TypeNode implements Node {
     isArray = false
