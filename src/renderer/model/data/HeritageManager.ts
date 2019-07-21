@@ -64,7 +64,8 @@ export default class HeritageManager extends Manager<Heritage> {
             clause = new Heritage(false)
             this.add(clause)
         }
-        clause.make(list)
+        const type = clause.make(list)
+        clause.TypeManager.add(type)
     }
 
     implement(list: Array<string>) {
@@ -73,7 +74,8 @@ export default class HeritageManager extends Manager<Heritage> {
             clause = new Heritage(true)
             this.add(clause)
         }
-        clause.make(list)
+        const type = clause.make(list)
+        clause.TypeManager.add(type)
     }
 
     load(list?: ReadonlyArray<ts.HeritageClause>) {

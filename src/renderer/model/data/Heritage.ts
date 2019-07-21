@@ -24,7 +24,7 @@ export default class Heritage implements Node {
 
     make(list: Array<string>) {
         const type = this.TypeManager.makeExpressionType(list)
-        this.TypeManager.add(type)
+        return type
     }
 
     static load(node: ts.HeritageClause) {
