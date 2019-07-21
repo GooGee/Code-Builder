@@ -2,18 +2,18 @@ import * as ts from 'typescript'
 import { ExpressionType } from '@/model/data/TypeNode'
 
 const name = 'Item'
-let expression = null
+let ttt = null
 
 test(`load`, () => {
     const node = ts.createExpressionWithTypeArguments(
         [ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)],
         ts.createIdentifier(name)
     )
-    expression = ExpressionType.load(node)
-    expect(expression.name).toEqual(name)
+    ttt = ExpressionType.load(node)
+    expect(ttt.chain.text).toEqual(name)
 })
 
 test(`toNode`, () => {
-    const node = expression.toNode()
+    const node = ttt.toNode()
     expect(node.expression.text).toEqual(name)
 })
