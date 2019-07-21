@@ -68,7 +68,10 @@ export default class ChainMenu {
         }
         menu.addMenu('Module', this.makeModuleMenu())
         menu.addMenu('Type', this.makeTypeMenu())
-        menu.addMenu('Variable', this.makeVariableMenu())
+
+        menu.addSeparator()
+
+        this.addVariable(menu)
 
         menu.show()
     }
@@ -172,9 +175,7 @@ export default class ChainMenu {
         return menu
     }
 
-    makeVariableMenu() {
-        let menu = new Menu()
-
+    addVariable(menu: Menu) {
         menu.add('this', label => this.input('this'))
 
         if (this.builder.statement) {
@@ -186,8 +187,6 @@ export default class ChainMenu {
                 menu.add(vriable.name, label => this.start(label))
             })
         }
-
-        return menu
     }
 
     start(label: string) {
