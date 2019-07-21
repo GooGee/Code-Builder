@@ -12,12 +12,6 @@ test(`setType`, () => {
     expect(box.type.name).toEqual(name)
 })
 
-test(`from`, () => {
-    const name = 'string'
-    const box = TypeBox.from([name])
-    expect(box.type.name).toEqual(name)
-})
-
 test(`make`, () => {
     const name = 'string'
     const box = TypeBox.make([name])
