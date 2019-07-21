@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import TypeNode, { Identifier, QualifiedName } from '@/model/data/TypeNode'
+import { Identifier, QualifiedName } from '@/model/data/TypeName'
 
 
 test(`load Identifier`, () => {
