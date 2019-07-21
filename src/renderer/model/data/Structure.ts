@@ -43,14 +43,6 @@ export class Class extends Structure {
         }
     }
 
-    extend(list: string[]) {
-        this.HeritageManager.extend(list)
-    }
-
-    implement(list: string[]) {
-        this.HeritageManager.implement(list)
-    }
-
     static load(node: ts.ClassDeclaration) {
         let ccc = new Class(node.name!.text)
         ccc.source = node
@@ -169,10 +161,6 @@ export class Interface extends Structure {
             this.GenericManager.load(this.source.typeParameters)
             this.opened = true
         }
-    }
-
-    extend(list: string[]) {
-        this.HeritageManager.extend(list)
     }
 
     static load(node: ts.InterfaceDeclaration) {
