@@ -4,7 +4,7 @@
             <span @click="remove(parameter)" class="button"> - </span>
             <span @click="change(parameter)" class="button">{{parameter.name}}</span>
             <span @click="constrain(parameter)" class="button">Extend</span>
-            <TypeBox v-if="parameter.constraint" :box="parameter.constraint" kind="Type"></TypeBox>
+            <TypeBox v-if="parameter.constraint" :box="parameter.constraint"></TypeBox>
         </div>
 
         <span @click="add" class="button"> + Generic </span>

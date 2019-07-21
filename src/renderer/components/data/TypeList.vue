@@ -2,7 +2,7 @@
     <div>
         <div v-for="type in manager.list">
             <span @click="remove(type)" class="button"> - </span>
-            <TypeBox :box="type" kind="Type" :editing="editing"></TypeBox>
+            <TypeBox :box="type" :editing="editing"></TypeBox>
         </div>
     </div>
 </template>

@@ -24,6 +24,7 @@
 <script>
     import builder from '@/model/builder'
     import { enter, look } from '@/model/ui/Dialogue'
+    import { OwnerKind } from '@/model/data/TypeBox'
     import StatementMenu from '@/model/ui/StatementMenu'
     import Statement from './Statement'
     import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
@@ -49,9 +50,11 @@
             },
             define(line) {
                 this.line = line
+                const kind = OwnerKind.Variable
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder)
+                    this.tmData = new TypeMenuData(builder, kind)
                 }
+                this.tmData.kind = kind
                 this.tmData.show(this.make.bind(this))
             },
             make(list) {

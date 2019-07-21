@@ -1,11 +1,12 @@
 import Menu, { CallBack } from "./Menu"
 import { Builder } from "../Builder"
+import { OwnerKind } from "../data/TypeBox"
 
 export default class TypeMenu {
     builder: Builder
-    kind: string
+    kind: OwnerKind
 
-    constructor(builder: Builder, kind: string = 'Property') {
+    constructor(builder: Builder, kind: OwnerKind) {
         this.builder = builder
         this.kind = kind
     }
@@ -21,7 +22,7 @@ export default class TypeMenu {
     show(CallBack: CallBack) {
         const menu = new Menu()
 
-        if (this.kind != 'Type') {
+        if (this.kind != OwnerKind.Type) {
             this.addBasicMenu(CallBack, menu)
             menu.addSeparator()
         }
@@ -40,7 +41,7 @@ export default class TypeMenu {
             { name: 'string' },
             { name: 'void' }
         ]
-        if (this.kind == 'Property') {
+        if (this.kind == OwnerKind.Variable) {
             list.pop() // remove type void
         }
         list.forEach(type => {

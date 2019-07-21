@@ -16,6 +16,7 @@
 <script>
     import builder from '@/model/builder'
     import { enter, look, sure } from '@/model/ui/Dialogue'
+    import { OwnerKind } from '@/model/data/TypeBox'
     import Member from './Member'
     import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
@@ -25,7 +26,7 @@
         props: ['ctype', 'cmodule'],
         data() {
             return {
-                kind: '',
+                kind: 0,
                 tmData: null
             }
         },
@@ -33,7 +34,14 @@
         },
         methods: {
             add(kind) {
+                if (kind === 'Method') {
+                    kind = OwnerKind.Function
+                }
+                if (kind === 'Property') {
+                    kind = OwnerKind.Variable
+                }
                 this.kind = kind
+
                 if (!this.tmData) {
                     this.tmData = new TypeMenuData(builder, kind)
                 }
@@ -52,17 +60,17 @@
                         try {
                             const manager = this.ctype.MemberManager
                             if (result.value === 'constructor') {
-                                this.kind = 'Constructor'
+                                this.kind = OwnerKind.Type
                                 const mmm = manager.makeConstructor()
                                 manager.add(mmm)
                             }
 
-                            if (this.kind === 'Method') {
+                            if (this.kind === OwnerKind.Function) {
                                 const mmm = manager.makeMethod(result.value, list)
                                 manager.add(mmm)
                             }
 
-                            if (this.kind === 'Property') {
+                            if (this.kind === OwnerKind.Variable) {
                                 const ppp = manager.makeProperty(result.value, list)
                                 manager.add(ppp)
                             }

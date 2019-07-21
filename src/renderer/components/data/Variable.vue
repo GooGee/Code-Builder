@@ -11,7 +11,7 @@
 
             <template v-if="variable.hasType">
                 <span class="syntax">as</span>
-                <TypeBox :box="variable.type" :kind="isProperty ? 'Property' : 'Method'"></TypeBox>
+                <TypeBox :box="variable.type"></TypeBox>
             </template>
 
             <template v-if="variable.hasValue">
