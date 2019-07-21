@@ -6,6 +6,7 @@
             </div>
 
             <div class="col-xs-9" v-if="builder.type">
+                <br>
                 <Class v-if="isClass" :cmodule="builder.module" :ctype="builder.type"></Class>
                 <Enum v-if="isEnum" :cmodule="builder.module" :ctype="builder.type"></Enum>
                 <Interface v-if="isInterface" :cmodule="builder.module" :ctype="builder.type"></Interface>
