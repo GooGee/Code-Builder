@@ -5,9 +5,8 @@ import LineManager from './LineManager'
 import { VariableStatement, Statement } from './Statement'
 import { ClassMethod, ClassConstructor } from '../data/Member'
 import Node from '../Node'
-import Lambda from '../data/Lambda'
 
-type BlockOwner = Statement | Lambda | ClassConstructor | ClassMethod | CaseClause | DefaultClause | CatchClause
+type BlockOwner = Statement | ClassConstructor | ClassMethod | CaseClause | DefaultClause | CatchClause
 
 export abstract class BlockBase implements Node {
     owner: BlockOwner

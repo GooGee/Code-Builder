@@ -7,7 +7,6 @@ import { ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
 import { ChainBox } from '../code/Box'
-import Lambda from './Lambda'
 
 export const ConstructorKeyWord = 'Constructor'
 
@@ -211,12 +210,6 @@ export class ClassProperty extends ClassMember {
     source: ts.PropertyDeclaration | null = null
 
     static load(node: ts.PropertyDeclaration) {
-        if (node.initializer) {
-            if (node.initializer.kind == ts.SyntaxKind.ArrowFunction) {
-                return ClassLambda.load(node)
-            }
-        }
-
         let name = node.name as ts.Identifier
         let type = TypeBox.load(node.type)
         let mmm = new ClassProperty(name.text, type)
@@ -249,54 +242,6 @@ export class ClassProperty extends ClassMember {
         return node
     }
 
-}
-
-export class ClassLambda extends ClassMember {
-    readonly isLambda: boolean = true
-    readonly hasValue: boolean = false
-    lambda: Lambda
-    source: ts.PropertyDeclaration | null = null
-
-    constructor(name: string, lambda: Lambda) {
-        super(name, lambda.type)
-        this.lambda = lambda
-    }
-
-    get type(): TypeBox {
-        return this.lambda.type
-    }
-
-    set type(type: TypeBox) {
-        if (this.lambda) {
-            this.lambda.type = type
-        }
-    }
-
-    static load(node: ts.PropertyDeclaration) {
-        let name = node.name as ts.Identifier
-        let lambda = Lambda.load(node.initializer as ts.ArrowFunction)
-        let mmm = new ClassLambda(name.text, lambda)
-        mmm.source = node
-        mmm.modifier.load(node.modifiers)
-        return mmm
-    }
-
-    update(node: ts.PropertyDeclaration) {
-        this.source = node
-        this.lambda.update(node.initializer as ts.ArrowFunction)
-    }
-
-    toNode(): ts.PropertyDeclaration {
-        let node = ts.createProperty(
-            undefined,
-            this.modifier.toNodeArray(),
-            this.name,
-            undefined,
-            undefined,
-            this.lambda.toNode()
-        )
-        return node
-    }
 }
 
 export abstract class InterfaceMember extends TypeMember {

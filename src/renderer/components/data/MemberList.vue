@@ -2,7 +2,6 @@
     <div>
         <div class="btn-group">
             <span @click="add('Method')" class="btn btn-default"> + Method</span>
-            <!-- <span @click="add('Lambda')" class="btn btn-default"> + Lambda</span> -->
             <span @click="add('Property')" class="btn btn-default"> + Property</span>
         </div>
 
@@ -60,11 +59,6 @@
 
                             if (this.kind === 'Method') {
                                 const mmm = manager.makeMethod(result.value, list)
-                                manager.add(mmm)
-                            }
-
-                            if (this.kind === 'Lambda') {
-                                const mmm = manager.makeLambda(result.value, list)
                                 manager.add(mmm)
                             }
 

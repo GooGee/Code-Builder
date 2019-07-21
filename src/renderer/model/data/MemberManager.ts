@@ -1,8 +1,7 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
-import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassLambda, ClassConstructor, ConstructorKeyWord } from './Member'
+import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassConstructor, ConstructorKeyWord } from './Member'
 import TypeBox from './TypeBox'
-import Lambda from './Lambda'
 
 export class ClassMemberManager extends NameManager<ClassMember> {
 
@@ -68,14 +67,6 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     makeProperty(name: string, list: string[]) {
         let node = TypeBox.from(list)
         let item = new ClassProperty(name, node)
-        return item
-    }
-
-    makeLambda(name: string, list: string[]) {
-        let node = TypeBox.from(list)
-        let lambda = new Lambda(node)
-        lambda.makeBlock()
-        let item = new ClassLambda(name, lambda)
         return item
     }
 }
