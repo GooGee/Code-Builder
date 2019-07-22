@@ -1,12 +1,12 @@
 <template>
     <div>
         <span v-if="editing" @click="$emit('remove', cimport)" class="button"> - </span>
-        <span class="syntax">import</span>
+        <span class="syntax">Import</span>
         <span class="name">*</span>
         <span class="syntax">as</span>
         <span v-if="editing" @click="alias" class="button">{{cimport.name}}</span>
         <span v-else>{{cimport.name}}</span>
-        <span class="syntax">from</span>
+        <span class="syntax">From</span>
         <span>'{{cimport.path}}'</span>
     </div>
 </template>

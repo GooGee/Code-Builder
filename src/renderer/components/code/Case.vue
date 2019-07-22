@@ -1,7 +1,7 @@
 <template>
     <div @click.stop="editing=true" class="col-xs-11">
         <span @click="$emit('choose', clause)" class="button"> . </span>
-        <span class="syntax">case</span>
+        <span class="syntax">Case</span>
         <Box :box="clause.box" :editing="editing"></Box>
         <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
 

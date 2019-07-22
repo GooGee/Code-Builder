@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-11">
-                    <span class="syntax">default</span>
+                    <span class="syntax">Default</span>
                     <LineList :block="block" :manager="manager.defaultClause.LineManager"></LineList>
                     <br>
                     <span @click="add" class="button"> + Case</span>

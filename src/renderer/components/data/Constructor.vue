@@ -2,7 +2,7 @@
     <div>
         <div v-if="editing">
             <span @click="$emit('remove')" class="button"> - </span>
-            <span class="syntax">constructor</span>
+            <span class="syntax">Constructor</span>
 
             <ParameterList :manager="member.ParameterManager" :editing="editing"></ParameterList>
 
@@ -11,7 +11,7 @@
 
         <template v-else>
             <span @click="editing=true">
-                <span class="syntax">constructor</span>
+                <span class="syntax">Constructor</span>
                 <span>( {{member.ParameterManager.text}} )</span>
             </span>
 

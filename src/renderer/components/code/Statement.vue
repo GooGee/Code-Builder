@@ -9,6 +9,7 @@
         </template>
 
         <template v-if="statement.isCall">
+            <span class="syntax">Call</span>
             <Box :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
