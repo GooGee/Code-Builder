@@ -1,5 +1,4 @@
 import * as ts from 'typescript'
-import Manager from '../Manager'
 import Node from '../Node'
 import TypeBox, { OwnerKind } from './TypeBox'
 import TypeManager from './TypeManager'
@@ -108,7 +107,7 @@ export class ArrayType extends TypeNode {
 export class ExpressionType extends TypeNode {
     isExpression = true
     chain: Chain = new Chain
-    readonly TypeManager: TypeManager = new TypeManager
+    readonly TypeManager: TypeManager = new TypeManager(OwnerKind.Type)
     source: ts.ExpressionWithTypeArguments | null = null
 
     get text(): string {
@@ -198,7 +197,7 @@ export class KeyWordType extends TypeNode {
 export class ReferenceType extends TypeNode {
     isReference = true
     type: Identifier | QualifiedName
-    readonly ArgumentManager = new Manager<TypeBox>()
+    readonly ArgumentManager: TypeManager = new TypeManager(OwnerKind.Variable)
     source: ts.TypeReferenceNode | null = null
 
     constructor(type: Identifier | QualifiedName) {
@@ -209,10 +208,7 @@ export class ReferenceType extends TypeNode {
     get text() {
         let text = this.type.text
         if (this.ArgumentManager.list.length) {
-            let list = new Array<string>()
-            this.ArgumentManager.list.forEach(item => list.push(item.text))
-            let sss = list.join(', ')
-            text = `${text} < ${sss} >`
+            text = `${text} < ${this.ArgumentManager.text} >`
         }
         return text
     }
@@ -240,28 +236,18 @@ export class ReferenceType extends TypeNode {
         }
     }
 
-    updateArgument(node: ts.TypeReferenceNode) {
-        this.ArgumentManager.clear()
-        const list = node.typeArguments
-        if (list) {
-            list.forEach(argument => {
-                this.ArgumentManager.add(TypeBox.load(argument, OwnerKind.Variable))
-            })
-        }
-    }
-
     static load(node: ts.TypeReferenceNode) {
         const type = TypeName.load(node.typeName)
         const rt = new ReferenceType(type)
         rt.source = node
-        rt.updateArgument(node)
+        rt.ArgumentManager.update(node.typeArguments)
         return rt
     }
 
     update(node: ts.TypeReferenceNode) {
         this.source = node
         this.type = TypeName.load(node.typeName)
-        this.updateArgument(node)
+        this.ArgumentManager.update(node.typeArguments)
     }
 
     toNode() {
