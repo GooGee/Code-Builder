@@ -315,6 +315,10 @@ export class PrefixUnaryExpression extends Expression {
         return this.operand.text
     }
 
+    get expression() {
+        return this.operand
+    }
+
     static load(node: ts.PrefixUnaryExpression) {
         let operand = Expression.load(node.operand)
         let eee = new PrefixUnaryExpression(node.operator, operand)
