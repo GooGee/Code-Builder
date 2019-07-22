@@ -24,8 +24,9 @@
         </template>
 
         <template v-if="expression.isNot">
-            <span class="syntax">Not</span>
             <Expression :expression="expression.operand" :chain="chain" :editing="editing"></Expression>
+            <span v-if="editing" @click="change" class="btn btn-default syntax">is False</span>
+            <span v-else class="syntax">is False</span>
         </template>
 
         <template v-if="expression.isKeyword || expression.isLiteral">
