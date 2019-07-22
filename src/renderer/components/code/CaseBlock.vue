@@ -37,6 +37,7 @@
             add() {
                 let clause = this.block.makeCase()
                 this.block.ClauseManager.add(clause)
+                builder.module.save()
             },
             choose(clause) {
                 let menu = new Menu()
@@ -54,10 +55,12 @@
 
                 menu.add('Move Up', label => {
                     this.block.ClauseManager.moveUp(clause)
+                    builder.module.save()
                 })
 
                 menu.add('Move Down', label => {
                     this.block.ClauseManager.moveDown(clause)
+                    builder.module.save()
                 })
 
                 menu.show()
