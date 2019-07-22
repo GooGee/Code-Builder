@@ -1,8 +1,10 @@
 # Code-Builder
 
-An Electron-Vue editor, for building TypeScript code.
+A TypeScript code builder, based on Electron.
 
-No need to write any code, just input names and constants, like the visual programming language.
+Using TypeScript Compiler API and Abstract Syntax Tree to achieve visual programming.
+
+No need to write any code, just input names and constants, and add logic by GUI, then generate code.
 
 This project is currently in the early stage of development.
 
@@ -21,7 +23,7 @@ npm run dev
 
 ## ScreenShot
 
-![gif](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
+![codebuilder](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
 
 View Mode
 
