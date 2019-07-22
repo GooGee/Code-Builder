@@ -21,14 +21,13 @@
 
 <script>
     import Box from './Box'
-    import Variable from '../data/Variable'
 
     export default {
         name: 'If',
         beforeCreate() {
             this.$options.components.Block = require('./Block').default
         },
-        components: { Box, Variable },
+        components: { Box },
         props: ['statement', 'editing'],
         data() {
             return {
