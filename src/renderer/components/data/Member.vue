@@ -21,13 +21,12 @@
 
 <script>
     import Constructor from './Constructor'
-    import Lambda from './Lambda'
     import Method from './Method'
     import Variable from './Variable'
 
     export default {
         name: 'Member',
-        components: { Constructor, Lambda, Method, Variable },
+        components: { Constructor, Method, Variable },
         props: ['member'],
         data() {
             return {
