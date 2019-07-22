@@ -23,9 +23,8 @@
         methods: {
             setType() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder)
+                    this.tmData = new TypeMenuData(builder, this.box.kind)
                 }
-                this.tmData.kind = this.box.kind
                 this.tmData.show(list => {
                     if (list.length === 0) {
                         return

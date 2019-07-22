@@ -35,6 +35,7 @@
 <script>
     import builder from '@/model/builder'
     import { enter, look, sure } from '@/model/ui/Dialogue'
+    import { OwnerKind } from '@/model/data/TypeBox'
     import Parameter from './Parameter'
     import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
 
@@ -50,7 +51,7 @@
         methods: {
             add() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder)
+                    this.tmData = new TypeMenuData(builder, OwnerKind.Variable)
                 }
                 this.tmData.show(this.make.bind(this))
             },

@@ -50,11 +50,9 @@
             },
             define(line) {
                 this.line = line
-                const kind = OwnerKind.Variable
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder, kind)
+                    this.tmData = new TypeMenuData(builder, OwnerKind.Variable)
                 }
-                this.tmData.kind = kind
                 this.tmData.show(this.make.bind(this))
             },
             make(list) {
