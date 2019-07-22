@@ -22,6 +22,7 @@
     import builder from '@/model/builder'
     import TypeMenu, { TypeMenuData } from '../common/TypeMenu'
     import TypeList from './TypeList'
+    import { OwnerKind } from '@/model/data/TypeBox'
 
     export default {
         name: 'HeritageList',
@@ -29,13 +30,14 @@
         props: ['manager', 'editing'],
         data() {
             return {
-                tmData: null
+                tmData: null,
+                kind: OwnerKind.Type
             }
         },
         methods: {
             extend() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder, 'Type')
+                    this.tmData = new TypeMenuData(builder, this.kind)
                 }
                 this.tmData.show(list => {
                     this.manager.extend(list)
@@ -44,7 +46,7 @@
             },
             implement() {
                 if (!this.tmData) {
-                    this.tmData = new TypeMenuData(builder, 'Type')
+                    this.tmData = new TypeMenuData(builder, this.kind)
                 }
                 this.tmData.show(list => {
                     this.manager.implement(list)
