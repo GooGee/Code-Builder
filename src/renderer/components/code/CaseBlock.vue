@@ -1,13 +1,13 @@
 <template>
     <div @click.stop="stop" class="row">
         <div class="col-xs-11 block">
-            <div v-for="clause in block.ClauseManager.list" class="row">
+            <div v-for="clause in manager.list" class="row">
                 <Case :block="block" :clause="clause" @choose="choose"></Case>
             </div>
             <div class="row">
                 <div class="col-xs-11">
                     <span class="syntax">default</span>
-                    <LineList :block="block" :manager="block.defaultClause.LineManager"></LineList>
+                    <LineList :block="block" :manager="manager.defaultClause.LineManager"></LineList>
                     <br>
                     <span @click="add" class="button"> + Case</span>
                 </div>
@@ -31,12 +31,13 @@
         props: ['block'],
         data() {
             return {
+                manager: this.block.ClauseManager
             }
         },
         methods: {
             add() {
-                let clause = this.block.makeCase()
-                this.block.ClauseManager.add(clause)
+                let clause = this.manager.make()
+                this.manager.add(clause)
                 builder.module.save()
             },
             choose(clause) {
@@ -45,7 +46,7 @@
                 menu.add('Delete', label => {
                     sure('Are you sure?').then(result => {
                         if (result.value) {
-                            this.block.ClauseManager.remove(clause)
+                            this.manager.remove(clause)
                             builder.module.save()
                         }
                     })
@@ -54,12 +55,12 @@
                 menu.addSeparator()
 
                 menu.add('Move Up', label => {
-                    this.block.ClauseManager.moveUp(clause)
+                    this.manager.moveUp(clause)
                     builder.module.save()
                 })
 
                 menu.add('Move Down', label => {
-                    this.block.ClauseManager.moveDown(clause)
+                    this.manager.moveDown(clause)
                     builder.module.save()
                 })
 

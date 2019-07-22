@@ -1,10 +1,10 @@
 import * as ts from 'typescript'
-import Manager from '../Manager'
 import { CaseClause, DefaultClause, CatchClause } from './Clause'
 import LineManager from './LineManager'
 import { VariableStatement, Statement } from './Statement'
 import { ClassMethod, ClassConstructor } from '../data/Member'
 import Node from '../Node'
+import ClauseManager from './ClauseManager'
 
 type BlockOwner = Statement | ClassConstructor | ClassMethod | CaseClause | DefaultClause | CatchClause
 
@@ -91,8 +91,7 @@ export default class Block extends BlockBase {
 
 export class CaseBlock extends BlockBase {
     hasDefault: boolean = false
-    defaultClause: DefaultClause = new DefaultClause(this)
-    readonly ClauseManager: Manager<CaseClause> = new Manager<CaseClause>()
+    readonly ClauseManager: ClauseManager = new ClauseManager(this)
     source: ts.CaseBlock | null = null
 
     get VariableList() {
@@ -112,41 +111,18 @@ export class CaseBlock extends BlockBase {
 
     load(block: ts.CaseBlock) {
         this.source = block
-        block.clauses.forEach(clause => {
-            if (clause.kind == ts.SyntaxKind.CaseClause) {
-                let ccc = CaseClause.load(clause, this)
-                this.ClauseManager.add(ccc)
-            } else {
-                this.defaultClause = DefaultClause.load(clause, this)
-                this.hasDefault = true
-            }
-        })
+        this.ClauseManager.load(block.clauses)
     }
 
     update(block: ts.CaseBlock) {
         this.source = block
-        let index = 0
-        block.clauses.forEach(clause => {
-            if (clause.kind == ts.SyntaxKind.CaseClause) {
-                this.ClauseManager.list[index].update(clause)
-                index += 1
-            } else {
-                this.defaultClause.update(clause)
-            }
-        })
+        this.ClauseManager.update(block.clauses)
     }
 
     toNode() {
-        let list: Array<ts.CaseClause | ts.DefaultClause> = []
-        this.ClauseManager.list.forEach(clause => {
-            list.push(clause.toNode())
-        })
-        return ts.createCaseBlock(list)
+        const node = ts.createCaseBlock(
+            this.ClauseManager.toNodeArray()
+        )
+        return node
     }
-
-    makeCase() {
-        let sss = new CaseClause(this)
-        return sss
-    }
-
 }

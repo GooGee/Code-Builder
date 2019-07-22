@@ -30,5 +30,5 @@ test(`CaseBlock load`, () => {
 
 test(`CaseBlock toNode`, () => {
     const node = cb.toNode()
-    expect(node.clauses.length).toEqual(0)
+    expect(node.clauses.length).toEqual(1)
 })
