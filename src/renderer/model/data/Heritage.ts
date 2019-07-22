@@ -1,13 +1,14 @@
 import * as ts from 'typescript'
 import Node from '../Node'
 import TypeManager from './TypeManager'
+import { OwnerKind } from './TypeBox'
 
 type HeritageKind = ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword
 
 export default class Heritage implements Node {
     readonly isImplement: boolean
     kind: HeritageKind
-    readonly TypeManager: TypeManager = new TypeManager
+    readonly TypeManager: TypeManager = new TypeManager(OwnerKind.Type)
     source: ts.HeritageClause | null = null
 
     constructor(isImplement: boolean) {

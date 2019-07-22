@@ -3,6 +3,12 @@ import Manager from "../Manager"
 import TypeBox, { OwnerKind } from './TypeBox'
 
 export default class TypeManager extends Manager<TypeBox> {
+    kind: OwnerKind
+
+    constructor(OwnerKind: OwnerKind) {
+        super()
+        this.kind = OwnerKind
+    }
 
     get text(): string {
         const list: Array<string> = []
@@ -17,7 +23,7 @@ export default class TypeManager extends Manager<TypeBox> {
     load(list?: ReadonlyArray<ts.TypeNode>) {
         if (list) {
             list.forEach(node => {
-                const te = TypeBox.load(node, OwnerKind.Type)
+                const te = TypeBox.load(node, this.kind)
                 this.add(te)
             })
         }
