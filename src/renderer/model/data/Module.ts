@@ -17,11 +17,6 @@ export default class Module extends Name {
     readonly StructureManager: StructureManager = new StructureManager
     readonly ImportManager: ImportManager = new ImportManager(this)
     sf: ts.SourceFile
-    static TypeKindList: ts.SyntaxKind[] = [
-        ts.SyntaxKind.ClassDeclaration,
-        ts.SyntaxKind.EnumDeclaration,
-        ts.SyntaxKind.InterfaceDeclaration
-    ]
     readonly AfterModuleChange = new Event<ModuleChange>()
 
     constructor(sf: ts.SourceFile) {
