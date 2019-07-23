@@ -14,7 +14,8 @@ test(`make`, () => {
 })
 
 test(`load`, () => {
-    manager.load(iii.toNode())
+    const list = [iii.toNode()]
+    manager.load(list)
     expect(manager.list.length).toEqual(1)
 })
 

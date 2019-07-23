@@ -12,18 +12,16 @@ export default class ImportManager extends NameManager<Import> {
         this.module = module
     }
 
-    load(node: ts.ImportDeclaration) {
-        let item = Import.load(node)
-        this.add(item)
+    load(list: Array<ts.ImportDeclaration>) {
+        list.forEach(node => {
+            const item = Import.load(node)
+            this.add(item)
+        })
     }
 
-    update(node: ts.ImportDeclaration) {
-        let sl = node.moduleSpecifier as ts.StringLiteral
-        let path = sl.text
-        let iii = this.findPath(path)
-        if (iii) {
-            iii.update(node)
-        }
+    update(list: Array<ts.ImportDeclaration>) {
+        this.clear()
+        this.load(list)
     }
 
     toNodeArray() {
@@ -49,7 +47,7 @@ export default class ImportManager extends NameManager<Import> {
         let specifier = path
         if (path.match(/^[a-z]+$/)) {
             // ok
-        }else {
+        } else {
             specifier = this.getSpecifier(path)
         }
         const clause = new ImportClause(Module.BaseName(path))
