@@ -4,6 +4,7 @@ import TypeBox, { OwnerKind } from './TypeBox'
 import TypeManager from './TypeManager'
 import Chain from '../code/Chain'
 import TypeName, { QualifiedName, Identifier } from './TypeName'
+import { BracketKind } from '../Manager'
 
 export default abstract class TypeNode implements Node {
     isArray = false
@@ -269,38 +270,27 @@ export class ReferenceType extends TypeNode {
 
 export class UnionType extends TypeNode {
     isUnion: boolean = true
-    list: Array<TypeBox> = []
+    readonly TypeManager: TypeManager = new TypeManager(OwnerKind.Variable)
     source: ts.UnionTypeNode | null = null
 
     get text() {
-        const list: Array<string> = []
-        this.list.forEach(type => {
-            list.push(type.text)
-        })
-        return list.join(' | ')
+        return this.TypeManager.getText(' | ', BracketKind.Pointy)
     }
 
     static load(node: ts.UnionTypeNode) {
         const type = new UnionType
-        type.update(node)
+        type.TypeManager.load(node.types)
         return type
     }
 
     update(node: ts.UnionTypeNode) {
         this.source = node
-        this.list.splice(0, this.list.length)
-        node.types.forEach(node => {
-            this.list.push(TypeBox.load(node, OwnerKind.Variable))
-        })
+        this.TypeManager.update(node.types)
     }
 
     toNode() {
-        const list: Array<ts.TypeNode> = []
-        this.list.forEach(type => {
-            list.push(type.toNode())
-        })
         const node = ts.createUnionTypeNode(
-            list
+            this.TypeManager.toNodeArray()
         )
         return node
     }

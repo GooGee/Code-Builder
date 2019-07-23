@@ -12,7 +12,7 @@ test(`load`, () => {
         list
     )
     ttt = TypeNode.load(node)
-    expect(ttt.list.length).toEqual(list.length)
+    expect(ttt.TypeManager.list.length).toEqual(list.length)
 })
 
 test(`toNode`, () => {
