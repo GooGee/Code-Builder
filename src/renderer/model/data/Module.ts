@@ -16,8 +16,8 @@ export class ModuleChange extends Change<Module> {
 export default class Module extends Name {
     readonly StructureManager: StructureManager = new StructureManager
     readonly ImportManager: ImportManager = new ImportManager(this)
-    sf: ts.SourceFile
     readonly AfterModuleChange = new Event<ModuleChange>()
+    sf: ts.SourceFile
 
     constructor(sf: ts.SourceFile) {
         super(Module.BaseName(sf.fileName))
@@ -32,54 +32,33 @@ export default class Module extends Name {
         return this.sf
     }
 
-    private loadStatement(statement: ts.Statement) {
-        switch (statement.kind) {
-            case ts.SyntaxKind.ClassDeclaration:
-                this.StructureManager.loadClass(statement as ts.ClassDeclaration)
-                break
-
-            case ts.SyntaxKind.EnumDeclaration:
-                this.StructureManager.loadEnum(statement as ts.EnumDeclaration)
-                break
-
-            case ts.SyntaxKind.InterfaceDeclaration:
-                this.StructureManager.loadInterface(statement as ts.InterfaceDeclaration)
-                break
-
-            case ts.SyntaxKind.ImportDeclaration:
-                this.ImportManager.load(statement as ts.ImportDeclaration)
-                break
-
-            default:
-                break
-        }
-    }
-
     load() {
+        const ImportList: Array<ts.ImportDeclaration> = []
+        const StatementList: Array<ts.Statement> = []
         this.sf.statements.forEach(statement => {
-            this.loadStatement(statement)
+            if (ts.isImportDeclaration(statement)) {
+                ImportList.push(statement)
+            } else {
+                StatementList.push(statement)
+            }
         })
+        this.ImportManager.load(ImportList)
+        this.StructureManager.load(StatementList)
     }
 
     update(sf: ts.SourceFile) {
         this.sf = sf
-        let importList: ts.ImportDeclaration[] = []
-        let typeList: ts.Statement[] = []
+        const ImportList: Array<ts.ImportDeclaration> = []
+        const StatementList: Array<ts.Statement> = []
         this.sf.statements.forEach(statement => {
-            if (statement.kind == ts.SyntaxKind.ImportDeclaration) {
-                importList.push(statement as ts.ImportDeclaration)
+            if (ts.isImportDeclaration(statement)) {
+                ImportList.push(statement)
             } else {
-                typeList.push(statement)
+                StatementList.push(statement)
             }
         })
-
-        importList.forEach(item => {
-            this.ImportManager.update(item)
-        })
-
-        typeList.forEach(item => {
-            this.StructureManager.update(item)
-        })
+        this.ImportManager.update(ImportList)
+        this.StructureManager.update(StatementList)
     }
 
     toNode() {

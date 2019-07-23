@@ -4,28 +4,53 @@ import Structure, { Class, Enum, Interface } from './Structure'
 
 export default class StructureManager extends NameManager<Structure> {
 
-    loadClass(node: ts.ClassDeclaration) {
+    private loadStatement(statement: ts.Statement) {
+        switch (statement.kind) {
+            case ts.SyntaxKind.ClassDeclaration:
+                this.loadClass(statement as ts.ClassDeclaration)
+                break
+
+            case ts.SyntaxKind.EnumDeclaration:
+                this.loadEnum(statement as ts.EnumDeclaration)
+                break
+
+            case ts.SyntaxKind.InterfaceDeclaration:
+                this.loadInterface(statement as ts.InterfaceDeclaration)
+                break
+
+            default:
+                break
+        }
+    }
+
+    private loadClass(node: ts.ClassDeclaration) {
         let ccc = Class.load(node)
         this.add(ccc)
     }
 
-    loadEnum(node: ts.EnumDeclaration) {
+    private loadEnum(node: ts.EnumDeclaration) {
         let eee = Enum.load(node)
         this.add(eee)
     }
 
-    loadInterface(node: ts.InterfaceDeclaration) {
+    private loadInterface(node: ts.InterfaceDeclaration) {
         let iii = Interface.load(node)
         this.add(iii)
     }
 
-    update(node: ts.Statement) {
-        let nnn = node as ts.DeclarationStatement
-        let name = nnn.name!.text
-        let type = this.find(name)
-        if (type) {
-            type.update(node)
-        }
+    load(list: Array<ts.Statement>) {
+        list.forEach(node => this.loadStatement(node))
+    }
+
+    update(list: Array<ts.Statement>) {
+        list.forEach(node => {
+            const nnn = node as ts.DeclarationStatement
+            const name = nnn.name!.text
+            const type = this.find(name)
+            if (type) {
+                type.update(node)
+            }
+        })
     }
 
     toNodeArray() {
