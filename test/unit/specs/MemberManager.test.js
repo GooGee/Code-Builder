@@ -1,4 +1,4 @@
-import { ClassMemberManager, InterfaceMemberManager } from '@/model/data/MemberManager'
+import { ClassMemberManager, EnumMemberManager, InterfaceMemberManager } from '@/model/data/MemberManager'
 
 const manager = new ClassMemberManager
 const list = []
@@ -32,6 +32,27 @@ test(`load`, () => {
 test(`toNodeArray`, () => {
     const list = manager.toNodeArray()
     expect(list.length).toEqual(2)
+})
+
+
+const emanager = new EnumMemberManager
+const elist = []
+
+test(`make Enum`, () => {
+    const name = 'say'
+    const member = emanager.make(name)
+    elist.push(member.toNode())
+    expect(member.name).toEqual(name)
+})
+
+test(`load Enum`, () => {
+    emanager.load(elist)
+    expect(emanager.list.length).toEqual(1)
+})
+
+test(`toNodeArray Enum`, () => {
+    const list = emanager.toNodeArray()
+    expect(list.length).toEqual(1)
 })
 
 

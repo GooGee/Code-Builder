@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import NameManager from './NameManager'
-import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassConstructor, ConstructorKeyWord } from './Member'
+import { ClassMember, ClassMethod, ClassProperty, InterfaceMember, InterfaceMethod, InterfaceProperty, ClassConstructor, ConstructorKeyWord, EnumMember } from './Member'
 import TypeBox, { OwnerKind } from './TypeBox'
 
 export class ClassMemberManager extends NameManager<ClassMember> {
@@ -68,6 +68,34 @@ export class ClassMemberManager extends NameManager<ClassMember> {
         let node = TypeBox.make(list, OwnerKind.Variable)
         let item = new ClassProperty(name, node)
         return item
+    }
+}
+
+export class EnumMemberManager extends NameManager<EnumMember> {
+
+    make(name: string) {
+        const member = new EnumMember(name)
+        return member
+    }
+
+    load(list: ReadonlyArray<ts.EnumMember>) {
+        list.forEach(node => {
+            const member = EnumMember.load(node)
+            this.add(member)
+        })
+    }
+
+    update(list: ReadonlyArray<ts.EnumMember>) {
+        this.clear()
+        this.load(list)
+    }
+
+    toNodeArray() {
+        const list: Array<ts.EnumMember> = []
+        this.list.forEach(member => {
+            list.push(member.toNode())
+        })
+        return list
     }
 }
 
