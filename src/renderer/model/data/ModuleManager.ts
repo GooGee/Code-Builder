@@ -34,17 +34,27 @@ export default class ModuleManager extends NameManager<Module> {
         return mmm
     }
 
-    load(sf: ts.SourceFile) {
-        let mmm = new Module(sf)
-        this.add(mmm)
-        mmm.load()
+    load(list: Array<string>) {
+        list.forEach(file => {
+            const sf = this.project.getSourceFile(file)
+            if (sf) {
+                const mmm = new Module(sf)
+                this.add(mmm)
+                mmm.load()
+            }
+        })
     }
 
-    update(sf: ts.SourceFile) {
-        let mmm = this.findPath(sf.fileName)
-        if (mmm) {
-            mmm.update(sf)
-        }
+    update(list: Array<string>) {
+        list.forEach(file => {
+            const sf = this.project.getSourceFile(file)
+            if (sf) {
+                const mmm = this.findPath(sf.fileName)
+                if (mmm) {
+                    mmm.update(sf)
+                }
+            }
+        })
     }
 
     save() {

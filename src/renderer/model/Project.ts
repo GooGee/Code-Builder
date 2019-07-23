@@ -37,6 +37,10 @@ export default class Project {
         return `${this.projectPath}/src`
     }
 
+    getSourceFile(name: string) {
+        return this.program!.getSourceFile(name)
+    }
+
     get fileList(): string[] {
         let list: string[] = []
         let path = this.codePath
@@ -62,19 +66,15 @@ export default class Project {
     }
 
     update() {
+        const list: Array<string> = this.fileList
         this.program = ts.createProgram(
-            this.fileList,
+            list,
             this.option,
             this.host,
             this.program!
         )
         this._checker = new Checker(this.program)
-
-        let list: string[] = this.fileList
-        list.forEach(file => {
-            let sf = this.program!.getSourceFile(file)
-            this.ModuleManager.update(sf!)
-        })
+        this.ModuleManager.update(list)
     }
 
     save() {
@@ -84,16 +84,10 @@ export default class Project {
     }
 
     private loadModule() {
-        let list: string[] = this.fileList
+        const list: Array<string> = this.fileList
         this.program = ts.createProgram(list, this.option, this.host)
         this._checker = new Checker(this.program)
-        list.forEach(file => {
-            let sf = this.program!.getSourceFile(file)
-            if (!sf) {
-                throw `${file} does not exists!`
-            }
-            this.ModuleManager.load(sf)
-        })
+        this.ModuleManager.load(list)
     }
 
     static load(name: string) {
