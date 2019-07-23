@@ -24,9 +24,3 @@ test(`open`, () => {
     type.open()
     expect(type.opened).toBeTruthy()
 })
-
-test(`make`, () => {
-    const name = 'East'
-    const member = type.make(name)
-    expect(member.name).toEqual(name)
-})

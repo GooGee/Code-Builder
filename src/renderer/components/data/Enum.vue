@@ -7,7 +7,7 @@
             <span @click="add" class="button"> + </span>
         </div>
         <ul class="list-unstyled">
-            <li v-for="member in ctype.MemberManager.list">
+            <li v-for="member in manager.list">
                 <span @click="remove(member)" class="button"> - </span>
                 <span @click="setItemName(member)" class="button">{{member.name}}</span>
             </li>
@@ -25,17 +25,16 @@
         props: ['ctype', 'cmodule'],
         data() {
             return {
+                manager: this.ctype.MemberManager
             }
-        },
-        created() {
         },
         methods: {
             add() {
                 enter('Please enter the name').then(result => {
                     if (result.value) {
                         try {
-                            let member = this.ctype.make(result.value)
-                            this.ctype.MemberManager.add(member)
+                            const member = this.manager.make(result.value)
+                            this.manager.add(member)
                             this.cmodule.save()
                         } catch (error) {
                             look(error, 400)
@@ -70,7 +69,7 @@
             remove(member) {
                 sure('Are you sure?').then(result => {
                     if (result.value) {
-                        this.ctype.MemberManager.remove(member)
+                        this.manager.remove(member)
                         this.cmodule.save()
                     }
                 })

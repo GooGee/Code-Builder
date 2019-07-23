@@ -1,10 +1,7 @@
 import * as ts from 'typescript'
 import Name from './Name'
 import ModifierManager from './ModifierManager'
-import { EnumMember } from './Member'
-import { ClassMemberManager, InterfaceMemberManager } from './MemberManager'
-import NameManager from './NameManager'
-import Heritage from './Heritage'
+import { ClassMemberManager, InterfaceMemberManager, EnumMemberManager } from './MemberManager'
 import HeritageManager from './HeritageManager'
 import Node from '../Node'
 import GenericManager from './GenericManager'
@@ -84,21 +81,18 @@ export class Enum extends Structure {
     label: string = 'Enum'
     isEnum: boolean = true
     source: ts.EnumDeclaration | null = null
-    readonly MemberManager: NameManager<EnumMember> = new NameManager<EnumMember>()
+    readonly MemberManager: EnumMemberManager = new EnumMemberManager
 
     open() {
         if (!this.opened && this.source) {
             this.modifier.load(this.source.modifiers)
-            this.source.members.forEach(member => {
-                let em = EnumMember.load(member)
-                this.MemberManager.add(em)
-            })
+            this.MemberManager.load(this.source.members)
             this.opened = true
         }
     }
 
     static load(node: ts.EnumDeclaration) {
-        let eee = new Enum(node.name.text)
+        const eee = new Enum(node.name.text)
         eee.source = node
         return eee
     }
@@ -106,13 +100,7 @@ export class Enum extends Structure {
     update(node: ts.EnumDeclaration) {
         this.source = node
         if (this.opened) {
-            this.source.members.forEach(member => {
-                let name = member.name as ts.Identifier
-                let mmm = this.MemberManager.find(name.text)
-                if (mmm) {
-                    mmm.update(member)
-                }
-            })
+            this.MemberManager.update(this.source.members)
         }
     }
 
@@ -125,23 +113,13 @@ export class Enum extends Structure {
             }
         }
 
-        let list: ts.EnumMember[] = []
-        this.MemberManager.list.forEach(member => {
-            list.push(member.toNode())
-        })
-
-        let node = ts.createEnumDeclaration(
+        const node = ts.createEnumDeclaration(
             undefined,
             this.modifier.toNodeArray(),
             this.name,
-            list
+            this.MemberManager.toNodeArray()
         )
         return node
-    }
-
-    make(name: string) {
-        let item = new EnumMember(name)
-        return item
     }
 }
 
