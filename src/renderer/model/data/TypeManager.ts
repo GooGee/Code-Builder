@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import Manager from "../Manager"
+import Manager, { BracketKind } from "../Manager"
 import TypeBox, { OwnerKind } from './TypeBox'
 
 export default class TypeManager extends Manager<TypeBox> {
@@ -11,9 +11,38 @@ export default class TypeManager extends Manager<TypeBox> {
     }
 
     get text(): string {
+        return this.getText()
+    }
+
+    getText(separator: string = ', ', bracket: BracketKind = BracketKind.None) {
         const list: Array<string> = []
         this.list.forEach(item => list.push(item.text))
-        return list.join(', ')
+        const text = list.join(separator)
+        return this.addBracket(text, bracket)
+    }
+
+    addBracket(text: string, bracket: BracketKind = BracketKind.Pointy) {
+        switch (bracket) {
+            case BracketKind.Curly:
+                return `{ ${text} }`
+                break
+
+            case BracketKind.Pointy:
+                return `< ${text} >`
+                break
+
+            case BracketKind.Round:
+                return `( ${text} )`
+                break
+
+            case BracketKind.Square:
+                return `[ ${text} ]`
+                break
+
+            default:
+                return text
+                break
+        }
     }
 
     makeExpressionType(list: Array<string>) {
