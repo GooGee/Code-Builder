@@ -15,7 +15,7 @@ test(`load`, () => {
     expect(mmm.StructureManager.list.length).toEqual(1)
 })
 
-test(`toNodeArray`, () => {
-    const list = mmm.toNodeArray()
-    expect(list.length).toEqual(2)
+test(`toNode`, () => {
+    const sf = mmm.toNode()
+    expect(sf.statements.length).toEqual(2)
 })

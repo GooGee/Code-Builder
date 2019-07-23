@@ -87,18 +87,16 @@ export default class Module extends Name {
         })
     }
 
-    toNodeArray() {
-        let ImportList = this.ImportManager.toNodeArray()
-        let TypeList = this.StructureManager.toNodeArray()
-        return ImportList.concat(TypeList)
+    toNode() {
+        const ImportList = this.ImportManager.toNodeArray()
+        const TypeList = this.StructureManager.toNodeArray()
+        return ts.updateSourceFileNode(this.sf, ImportList.concat(TypeList))
     }
 
     save() {
         const printer = ts.createPrinter()
-        let list: ts.Statement[] = this.toNodeArray()
-
-        this.sf = ts.updateSourceFileNode(this.sf, list)
-        let string = printer.printFile(this.sf)
+        this.sf = this.toNode()
+        const string = printer.printFile(this.sf)
         // console.log(string)
         fs.writeFileSync(this.path, string)
 
