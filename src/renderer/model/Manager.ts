@@ -1,5 +1,13 @@
 import { Event } from "./Event"
 
+export enum BracketKind {
+    None,
+    Curly,
+    Pointy,
+    Round,
+    Square
+}
+
 export class ListChange<T> {
     readonly item: T
     readonly isAdd: boolean
