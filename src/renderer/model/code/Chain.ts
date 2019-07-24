@@ -94,10 +94,6 @@ export default class Chain {
         this.root = Expression.Expression.load(node)
     }
 
-    update(node: ts.Expression) {
-        this.root.update(node)
-    }
-
     toNode() {
         return this.root.toNode()
     }

@@ -26,11 +26,6 @@ export default class Import extends Name implements Node {
         return item
     }
 
-    update(node: ts.ImportDeclaration) {
-        this.source = node
-        this.clause.update(node.importClause!)
-    }
-
     toNode() {
         const node = ts.createImportDeclaration(
             undefined,
@@ -56,10 +51,6 @@ export class ImportClause implements Node {
         const clause = new ImportClause(nsi.name.text)
         clause.source = node
         return clause
-    }
-
-    update(node: ts.ImportClause) {
-        this.source = node
     }
 
     toNode() {

@@ -84,8 +84,6 @@ export abstract class Expression implements Node {
         throw `Error loading expression: ${node.kind}`
     }
 
-    abstract update(node: ts.Expression): void
-
     abstract toNode(): ts.Expression
 
 }
@@ -101,10 +99,6 @@ export abstract class Keyword extends Expression {
 
     get text(): string {
         return this.value
-    }
-
-    update(node: ts.Expression) {
-        this.source = node
     }
 }
 
@@ -185,12 +179,6 @@ export class CallExpression extends ExpressionWithArgument {
         return eee
     }
 
-    update(node: ts.CallExpression) {
-        this.source = node
-        this.expression.update(node.expression)
-        this.ArgumentManager.update(node.arguments)
-    }
-
     toNode() {
         let node = ts.createCall(
             this.expression.toNode(),
@@ -220,10 +208,6 @@ export class Identifier extends Expression {
         return eee
     }
 
-    update(node: ts.Identifier) {
-        this.source = node
-    }
-
     toNode() {
         return ts.createIdentifier(this.value)
     }
@@ -249,12 +233,6 @@ export class NewExpression extends ExpressionWithArgument {
         eee.source = node
         eee.ArgumentManager.load(node.arguments)
         return eee
-    }
-
-    update(node: ts.NewExpression) {
-        this.source = node
-        this.expression.update(node.expression)
-        this.ArgumentManager.update(node.arguments)
     }
 
     toNode() {
@@ -287,10 +265,6 @@ export class NumericLiteral extends Literal {
         let eee = new NumericLiteral(node.text)
         eee.source = node
         return eee
-    }
-
-    update(node: ts.NumericLiteral) {
-        this.source = node
     }
 
     toNode() {
@@ -326,11 +300,6 @@ export class PrefixUnaryExpression extends Expression {
         return eee
     }
 
-    update(node: ts.PrefixUnaryExpression) {
-        this.source = node
-        this.operand.update(node.operand)
-    }
-
     toNode() {
         let node = ts.createPrefix(
             this.operator,
@@ -362,11 +331,6 @@ export class PropertyAccessExpression extends Expression {
         return eee
     }
 
-    update(node: ts.PropertyAccessExpression) {
-        this.source = node
-        this.expression.update(node.expression)
-    }
-
     toNode() {
         let node = ts.createPropertyAccess(
             this.expression.toNode(),
@@ -393,10 +357,6 @@ export class StringLiteral extends Literal {
         let eee = new StringLiteral(node.text)
         eee.source = node
         return eee
-    }
-
-    update(node: ts.StringLiteral) {
-        this.source = node
     }
 
     toNode() {

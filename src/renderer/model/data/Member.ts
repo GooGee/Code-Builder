@@ -40,8 +40,6 @@ export abstract class Member extends Name implements Node {
         this.initializer.chain.start(value)
     }
 
-    abstract update(node: ts.Node): void
-
     abstract toNode(): ts.Node
 }
 
@@ -54,10 +52,6 @@ export class EnumMember extends Member {
         em.source = node
         em.loadValue(node.initializer)
         return em
-    }
-
-    update(node: ts.EnumMember) {
-        this.source = node
     }
 
     toNode() {
@@ -145,12 +139,6 @@ export class ClassConstructor extends ClassMember {
         return mmm
     }
 
-    update(node: ts.ConstructorDeclaration) {
-        this.source = node
-        this.ParameterManager.update(node.parameters)
-        this.block.update(node.body!)
-    }
-
     toNode(): ts.ConstructorDeclaration {
         let node = ts.createConstructor(
             undefined,
@@ -183,13 +171,6 @@ export class ClassMethod extends ClassMember {
         return mmm
     }
 
-    update(node: ts.MethodDeclaration) {
-        this.source = node
-        this.type.update(node.type!)
-        this.ParameterManager.update(node.parameters)
-        this.block.update(node.body!)
-    }
-
     toNode(): ts.MethodDeclaration {
         let node = ts.createMethod(
             undefined,
@@ -220,14 +201,6 @@ export class ClassProperty extends ClassMember {
         mmm.modifier.load(node.modifiers)
         mmm.loadValue(node.initializer)
         return mmm
-    }
-
-    update(node: ts.PropertyDeclaration) {
-        this.source = node
-        this.type.update(node.type!)
-        if (this.initializer) {
-            this.initializer.update(node.initializer!)
-        }
     }
 
     toNode(): ts.PropertyDeclaration {
@@ -274,12 +247,6 @@ export class InterfaceMethod extends InterfaceMember {
         return mmm
     }
 
-    update(node: ts.MethodSignature) {
-        this.source = node
-        this.type.update(node.type!)
-        this.ParameterManager.update(node.parameters)
-    }
-
     toNode() {
         let node = ts.createMethodSignature(
             undefined,
@@ -307,11 +274,6 @@ export class InterfaceProperty extends InterfaceMember {
         mmm.modifier.load(node.modifiers)
         mmm.loadValue(node.initializer)
         return mmm
-    }
-
-    update(node: ts.PropertySignature) {
-        this.source = node
-        this.type.update(node.type!)
     }
 
     toNode() {
@@ -343,16 +305,6 @@ export class Parameter extends TypeMember {
         return ppp
     }
 
-    update(node: ts.ParameterDeclaration) {
-        this.source = node
-        if (node.type) {
-            this.type.update(node.type)
-        }
-        if (this.initializer) {
-            this.initializer.update(node.initializer!)
-        }
-    }
-
     toNode() {
         let node = ts.createParameter(
             undefined,
@@ -377,16 +329,6 @@ export class Variable extends TypeMember {
         vvv.source = node
         vvv.loadValue(node.initializer)
         return vvv
-    }
-
-    update(node: ts.VariableDeclaration) {
-        this.source = node
-        if (node.type) {
-            this.type.update(node.type)
-        }
-        if (this.initializer) {
-            this.initializer.update(node.initializer!)
-        }
     }
 
     toNode() {

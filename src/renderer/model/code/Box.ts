@@ -22,7 +22,6 @@ export default abstract class Box {
     }
 
     abstract text: string
-    abstract update(node: ts.Expression): void
     abstract toNode(): ts.Expression
 }
 
@@ -43,10 +42,6 @@ export class ChainBox extends Box {
 
     load(node: ts.Expression) {
         this.chain.load(node)
-    }
-
-    update(node: ts.Expression) {
-        this.chain.update(node)
     }
 
     toNode() {
@@ -85,12 +80,6 @@ export class LambdaBox extends Box {
         lambda.source = node
         lambda.ParameterManager.load(node.parameters)
         return lambda
-    }
-
-    update(node: ts.ArrowFunction) {
-        this.source = node
-        this.ParameterManager.update(node.parameters)
-        this.body.update(node.body as any)
     }
 
     toNode() {
@@ -163,13 +152,6 @@ export class AssignBox extends BinaryBox {
         this.right.load(node.right)
         this.operator = node.operatorToken.kind as ts.AssignmentOperator
     }
-
-    update(node: ts.BinaryExpression) {
-        this.left.update(node.left)
-        this.right.update(node.right)
-        this.operator = node.operatorToken.kind as ts.AssignmentOperator
-    }
-
 }
 
 export class ComputeBox extends BinaryBox {
@@ -182,13 +164,6 @@ export class ComputeBox extends BinaryBox {
         this.right.load(node.right)
         this.operator = node.operatorToken.kind as ts.BitwiseOperatorOrHigher
     }
-
-    update(node: ts.BinaryExpression) {
-        this.left.update(node.left)
-        this.right.update(node.right)
-        this.operator = node.operatorToken.kind as ts.BitwiseOperatorOrHigher
-    }
-
 }
 
 const AssignList: ReadonlyArray<[ts.BinaryOperator, string]> = [

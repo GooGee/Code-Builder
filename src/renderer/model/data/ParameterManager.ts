@@ -28,16 +28,6 @@ export default class ParameterManager extends NameManager<Parameter> {
         })
     }
 
-    update(list: ReadonlyArray<ts.ParameterDeclaration>) {
-        list.forEach(node => {
-            let name = node.name as ts.Identifier
-            let ppp = this.find(name.text)
-            if (ppp) {
-                ppp.update(node)
-            }
-        })
-    }
-
     toNodeArray() {
         let list: ts.ParameterDeclaration[] = []
         this.list.forEach(ppp => {

@@ -57,10 +57,6 @@ export class Identifier extends TypeName {
         return name
     }
 
-    update(node: ts.Identifier) {
-        this.source = node
-    }
-
     toNode() {
         let node = ts.createIdentifier(this.name)
         return node
@@ -103,15 +99,6 @@ export class QualifiedName extends TypeName {
         let name = new QualifiedName(left, right)
         name.source = node
         return name
-    }
-
-    update(node: ts.QualifiedName) {
-        this.source = node
-        if (this.left instanceof Identifier) {
-            this.left.update(node.left as ts.Identifier)
-        } else {
-            this.left.update(node.left as ts.QualifiedName)
-        }
     }
 
     toNode() {

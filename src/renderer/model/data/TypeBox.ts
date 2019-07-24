@@ -47,11 +47,6 @@ export default class TypeBox implements Node {
         return box
     }
 
-    update(node: ts.TypeNode) {
-        this.source = node
-        this.type.update(node)
-    }
-
     toNode() {
         return this.type.toNode()
     }

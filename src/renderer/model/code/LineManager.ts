@@ -23,16 +23,6 @@ export default class LineManager extends Manager<Line> {
         })
     }
 
-    update(list: ReadonlyArray<ts.Statement>) {
-        let index = 0
-        this.list.forEach(line => {
-            if (line.statement) {
-                line.update(list[index])
-                index += 1
-            }
-        })
-    }
-
     toNodeArray() {
         let list: ts.Statement[] = []
         this.list.forEach(line => {

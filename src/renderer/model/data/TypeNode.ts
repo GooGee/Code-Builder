@@ -14,7 +14,6 @@ export default abstract class TypeNode implements Node {
     isUnion = false
     abstract source: ts.TypeNode | null
     abstract text: string
-    abstract update(node: ts.TypeNode): void
     abstract toNode(): ts.TypeNode
 
     static make(list: Array<string>) {
@@ -92,11 +91,6 @@ export class ArrayType extends TypeNode {
         return ttt
     }
 
-    update(node: ts.ArrayTypeNode) {
-        this.source = node
-        this.elementType.update(node.elementType)
-    }
-
     toNode() {
         let node = ts.createArrayTypeNode(
             this.elementType.toNode()
@@ -121,12 +115,6 @@ export class ExpressionType extends TypeNode {
         te.chain.load(node.expression)
         te.TypeManager.load(node.typeArguments)
         return te
-    }
-
-    update(node: ts.ExpressionWithTypeArguments) {
-        this.source = node
-        this.chain.update(node.expression)
-        this.TypeManager.update(node.typeArguments)
     }
 
     toNode() {
@@ -184,11 +172,6 @@ export class KeyWordType extends TypeNode {
         throw 'Unknown KeyWord Type'
     }
 
-    update(node: ts.KeywordTypeNode) {
-        this.source = node
-        this.kind = node.kind
-    }
-
     toNode() {
         let node = ts.createKeywordTypeNode(this.kind as any)
         return node
@@ -241,14 +224,8 @@ export class ReferenceType extends TypeNode {
         const type = TypeName.load(node.typeName)
         const rt = new ReferenceType(type)
         rt.source = node
-        rt.ArgumentManager.update(node.typeArguments)
+        rt.ArgumentManager.load(node.typeArguments)
         return rt
-    }
-
-    update(node: ts.TypeReferenceNode) {
-        this.source = node
-        this.type = TypeName.load(node.typeName)
-        this.ArgumentManager.update(node.typeArguments)
     }
 
     toNode() {
@@ -281,11 +258,6 @@ export class UnionType extends TypeNode {
         const type = new UnionType
         type.TypeManager.load(node.types)
         return type
-    }
-
-    update(node: ts.UnionTypeNode) {
-        this.source = node
-        this.TypeManager.update(node.types)
     }
 
     toNode() {

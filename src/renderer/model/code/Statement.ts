@@ -83,8 +83,6 @@ export abstract class Statement implements Node {
         throw `Error loading statement: ${statement.kind}`
     }
 
-    abstract update(node: ts.Statement): void
-
     abstract toNode(): ts.Statement
 }
 
@@ -109,10 +107,6 @@ export class BreakStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.BreakStatement) {
-        this.source = statement
-    }
-
     toNode() {
         let node = ts.createBreak()
         return node
@@ -130,10 +124,6 @@ export class ContinueStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.ContinueStatement) {
-        this.source = statement
-    }
-
     toNode() {
         let node = ts.createContinue()
         return node
@@ -148,10 +138,6 @@ export class EmptyStatement extends Statement {
         let sss = new EmptyStatement()
         sss.source = statement
         return sss
-    }
-
-    update(statement: ts.EmptyStatement) {
-        this.source = statement
     }
 
     toNode() {
@@ -181,11 +167,6 @@ export class AssignStatement extends Statement {
     readonly box = new AssignBox
     source: ts.ExpressionStatement | null = null
 
-    update(statement: ts.ExpressionStatement) {
-        this.source = statement
-        this.box.update(statement.expression as ts.BinaryExpression)
-    }
-
     toNode() {
         let node = ts.createExpressionStatement(
             this.box.toNode()
@@ -201,11 +182,6 @@ export class CallStatement extends StatementWithBox {
 
     constructor() {
         super(false)
-    }
-
-    update(statement: ts.ExpressionStatement) {
-        this.source = statement
-        this.box.update(statement.expression)
     }
 
     toNode() {
@@ -272,14 +248,6 @@ export class ForStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.ForStatement) {
-        this.source = statement
-        this.vdl.update(statement.initializer as ts.VariableDeclarationList)
-        this.condition.update(statement.condition as ts.BinaryExpression)
-        this.incrementor.update(statement.incrementor as ts.BinaryExpression)
-        this.block.update(statement.statement as ts.Block)
-    }
-
     toNode() {
         let node = ts.createFor(
             this.vdl.toNode(),
@@ -321,13 +289,6 @@ export class ForOfStatement extends StatementWithBox {
         return sss
     }
 
-    update(statement: ts.ForOfStatement) {
-        this.source = statement
-        this.vdl.update(statement.initializer as ts.VariableDeclarationList)
-        this.list.update(statement.expression)
-        this.block.update(statement.statement as ts.Block)
-    }
-
     toNode() {
         let node = ts.createForOf(
             undefined,
@@ -357,15 +318,6 @@ export class IfStatement extends StatementWithBox {
             sss.hasElse = false
         }
         return sss
-    }
-
-    update(statement: ts.IfStatement) {
-        this.source = statement
-        this.box.update(statement.expression)
-        this.block.update(statement.thenStatement as ts.Block)
-        if (statement.elseStatement) {
-            this.elseBlock.update(statement.elseStatement as ts.Block)
-        }
     }
 
     toNode() {
@@ -400,13 +352,6 @@ export class ReturnStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.ReturnStatement) {
-        this.source = statement
-        if (statement.expression) {
-            this.box!.update(statement.expression)
-        }
-    }
-
     toNode() {
         let exp = undefined
         if (this.box) {
@@ -429,12 +374,6 @@ export class SwitchStatement extends StatementWithBox {
         sss.box.load(statement.expression)
         sss.block.load(statement.caseBlock)
         return sss
-    }
-
-    update(statement: ts.SwitchStatement) {
-        this.source = statement
-        this.box.update(statement.expression)
-        this.block.update(statement.caseBlock)
     }
 
     toNode() {
@@ -472,15 +411,6 @@ export class TryStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.TryStatement) {
-        this.source = statement
-        this.tryBlock.update(statement.tryBlock)
-        this.clause.update(statement.catchClause!)
-        if (statement.finallyBlock) {
-            this.finallyBlock.update(statement.finallyBlock)
-        }
-    }
-
     toNode() {
         let finallyBlock = undefined
         if (this.hasFinally) {
@@ -508,11 +438,6 @@ export class VariableList {
         let vvv = new VariableList(variable)
         vvv.source = vdl
         return vvv
-    }
-
-    update(vdl: ts.VariableDeclarationList) {
-        this.source = vdl
-        this.variable.update(vdl.declarations[0])
     }
 
     toNode() {
@@ -547,11 +472,6 @@ export class VariableStatement extends Statement {
         return sss
     }
 
-    update(statement: ts.VariableStatement) {
-        this.source = statement
-        this.vdl.update(statement.declarationList)
-    }
-
     toNode() {
         let node = ts.createVariableStatement(
             this.variable.modifier.toNodeArray(),
@@ -572,12 +492,6 @@ export class WhileStatement extends StatementWithBox {
         sss.box.load(statement.expression)
         sss.block.load(statement.statement as ts.Block)
         return sss
-    }
-
-    update(statement: ts.WhileStatement) {
-        this.source = statement
-        this.box.update(statement.expression)
-        this.block.update(statement.statement as ts.Block)
     }
 
     toNode() {

@@ -58,11 +58,6 @@ export default class TypeManager extends Manager<TypeBox> {
         }
     }
 
-    update(list?: ReadonlyArray<ts.TypeNode>) {
-        this.clear()
-        this.load(list)
-    }
-
     toNodeArray() {
         const list: Array<ts.TypeNode> = []
         this.list.forEach(item => {

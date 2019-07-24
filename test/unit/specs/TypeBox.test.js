@@ -24,14 +24,6 @@ test(`load`, () => {
     expect(box.type.kind).toEqual(kind)
 })
 
-test(`update`, () => {
-    const type = new KeyWordType(ts.SyntaxKind.AnyKeyword)
-    const box = new TypeBox(type)
-    const node = ts.createKeywordTypeNode(kind)
-    box.update(node)
-    expect(box.type.kind).toEqual(kind)
-})
-
 test(`toNode`, () => {
     const type = new KeyWordType(kind)
     const box = new TypeBox(type)

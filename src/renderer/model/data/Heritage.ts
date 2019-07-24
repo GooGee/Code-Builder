@@ -35,11 +35,6 @@ export default class Heritage implements Node {
         return hhh
     }
 
-    update(node: ts.HeritageClause) {
-        this.source = node
-        this.TypeManager.update(node.types)
-    }
-
     toNode() {
         const list: Array<ts.ExpressionWithTypeArguments> = this.TypeManager.toNodeArray() as any
         const node = ts.createHeritageClause(

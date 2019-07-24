@@ -34,12 +34,6 @@ export class CaseClause extends SelectClause {
         return ccc
     }
 
-    update(clause: ts.CaseClause) {
-        this.source = clause
-        this.box.update(clause.expression)
-        this.LineManager.update(clause.statements)
-    }
-
     toNode() {
         let node = ts.createCaseClause(
             this.box.toNode(),
@@ -58,11 +52,6 @@ export class DefaultClause extends SelectClause {
         ccc.LineManager.load(clause.statements)
         ccc.source = clause
         return ccc
-    }
-
-    update(clause: ts.DefaultClause) {
-        this.source = clause
-        this.LineManager.update(clause.statements)
     }
 
     toNode() {
@@ -90,11 +79,6 @@ export class CatchClause extends Clause {
         let ccc = new CatchClause(variable)
         ccc.source = clause
         return ccc
-    }
-
-    update(clause: ts.CatchClause) {
-        this.source = clause
-        this.block.update(clause.block)
     }
 
     toNode() {

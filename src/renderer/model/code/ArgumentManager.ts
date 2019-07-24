@@ -21,14 +21,6 @@ export default class ArgumentManager extends Manager<Box> {
         }
     }
 
-    update(list?: ReadonlyArray<ts.Expression>) {
-        if (list) {
-            list.forEach((expression, index) => {
-                this.list[index].update(expression)
-            })
-        }
-    }
-
     toNodeArray() {
         let list: ts.Expression[] = []
         this.list.forEach(box => {

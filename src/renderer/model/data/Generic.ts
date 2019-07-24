@@ -29,13 +29,6 @@ export default class Generic extends Name {
         return ppp
     }
 
-    update(node: ts.TypeParameterDeclaration) {
-        this.source = node
-        if (node.constraint) {
-            this.constraint!.update(node.constraint)
-        }
-    }
-
     toNode() {
         let ccc = undefined
         if (this.constraint) {

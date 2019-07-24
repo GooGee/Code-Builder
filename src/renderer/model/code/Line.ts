@@ -115,10 +115,6 @@ export default class Line {
         this.statement = Statement.Statement.load(node)
     }
 
-    update(node: ts.Statement) {
-        this.statement!.update(node)
-    }
-
     toNode() {
         if (this.statement) {
             return this.statement.toNode()

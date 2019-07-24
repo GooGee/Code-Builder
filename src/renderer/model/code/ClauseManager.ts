@@ -23,19 +23,7 @@ export default class ClauseManager extends Manager<CaseClause> {
                 const ccc = CaseClause.load(clause, this.block)
                 this.add(ccc)
             } else {
-                this.defaultClause.update(clause)
-            }
-        })
-    }
-
-    update(list: ReadonlyArray<ts.CaseOrDefaultClause>) {
-        let index = 0
-        list.forEach(clause => {
-            if (clause.kind == ts.SyntaxKind.CaseClause) {
-                this.list[index].update(clause)
-                index += 1
-            } else {
-                this.defaultClause.update(clause)
+                this.defaultClause.LineManager.load(clause.statements)
             }
         })
     }

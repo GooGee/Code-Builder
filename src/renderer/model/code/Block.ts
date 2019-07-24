@@ -78,11 +78,6 @@ export default class Block extends BlockBase {
         this.LineManager.load(block.statements)
     }
 
-    update(block: ts.Block) {
-        this.source = block
-        this.LineManager.update(block.statements)
-    }
-
     toNode() {
         return ts.createBlock(this.LineManager.toNodeArray(), this.multiLine)
     }
@@ -112,11 +107,6 @@ export class CaseBlock extends BlockBase {
     load(block: ts.CaseBlock) {
         this.source = block
         this.ClauseManager.load(block.clauses)
-    }
-
-    update(block: ts.CaseBlock) {
-        this.source = block
-        this.ClauseManager.update(block.clauses)
     }
 
     toNode() {
