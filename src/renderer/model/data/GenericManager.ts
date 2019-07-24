@@ -18,24 +18,17 @@ export default class GenericManager extends NameManager<Generic> {
     }
 
     load(list?: ReadonlyArray<ts.TypeParameterDeclaration>) {
-        if (!list) {
-            return
+        if (list) {
+            list.forEach(node => {
+                const ppp = Generic.load(node)
+                this.add(ppp)
+            })
         }
-
-        list.forEach(node => {
-            let ppp = Generic.load(node)
-            this.add(ppp)
-        })
     }
 
     update(list?: ReadonlyArray<ts.TypeParameterDeclaration>) {
-        if (!list) {
-            return
-        }
-
-        list.forEach((node, index) => {
-            this.list[index].update(node)
-        })
+        this.clear()
+        this.load(list)
     }
 
     toNodeArray() {
