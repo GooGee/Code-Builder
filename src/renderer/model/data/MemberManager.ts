@@ -30,19 +30,8 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     update(list: ReadonlyArray<ts.ClassElement>) {
-        list.forEach(node => {
-            let name: string
-            if (node.kind == ts.SyntaxKind.Constructor) {
-                name = ConstructorKeyWord
-            } else {
-                let iii = node.name as ts.Identifier
-                name = iii.text
-            }
-            let mmm = this.find(name)
-            if (mmm) {
-                mmm.update(node)
-            }
-        })
+        this.clear()
+        this.load(list)
     }
 
     toNodeArray() {
@@ -123,13 +112,8 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     update(list: ReadonlyArray<ts.TypeElement>) {
-        list.forEach(node => {
-            let name = node.name as ts.Identifier
-            let mmm = this.find(name.text)
-            if (mmm) {
-                mmm.update(node)
-            }
-        })
+        this.clear()
+        this.load(list)
     }
 
     toNodeArray() {
