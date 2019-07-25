@@ -11,7 +11,7 @@
 
             <template v-if="variable.hasType">
                 <span class="syntax">as</span>
-                <TypeBox :box="variable.type"></TypeBox>
+                <TypeBox :box="variable.TypeBox"></TypeBox>
             </template>
 
             <template v-if="variable.hasValue">
@@ -27,7 +27,7 @@
 
             <template v-if="variable.hasType">
                 <span class="syntax">as</span>
-                <span>{{variable.type.text}}</span>
+                <span>{{variable.TypeBox.text}}</span>
             </template>
 
             <template v-if="variable.hasValue && variable.initializer">
@@ -86,7 +86,7 @@
                     builder.module.save()
                 })
 
-                let list = builder.project.checker.getTypeSignatureList(this.variable.type.type.source)
+                let list = builder.project.checker.getTypeSignatureList(this.variable.TypeBox.type.source)
 
                 if (list.length) {
                     menu.addSeparator()

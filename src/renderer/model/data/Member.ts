@@ -70,12 +70,12 @@ export abstract class TypeMember extends Member {
     hasValue: boolean = true
     hasBlock: boolean = false
     hasQuestionToken: boolean = false
-    type: TypeBox
+    TypeBox: TypeBox
     readonly modifier: ModifierManager = new ModifierManager
 
     constructor(name: string, type: TypeBox) {
         super(name)
-        this.type = type
+        this.TypeBox = type
     }
 
     get QuestionToken() {
@@ -87,7 +87,7 @@ export abstract class TypeMember extends Member {
 
     typeToNode() {
         if (this.hasType) {
-            return this.type.toNode()
+            return this.TypeBox.toNode()
         }
         return undefined
     }
@@ -95,8 +95,8 @@ export abstract class TypeMember extends Member {
     makeNew(list: ReadonlyArray<ts.Symbol>) {
         this.initializer = new ChainBox
         const chain = this.initializer.chain
-        if (this.type.type instanceof ReferenceType) {
-            const list: string[] = this.type.type.toArray()
+        if (this.TypeBox.type instanceof ReferenceType) {
+            const list: string[] = this.TypeBox.type.toArray()
             chain.from(list.reverse())
         }
         chain.makeNew(list)
@@ -180,7 +180,7 @@ export class ClassMethod extends ClassMember {
             this.QuestionToken,
             undefined,
             this.ParameterManager.toNodeArray(),
-            this.type.toNode(),
+            this.TypeBox.toNode(),
             this.block.toNode()
         )
         return node
@@ -209,7 +209,7 @@ export class ClassProperty extends ClassMember {
             this.modifier.toNodeArray(),
             this.name,
             this.QuestionToken,
-            this.type.toNode(),
+            this.TypeBox.toNode(),
             this.valueToNode()
         )
         return node
@@ -251,7 +251,7 @@ export class InterfaceMethod extends InterfaceMember {
         let node = ts.createMethodSignature(
             undefined,
             this.ParameterManager.toNodeArray(),
-            this.type.toNode(),
+            this.TypeBox.toNode(),
             this.name,
             this.QuestionToken
         )
@@ -281,7 +281,7 @@ export class InterfaceProperty extends InterfaceMember {
             this.modifier.toNodeArray(),
             this.name,
             this.QuestionToken,
-            this.type.toNode(),
+            this.TypeBox.toNode(),
             this.valueToNode()
         )
         return node
