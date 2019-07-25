@@ -28,7 +28,7 @@
 
         <template v-if="statement.isReturn">
             <span class="syntax">Return</span>
-            <span v-if="editing" @click="emptyBox" class="btn btn-danger"> X </span>
+            <span v-if="editing" @click="emptyBox" class="btn btn-default"> - </span>
             <Box v-if="statement.box" :box="statement.box" :editing="editing"></Box>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
