@@ -68,20 +68,20 @@ export default abstract class TypeNode implements Node {
  */
 export class ArrayType extends TypeNode {
     isArray = true
-    elementType: TypeBox
+    TypeBox: TypeBox
     source: ts.ArrayTypeNode | null = null
 
     constructor(type: TypeBox) {
         super()
-        this.elementType = type
+        this.TypeBox = type
     }
 
     get type() {
-        return this.elementType
+        return this.TypeBox
     }
 
     get text() {
-        return this.elementType.text
+        return this.TypeBox.text
     }
 
     static load(node: ts.ArrayTypeNode) {
@@ -93,7 +93,7 @@ export class ArrayType extends TypeNode {
 
     toNode() {
         let node = ts.createArrayTypeNode(
-            this.elementType.toNode()
+            this.TypeBox.toNode()
         )
         return node
     }

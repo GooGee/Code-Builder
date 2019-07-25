@@ -2,7 +2,7 @@
     <span>
         <!-- predicate lambda -->
         <template v-if="ctype.isArray">
-            <TypeBox :box="ctype.type"></TypeBox>
+            <TypeBox :box="ctype.TypeBox"></TypeBox>
         </template>
 
         <template v-if="ctype.isExpression">

@@ -9,7 +9,7 @@ test(`load`, () => {
         ts.createKeywordTypeNode(kind)
     )
     ttt = TypeNode.load(node)
-    expect(ttt.elementType.type.kind).toEqual(kind)
+    expect(ttt.TypeBox.type.kind).toEqual(kind)
 })
 
 test(`toNode`, () => {
