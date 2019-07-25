@@ -28,8 +28,13 @@
 
         <template v-if="statement.isReturn">
             <span class="syntax">Return</span>
-            <span v-if="editing" @click="emptyBox" class="btn btn-default"> - </span>
-            <Box v-if="statement.box" :box="statement.box" :editing="editing"></Box>
+            <template v-if="statement.box">
+                <span v-if="editing" @click="removeBox" class="btn btn-default"> - </span>
+                <Box :box="statement.box" :editing="editing"></Box>
+            </template>
+            <template v-else>
+                <span v-if="editing" @click="addBox" class="btn btn-default"> + </span>
+            </template>
             <span v-if="editing" @click.stop="editing=false" class="btn btn-success ok">OK</span>
         </template>
 
@@ -81,7 +86,11 @@
                 builder.statement = this.statement
                 this.editing = true
             },
-            emptyBox() {
+            addBox() {
+                this.statement.addBox()
+                builder.module.save()
+            },
+            removeBox() {
                 sure('Empty return!\nAre you sure?').then(result => {
                     if (result.value) {
                         this.statement.empty()

@@ -343,6 +343,10 @@ export class ReturnStatement extends Statement {
         this.box = null
     }
 
+    addBox() {
+        this.box = new ChainBox
+    }
+
     static load(statement: ts.ReturnStatement) {
         let sss = new ReturnStatement
         sss.source = statement
