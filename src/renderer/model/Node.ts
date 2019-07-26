@@ -5,3 +5,13 @@ export default interface Node {
 
     toNode(): ts.Node
 }
+
+export interface ExpressionNode extends Node {
+
+    toNode(): ts.Expression
+}
+
+export interface StatementNode extends Node {
+
+    toNode(): ts.Statement
+}
