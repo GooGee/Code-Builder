@@ -1,10 +1,12 @@
 import * as ts from 'typescript'
-import ArgumentManager from './ArgumentManager'
-import Node from '../Node'
-import { ChainBox, LambdaBox } from './Box'
 import Project from '../Project'
+import ArgumentManager from './ArgumentManager'
+import { ExpressionNode } from '../Node'
+import Box from './Box'
+import Chain from './Chain'
+import Lambda from './Lambda'
 
-export abstract class Expression implements Node {
+export abstract class Expression implements ExpressionNode {
     readonly isAccess: boolean = false
     readonly isAssign: boolean = false
     readonly isCall: boolean = false
@@ -144,14 +146,16 @@ export abstract class ExpressionWithArgument extends Expression {
             if (ts.isParameter(parameter)) {
                 if (parameter.type) {
                     if (ts.isFunctionTypeNode(parameter.type)) { // Lambda
-                        const box = LambdaBox.make(argument)
+                        const lambda = Lambda.make(argument)
+                        const box = new Box(lambda)
                         this.ArgumentManager.add(box)
                         return
                     }
                 }
             }
 
-            const box = new ChainBox
+            const chain = new Chain
+            const box = new Box(chain)
             this.ArgumentManager.add(box)
         })
     }

@@ -6,19 +6,19 @@ import TypeBox, { OwnerKind } from './TypeBox'
 import { ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
-import { ChainBox } from '../code/Box'
+import Box from '../code/Box'
+import Chain from '../code/Chain'
 
 export const ConstructorKeyWord = 'Constructor'
 
 
 export abstract class Member extends Name implements Node {
     abstract source: ts.Node | null
-    initializer: ChainBox | null = null
+    initializer: Box | null = null
 
     loadValue(initializer?: ts.Expression) {
         if (initializer) {
-            this.initializer = new ChainBox
-            this.initializer.load(initializer)
+            this.initializer = Box.load(initializer)
         }
     }
 
@@ -35,9 +35,10 @@ export abstract class Member extends Name implements Node {
 
     setValue(value: string) {
         if (!this.initializer) {
-            this.initializer = new ChainBox
+            this.initializer = Box.make()
         }
-        this.initializer.chain.start(value)
+        const chain = this.initializer.BoxItem as Chain
+        chain.start(value)
     }
 
     abstract toNode(): ts.Node
@@ -93,8 +94,8 @@ export abstract class TypeMember extends Member {
     }
 
     makeNew(list: ReadonlyArray<ts.Symbol>) {
-        this.initializer = new ChainBox
-        const chain = this.initializer.chain
+        this.initializer = Box.make()
+        const chain = this.initializer.BoxItem as Chain
         if (this.TypeBox.type instanceof ReferenceType) {
             const list: string[] = this.TypeBox.type.toArray()
             chain.from(list.reverse())
@@ -321,6 +322,12 @@ export class Parameter extends TypeMember {
 
 export class Variable extends TypeMember {
     source: ts.VariableDeclaration | null = null
+
+    static make(name: string, list: Array<string>, kind: OwnerKind) {
+        const box = TypeBox.make(list, kind)
+        const member = new Variable(name, box)
+        return member
+    }
 
     static load(node: ts.VariableDeclaration) {
         let name = node.name as ts.Identifier

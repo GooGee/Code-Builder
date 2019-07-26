@@ -1,10 +1,6 @@
 import * as ts from 'typescript'
 import * as Statement from "./Statement"
-import { CatchClause } from './Clause'
-import TypeBox, { OwnerKind } from '../data/TypeBox'
-import { Variable } from '../data/Member'
 import { BlockBase } from './Block'
-import { ChainBox } from './Box'
 
 export default class Line {
     isDefine: boolean = false
@@ -20,7 +16,7 @@ export default class Line {
     }
 
     makeAssign() {
-        this.statement = new Statement.AssignStatement
+        this.statement = Statement.AssignStatement.make()
     }
 
     makeBreak() {
@@ -28,7 +24,7 @@ export default class Line {
     }
 
     makeCall() {
-        this.statement = new Statement.CallStatement
+        this.statement = Statement.CallStatement.make()
     }
 
     makeContinue() {
@@ -40,75 +36,46 @@ export default class Line {
     }
 
     makeFrom() {
-        return this.makeFor()
+        this.makeFor()
     }
 
     makeFor() {
-        let vdl = this.makeVariableList('index', ['number'])
-        vdl.variable.initializer = new ChainBox
-        vdl.variable.initializer.chain.inputNumber(0)
-
-        let statement = new Statement.ForStatement(vdl)
-        this.statement = statement
-
-        statement.condition.left.chain.start(vdl.variable.name)
-        statement.condition.operator = ts.SyntaxKind.LessThanToken
-        statement.condition.right = new ChainBox
-        statement.condition.right.chain.inputNumber(0)
-
-        statement.incrementor.left.chain.start(vdl.variable.name)
-        statement.incrementor.operator = ts.SyntaxKind.PlusEqualsToken
-        statement.incrementor.right = new ChainBox
-        statement.step.chain.inputNumber(1)
+        this.statement = Statement.ForStatement.make()
     }
 
     makeEach() {
-        return this.makeForOf()
+        this.makeForOf()
     }
 
     makeForOf() {
-        let vdl = this.makeVariableList('item', ['any'])
-        this.statement = new Statement.ForOfStatement(vdl)
+        this.statement = Statement.ForOfStatement.make()
     }
 
     makeIf() {
-        this.statement = new Statement.IfStatement
+        this.statement = Statement.IfStatement.make()
     }
 
     makeReturn() {
-        this.statement = new Statement.ReturnStatement
+        this.statement = Statement.ReturnStatement.make()
     }
 
     makeSwitch() {
-        this.statement = new Statement.SwitchStatement
+        this.statement = Statement.SwitchStatement.make()
     }
 
     makeTry() {
-        let vvv = this.makeVariable('error', ['Error'])
-        let clause = new CatchClause(vvv)
-        this.statement = new Statement.TryStatement(clause)
-    }
-
-    makeVariable(name: string, list: string[]) {
-        let node = TypeBox.make(list, OwnerKind.Variable)
-        return new Variable(name, node)
-    }
-
-    makeVariableList(name: string, list: string[]) {
-        let vvv = this.makeVariable(name, list)
-        return new Statement.VariableList(vvv)
+        this.statement = Statement.TryStatement.make()
     }
 
     makeVariableStatement(name: string, list: string[]) {
         if (this.VariableList.indexOf(name) > -1) {
             throw `${name} already exists!`
         }
-        let vdl = this.makeVariableList(name, list)
-        this.statement = new Statement.VariableStatement(vdl)
+        this.statement = Statement.VariableStatement.make(name, list)
     }
 
     makeWhile() {
-        this.statement = new Statement.WhileStatement
+        this.statement = Statement.WhileStatement.make()
     }
 
     load(node: ts.Statement) {

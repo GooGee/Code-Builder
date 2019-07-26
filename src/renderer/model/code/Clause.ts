@@ -3,7 +3,7 @@ import Block, { BlockBase } from './Block'
 import { Variable } from '../data/Member'
 import LineManager from './LineManager'
 import Node from '../Node'
-import { ChainBox } from './Box'
+import Box from './Box'
 
 export default abstract class Clause implements Node {
     abstract source: ts.Node | null
@@ -23,19 +23,24 @@ export abstract class SelectClause extends Clause {
 }
 
 export class CaseClause extends SelectClause {
-    readonly box: ChainBox = new ChainBox
+    readonly box: Box
     source: ts.CaseClause | null = null
 
+    constructor(block: BlockBase, box: Box) {
+        super(block)
+        this.box = box
+    }
+
     static load(clause: ts.CaseClause, block: BlockBase) {
-        let ccc = new CaseClause(block)
-        ccc.box.load(clause.expression)
+        const box = Box.load(clause.expression)
+        const ccc = new CaseClause(block, box)
         ccc.LineManager.load(clause.statements)
         ccc.source = clause
         return ccc
     }
 
     toNode() {
-        let node = ts.createCaseClause(
+        const node = ts.createCaseClause(
             this.box.toNode(),
             this.LineManager.toNodeArray()
         )

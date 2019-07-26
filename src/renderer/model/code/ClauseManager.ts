@@ -2,6 +2,7 @@ import * as ts from 'typescript'
 import Manager from '../Manager'
 import { CaseClause, DefaultClause } from './Clause'
 import { BlockBase } from './Block'
+import Box from './Box'
 
 export default class ClauseManager extends Manager<CaseClause> {
     readonly block: BlockBase
@@ -13,7 +14,8 @@ export default class ClauseManager extends Manager<CaseClause> {
     }
 
     make() {
-        const clause = new CaseClause(this.block)
+        const box = Box.make()
+        const clause = new CaseClause(this.block, box)
         return clause
     }
 

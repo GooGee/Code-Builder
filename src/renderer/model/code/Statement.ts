@@ -2,11 +2,14 @@ import * as ts from 'typescript'
 import { CatchClause } from './Clause'
 import Block, { CaseBlock } from './Block'
 import { Variable } from '../data/Member'
-import Node from '../Node'
-import Box, { AssignBox, ChainBox, ComputeBox } from './Box';
+import { StatementNode } from '../Node'
 import LineManager from './LineManager'
+import { OwnerKind } from '../data/TypeBox'
+import Box from './Box'
+import Chain from './Chain'
+import { Assign, Compute } from './Twin'
 
-export abstract class Statement implements Node {
+export abstract class Statement implements StatementNode {
     readonly label: string = ''
     readonly isSimple: boolean = false
     readonly isAssign: boolean = false
@@ -20,7 +23,9 @@ export abstract class Statement implements Node {
     readonly isTry: boolean = false
     readonly isWhile: boolean = false
     readonly owner: LineManager | null = null
+
     abstract source: ts.Node | null
+    abstract toNode(): ts.Statement
 
     get isEach() {
         return this.isForOf
@@ -83,15 +88,18 @@ export abstract class Statement implements Node {
         throw `Error loading statement: ${statement.kind}`
     }
 
-    abstract toNode(): ts.Statement
+    static makeVariableList(name: string, list: Array<string>) {
+        const variable = Variable.make(name, list, OwnerKind.Variable)
+        return new VariableList(variable)
+    }
 }
 
 export abstract class StatementWithBox extends Statement {
-    readonly box: ChainBox
+    readonly box: Box
 
-    constructor(canBeConstant: boolean = true) {
+    constructor(box: Box) {
         super()
-        this.box = new ChainBox(canBeConstant)
+        this.box = box
     }
 
 }
@@ -149,23 +157,28 @@ export class EmptyStatement extends Statement {
 export class ExpressionStatement {
     static load(statement: ts.ExpressionStatement) {
         if (statement.expression.kind == ts.SyntaxKind.BinaryExpression) {
-            let sss = new AssignStatement
+            const box = Box.load(statement.expression)
+            const sss = new AssignStatement(box)
             sss.source = statement
-            sss.box.load(statement.expression as ts.BinaryExpression)
             return sss
         }
 
-        let sss = new CallStatement
+        const box = Box.load(statement.expression)
+        const sss = new CallStatement(box)
         sss.source = statement
-        sss.box.load(statement.expression)
         return sss
     }
 }
 
-export class AssignStatement extends Statement {
+export class AssignStatement extends StatementWithBox {
     readonly isAssign: boolean = true
-    readonly box = new AssignBox
     source: ts.ExpressionStatement | null = null
+
+    static make() {
+        const box = Box.make()
+        const sss = new AssignStatement(box)
+        return sss
+    }
 
     toNode() {
         let node = ts.createExpressionStatement(
@@ -173,15 +186,16 @@ export class AssignStatement extends Statement {
         )
         return node
     }
-
 }
 
 export class CallStatement extends StatementWithBox {
     readonly isCall: boolean = true
     source: ts.ExpressionStatement | null = null
 
-    constructor() {
-        super(false)
+    static make() {
+        const box = Box.make()
+        const sss = new CallStatement(box)
+        return sss
     }
 
     toNode() {
@@ -190,33 +204,39 @@ export class CallStatement extends StatementWithBox {
         )
         return node
     }
-
 }
 
 export class ForStatement extends Statement {
     readonly isFor: boolean = true
     vdl: VariableList
-    condition: ComputeBox = new ComputeBox
-    incrementor: AssignBox = new AssignBox
+    condition: Compute
+    incrementor: Assign
     readonly block: Block = new Block(this)
     source: ts.ForStatement | null = null
+
+    constructor(vdl: VariableList, condition: Compute, incrementor: Assign) {
+        super()
+        this.vdl = vdl
+        vdl.variable.hasType = false
+        vdl.variable.hasValue = false
+        this.condition = condition
+        this.incrementor = incrementor
+    }
 
     get index(): Variable {
         return this.vdl.variable
     }
 
-    get start(): ChainBox {
+    get start(): Box {
         return this.index.initializer!
     }
 
-    get end(): ChainBox {
-        let box = this.condition.right as ChainBox
-        return box
+    get end(): Box {
+        return this.condition.right
     }
 
-    get step(): ChainBox {
-        let box = this.incrementor.right as ChainBox
-        return box
+    get step(): Box {
+        return this.incrementor.right
     }
 
     get less(): boolean {
@@ -231,19 +251,34 @@ export class ForStatement extends Statement {
         }
     }
 
-    constructor(vdl: VariableList) {
-        super()
-        this.vdl = vdl
-        vdl.variable.hasType = false
-        vdl.variable.hasValue = false
+    static make() {
+        const vdl = this.makeVariableList('index', ['number'])
+        const start = new Chain
+        start.inputNumber(0)
+        vdl.variable.initializer = new Box(start)
+
+        const condition = Compute.make()
+        const chain = condition.left.BoxItem as Chain
+        chain.start(vdl.variable.name)
+        condition.operator = ts.SyntaxKind.LessThanToken
+        const end = condition.right.BoxItem as Chain
+        end.inputNumber(0)
+
+        const incrementor = Assign.make()
+        incrementor.left.start(vdl.variable.name)
+        const step = incrementor.right.BoxItem as Chain
+        step.inputNumber(1)
+
+        const statement = new ForStatement(vdl, condition, incrementor)
+        return statement
     }
 
     static load(statement: ts.ForStatement) {
-        let vdl = VariableList.load(statement.initializer as ts.VariableDeclarationList)
-        let sss = new ForStatement(vdl)
+        const vdl = VariableList.load(statement.initializer as ts.VariableDeclarationList)
+        const condition = Compute.load(statement.condition as ts.BinaryExpression)
+        const incrementor = Assign.load(statement.incrementor as ts.BinaryExpression)
+        const sss = new ForStatement(vdl, condition, incrementor)
         sss.source = statement
-        sss.condition.load(statement.condition as ts.BinaryExpression)
-        sss.incrementor.load(statement.incrementor as ts.BinaryExpression)
         sss.block.load(statement.statement as ts.Block)
         return sss
     }
@@ -259,8 +294,9 @@ export class ForStatement extends Statement {
     }
 }
 
-export class ForOfStatement extends StatementWithBox {
+export class ForOfStatement extends Statement {
     readonly isForOf: boolean = true
+    readonly chain: Chain
     readonly vdl: VariableList
     readonly block: Block = new Block(this)
     source: ts.ForOfStatement | null = null
@@ -269,22 +305,27 @@ export class ForOfStatement extends StatementWithBox {
         return this.vdl.variable
     }
 
-    get list(): ChainBox {
-        return this.box
-    }
-
-    constructor(vdl: VariableList) {
-        super(false)
+    constructor(chain: Chain, vdl: VariableList) {
+        super()
+        this.chain = chain
         this.vdl = vdl
         vdl.variable.hasType = false
         vdl.variable.hasValue = false
     }
 
+    static make() {
+        const vdl = this.makeVariableList('item', ['any'])
+        const chain = new Chain(false)
+        const statement = new ForOfStatement(chain, vdl)
+        return statement
+    }
+
     static load(statement: ts.ForOfStatement) {
-        let vdl = VariableList.load(statement.initializer as ts.VariableDeclarationList)
-        let sss = new ForOfStatement(vdl)
+        const vdl = VariableList.load(statement.initializer as ts.VariableDeclarationList)
+        const chain = new Chain(false)
+        chain.load(statement.expression)
+        const sss = new ForOfStatement(chain, vdl)
         sss.source = statement
-        sss.list.load(statement.expression)
         sss.block.load(statement.statement as ts.Block)
         return sss
     }
@@ -293,7 +334,7 @@ export class ForOfStatement extends StatementWithBox {
         let node = ts.createForOf(
             undefined,
             this.vdl.toNode(),
-            this.list.toNode(),
+            this.chain.toNode(),
             this.block.toNode()
         )
         return node
@@ -307,10 +348,16 @@ export class IfStatement extends StatementWithBox {
     readonly elseBlock: Block = new Block(this)
     source: ts.IfStatement | null = null
 
+    static make() {
+        const box = Box.make()
+        const sss = new IfStatement(box)
+        return sss
+    }
+
     static load(statement: ts.IfStatement) {
-        let sss = new IfStatement
+        const box = Box.load(statement.expression)
+        const sss = new IfStatement(box)
         sss.source = statement
-        sss.box.load(statement.expression)
         sss.block.load(statement.thenStatement as ts.Block)
         if (statement.elseStatement) {
             sss.elseBlock.load(statement.elseStatement as ts.Block)
@@ -339,20 +386,32 @@ export class ReturnStatement extends Statement {
     box: Box | null = null
     source: ts.ReturnStatement | null = null
 
+    constructor(box: Box | null) {
+        super()
+        this.box = box
+    }
+
     empty() {
         this.box = null
     }
 
     addBox() {
-        this.box = new ChainBox
+        this.box = Box.make()
+    }
+
+    static make() {
+        const box = Box.make()
+        const sss = new ReturnStatement(box)
+        return sss
     }
 
     static load(statement: ts.ReturnStatement) {
-        const sss = new ReturnStatement
-        sss.source = statement
+        let box = null
         if (statement.expression) {
-            sss.box = Box.load(statement.expression)
+            box = Box.load(statement.expression)
         }
+        const sss = new ReturnStatement(box)
+        sss.source = statement
         return sss
     }
 
@@ -368,14 +427,19 @@ export class ReturnStatement extends Statement {
 
 export class SwitchStatement extends StatementWithBox {
     readonly isSwitch: boolean = true
-    readonly box: ChainBox = new ChainBox(false)
     readonly block: CaseBlock = new CaseBlock(this)
     source: ts.SwitchStatement | null = null
 
+    static make() {
+        const box = Box.make()
+        const sss = new SwitchStatement(box)
+        return sss
+    }
+
     static load(statement: ts.SwitchStatement) {
-        let sss = new SwitchStatement
+        const box = Box.load(statement.expression, false)
+        const sss = new SwitchStatement(box)
         sss.source = statement
-        sss.box.load(statement.expression)
         sss.block.load(statement.caseBlock)
         return sss
     }
@@ -400,6 +464,13 @@ export class TryStatement extends Statement {
     constructor(clause: CatchClause) {
         super()
         this.clause = clause
+    }
+
+    static make() {
+        const vvv = Variable.make('error', ['Error'], OwnerKind.Variable)
+        const clause = new CatchClause(vvv)
+        const statement = new TryStatement(clause)
+        return statement
     }
 
     static load(statement: ts.TryStatement) {
@@ -468,6 +539,12 @@ export class VariableStatement extends Statement {
         this.vdl = vdl
     }
 
+    static make(name: string, list: string[]) {
+        const vdl = this.makeVariableList(name, list)
+        const statement = new VariableStatement(vdl)
+        return statement
+    }
+
     static load(statement: ts.VariableStatement) {
         let vdl = VariableList.load(statement.declarationList)
         vdl.variable.modifier.load(statement.modifiers)
@@ -490,10 +567,16 @@ export class WhileStatement extends StatementWithBox {
     readonly block: Block = new Block(this)
     source: ts.WhileStatement | null = null
 
+    static make() {
+        const box = Box.make()
+        const sss = new WhileStatement(box)
+        return sss
+    }
+
     static load(statement: ts.WhileStatement) {
-        let sss = new WhileStatement
+        const box = Box.load(statement.expression)
+        const sss = new WhileStatement(box)
         sss.source = statement
-        sss.box.load(statement.expression)
         sss.block.load(statement.statement as ts.Block)
         return sss
     }

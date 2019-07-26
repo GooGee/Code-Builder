@@ -1,11 +1,14 @@
 import * as ts from 'typescript'
 import * as Expression from './Expression'
+import { BoxItem } from './Box'
 
-export default class Chain {
+export default class Chain extends BoxItem {
+    readonly isChain: boolean = true
     readonly canBeConstant: boolean
     root: Expression.Expression
 
     constructor(canBeConstant: boolean = true) {
+        super()
         this.canBeConstant = canBeConstant
         this.root = new Expression.Identifier('this')
     }
