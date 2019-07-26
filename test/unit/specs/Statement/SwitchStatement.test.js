@@ -10,7 +10,7 @@ test(`load`, () => {
         ts.createCaseBlock([])
     )
     statement = SwitchStatement.load(node)
-    expect(statement.box.chain.root.value).toEqual(name)
+    expect(statement.box.BoxItem.root.value).toEqual(name)
 })
 
 test(`toNode`, () => {

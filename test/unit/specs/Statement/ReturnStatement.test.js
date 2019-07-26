@@ -8,7 +8,7 @@ test(`load`, () => {
         ts.createTrue()
     )
     statement = ReturnStatement.load(node)
-    expect(statement.box.chain.root.text).toEqual('true')
+    expect(statement.box.BoxItem.root.text).toEqual('true')
 })
 
 test(`toNode`, () => {

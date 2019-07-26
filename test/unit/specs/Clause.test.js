@@ -37,7 +37,7 @@ test(`load CaseClause`, () => {
     )
     const clause = CaseClause.load(node)
     cc = clause
-    expect(clause.box.chain.root.value).toEqual(male)
+    expect(clause.box.BoxItem.root.value).toEqual(male)
 })
 
 test(`CaseClause toNode`, () => {

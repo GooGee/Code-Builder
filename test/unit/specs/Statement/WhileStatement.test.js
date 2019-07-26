@@ -10,7 +10,7 @@ test(`load`, () => {
         ts.createBlock([])
     )
     statement = WhileStatement.load(node)
-    expect(statement.box.chain.root.text).toEqual(name)
+    expect(statement.box.BoxItem.root.text).toEqual(name)
 })
 
 test(`toNode`, () => {

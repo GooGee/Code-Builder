@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import Chain from '@/model/code/Chain'
+import { Chain } from '@/model/code/Box'
 
 const user = 'user'
 const age = 'age'

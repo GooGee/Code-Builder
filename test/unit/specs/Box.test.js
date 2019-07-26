@@ -1,35 +1,35 @@
 import * as ts from 'typescript'
-import { ChainBox, ComputeBox, LambdaBox } from '@/model/code/Box'
+import { Chain, Compute, Lambda } from '@/model/code/Box'
 
 const age = 'age'
-const box = new ChainBox
+const chain = new Chain
 
-test(`ChainBox load`, () => {
+test(`Chain load`, () => {
     const eee = ts.createIdentifier(age)
-    box.load(eee)
-    expect(box.chain.text).toEqual(age)
+    chain.load(eee)
+    expect(chain.text).toEqual(age)
 })
 
-test(`ChainBox toNode`, () => {
-    const node = box.toNode()
+test(`Chain toNode`, () => {
+    const node = chain.toNode()
     expect(node.text).toEqual(age)
 })
 
 
-const bb = new ComputeBox
+let compute = null
 
-test(`ComputeBox load`, () => {
+test(`Compute load`, () => {
     const eee = ts.createBinary(
         ts.createIdentifier(age),
         ts.SyntaxKind.LessThanToken,
         ts.createNumericLiteral(18)
     )
-    bb.load(eee)
-    expect(bb.left.chain.text).toEqual(age)
+    compute = Compute.load(eee)
+    expect(compute.left.BoxItem.text).toEqual(age)
 })
 
-test(`ComputeBox toNode`, () => {
-    const node = bb.toNode()
+test(`Compute toNode`, () => {
+    const node = compute.toNode()
     expect(node.left.text).toEqual(age)
 })
 
@@ -42,13 +42,13 @@ const node = ts.createArrowFunction(
     ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
     ts.createFalse()
 )
-const lb = LambdaBox.load(node)
+const lambda = Lambda.load(node)
 
-test(`LambdaBox load`, () => {
-    expect(lb.ParameterManager.list.length).toEqual(0)
+test(`Lambda load`, () => {
+    expect(lambda.ParameterManager.list.length).toEqual(0)
 })
 
-test(`LambdaBox toNode`, () => {
-    const node = lb.toNode()
+test(`Lambda toNode`, () => {
+    const node = lambda.toNode()
     expect(node.parameters.length).toEqual(0)
 })
