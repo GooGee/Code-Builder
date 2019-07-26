@@ -5,7 +5,7 @@
 
         <div>
             <span class="syntax">In</span>
-            <Box :box="statement.list" :editing="editing"></Box>
+            <Chain :chain="statement.chain" :editing="editing"></Chain>
         </div>
 
         <span v-if="editing" @click.stop="$emit('ok')" class="btn btn-success ok">OK</span>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import Box from './Box'
+    import Chain from './Chain'
     import Variable from '../data/Variable'
 
     export default {
@@ -23,7 +23,7 @@
         beforeCreate() {
             this.$options.components.Block = require('./Block').default
         },
-        components: { Box, Variable },
+        components: { Chain, Variable },
         props: ['statement', 'editing'],
         data() {
             return {
