@@ -3,7 +3,7 @@ import { CatchClause } from './Clause'
 import Block, { CaseBlock } from './Block'
 import { Variable } from '../data/Member'
 import Node from '../Node'
-import { AssignBox, ChainBox, ComputeBox } from './Box';
+import Box, { AssignBox, ChainBox, ComputeBox } from './Box';
 import LineManager from './LineManager'
 
 export abstract class Statement implements Node {
@@ -336,7 +336,7 @@ export class IfStatement extends StatementWithBox {
 
 export class ReturnStatement extends Statement {
     readonly isReturn: boolean = true
-    box: ChainBox | null = new ChainBox
+    box: Box | null = null
     source: ts.ReturnStatement | null = null
 
     empty() {
@@ -348,10 +348,10 @@ export class ReturnStatement extends Statement {
     }
 
     static load(statement: ts.ReturnStatement) {
-        let sss = new ReturnStatement
+        const sss = new ReturnStatement
         sss.source = statement
         if (statement.expression) {
-            sss.box!.load(statement.expression)
+            sss.box = Box.load(statement.expression)
         }
         return sss
     }
@@ -361,7 +361,7 @@ export class ReturnStatement extends Statement {
         if (this.box) {
             exp = this.box.toNode()
         }
-        let node = ts.createReturn(exp)
+        const node = ts.createReturn(exp)
         return node
     }
 }
