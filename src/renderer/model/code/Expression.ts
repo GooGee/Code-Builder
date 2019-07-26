@@ -3,8 +3,6 @@ import Project from '../Project'
 import ArgumentManager from './ArgumentManager'
 import { ExpressionNode } from '../Node'
 import Box from './Box'
-import Chain from './Chain'
-import Lambda from './Lambda'
 
 export abstract class Expression implements ExpressionNode {
     readonly isAccess: boolean = false
@@ -146,16 +144,14 @@ export abstract class ExpressionWithArgument extends Expression {
             if (ts.isParameter(parameter)) {
                 if (parameter.type) {
                     if (ts.isFunctionTypeNode(parameter.type)) { // Lambda
-                        const lambda = Lambda.make(argument)
-                        const box = new Box(lambda)
+                        const box = Box.makeLambda(argument)
                         this.ArgumentManager.add(box)
                         return
                     }
                 }
             }
 
-            const chain = new Chain
-            const box = new Box(chain)
+            const box = Box.makeChain()
             this.ArgumentManager.add(box)
         })
     }

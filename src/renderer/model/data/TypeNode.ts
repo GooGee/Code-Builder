@@ -2,9 +2,9 @@ import * as ts from 'typescript'
 import Node from '../Node'
 import TypeBox, { OwnerKind } from './TypeBox'
 import TypeManager from './TypeManager'
-import Chain from '../code/Chain'
 import TypeName, { QualifiedName, Identifier } from './TypeName'
 import { BracketKind } from '../Manager'
+import { Chain } from '../code/Box'
 
 export default abstract class TypeNode implements Node {
     isArray = false

@@ -1,8 +1,8 @@
 import Menu from "./Menu"
 import { Builder } from '../Builder'
-import Chain from "../code/Chain"
 import { enter, look, sure } from './Dialogue'
 import { PropertyAccessExpression, Expression } from "../code/Expression"
+import { Chain } from "../code/Box"
 
 export default class ChainMenu {
     chain: Chain

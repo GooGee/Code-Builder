@@ -5,9 +5,7 @@ import { Variable } from '../data/Member'
 import { StatementNode } from '../Node'
 import LineManager from './LineManager'
 import { OwnerKind } from '../data/TypeBox'
-import Box from './Box'
-import Chain from './Chain'
-import { Assign, Compute } from './Twin'
+import Box, { Chain, Assign, Compute } from './Box'
 
 export abstract class Statement implements StatementNode {
     readonly label: string = ''
@@ -175,7 +173,7 @@ export class AssignStatement extends StatementWithBox {
     source: ts.ExpressionStatement | null = null
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeAssign()
         const sss = new AssignStatement(box)
         return sss
     }
@@ -193,7 +191,7 @@ export class CallStatement extends StatementWithBox {
     source: ts.ExpressionStatement | null = null
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const sss = new CallStatement(box)
         return sss
     }
@@ -349,7 +347,7 @@ export class IfStatement extends StatementWithBox {
     source: ts.IfStatement | null = null
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const sss = new IfStatement(box)
         return sss
     }
@@ -396,11 +394,11 @@ export class ReturnStatement extends Statement {
     }
 
     addBox() {
-        this.box = Box.make()
+        this.box = Box.makeChain()
     }
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const sss = new ReturnStatement(box)
         return sss
     }
@@ -431,7 +429,7 @@ export class SwitchStatement extends StatementWithBox {
     source: ts.SwitchStatement | null = null
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const sss = new SwitchStatement(box)
         return sss
     }
@@ -568,7 +566,7 @@ export class WhileStatement extends StatementWithBox {
     source: ts.WhileStatement | null = null
 
     static make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const sss = new WhileStatement(box)
         return sss
     }

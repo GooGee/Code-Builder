@@ -14,7 +14,7 @@ export default class ClauseManager extends Manager<CaseClause> {
     }
 
     make() {
-        const box = Box.make()
+        const box = Box.makeChain()
         const clause = new CaseClause(this.block, box)
         return clause
     }

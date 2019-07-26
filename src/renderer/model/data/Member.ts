@@ -6,8 +6,7 @@ import TypeBox, { OwnerKind } from './TypeBox'
 import { ReferenceType } from './TypeNode'
 import Block from '../code/Block'
 import Node from '../Node'
-import Box from '../code/Box'
-import Chain from '../code/Chain'
+import Box, { Chain } from '../code/Box'
 
 export const ConstructorKeyWord = 'Constructor'
 
@@ -35,7 +34,7 @@ export abstract class Member extends Name implements Node {
 
     setValue(value: string) {
         if (!this.initializer) {
-            this.initializer = Box.make()
+            this.initializer = Box.makeChain()
         }
         const chain = this.initializer.BoxItem as Chain
         chain.start(value)
@@ -94,7 +93,7 @@ export abstract class TypeMember extends Member {
     }
 
     makeNew(list: ReadonlyArray<ts.Symbol>) {
-        this.initializer = Box.make()
+        this.initializer = Box.makeChain()
         const chain = this.initializer.BoxItem as Chain
         if (this.TypeBox.type instanceof ReferenceType) {
             const list: string[] = this.TypeBox.type.toArray()
