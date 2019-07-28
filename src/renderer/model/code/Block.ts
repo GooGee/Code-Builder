@@ -12,7 +12,7 @@ export abstract class BlockBase implements Node {
     owner: BlockOwner
     abstract source: ts.Node | null
 
-    abstract VariableList: string[]
+    abstract VariableList: Array<string>
     abstract toNode(): ts.Node
 
     constructor(owner: BlockOwner) {
@@ -20,7 +20,7 @@ export abstract class BlockBase implements Node {
     }
 
     get ArgumentList() {
-        let list: string[] = []
+        let list: Array<string> = []
         if (this.owner instanceof ClassMethod) {
             this.owner.ParameterManager.list.forEach(parameter => list.push(parameter.name))
         }
@@ -61,7 +61,7 @@ export default class Block extends BlockBase {
     source: ts.Block | null = null
 
     get VariableList() {
-        let list: string[] = this.ArgumentList
+        let list: Array<string> = this.ArgumentList
         this.LineManager.list.forEach(line => {
             if (line.statement) {
                 if (line.statement.isDefine) {
@@ -90,7 +90,7 @@ export class CaseBlock extends BlockBase {
     source: ts.CaseBlock | null = null
 
     get VariableList() {
-        let list: string[] = this.ArgumentList
+        let list: Array<string> = this.ArgumentList
         this.ClauseManager.list.forEach(clause => {
             clause.LineManager.list.forEach(line => {
                 if (line.statement) {

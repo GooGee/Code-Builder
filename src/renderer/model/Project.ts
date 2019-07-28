@@ -41,10 +41,10 @@ export default class Project {
         return this.program!.getSourceFile(name)
     }
 
-    get fileList(): string[] {
-        let list: string[] = []
+    get fileList(): Array<string> {
+        let list: Array<string> = []
         let path = this.codePath
-        let fileList: string[] = fs.readdirSync(path)
+        let fileList: Array<string> = fs.readdirSync(path)
         fileList.forEach(file => {
             list.push(`${path}/${file}`)
         })

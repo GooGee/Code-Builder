@@ -36,7 +36,7 @@ export default class ParameterManager extends NameManager<Parameter> {
         return list
     }
 
-    make(name: string, list: string[]) {
+    make(name: string, list: Array<string>) {
         const node = TypeBox.make(list, OwnerKind.Variable)
         const ppp = new Parameter(name, node)
         ppp.hasType = !this.inLambda

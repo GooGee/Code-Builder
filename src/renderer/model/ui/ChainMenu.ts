@@ -79,7 +79,7 @@ export default class ChainMenu {
     addArgument(owner: Expression, menu: Menu) {
         let list = this.project.checker.getCallSignatureList(owner.source!)
         list.forEach(signature => {
-            const list: string[] = []
+            const list: Array<string> = []
             signature.parameters.forEach(parameter => list.push(parameter.name))
             const label = owner.value + ' ( ' + list.join(', ') + ' )'
             menu.add(label, label => {

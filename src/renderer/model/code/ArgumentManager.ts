@@ -5,7 +5,7 @@ import Box from './Box'
 export default class ArgumentManager extends Manager<Box> {
 
     get text(): string {
-        let list: string[] = []
+        let list: Array<string> = []
         this.list.forEach(argument => {
             list.push(argument.text)
         })

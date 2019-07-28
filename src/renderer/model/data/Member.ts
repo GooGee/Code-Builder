@@ -96,7 +96,7 @@ export abstract class TypeMember extends Member {
         this.initializer = Box.makeChain()
         const chain = this.initializer.BoxItem as Chain
         if (this.TypeBox.type instanceof ReferenceType) {
-            const list: string[] = this.TypeBox.type.toArray()
+            const list: Array<string> = this.TypeBox.type.toArray()
             chain.from(list.reverse())
         }
         chain.makeNew(list)

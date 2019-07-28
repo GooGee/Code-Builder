@@ -67,7 +67,7 @@ export default class Line {
         this.statement = Statement.TryStatement.make()
     }
 
-    makeVariableStatement(name: string, list: string[]) {
+    makeVariableStatement(name: string, list: Array<string>) {
         if (this.VariableList.indexOf(name) > -1) {
             throw `${name} already exists!`
         }

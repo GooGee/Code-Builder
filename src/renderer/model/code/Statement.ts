@@ -537,7 +537,7 @@ export class VariableStatement extends Statement {
         this.vdl = vdl
     }
 
-    static make(name: string, list: string[]) {
+    static make(name: string, list: Array<string>) {
         const vdl = this.makeVariableList(name, list)
         const statement = new VariableStatement(vdl)
         return statement

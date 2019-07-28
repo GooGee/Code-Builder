@@ -22,7 +22,7 @@ export default class TypeBox implements Node {
         return this.type.text
     }
 
-    setType(list: string[]) {
+    setType(list: Array<string>) {
         this.type = TypeNode.make(list)
     }
 
