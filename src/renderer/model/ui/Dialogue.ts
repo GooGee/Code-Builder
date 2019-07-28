@@ -18,9 +18,9 @@ function toString(object: any, isRoot: boolean = true): string {
             return object.name + ': ' + object.message
         }
 
-        let list: Array<string> = []
+        const list: Array<string> = []
         Object.getOwnPropertyNames(object).forEach(key => {
-            let value = toString(object[key], false)
+            const value = toString(object[key], false)
             list.push(key + ': ' + value)
         })
         return list.join('\n')

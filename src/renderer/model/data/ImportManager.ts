@@ -25,7 +25,7 @@ export default class ImportManager extends NameManager<Import> {
     }
 
     toNodeArray() {
-        let list: ts.Statement[] = []
+        const list: ts.Statement[] = []
         this.list.forEach(item => {
             list.push(item.toNode())
         })

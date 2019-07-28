@@ -53,14 +53,14 @@ export class DefaultClause extends SelectClause {
     source: ts.DefaultClause | null = null
 
     static load(clause: ts.DefaultClause, block: BlockBase) {
-        let ccc = new DefaultClause(block)
+        const ccc = new DefaultClause(block)
         ccc.LineManager.load(clause.statements)
         ccc.source = clause
         return ccc
     }
 
     toNode() {
-        let node = ts.createDefaultClause(
+        const node = ts.createDefaultClause(
             this.LineManager.toNodeArray()
         )
         return node
@@ -80,14 +80,14 @@ export class CatchClause extends Clause {
     }
 
     static load(clause: ts.CatchClause) {
-        let variable = Variable.load(clause.variableDeclaration!)
-        let ccc = new CatchClause(variable)
+        const variable = Variable.load(clause.variableDeclaration!)
+        const ccc = new CatchClause(variable)
         ccc.source = clause
         return ccc
     }
 
     toNode() {
-        let node = ts.createCatchClause(
+        const node = ts.createCatchClause(
             this.variable.toNode(),
             this.block.toNode()
         )

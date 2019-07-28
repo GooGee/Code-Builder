@@ -47,7 +47,7 @@ export default class ModifierManager {
     }
 
     get KeyWordList() {
-        let list = Array<string>()
+        const list = Array<string>()
         ModifierList.forEach(modifier => {
             if (this[modifier.property]) {
                 list.push(modifier.keyword)
@@ -62,7 +62,7 @@ export default class ModifierManager {
         }
 
         list.forEach(modifier => {
-            let found = ModifierList.find(item => item.kind == modifier.kind)
+            const found = ModifierList.find(item => item.kind == modifier.kind)
             if (found) {
                 this[found.property] = true
             }
@@ -70,10 +70,10 @@ export default class ModifierManager {
     }
 
     toNodeArray() {
-        let list: ts.Modifier[] = []
+        const list: ts.Modifier[] = []
         ModifierList.forEach(modifier => {
             if (this[modifier.property]) {
-                let item = ts.createModifier(modifier.kind as any)
+                const item = ts.createModifier(modifier.kind as any)
                 list.push(item)
             }
         })

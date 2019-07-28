@@ -50,8 +50,8 @@ export default class TypeMenu {
     }
 
     makeTypeMenu(CallBack: CallBack) {
-        let menu = new Menu()
-        let list = this.project.checker.getTypeList(this.module)
+        const menu = new Menu()
+        const list = this.project.checker.getTypeList(this.module)
         list.forEach(type => {
             menu.add(type.name, label => CallBack(label))
         })

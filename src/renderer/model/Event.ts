@@ -14,7 +14,7 @@ export abstract class Listener<T> {
     }
 
     ignore(event: Event<T>) {
-        let index = event.list.indexOf(this)
+        const index = event.list.indexOf(this)
         if (index > -1) {
             event.list.splice(index, 1)
         }

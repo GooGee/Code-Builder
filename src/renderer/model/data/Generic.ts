@@ -22,7 +22,7 @@ export default class Generic extends Name {
     }
 
     static load(node: ts.TypeParameterDeclaration) {
-        let ppp = new Generic(node.name.text)
+        const ppp = new Generic(node.name.text)
         if (node.constraint) {
             ppp.constraint = TypeBox.load(node.constraint, OwnerKind.Type)
         }
@@ -34,7 +34,7 @@ export default class Generic extends Name {
         if (this.constraint) {
             ccc = this.constraint.toNode()
         }
-        let node = ts.createTypeParameterDeclaration(
+        const node = ts.createTypeParameterDeclaration(
             this.name,
             ccc,
             undefined

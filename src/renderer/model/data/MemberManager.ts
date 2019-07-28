@@ -9,17 +9,17 @@ export class ClassMemberManager extends NameManager<ClassMember> {
         list.forEach(node => {
             switch (node.kind) {
                 case ts.SyntaxKind.Constructor:
-                    let cc = ClassConstructor.load(node as ts.ConstructorDeclaration)
+                    const cc = ClassConstructor.load(node as ts.ConstructorDeclaration)
                     this.add(cc)
                     break
 
                 case ts.SyntaxKind.MethodDeclaration:
-                    let cm = ClassMethod.load(node as ts.MethodDeclaration)
+                    const cm = ClassMethod.load(node as ts.MethodDeclaration)
                     this.add(cm)
                     break
 
                 case ts.SyntaxKind.PropertyDeclaration:
-                    let cp = ClassProperty.load(node as ts.PropertyDeclaration)
+                    const cp = ClassProperty.load(node as ts.PropertyDeclaration)
                     this.add(cp)
                     break
 
@@ -35,7 +35,7 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     toNodeArray() {
-        let list: ts.ClassElement[] = []
+        const list: ts.ClassElement[] = []
         this.list.forEach(item => {
             list.push(item.toNode())
         })
@@ -43,19 +43,19 @@ export class ClassMemberManager extends NameManager<ClassMember> {
     }
 
     makeConstructor() {
-        let item = new ClassConstructor()
+        const item = new ClassConstructor()
         return item
     }
 
     makeMethod(name: string, list: Array<string>) {
-        let node = TypeBox.make(list, OwnerKind.Function)
-        let item = new ClassMethod(name, node)
+        const node = TypeBox.make(list, OwnerKind.Function)
+        const item = new ClassMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: Array<string>) {
-        let node = TypeBox.make(list, OwnerKind.Variable)
-        let item = new ClassProperty(name, node)
+        const node = TypeBox.make(list, OwnerKind.Variable)
+        const item = new ClassProperty(name, node)
         return item
     }
 }
@@ -94,14 +94,14 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
         list.forEach(node => {
             switch (node.kind) {
                 case ts.SyntaxKind.MethodSignature:
-                    let mmm = node as ts.MethodSignature
-                    let cm = InterfaceMethod.load(mmm)
+                    const mmm = node as ts.MethodSignature
+                    const cm = InterfaceMethod.load(mmm)
                     this.add(cm)
                     break
 
                 case ts.SyntaxKind.PropertySignature:
-                    let ppp = node as ts.PropertySignature
-                    let cp = InterfaceProperty.load(ppp)
+                    const ppp = node as ts.PropertySignature
+                    const cp = InterfaceProperty.load(ppp)
                     this.add(cp)
                     break
 
@@ -117,7 +117,7 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     toNodeArray() {
-        let list: ts.TypeElement[] = []
+        const list: ts.TypeElement[] = []
         this.list.forEach(item => {
             list.push(item.toNode())
         })
@@ -125,14 +125,14 @@ export class InterfaceMemberManager extends NameManager<InterfaceMember> {
     }
 
     makeMethod(name: string, list: Array<string>) {
-        let node = TypeBox.make(list, OwnerKind.Function)
-        let item = new InterfaceMethod(name, node)
+        const node = TypeBox.make(list, OwnerKind.Function)
+        const item = new InterfaceMethod(name, node)
         return item
     }
 
     makeProperty(name: string, list: Array<string>) {
-        let node = TypeBox.make(list, OwnerKind.Variable)
-        let item = new InterfaceProperty(name, node)
+        const node = TypeBox.make(list, OwnerKind.Variable)
+        const item = new InterfaceProperty(name, node)
         return item
     }
 

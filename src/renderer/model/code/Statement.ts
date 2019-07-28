@@ -108,13 +108,13 @@ export class BreakStatement extends Statement {
     source: ts.BreakStatement | null = null
 
     static load(statement: ts.BreakStatement) {
-        let sss = new BreakStatement()
+        const sss = new BreakStatement()
         sss.source = statement
         return sss
     }
 
     toNode() {
-        let node = ts.createBreak()
+        const node = ts.createBreak()
         return node
     }
 }
@@ -125,13 +125,13 @@ export class ContinueStatement extends Statement {
     source: ts.ContinueStatement | null = null
 
     static load(statement: ts.ContinueStatement) {
-        let sss = new ContinueStatement()
+        const sss = new ContinueStatement()
         sss.source = statement
         return sss
     }
 
     toNode() {
-        let node = ts.createContinue()
+        const node = ts.createContinue()
         return node
     }
 }
@@ -141,13 +141,13 @@ export class EmptyStatement extends Statement {
     source: ts.EmptyStatement | null = null
 
     static load(statement: ts.EmptyStatement) {
-        let sss = new EmptyStatement()
+        const sss = new EmptyStatement()
         sss.source = statement
         return sss
     }
 
     toNode() {
-        let node = ts.createEmptyStatement()
+        const node = ts.createEmptyStatement()
         return node
     }
 }
@@ -179,7 +179,7 @@ export class AssignStatement extends StatementWithBox {
     }
 
     toNode() {
-        let node = ts.createExpressionStatement(
+        const node = ts.createExpressionStatement(
             this.box.toNode()
         )
         return node
@@ -197,7 +197,7 @@ export class CallStatement extends StatementWithBox {
     }
 
     toNode() {
-        let node = ts.createExpressionStatement(
+        const node = ts.createExpressionStatement(
             this.box.toNode()
         )
         return node
@@ -282,7 +282,7 @@ export class ForStatement extends Statement {
     }
 
     toNode() {
-        let node = ts.createFor(
+        const node = ts.createFor(
             this.vdl.toNode(),
             this.condition.toNode(),
             this.incrementor.toNode(),
@@ -329,7 +329,7 @@ export class ForOfStatement extends Statement {
     }
 
     toNode() {
-        let node = ts.createForOf(
+        const node = ts.createForOf(
             undefined,
             this.vdl.toNode(),
             this.chain.toNode(),
@@ -370,7 +370,7 @@ export class IfStatement extends StatementWithBox {
         if (this.hasElse) {
             elseBlock = this.elseBlock.toNode()
         }
-        let node = ts.createIf(
+        const node = ts.createIf(
             this.box.toNode(),
             this.block.toNode(),
             elseBlock
@@ -443,7 +443,7 @@ export class SwitchStatement extends StatementWithBox {
     }
 
     toNode() {
-        let node = ts.createSwitch(
+        const node = ts.createSwitch(
             this.box.toNode(),
             this.block.toNode()
         )
@@ -472,8 +472,8 @@ export class TryStatement extends Statement {
     }
 
     static load(statement: ts.TryStatement) {
-        let clause = CatchClause.load(statement.catchClause!)
-        let sss = new TryStatement(clause)
+        const clause = CatchClause.load(statement.catchClause!)
+        const sss = new TryStatement(clause)
         sss.source = statement
         sss.tryBlock.load(statement.tryBlock)
         if (statement.finallyBlock) {
@@ -489,7 +489,7 @@ export class TryStatement extends Statement {
         if (this.hasFinally) {
             finallyBlock = this.finallyBlock.toNode()
         }
-        let node = ts.createTry(
+        const node = ts.createTry(
             this.tryBlock.toNode(),
             this.clause.toNode(),
             finallyBlock
@@ -507,15 +507,15 @@ export class VariableList {
     }
 
     static load(vdl: ts.VariableDeclarationList) {
-        let variable = Variable.load(vdl.declarations[0])
-        let vvv = new VariableList(variable)
+        const variable = Variable.load(vdl.declarations[0])
+        const vvv = new VariableList(variable)
         vvv.source = vdl
         return vvv
     }
 
     toNode() {
-        let variable = this.variable.toNode()
-        let node = ts.createVariableDeclarationList(
+        const variable = this.variable.toNode()
+        const node = ts.createVariableDeclarationList(
             [variable],
             ts.NodeFlags.Let
         )
@@ -544,15 +544,15 @@ export class VariableStatement extends Statement {
     }
 
     static load(statement: ts.VariableStatement) {
-        let vdl = VariableList.load(statement.declarationList)
+        const vdl = VariableList.load(statement.declarationList)
         vdl.variable.modifier.load(statement.modifiers)
-        let sss = new VariableStatement(vdl)
+        const sss = new VariableStatement(vdl)
         sss.source = statement
         return sss
     }
 
     toNode() {
-        let node = ts.createVariableStatement(
+        const node = ts.createVariableStatement(
             this.variable.modifier.toNodeArray(),
             this.vdl.toNode()
         )
@@ -580,7 +580,7 @@ export class WhileStatement extends StatementWithBox {
     }
 
     toNode() {
-        let node = ts.createWhile(
+        const node = ts.createWhile(
             this.box.toNode(),
             this.block.toNode()
         )

@@ -58,7 +58,7 @@ export default abstract class TypeNode implements Node {
             return UnionType.load(node)
         }
 
-        let keyword = node as ts.KeywordTypeNode
+        const keyword = node as ts.KeywordTypeNode
         return KeyWordType.load(keyword)
     }
 }
@@ -92,7 +92,7 @@ export class ArrayType extends TypeNode {
     }
 
     toNode() {
-        let node = ts.createArrayTypeNode(
+        const node = ts.createArrayTypeNode(
             this.TypeBox.toNode()
         )
         return node
@@ -134,7 +134,7 @@ export class KeyWordType extends TypeNode {
     constructor(kind: ts.KeywordSyntaxKind) {
         super()
         this.kind = kind
-        let kw = KeyWordType.findByKind(kind)
+        const kw = KeyWordType.findByKind(kind)
         this._name = kw!.text
     }
 
@@ -144,7 +144,7 @@ export class KeyWordType extends TypeNode {
 
     set name(name: string) {
         this._name = name
-        let kw = KeyWordType.findByName(name)
+        const kw = KeyWordType.findByName(name)
         if (kw) {
             this.kind = kw.kind
         }
@@ -163,9 +163,9 @@ export class KeyWordType extends TypeNode {
     }
 
     static load(node: ts.KeywordTypeNode) {
-        let kw = KeyWordType.findByKind(node.kind)
+        const kw = KeyWordType.findByKind(node.kind)
         if (kw) {
-            let name = new KeyWordType(kw.kind)
+            const name = new KeyWordType(kw.kind)
             name.source = node
             return name
         }
@@ -173,7 +173,7 @@ export class KeyWordType extends TypeNode {
     }
 
     toNode() {
-        let node = ts.createKeywordTypeNode(this.kind as any)
+        const node = ts.createKeywordTypeNode(this.kind as any)
         return node
     }
 }
@@ -237,7 +237,7 @@ export class ReferenceType extends TypeNode {
             })
         }
 
-        let node = ts.createTypeReferenceNode(
+        const node = ts.createTypeReferenceNode(
             this.type.toNode(),
             list
         )

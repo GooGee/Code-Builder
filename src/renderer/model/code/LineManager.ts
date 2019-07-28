@@ -17,14 +17,14 @@ export default class LineManager extends Manager<Line> {
 
     load(list: ReadonlyArray<ts.Statement>) {
         list.forEach(statement => {
-            let line = this.make()
+            const line = this.make()
             line.load(statement)
             this.add(line)
         })
     }
 
     toNodeArray() {
-        let list: ts.Statement[] = []
+        const list: ts.Statement[] = []
         this.list.forEach(line => {
             if (line.statement) {
                 list.push(line.toNode())

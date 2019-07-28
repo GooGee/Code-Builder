@@ -5,7 +5,7 @@ import Box from './Box'
 export default class ArgumentManager extends Manager<Box> {
 
     get text(): string {
-        let list: Array<string> = []
+        const list: Array<string> = []
         this.list.forEach(argument => {
             list.push(argument.text)
         })
@@ -15,14 +15,14 @@ export default class ArgumentManager extends Manager<Box> {
     load(list?: ReadonlyArray<ts.Expression>) {
         if (list) {
             list.forEach(expression => {
-                let box = Box.load(expression)
+                const box = Box.load(expression)
                 this.add(box)
             })
         }
     }
 
     toNodeArray() {
-        let list: ts.Expression[] = []
+        const list: ts.Expression[] = []
         this.list.forEach(box => {
             list.push(box.toNode())
         })

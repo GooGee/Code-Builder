@@ -25,7 +25,7 @@ export default class NameManager<T extends Name> extends Manager<T> {
     }
 
     remove(item: T) {
-        let index = this.list.indexOf(item)
+        const index = this.list.indexOf(item)
         if (index > -1) {
             this.listener.ignore(item.BeforeNameChange)
             super.remove(item)

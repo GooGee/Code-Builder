@@ -24,17 +24,17 @@ export default class StructureManager extends NameManager<Structure> {
     }
 
     private loadClass(node: ts.ClassDeclaration) {
-        let ccc = Class.load(node)
+        const ccc = Class.load(node)
         this.add(ccc)
     }
 
     private loadEnum(node: ts.EnumDeclaration) {
-        let eee = Enum.load(node)
+        const eee = Enum.load(node)
         this.add(eee)
     }
 
     private loadInterface(node: ts.InterfaceDeclaration) {
-        let iii = Interface.load(node)
+        const iii = Interface.load(node)
         this.add(iii)
     }
 
@@ -54,7 +54,7 @@ export default class StructureManager extends NameManager<Structure> {
     }
 
     toNodeArray() {
-        let list: ts.Statement[] = []
+        const list: ts.Statement[] = []
         this.list.forEach(item => {
             list.push(item.toNode())
         })
@@ -62,17 +62,17 @@ export default class StructureManager extends NameManager<Structure> {
     }
 
     makeClass(name: string) {
-        let ctype = new Class(name)
+        const ctype = new Class(name)
         return ctype
     }
 
     makeEnum(name: string) {
-        let ctype = new Enum(name)
+        const ctype = new Enum(name)
         return ctype
     }
 
     makeInterface(name: string) {
-        let ctype = new Interface(name)
+        const ctype = new Interface(name)
         return ctype
     }
 

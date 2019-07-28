@@ -172,15 +172,15 @@ export class CallExpression extends ExpressionWithArgument {
     }
 
     static load(node: ts.CallExpression) {
-        let expression = Expression.load(node.expression)
-        let eee = new CallExpression(expression)
+        const expression = Expression.load(node.expression)
+        const eee = new CallExpression(expression)
         eee.source = node
         eee.ArgumentManager.load(node.arguments)
         return eee
     }
 
     toNode() {
-        let node = ts.createCall(
+        const node = ts.createCall(
             this.expression.toNode(),
             undefined,
             this.ArgumentManager.toNodeArray()
@@ -203,7 +203,7 @@ export class Identifier extends Expression {
     }
 
     static load(node: ts.Identifier) {
-        let eee = new Identifier(node.text)
+        const eee = new Identifier(node.text)
         eee.source = node
         return eee
     }
@@ -228,15 +228,15 @@ export class NewExpression extends ExpressionWithArgument {
     }
 
     static load(node: ts.NewExpression) {
-        let child = Expression.load(node.expression)
-        let eee = new NewExpression(child)
+        const child = Expression.load(node.expression)
+        const eee = new NewExpression(child)
         eee.source = node
         eee.ArgumentManager.load(node.arguments)
         return eee
     }
 
     toNode() {
-        let node = ts.createNew(
+        const node = ts.createNew(
             this.expression.toNode(),
             undefined,
             this.ArgumentManager.toNodeArray()
@@ -262,13 +262,13 @@ export class NumericLiteral extends Literal {
     }
 
     static load(node: ts.NumericLiteral) {
-        let eee = new NumericLiteral(node.text)
+        const eee = new NumericLiteral(node.text)
         eee.source = node
         return eee
     }
 
     toNode() {
-        let node = ts.createNumericLiteral(this.text)
+        const node = ts.createNumericLiteral(this.text)
         return node
     }
 }
@@ -294,14 +294,14 @@ export class PrefixUnaryExpression extends Expression {
     }
 
     static load(node: ts.PrefixUnaryExpression) {
-        let operand = Expression.load(node.operand)
-        let eee = new PrefixUnaryExpression(node.operator, operand)
+        const operand = Expression.load(node.operand)
+        const eee = new PrefixUnaryExpression(node.operator, operand)
         eee.source = node
         return eee
     }
 
     toNode() {
-        let node = ts.createPrefix(
+        const node = ts.createPrefix(
             this.operator,
             this.operand.toNode()
         )
@@ -325,14 +325,14 @@ export class PropertyAccessExpression extends Expression {
     }
 
     static load(node: ts.PropertyAccessExpression) {
-        let expression = Expression.load(node.expression)
-        let eee = new PropertyAccessExpression(expression, node.name.text)
+        const expression = Expression.load(node.expression)
+        const eee = new PropertyAccessExpression(expression, node.name.text)
         eee.source = node
         return eee
     }
 
     toNode() {
-        let node = ts.createPropertyAccess(
+        const node = ts.createPropertyAccess(
             this.expression.toNode(),
             this.value
         )
@@ -354,13 +354,13 @@ export class StringLiteral extends Literal {
     }
 
     static load(node: ts.StringLiteral) {
-        let eee = new StringLiteral(node.text)
+        const eee = new StringLiteral(node.text)
         eee.source = node
         return eee
     }
 
     toNode() {
-        let node = ts.createStringLiteral(this.value)
+        const node = ts.createStringLiteral(this.value)
         return node
     }
 }

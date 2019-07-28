@@ -52,13 +52,13 @@ export class Identifier extends TypeName {
     }
 
     static load(node: ts.Identifier) {
-        let name = new Identifier(node.text)
+        const name = new Identifier(node.text)
         name.source = node
         return name
     }
 
     toNode() {
-        let node = ts.createIdentifier(this.name)
+        const node = ts.createIdentifier(this.name)
         return node
     }
 }
@@ -79,8 +79,8 @@ export class QualifiedName extends TypeName {
     }
 
     get text() {
-        let left: string = this.left.text
-        let right: string = this.right.text
+        const left: string = this.left.text
+        const right: string = this.right.text
         return `${left} ${Project.PointSign} ${right}`
     }
 
@@ -95,14 +95,14 @@ export class QualifiedName extends TypeName {
         } else {
             left = QualifiedName.load(node.left)
         }
-        let right = Identifier.load(node.right)
-        let name = new QualifiedName(left, right)
+        const right = Identifier.load(node.right)
+        const name = new QualifiedName(left, right)
         name.source = node
         return name
     }
 
     toNode() {
-        let node = ts.createQualifiedName(
+        const node = ts.createQualifiedName(
             this.left.toNode(),
             this.right.toNode()
         )

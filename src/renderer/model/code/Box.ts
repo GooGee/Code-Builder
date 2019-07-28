@@ -83,12 +83,12 @@ export class Chain extends BoxItem {
     }
 
     access(name: string, owner: Expression.Expression) {
-        let eee = new Expression.PropertyAccessExpression(owner, name)
+        const eee = new Expression.PropertyAccessExpression(owner, name)
         this.root = eee
     }
 
     call(list: ReadonlyArray<ts.Symbol>, owner: Expression.Expression) {
-        let eee = new Expression.CallExpression(owner)
+        const eee = new Expression.CallExpression(owner)
         this.root = eee
         eee.updateArgument(list)
     }
@@ -125,7 +125,7 @@ export class Chain extends BoxItem {
     }
 
     inputNumber(text: number) {
-        let value = Number(text)
+        const value = Number(text)
         if (isNaN(value)) {
             throw `${text} is not a number!`
         }
@@ -137,18 +137,18 @@ export class Chain extends BoxItem {
     }
 
     makeNew(list: ReadonlyArray<ts.Symbol>) {
-        let eee = new Expression.NewExpression(this.root)
+        const eee = new Expression.NewExpression(this.root)
         this.root = eee
         eee.updateArgument(list)
     }
 
     not() {
-        let eee = new Expression.PrefixUnaryExpression(ts.SyntaxKind.ExclamationToken, this.root)
+        const eee = new Expression.PrefixUnaryExpression(ts.SyntaxKind.ExclamationToken, this.root)
         this.root = eee
     }
 
     start(name: string) {
-        let eee = new Expression.Identifier(name)
+        const eee = new Expression.Identifier(name)
         this.root = eee
     }
 
@@ -205,8 +205,8 @@ export class Lambda extends BoxItem {
     }
 
     toNode() {
-        let token = ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken)
-        let node = ts.createArrowFunction(
+        const token = ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken)
+        const node = ts.createArrowFunction(
             undefined,
             undefined,
             this.ParameterManager.toNodeArray(),
@@ -241,7 +241,7 @@ export abstract class Twin extends BoxItem {
     }
 
     toNode() {
-        let node = ts.createBinary(
+        const node = ts.createBinary(
             this.left.toNode(),
             this.operator,
             this.right.toNode()

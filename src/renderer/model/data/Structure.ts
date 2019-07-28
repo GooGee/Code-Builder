@@ -41,7 +41,7 @@ export class Class extends Structure {
     }
 
     static load(node: ts.ClassDeclaration) {
-        let ccc = new Class(node.name!.text)
+        const ccc = new Class(node.name!.text)
         ccc.source = node
         return ccc
     }
@@ -64,7 +64,7 @@ export class Class extends Structure {
             }
         }
 
-        let node = ts.createClassDeclaration(
+        const node = ts.createClassDeclaration(
             undefined,
             this.modifier.toNodeArray(),
             this.name,
@@ -142,7 +142,7 @@ export class Interface extends Structure {
     }
 
     static load(node: ts.InterfaceDeclaration) {
-        let iii = new Interface(node.name.text)
+        const iii = new Interface(node.name.text)
         iii.source = node
         return iii
     }
@@ -165,7 +165,7 @@ export class Interface extends Structure {
             }
         }
 
-        let node = ts.createInterfaceDeclaration(
+        const node = ts.createInterfaceDeclaration(
             undefined,
             this.modifier.toNodeArray(),
             this.name,

@@ -8,7 +8,7 @@ export default class Menu {
     menu: Electron.Menu = new remote.Menu
 
     add(label: string, lambda: CallBack) {
-        let iii = new remote.MenuItem({
+        const iii = new remote.MenuItem({
             label: label,
             click: () => lambda(label)
         })
@@ -17,7 +17,7 @@ export default class Menu {
     }
 
     addMenu(label: string, menu: Menu) {
-        let iii = new remote.MenuItem({
+        const iii = new remote.MenuItem({
             label: label,
             submenu: menu.menu
         })
@@ -26,7 +26,7 @@ export default class Menu {
     }
 
     addSeparator() {
-        let iii = new remote.MenuItem({
+        const iii = new remote.MenuItem({
             type: 'separator'
         })
         this.menu.append(iii)

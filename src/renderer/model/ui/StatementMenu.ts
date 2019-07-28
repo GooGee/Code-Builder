@@ -27,7 +27,7 @@ export default class StatementMenu {
     }
 
     show() {
-        let menu = new Menu()
+        const menu = new Menu()
         menu.add('Insert', item => this.insert())
         menu.addSeparator()
         menu.add('Delete', item => this.remove())
@@ -99,7 +99,7 @@ export default class StatementMenu {
     }
 
     insert() {
-        let line = this.manager.make()
+        const line = this.manager.make()
         this.manager.insert(line, this.line)
     }
 

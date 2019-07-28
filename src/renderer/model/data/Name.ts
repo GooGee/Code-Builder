@@ -48,8 +48,8 @@ export default abstract class Name {
         if (this._name == name) {
             return
         }
-        let old = this._name
-        let event = new NameChange(name, old, this)
+        const old = this._name
+        const event = new NameChange(name, old, this)
         this.BeforeNameChange.emit(event)
         this._name = name
         this.AfterNameChange.emit(event)

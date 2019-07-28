@@ -5,7 +5,7 @@ import NameManager from './NameManager'
 export default class GenericManager extends NameManager<Generic> {
 
     get text(): string {
-        let list = Array<string>()
+        const list = Array<string>()
         this.list.forEach(item => {
             list.push(item.text)
         })
@@ -13,7 +13,7 @@ export default class GenericManager extends NameManager<Generic> {
     }
 
     make(name: string) {
-        let parameter = new Generic(name)
+        const parameter = new Generic(name)
         return parameter
     }
 
@@ -32,7 +32,7 @@ export default class GenericManager extends NameManager<Generic> {
     }
 
     toNodeArray() {
-        let list: ts.TypeParameterDeclaration[] = []
+        const list: ts.TypeParameterDeclaration[] = []
         this.list.forEach(item => {
             list.push(item.toNode())
         })

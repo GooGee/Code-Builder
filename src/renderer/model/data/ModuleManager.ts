@@ -21,15 +21,15 @@ export default class ModuleManager extends NameManager<Module> {
     }
 
     make(name: string) {
-        let path = Module.makeFileName(name, this.project.codePath)
-        let sf = ts.createSourceFile(
+        const path = Module.makeFileName(name, this.project.codePath)
+        const sf = ts.createSourceFile(
             path,
             '',
             ts.ScriptTarget.ES2015,
             undefined,
             ts.ScriptKind.TS
         )
-        let mmm = new Module(sf)
+        const mmm = new Module(sf)
         mmm.save()
         return mmm
     }

@@ -11,7 +11,7 @@ export default class HeritageManager extends Manager<Heritage> {
     }
 
     get extendText() {
-        let clause = this.extendClause
+        const clause = this.extendClause
         if (clause) {
             return clause.text
         }
@@ -19,7 +19,7 @@ export default class HeritageManager extends Manager<Heritage> {
     }
 
     get implementText() {
-        let clause = this.implementClause
+        const clause = this.implementClause
         if (clause) {
             return clause.text
         }
@@ -27,7 +27,7 @@ export default class HeritageManager extends Manager<Heritage> {
     }
 
     get extendList() {
-        let clause = this.extendClause
+        const clause = this.extendClause
         if (clause) {
             return clause.TypeManager.list
         }
@@ -35,7 +35,7 @@ export default class HeritageManager extends Manager<Heritage> {
     }
 
     get implementList() {
-        let clause = this.implementClause
+        const clause = this.implementClause
         if (clause) {
             return clause.TypeManager.list
         }

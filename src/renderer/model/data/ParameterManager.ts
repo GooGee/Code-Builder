@@ -12,7 +12,7 @@ export default class ParameterManager extends NameManager<Parameter> {
     }
 
     get text() {
-        let list = Array<string>()
+        const list = Array<string>()
         this.list.forEach(item => {
             list.push(item.name)
         })
@@ -21,7 +21,7 @@ export default class ParameterManager extends NameManager<Parameter> {
 
     load(list: ReadonlyArray<ts.ParameterDeclaration>) {
         list.forEach(node => {
-            let ppp = Parameter.load(node)
+            const ppp = Parameter.load(node)
             ppp.hasType = !this.inLambda
             ppp.hasValue = !this.inLambda
             this.add(ppp)
@@ -29,7 +29,7 @@ export default class ParameterManager extends NameManager<Parameter> {
     }
 
     toNodeArray() {
-        let list: ts.ParameterDeclaration[] = []
+        const list: ts.ParameterDeclaration[] = []
         this.list.forEach(ppp => {
             list.push(ppp.toNode())
         })

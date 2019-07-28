@@ -47,7 +47,7 @@ export default class ChainMenu {
             return
         }
 
-        let menu = new Menu()
+        const menu = new Menu()
 
         menu.add('Delete', label => this.remove(expression))
 
@@ -61,7 +61,7 @@ export default class ChainMenu {
     }
 
     changeRoot() {
-        let menu = new Menu()
+        const menu = new Menu()
 
         if (this.chain.canBeConstant) {
             menu.addMenu('Constant', this.makeConstantMenu())
@@ -77,7 +77,7 @@ export default class ChainMenu {
     }
 
     addArgument(owner: Expression, menu: Menu) {
-        let list = this.project.checker.getCallSignatureList(owner.source!)
+        const list = this.project.checker.getCallSignatureList(owner.source!)
         list.forEach(signature => {
             const list: Array<string> = []
             signature.parameters.forEach(parameter => list.push(parameter.name))
@@ -90,7 +90,7 @@ export default class ChainMenu {
     }
 
     addProperty(owner: Expression, menu: Menu) {
-        let list = this.project.checker.getPropertyList(owner.source!)
+        const list = this.project.checker.getPropertyList(owner.source!)
         list.forEach(property => {
             menu.add(property.name, label => {
                 this.chain.access(label, owner)
@@ -132,7 +132,7 @@ export default class ChainMenu {
     }
 
     makeConstantMenu() {
-        let menu = new Menu()
+        const menu = new Menu()
 
         menu.add('Input Number', label => this.makeNumber())
         menu.add('Input String', label => this.makeString())
@@ -158,8 +158,8 @@ export default class ChainMenu {
     }
 
     makeModuleMenu() {
-        let menu = new Menu()
-        let importList = this.module.ImportManager.list
+        const menu = new Menu()
+        const importList = this.module.ImportManager.list
         importList.forEach(type => {
             menu.add(type.name, label => this.start(label))
         })
@@ -167,8 +167,8 @@ export default class ChainMenu {
     }
 
     makeTypeMenu() {
-        let menu = new Menu()
-        let list = this.project.checker.getTypeList(this.module)
+        const menu = new Menu()
+        const list = this.project.checker.getTypeList(this.module)
         list.forEach(type => {
             menu.add(type.name, label => this.start(label))
         })
@@ -179,9 +179,9 @@ export default class ChainMenu {
         menu.add('this', label => this.input('this'))
 
         if (this.builder.statement) {
-            let list = this.project.checker.getVariableList(this.builder.statement.source!)
+            const list = this.project.checker.getVariableList(this.builder.statement.source!)
             // filter list, too many useless items
-            let index = list.findIndex(item => item.name == 'NaN')
+            const index = list.findIndex(item => item.name == 'NaN')
             list.splice(index)
             list.forEach(vriable => {
                 menu.add(vriable.name, label => this.start(label))

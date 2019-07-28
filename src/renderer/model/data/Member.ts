@@ -47,15 +47,15 @@ export class EnumMember extends Member {
     source: ts.EnumMember | null = null
 
     static load(node: ts.EnumMember) {
-        let name = node.name as ts.Identifier
-        let em = new EnumMember(name.text)
+        const name = node.name as ts.Identifier
+        const em = new EnumMember(name.text)
         em.source = node
         em.loadValue(node.initializer)
         return em
     }
 
     toNode() {
-        let node = ts.createEnumMember(
+        const node = ts.createEnumMember(
             this.name,
             this.valueToNode()
         )
@@ -131,7 +131,7 @@ export class ClassConstructor extends ClassMember {
     }
 
     static load(node: ts.ConstructorDeclaration) {
-        let mmm = new ClassConstructor
+        const mmm = new ClassConstructor
         mmm.source = node
         mmm.modifier.load(node.modifiers)
         mmm.ParameterManager.load(node.parameters)
@@ -140,7 +140,7 @@ export class ClassConstructor extends ClassMember {
     }
 
     toNode(): ts.ConstructorDeclaration {
-        let node = ts.createConstructor(
+        const node = ts.createConstructor(
             undefined,
             this.modifier.toNodeArray(),
             this.ParameterManager.toNodeArray(),
@@ -158,9 +158,9 @@ export class ClassMethod extends ClassMember {
     source: ts.MethodDeclaration | null = null
 
     static load(node: ts.MethodDeclaration) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Function)
-        let mmm = new ClassMethod(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Function)
+        const mmm = new ClassMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
             mmm.hasQuestionToken = true
@@ -172,7 +172,7 @@ export class ClassMethod extends ClassMember {
     }
 
     toNode(): ts.MethodDeclaration {
-        let node = ts.createMethod(
+        const node = ts.createMethod(
             undefined,
             this.modifier.toNodeArray(),
             undefined,
@@ -191,9 +191,9 @@ export class ClassProperty extends ClassMember {
     source: ts.PropertyDeclaration | null = null
 
     static load(node: ts.PropertyDeclaration) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Variable)
-        let mmm = new ClassProperty(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Variable)
+        const mmm = new ClassProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
             mmm.hasQuestionToken = true
@@ -204,7 +204,7 @@ export class ClassProperty extends ClassMember {
     }
 
     toNode(): ts.PropertyDeclaration {
-        let node = ts.createProperty(
+        const node = ts.createProperty(
             undefined,
             this.modifier.toNodeArray(),
             this.name,
@@ -235,9 +235,9 @@ export class InterfaceMethod extends InterfaceMember {
     source: ts.MethodSignature | null = null
 
     static load(node: ts.MethodSignature) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Function)
-        let mmm = new InterfaceMethod(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Function)
+        const mmm = new InterfaceMethod(name.text, type)
         mmm.source = node
         if (node.questionToken) {
             mmm.hasQuestionToken = true
@@ -248,7 +248,7 @@ export class InterfaceMethod extends InterfaceMember {
     }
 
     toNode() {
-        let node = ts.createMethodSignature(
+        const node = ts.createMethodSignature(
             undefined,
             this.ParameterManager.toNodeArray(),
             this.TypeBox.toNode(),
@@ -264,9 +264,9 @@ export class InterfaceProperty extends InterfaceMember {
     source: ts.PropertySignature | null = null
 
     static load(node: ts.PropertySignature) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Variable)
-        let mmm = new InterfaceProperty(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Variable)
+        const mmm = new InterfaceProperty(name.text, type)
         mmm.source = node
         if (node.questionToken) {
             mmm.hasQuestionToken = true
@@ -277,7 +277,7 @@ export class InterfaceProperty extends InterfaceMember {
     }
 
     toNode() {
-        let node = ts.createPropertySignature(
+        const node = ts.createPropertySignature(
             this.modifier.toNodeArray(),
             this.name,
             this.QuestionToken,
@@ -293,9 +293,9 @@ export class Parameter extends TypeMember {
     source: ts.ParameterDeclaration | null = null
 
     static load(node: ts.ParameterDeclaration) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Variable)
-        let ppp = new Parameter(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Variable)
+        const ppp = new Parameter(name.text, type)
         ppp.source = node
         if (node.questionToken) {
             ppp.hasQuestionToken = true
@@ -306,7 +306,7 @@ export class Parameter extends TypeMember {
     }
 
     toNode() {
-        let node = ts.createParameter(
+        const node = ts.createParameter(
             undefined,
             this.modifier.toNodeArray(),
             undefined,
@@ -329,16 +329,16 @@ export class Variable extends TypeMember {
     }
 
     static load(node: ts.VariableDeclaration) {
-        let name = node.name as ts.Identifier
-        let type = TypeBox.load(node.type!, OwnerKind.Variable)
-        let vvv = new Variable(name.text, type)
+        const name = node.name as ts.Identifier
+        const type = TypeBox.load(node.type!, OwnerKind.Variable)
+        const vvv = new Variable(name.text, type)
         vvv.source = node
         vvv.loadValue(node.initializer)
         return vvv
     }
 
     toNode() {
-        let node = ts.createVariableDeclaration(
+        const node = ts.createVariableDeclaration(
             this.name,
             this.typeToNode(),
             this.valueToNode()

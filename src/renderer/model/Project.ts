@@ -42,9 +42,9 @@ export default class Project {
     }
 
     get fileList(): Array<string> {
-        let list: Array<string> = []
-        let path = this.codePath
-        let fileList: Array<string> = fs.readdirSync(path)
+        const list: Array<string> = []
+        const path = this.codePath
+        const fileList: Array<string> = fs.readdirSync(path)
         fileList.forEach(file => {
             list.push(`${path}/${file}`)
         })
@@ -52,7 +52,7 @@ export default class Project {
     }
 
     find(file: string) {
-        let sf = this.program!.getSourceFile(file)
+        const sf = this.program!.getSourceFile(file)
         return sf
     }
 
