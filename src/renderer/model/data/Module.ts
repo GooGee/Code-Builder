@@ -6,6 +6,7 @@ import StructureManager from './StructureManager'
 import ImportManager from './ImportManager'
 import { Change } from '../Item'
 import { Event } from '../Event'
+import TypeAliasManager from './TypeAliasManager'
 
 const Extension = '.ts'
 
@@ -16,6 +17,7 @@ export class ModuleChange extends Change<Module> {
 export default class Module extends Name {
     readonly StructureManager: StructureManager = new StructureManager
     readonly ImportManager: ImportManager = new ImportManager(this)
+    readonly TypeAliasManager: TypeAliasManager = new TypeAliasManager
     readonly AfterModuleChange = new Event<ModuleChange>()
     sf: ts.SourceFile
 
@@ -33,38 +35,28 @@ export default class Module extends Name {
     }
 
     load() {
-        const ImportList: Array<ts.ImportDeclaration> = []
-        const StatementList: Array<ts.Statement> = []
-        this.sf.statements.forEach(statement => {
-            if (ts.isImportDeclaration(statement)) {
-                ImportList.push(statement)
-            } else {
-                StatementList.push(statement)
-            }
-        })
-        this.ImportManager.load(ImportList)
-        this.StructureManager.load(StatementList)
+        const ll = new ListLoader
+        ll.load(this.sf.statements)
+        this.ImportManager.load(ll.ImportList)
+        this.StructureManager.load(ll.StructureList)
+        this.TypeAliasManager.load(ll.TypeList)
     }
 
     update(sf: ts.SourceFile) {
         this.sf = sf
-        const ImportList: Array<ts.ImportDeclaration> = []
-        const StatementList: Array<ts.Statement> = []
-        this.sf.statements.forEach(statement => {
-            if (ts.isImportDeclaration(statement)) {
-                ImportList.push(statement)
-            } else {
-                StatementList.push(statement)
-            }
-        })
-        this.ImportManager.update(ImportList)
-        this.StructureManager.update(StatementList)
+        const ll = new ListLoader
+        ll.load(this.sf.statements)
+        this.ImportManager.update(ll.ImportList)
+        this.StructureManager.update(ll.StructureList)
+        this.TypeAliasManager.update(ll.TypeList)
     }
 
     toNode() {
         const ImportList = this.ImportManager.toNodeArray()
-        const TypeList = this.StructureManager.toNodeArray()
-        return ts.updateSourceFileNode(this.sf, ImportList.concat(TypeList))
+        const StructureList = this.StructureManager.toNodeArray()
+        const TypeList = this.TypeAliasManager.toNodeArray()
+        const list = ImportList.concat(TypeList, StructureList)
+        return ts.updateSourceFileNode(this.sf, list)
     }
 
     save() {
@@ -88,4 +80,32 @@ export default class Module extends Name {
         return path.basename(file, Extension)
     }
 
+}
+
+export class ListLoader {
+    readonly ConstantList: Array<ts.VariableStatement> = []
+    readonly ImportList: Array<ts.ImportDeclaration> = []
+    readonly StructureList: Array<ts.Statement> = []
+    readonly TypeList: Array<ts.TypeAliasDeclaration> = []
+
+    load(list: ReadonlyArray<ts.Statement>) {
+        list.forEach(statement => {
+            if (ts.isVariableStatement(statement)) {
+                this.ConstantList.push(statement)
+                return
+            }
+
+            if (ts.isImportDeclaration(statement)) {
+                this.ImportList.push(statement)
+                return
+            }
+
+            if (ts.isTypeAliasDeclaration(statement)) {
+                this.TypeList.push(statement)
+                return
+            }
+
+            this.StructureList.push(statement)
+        })
+    }
 }
