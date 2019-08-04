@@ -46,8 +46,8 @@
                 enter('Please enter the name', this.ctype.name).then(result => {
                     if (result.value) {
                         try {
-                            this.ctype.name = result.value
-                            this.cmodule.save()
+                            // this.ctype.name = result.value
+                            // this.cmodule.save()
                         } catch (error) {
                             look(error, 400)
                         }

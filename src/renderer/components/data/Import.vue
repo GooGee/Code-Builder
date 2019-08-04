@@ -26,7 +26,7 @@
                 enter('Please enter the name', this.cimport.name).then(result => {
                     if (result.value) {
                         try {
-                            this.cimport.name = result.value
+                            // this.cimport.name = result.value
                         } catch (error) {
                             look(error, 400)
                         }

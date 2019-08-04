@@ -43,8 +43,8 @@
                 enter('Please input the name', parameter.name).then(result => {
                     if (result.value) {
                         try {
-                            parameter.name = result.value
-                            builder.module.save()
+                            // parameter.name = result.value
+                            // builder.module.save()
                         } catch (error) {
                             look(error, 400)
                         }

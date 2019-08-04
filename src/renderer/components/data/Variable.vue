@@ -59,8 +59,8 @@
                 enter('Please enter the name', this.variable.name).then(result => {
                     if (result.value) {
                         try {
-                            this.variable.name = result.value
-                            builder.module.save()
+                            // this.variable.name = result.value
+                            // builder.module.save()
                         } catch (error) {
                             look(error, 400)
                         }
