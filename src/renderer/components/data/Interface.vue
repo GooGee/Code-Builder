@@ -1,6 +1,7 @@
 <template>
     <div>
         <ImportList :cmodule="cmodule" :editing="editing"></ImportList>
+        <TypeAliasList :manager="cmodule.TypeAliasManager" :editing="editing"></TypeAliasList>
 
         <div v-if="editing">
             <Modifier :modifier="ctype.modifier" kind="export"></Modifier>
@@ -37,10 +38,11 @@
     import MemberList from './MemberList'
     import HeritageList from './HeritageList'
     import GenericList from './GenericList'
+    import TypeAliasList from './TypeAliasList'
 
     export default {
         name: 'Interface',
-        components: { Modifier, ImportList, MemberList, HeritageList, GenericList },
+        components: { Modifier, ImportList, MemberList, HeritageList, GenericList, TypeAliasList },
         props: ['ctype', 'cmodule'],
         data() {
             return {
