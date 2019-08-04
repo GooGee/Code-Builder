@@ -27,6 +27,16 @@
 
             <span v-else @click="access" class="button"> ∙ </span>
         </template>
+
+        <template v-if="ctype.isUnion">
+            <template v-if="typeList.length">
+                <template v-for="(tb, index) in typeList">
+                    <span v-if="index > 0"> | </span>
+                    <TypeBox :box="tb"></TypeBox>
+                </template>
+            </template>
+            <span v-if="editing" @click="add" class="button"> + </span>
+        </template>
     </span>
 </template>
 
@@ -50,6 +60,9 @@
         computed: {
             argumentList() {
                 return this.ctype.ArgumentManager.list
+            },
+            typeList() {
+                return this.ctype.TypeManager.list
             }
         },
         methods: {
@@ -65,6 +78,8 @@
                 }
 
                 menu.show()
+            },
+            add() {
             }
         }
     }
