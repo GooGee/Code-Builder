@@ -25,13 +25,9 @@ npm run dev
 
 ![codebuilder](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
 
-View Mode
+GUI
 
 ![viewmode](https://github.com/GooGee/Code-Builder/raw/develop/image/viewmode.png)
-
-Editing Mode
-
-![editingmode](https://github.com/GooGee/Code-Builder/raw/develop/image/editingmode.png)
 
 Generated Code
 
