@@ -6,7 +6,14 @@ Using TypeScript Compiler API and Abstract Syntax Tree to achieve visual program
 
 No need to write any code, just input names and constants, and add logic by GUI, then generate code.
 
-This project is currently in the early stage of development.
+
+## ScreenShot
+
+![codebuilder](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
+
+Generated Code
+
+![code](https://github.com/GooGee/Code-Builder/raw/develop/image/code.png)
 
 
 ## Usage
@@ -20,16 +27,4 @@ npm install
 npm run dev
 
 ```
-
-## ScreenShot
-
-![codebuilder](https://github.com/GooGee/Code-Builder/raw/develop/image/codebuilder.gif)
-
-GUI
-
-![viewmode](https://github.com/GooGee/Code-Builder/raw/develop/image/viewmode.png)
-
-Generated Code
-
-![code](https://github.com/GooGee/Code-Builder/raw/develop/image/code.png)
 
