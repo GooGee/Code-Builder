@@ -1,6 +1,6 @@
 import ts from 'typescript'
 
-export default abstract class VFLanguageServiceHost
+export default abstract class LanguageServiceHost
     implements ts.LanguageServiceHost {
     constructor(readonly fs: ts.System) {}
 
