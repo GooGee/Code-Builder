@@ -1,5 +1,8 @@
 import ts from 'typescript'
-import tsvfs from '@typescript/vfs'
+import {
+    createSystem,
+    createVirtualTypeScriptEnvironment,
+} from '@typescript/vfs'
 
 export default class Worker {
     private readonly env
@@ -9,8 +12,8 @@ export default class Worker {
         rootFiles: string[],
         compilerOptions: ts.CompilerOptions,
     ) {
-        const vfs = tsvfs.createSystem(files)
-        this.env = tsvfs.createVirtualTypeScriptEnvironment(
+        const vfs = createSystem(files)
+        this.env = createVirtualTypeScriptEnvironment(
             vfs,
             rootFiles,
             ts,
