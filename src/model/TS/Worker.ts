@@ -1,43 +1,35 @@
 import ts from 'typescript'
-import {
-    createSystem,
-    createVirtualTypeScriptEnvironment,
-} from '@typescript/vfs'
+import { createSystem } from '@typescript/vfs'
+import Host from './Host'
 
 export default class Worker {
-    private readonly env
+    readonly fs
+    readonly ls
 
     constructor(
-        files: Map<string, string>,
-        rootFiles: string[],
+        fileMap: Map<string, string>,
         compilerOptions: ts.CompilerOptions,
+        files: string[],
     ) {
-        const vfs = createSystem(files)
-        this.env = createVirtualTypeScriptEnvironment(
-            vfs,
-            rootFiles,
-            ts,
-            compilerOptions,
-        )
+        this.fs = createSystem(fileMap)
+        const host = new Host(this.fs, compilerOptions, files)
+        // const {
+        //     languageServiceHost,
+        //     updateFile,
+        // } = createVirtualLanguageServiceHost(
+        //     this.fs,
+        //     Array.from(files.keys()),
+        //     compilerOptions,
+        //     ts,
+        // )
+        this.ls = ts.createLanguageService(host)
     }
 
-    createFile(fileName: string, content: string) {
-        return this.env.createFile(fileName, content)
-    }
-
-    get fs() {
-        return this.env.sys
-    }
-
-    get ls() {
-        return this.env.languageService
-    }
+    createFile(fileName: string, content: string) {}
 
     getSourceFile(fileName: string) {
-        return this.env.getSourceFile(fileName)
+        return this.ls.getProgram()?.getSourceFile(fileName)
     }
 
-    updateFile(fileName: string, content: string) {
-        return this.env.updateFile(fileName, content)
-    }
+    updateFile(fileName: string, content: string) {}
 }
