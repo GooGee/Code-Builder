@@ -2,14 +2,25 @@ import ts from 'typescript'
 
 export default abstract class LanguageServiceHost
     implements ts.LanguageServiceHost {
-    constructor(readonly fs: ts.System) {}
+    constructor(
+        readonly fs: ts.System,
+        readonly compilerOptions: ts.CompilerOptions,
+    ) {}
 
     fileExists(path: string): boolean {
         return this.fs.fileExists(path)
     }
 
+    getCompilationSettings(): ts.CompilerOptions {
+        return this.compilerOptions
+    }
+
     getCurrentDirectory(): string {
         return this.fs.getCurrentDirectory()
+    }
+
+    getDefaultLibFileName(options: ts.CompilerOptions): string {
+        return ts.getDefaultLibFileName(options)
     }
 
     getDirectories(directoryName: string): string[] {
@@ -42,9 +53,7 @@ export default abstract class LanguageServiceHost
         this.fs.writeFile(fileName, content)
     }
 
-    abstract getCompilationSettings(): ts.CompilerOptions
     abstract getScriptFileNames(): string[]
     abstract getScriptVersion(fileName: string): string
     abstract getScriptSnapshot(fileName: string): ts.IScriptSnapshot | undefined
-    abstract getDefaultLibFileName(options: ts.CompilerOptions): string
 }
