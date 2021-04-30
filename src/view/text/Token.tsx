@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 
 interface Props {
-    node: ts.Node
+    kind: ts.SyntaxKind
 }
 
-export default function Token({ node }: Props): ReactElement {
-    return <span className="token item">{ts.tokenToString(node.kind)}</span>
+export default function Token({ kind }: Props): ReactElement {
+    return <span className="token">{ts.tokenToString(kind)}</span>
 }
