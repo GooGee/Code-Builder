@@ -6,5 +6,9 @@ interface Props {
 }
 
 export default function Flag({ node }: Props): ReactElement {
-    return <span className="keyword item">{ts.NodeFlags[node.flags]}</span>
+    return (
+        <span className="keyword">
+            {ts.NodeFlags[node.flags].toLowerCase()}
+        </span>
+    )
 }
