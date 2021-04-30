@@ -10,15 +10,16 @@ interface Props {
 }
 
 export default function ArrowFunction({ node }: Props): ReactElement {
-    function getBody() {
-        if (ts.isBlock(node.body)) {
-            return (
-                <div className="block-padding">
-                    <Block node={node.body}></Block>
-                </div>
-            )
-        }
-        return <ExpressionRoot node={node.body}></ExpressionRoot>
+    if (ts.isBlock(node.body)) {
+        return (
+            <div className="block-padding">
+                <ParameterDeclarationxx
+                    list={node.parameters}
+                ></ParameterDeclarationxx>{' '}
+                <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
+                <Block node={node.body}></Block>
+            </div>
+        )
     }
 
     return (
@@ -26,7 +27,8 @@ export default function ArrowFunction({ node }: Props): ReactElement {
             <ParameterDeclarationxx
                 list={node.parameters}
             ></ParameterDeclarationxx>{' '}
-            <Token kind={node.equalsGreaterThanToken.kind}></Token> {getBody()}
+            <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
+            <ExpressionRoot node={node.body}></ExpressionRoot>
         </span>
     )
 }

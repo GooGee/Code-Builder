@@ -11,7 +11,6 @@ export default function Expressionxx({ list }: Props): ReactElement | null {
     if (list === undefined) {
         return null
     }
-
     if (list.length === 0) {
         return null
     }
