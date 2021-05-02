@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Block from '../block/Block'
-import Token from '../text/Token'
 import ParameterDeclarationxx from '../declaration/ParameterDeclarationxx'
+import Token from '../text/Token'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
