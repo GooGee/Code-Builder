@@ -12,7 +12,7 @@ interface Props {
 export default function ArrowFunction({ node }: Props): ReactElement {
     if (ts.isBlock(node.body)) {
         return (
-            <div className="block-padding">
+            <div className="pl-9">
                 <ParameterDeclarationxx
                     list={node.parameters}
                 ></ParameterDeclarationxx>{' '}

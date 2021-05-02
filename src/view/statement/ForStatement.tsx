@@ -18,7 +18,7 @@ export default function ForStatement({ node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </span>
-            <div className="block-padding">
+            <div className="pl-9">
                 <div>
                     <ExpressionRoot node={node.condition}></ExpressionRoot>
                 </div>

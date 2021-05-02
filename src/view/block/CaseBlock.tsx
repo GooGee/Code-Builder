@@ -13,7 +13,7 @@ export default function CaseBlock({ node }: Props): ReactElement {
     return (
         <div>
             {'{'}
-            <div className="block-padding">
+            <div className="pl-9">
                 {node.clauses.map((clause) => {
                     if (ts.isCaseClause(clause)) {
                         return (

@@ -18,7 +18,7 @@ export default function ForInStatement({ node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </div>
-            <div className="block-padding">
+            <div className="pl-9">
                 <span className="keyword">in </span>
                 <ExpressionRoot node={node.expression}></ExpressionRoot>
             </div>

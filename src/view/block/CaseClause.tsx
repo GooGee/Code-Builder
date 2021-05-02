@@ -13,7 +13,7 @@ export default function CaseClause({ node }: Props): ReactElement {
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot node={node.expression}></ExpressionRoot>
-            <div className="block-padding">
+            <div className="pl-9">
                 <Statementxx list={node.statements}></Statementxx>
             </div>
         </div>

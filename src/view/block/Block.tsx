@@ -21,7 +21,7 @@ export default function Block({
         <div>
             {prefix}
             {'{'}
-            <div className="block-padding">
+            <div className="pl-9">
                 <Statementxx list={node.statements}></Statementxx>
             </div>
             {'}'}
