@@ -6,6 +6,7 @@ import ArrowFunction from './ArrowFunction'
 import AsExpression from './AsExpression'
 import BinaryExpression from './BinaryExpression'
 import CallExpression from './CallExpression'
+import DeleteExpression from './DeleteExpression'
 import ExpressionWithTypeArguments from './ExpressionWithTypeArguments'
 import Identifier from './Identifier'
 import Literal from './Literal'
@@ -44,6 +45,9 @@ export default function Expression({ node }: Props): ReactElement | null {
 
         case ts.SyntaxKind.CallExpression:
             return <CallExpression node={node as any}></CallExpression>
+
+        case ts.SyntaxKind.DeleteExpression:
+            return <DeleteExpression node={node as any}></DeleteExpression>
 
         case ts.SyntaxKind.FalseKeyword:
         case ts.SyntaxKind.NullKeyword:
