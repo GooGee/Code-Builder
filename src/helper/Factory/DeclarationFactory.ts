@@ -1,0 +1,100 @@
+import ts from 'typescript'
+
+export function makeClass(name: string) {
+    return ts.factory.createClassDeclaration([], [], name, [], [], [])
+}
+
+export function makeConstructor() {
+    return ts.factory.createConstructorDeclaration(
+        [],
+        [],
+        [],
+        ts.factory.createBlock([]),
+    )
+}
+
+export function makeConstructSignature() {
+    return ts.factory.createConstructSignature([], [], undefined)
+}
+
+export function makeEnum(name: string) {
+    return ts.factory.createEnumDeclaration([], [], name, [])
+}
+
+export function makeEnumMember(name: string) {
+    return ts.factory.createEnumMember(name)
+}
+
+export function makeExtend() {
+    return makeHeritage(ts.SyntaxKind.ExtendsKeyword)
+}
+
+function makeHeritage(
+    token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword,
+) {
+    // const expression = makeExpressionWithTypeArguments(ts.factory.createIdentifier('Array'))
+    // const list: Array<ts.ExpressionWithTypeArguments> = [expression]
+    return ts.factory.createHeritageClause(token, [])
+}
+
+export function makeImplement() {
+    return makeHeritage(ts.SyntaxKind.ImplementsKeyword)
+}
+
+export function makeInterface(name: string) {
+    return ts.factory.createInterfaceDeclaration([], [], name, [], [], [])
+}
+
+export function makeMethod(name: string) {
+    return ts.factory.createMethodDeclaration(
+        [],
+        [],
+        undefined,
+        name,
+        undefined,
+        [],
+        [],
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword),
+        ts.factory.createBlock([]),
+    )
+}
+
+export function makeMethodSignature(name: string) {
+    return ts.factory.createMethodSignature(
+        [],
+        name,
+        undefined,
+        [],
+        [],
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword),
+    )
+}
+
+export function makeProperty(name: string) {
+    return ts.factory.createPropertyDeclaration(
+        [],
+        [],
+        name,
+        undefined,
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        undefined,
+    )
+}
+
+export function makePropertySignature(name: string) {
+    return ts.factory.createPropertySignature(
+        [],
+        name,
+        undefined,
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+    )
+}
+
+export function makeVariable(name: string) {
+    return ts.factory.createVariableDeclaration(
+        ts.factory.createUniqueName(name),
+        undefined,
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        ts.factory.createStringLiteral(''),
+    )
+}
