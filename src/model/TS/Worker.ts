@@ -31,5 +31,4 @@ export default class Worker {
         return this.ls.getProgram()?.getSourceFile(fileName)
     }
 
-    updateFile(fileName: string, content: string) {}
 }
