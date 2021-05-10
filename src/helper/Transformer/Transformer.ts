@@ -24,6 +24,13 @@ function makeTransformer(from: ts.Node, to: ts.Node) {
     }
 }
 
+function remove<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T) {
+    const index = nodexx.indexOf(item)
+    const list = Array.from(nodexx.values())
+    list.splice(index, 1)
+    return ts.factory.createNodeArray(list)
+}
+
 function run(transformer: ts.TransformerFactory<ts.Node>) {
     const result = ts.transform(state.sf, [transformer])
     result.diagnostics?.forEach((diagnostic) => {
@@ -45,6 +52,7 @@ function transform(from: ts.Node, to: ts.Node) {
 export default {
     insert,
     makeTransformer,
+    remove,
     run,
     transform,
 }
