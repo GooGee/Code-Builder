@@ -35,7 +35,7 @@ export function makeFor() {
     )
     const vdl = ts.factory.createVariableDeclarationList(
         [variable],
-        ts.NodeFlags.Const,
+        ts.NodeFlags.Let,
     )
     const condition = ts.factory.createBinaryExpression(
         variable.name as ts.Identifier,
