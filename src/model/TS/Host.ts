@@ -2,7 +2,7 @@ import ts from 'typescript'
 import LanguageServiceHost from './LanguageServiceHost'
 
 export default class Host extends LanguageServiceHost {
-    readonly scriptVersionMap: Map<string, string> = new Map()
+    readonly scriptVersionMap: Map<string, number> = new Map()
 
     constructor(
         fs: ts.System,
@@ -12,7 +12,7 @@ export default class Host extends LanguageServiceHost {
         super(fs, compilerOptions)
 
         files.forEach((file) => {
-            this.scriptVersionMap.set(file, '1')
+            this.scriptVersionMap.set(file, 1)
         })
     }
 
@@ -21,7 +21,7 @@ export default class Host extends LanguageServiceHost {
     }
 
     getScriptVersion(fileName: string): string {
-        return this.scriptVersionMap.get(fileName) ?? '0'
+        return this.scriptVersionMap.get(fileName)?.toString() ?? '0'
     }
 
     getScriptSnapshot(fileName: string): ts.IScriptSnapshot | undefined {
@@ -32,5 +32,16 @@ export default class Host extends LanguageServiceHost {
             }
         }
         return
+    }
+
+    writeFile(fileName: string, content: string) {
+        const old = this.fs.readFile(fileName)
+        if (old === content) {
+            return
+        }
+
+        super.writeFile(fileName, content)
+        const version = parseInt(this.getScriptVersion(fileName)) + 1
+        this.scriptVersionMap.set(fileName, version)
     }
 }

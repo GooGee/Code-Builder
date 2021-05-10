@@ -5,6 +5,7 @@ import Host from './Host'
 export default class Worker {
     readonly fs
     readonly ls
+    readonly lsh
 
     constructor(
         fileMap: Map<string, string>,
@@ -13,6 +14,7 @@ export default class Worker {
     ) {
         this.fs = createSystem(fileMap)
         const host = new Host(this.fs, compilerOptions, files)
+        this.lsh = host
         // const {
         //     languageServiceHost,
         //     updateFile,
@@ -25,10 +27,7 @@ export default class Worker {
         this.ls = ts.createLanguageService(host)
     }
 
-    createFile(fileName: string, content: string) {}
-
     getSourceFile(fileName: string) {
         return this.ls.getProgram()?.getSourceFile(fileName)
     }
-
 }
