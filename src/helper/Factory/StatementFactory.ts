@@ -95,9 +95,10 @@ export function makeReturn() {
 }
 
 export function makeSwitch() {
+    const dc = ts.factory.createDefaultClause([])
     return ts.factory.createSwitchStatement(
         ts.factory.createTrue(),
-        ts.factory.createCaseBlock([]),
+        ts.factory.createCaseBlock([dc]),
     )
 }
 
