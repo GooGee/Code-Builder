@@ -8,7 +8,7 @@ interface Props {
 export default function Flag({ node }: Props): ReactElement {
     return (
         <span className="keyword">
-            {ts.NodeFlags[node.flags].toLowerCase()}
+            {ts.NodeFlags[node.flags & 3].toLowerCase()}
         </span>
     )
 }
