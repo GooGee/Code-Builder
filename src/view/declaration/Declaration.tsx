@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import EmptyStatement from '../statement/EmptyStatement'
 import ClassDeclaration from './ClassDeclaration'
 import ConstructorDeclaration from './ConstructorDeclaration'
 import ConstructSignature from './ConstructSignature'
@@ -21,6 +22,10 @@ interface Props {
 }
 
 export default function Declaration({ node }: Props): ReactElement {
+    if (ts.isEmptyStatement(node)) {
+        return <EmptyStatement node={node as any}></EmptyStatement>
+    }
+
     switch (node.kind) {
         case ts.SyntaxKind.ClassDeclaration:
             return <ClassDeclaration node={node as any}></ClassDeclaration>
