@@ -1,0 +1,35 @@
+import ts from 'typescript'
+import * as DeclarationFactory from '../Factory/DeclarationFactory'
+import SourceFileTransformer from '../Transformer/SourceFileTransformer'
+import MenuFactory from './MenuFactory'
+
+export default function SourceFileMenuFactory(at?: ts.Statement) {
+    return () => {
+        console.log('SourceFileMenuFactory')
+        const menu = MenuFactory.makeMenu('')
+        if (at !== undefined) {
+            menu.list.push(
+                MenuFactory.makeMenu('Delete', () => {
+                    SourceFileTransformer.deleteNote(at)
+                }),
+                MenuFactory.makeMenu('----', MenuFactory.nothing, true),
+            )
+        }
+
+        menu.list.push(
+            MenuFactory.makeMenu('+ class', () => {
+                const item = DeclarationFactory.makeClass('ClassName')
+                SourceFileTransformer.addNote(item, at)
+            }),
+            MenuFactory.makeMenu('+ enum', () => {
+                const item = DeclarationFactory.makeEnum('EnumName')
+                SourceFileTransformer.addNote(item, at)
+            }),
+            MenuFactory.makeMenu('+ interface', () => {
+                const item = DeclarationFactory.makeInterface('InterfaceName')
+                SourceFileTransformer.addNote(item, at)
+            }),
+        )
+        return menu
+    }
+}
