@@ -1,10 +1,15 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
+import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
+import UniqueKey from '../../helper/UniqueKey'
+import LineButton from '../control/LineButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
-import Declarationxx from './Declarationxx'
 import Heritagexx from './Heritagexx'
+import MethodSignature from './MethodSignature'
+import PropertySignature from './PropertySignature'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
@@ -12,9 +17,11 @@ interface Props {
 }
 
 export default function InterfaceDeclaration({ node }: Props): ReactElement {
+    const uk = UniqueKey()
     return (
         <div>
             <div>
+                <LineButton factory={SourceFileMenuFactory(node)}></LineButton>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>
@@ -24,7 +31,22 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
             </div>
             <Heritagexx list={node.heritageClauses}></Heritagexx>
             {'{'}
-            <Declarationxx list={node.members as any}></Declarationxx>
+            <div className="pl-9">
+                {node.members.map((item) =>
+                    ts.isMethodSignature(item) ? (
+                        <MethodSignature
+                            node={item as any}
+                            key={uk()}
+                        ></MethodSignature>
+                    ) : (
+                        <PropertySignature
+                            node={item as any}
+                            key={uk()}
+                        ></PropertySignature>
+                    ),
+                )}
+                <LineButton factory={InterfaceMenuFactory(node)}></LineButton>
+            </div>
             {'}'}
         </div>
     )
