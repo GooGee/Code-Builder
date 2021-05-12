@@ -3,7 +3,6 @@ import ts from 'typescript'
 import EmptyStatement from '../statement/EmptyStatement'
 import ClassDeclaration from './ClassDeclaration'
 import ConstructorDeclaration from './ConstructorDeclaration'
-import ConstructSignature from './ConstructSignature'
 import EnumDeclaration from './EnumDeclaration'
 import EnumMember from './EnumMember'
 import FunctionDeclaration from './FunctionDeclaration'
@@ -29,9 +28,6 @@ export default function Declaration({ node }: Props): ReactElement {
     switch (node.kind) {
         case ts.SyntaxKind.ClassDeclaration:
             return <ClassDeclaration node={node as any}></ClassDeclaration>
-
-        case ts.SyntaxKind.ConstructSignature:
-            return <ConstructSignature node={node as any}></ConstructSignature>
 
         case ts.SyntaxKind.Constructor:
             return (

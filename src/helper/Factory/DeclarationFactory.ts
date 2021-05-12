@@ -13,10 +13,6 @@ export function makeConstructor() {
     )
 }
 
-export function makeConstructSignature() {
-    return ts.factory.createConstructSignature([], [], undefined)
-}
-
 export function makeEnum(name: string) {
     return ts.factory.createEnumDeclaration([], [], name, [])
 }
