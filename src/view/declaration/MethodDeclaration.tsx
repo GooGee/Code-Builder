@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
-import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import Block from '../block/Block'
 import DeclarationLine from '../control/DeclarationLine'
 import Identifier from '../expression/Identifier'
-import Statement from '../statement/Statement'
 import Colon from '../text/Colon'
 import Modifierxx from '../text/Modifierxx'
 import TypeNode from '../type/TypeNode'
@@ -33,16 +32,8 @@ export default function MethodDeclaration({ node }: Props): ReactElement {
                 ></ParameterDeclarationxx>
                 <Colon></Colon> <TypeNode node={node.type}></TypeNode>
             </DeclarationLine>
-            {'{'}
-            <div className="pl-9">
-                {node.body?.statements.map((item) => {
-                    return <Statement node={item} key={uk()}></Statement>
-                })}
-                <DeclarationLine
-                    factory={StatementMenuFactory(node.body!)}
-                ></DeclarationLine>
-            </div>
-            {'}'}
+
+            <Block node={node.body}></Block>
         </div>
     )
 }

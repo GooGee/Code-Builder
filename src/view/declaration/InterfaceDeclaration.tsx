@@ -29,7 +29,9 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                     list={node.typeParameters}
                 ></TypeParameterDeclarationxx>
             </DeclarationLine>
+
             <Heritagexx list={node.heritageClauses}></Heritagexx>
+
             {'{'}
             <div className="pl-9">
                 {node.members.map((item) =>

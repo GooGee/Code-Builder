@@ -23,6 +23,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>
             </DeclarationLine>
+
             {'{'}
             <div className="pl-9">
                 {node.members.map((member) => {
