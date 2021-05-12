@@ -9,7 +9,7 @@ interface Props {
 export default function Builder({ state }: Props): ReactElement {
     return (
         <div>
-            <SourceFile sf={state.sf}></SourceFile>
+            <SourceFile sf={state.sf} state={state}></SourceFile>
         </div>
     )
 }

@@ -2,18 +2,20 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import Vendor from '../../model/Vendor'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import LineButton from '../control/LineButton'
 import Declaration from '../declaration/Declaration'
 
 interface Props {
     sf: ts.SourceFile
+    state: Vendor
 }
 
-export default function SourceFile({ sf }: Props): ReactElement | null {
-    const [state, setSourceFile] = useState(sf)
-    function update(sf: ts.SourceFile) {
-        setSourceFile(sf)
+export default function SourceFile({ sf, state }: Props): ReactElement | null {
+    const [ast, setSourceFile] = useState(sf)
+    function update() {
+        setSourceFile(state.sf)
     }
 
     const uk = UniqueKey()
@@ -32,10 +34,10 @@ export default function SourceFile({ sf }: Props): ReactElement | null {
             ])
     }
 
-    const data = new ContextData(state, update)
+    const data = new ContextData(ast, update)
     return (
         <SourceFileContext.Provider value={data}>
-            {getList(state)}
+            {getList(ast)}
             <div>
                 <LineButton
                     visible={true}

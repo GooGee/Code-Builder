@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useState } from 'react'
 import Popup from 'reactjs-popup'
 import UniqueKey from '../../helper/UniqueKey'
 import Menu from '../../model/Menu'
-import state from '../../state'
 import SourceFileContext from '../context/SourceFileContext'
 
 interface Props {
@@ -28,7 +27,7 @@ export default function LineButton({
                     onClick={() => {
                         closeModal()
                         item.cb()
-                        context.update!(state.sf)
+                        context.update!()
                     }}
                     key={uk()}
                     className={

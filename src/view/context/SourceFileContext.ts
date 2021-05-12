@@ -2,7 +2,7 @@ import { createContext } from 'react'
 import ts from 'typescript'
 
 interface Update {
-    (sf: ts.SourceFile): void
+    (): void
 }
 
 export class ContextData {
