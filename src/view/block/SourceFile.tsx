@@ -37,7 +37,10 @@ export default function SourceFile({ sf }: Props): ReactElement | null {
         <SourceFileContext.Provider value={data}>
             {getList(state)}
             <div>
-                <LineButton factory={SourceFileMenuFactory()}></LineButton>
+                <LineButton
+                    visible={true}
+                    factory={SourceFileMenuFactory()}
+                ></LineButton>
             </div>
         </SourceFileContext.Provider>
     )

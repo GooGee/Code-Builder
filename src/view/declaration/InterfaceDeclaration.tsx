@@ -3,6 +3,7 @@ import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import DeclarationLine from '../control/DeclarationLine'
 import LineButton from '../control/LineButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
@@ -20,32 +21,34 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <div>
-                <LineButton factory={SourceFileMenuFactory(node)}></LineButton>
+            <DeclarationLine factory={SourceFileMenuFactory(node)}>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>
                 <TypeParameterDeclarationxx
                     list={node.typeParameters}
                 ></TypeParameterDeclarationxx>
-            </div>
+            </DeclarationLine>
             <Heritagexx list={node.heritageClauses}></Heritagexx>
             {'{'}
             <div className="pl-9">
                 {node.members.map((item) =>
                     ts.isMethodSignature(item) ? (
                         <MethodSignature
-                            node={item as any}
+                            node={item}
                             key={uk()}
                         ></MethodSignature>
-                    ) : (
+                    ) : ts.isPropertySignature(item) ? (
                         <PropertySignature
-                            node={item as any}
+                            node={item}
                             key={uk()}
                         ></PropertySignature>
-                    ),
+                    ) : null,
                 )}
-                <LineButton factory={InterfaceMenuFactory(node)}></LineButton>
+                <LineButton
+                    visible={true}
+                    factory={InterfaceMenuFactory(node)}
+                ></LineButton>
             </div>
             {'}'}
         </div>

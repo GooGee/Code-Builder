@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
-import LineButton from '../control/LineButton'
+import DeclarationLine from '../control/DeclarationLine'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Identifier from '../expression/Identifier'
 
@@ -11,13 +11,10 @@ interface Props {
 
 export default function EnumMember({ node }: Props): ReactElement {
     return (
-        <div>
-            <LineButton
-                factory={EnumMenuFactory(node.parent as any, node)}
-            ></LineButton>
+        <DeclarationLine factory={EnumMenuFactory(node.parent as any, node)}>
             <Identifier node={node.name as any}></Identifier>
-            {node.initializer ? ' = ' : null}
+            {node.initializer ? ' = ' : ''}
             <ExpressionRoot node={node.initializer}></ExpressionRoot>
-        </div>
+        </DeclarationLine>
     )
 }
