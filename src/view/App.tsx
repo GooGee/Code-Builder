@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import Vendor from './model/Vendor'
-import Builder from './view/Builder'
+import Vendor from '../model/Vendor'
+import Builder from './Builder'
 
 interface Props {
     state: Vendor
