@@ -20,6 +20,10 @@ export default function ClassMenuFactory(
         }
 
         menu.list.push(
+            MenuFactory.makeMenu('+ constructor', () => {
+                const item = DeclarationFactory.makeConstructor()
+                ClassTransformer.addNote(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ method', () => {
                 const item = DeclarationFactory.makeMethod('MethodName')
                 ClassTransformer.addNote(parent, item, at)

@@ -20,6 +20,11 @@ export default function InterfaceMenuFactory(
         }
 
         menu.list.push(
+            MenuFactory.makeMenu('+ constructor', () => {
+                const item =
+                    DeclarationFactory.makeMethodSignature('constructor')
+                InterfaceTransformer.addNote(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ method', () => {
                 const item =
                     DeclarationFactory.makeMethodSignature('MethodName')
