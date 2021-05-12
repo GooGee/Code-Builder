@@ -7,9 +7,13 @@ import SourceFileContext from '../context/SourceFileContext'
 
 interface Props {
     factory: () => Menu
+    visible: boolean
 }
 
-export default function LineButton({ factory }: Props): ReactElement {
+export default function LineButton({
+    factory,
+    visible,
+}: Props): ReactElement | null {
     const context = useContext(SourceFileContext)
     const [open, setOpen] = useState(false)
     const closeModal = () => setOpen(false)
@@ -37,6 +41,10 @@ export default function LineButton({ factory }: Props): ReactElement {
                 </div>
             )
         })
+    }
+
+    if (!visible) {
+        return null
     }
 
     return (
