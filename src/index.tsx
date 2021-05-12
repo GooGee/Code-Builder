@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './asset/bootstrap.min.css'
+import 'reactjs-popup/dist/index.css'
 import './asset/style.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import state from './state'
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <App state={state} />
     </React.StrictMode>,
     document.getElementById('root'),
 )

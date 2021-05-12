@@ -1,10 +1,19 @@
-function App() {
+import React, { ReactElement } from 'react'
+import Vendor from './model/Vendor'
+import Builder from './view/Builder'
+
+interface Props {
+    state: Vendor
+}
+
+export default function App({ state }: Props): ReactElement {
     return (
-        <div className="text-center">
-            <img src="logo.svg" alt="logo" height="333px" />
-            <h1>Code Builder</h1>
+        <div
+            id="MenuBoundary"
+            className="xl:flex flex-nowrap font-mono text-xl"
+        >
+            <Builder state={state}></Builder>
+            <hr />
         </div>
     )
 }
-
-export default App
