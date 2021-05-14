@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Declaration from '../declaration/Declaration'
+import TypeAliasDeclaration from '../declaration/TypeAliasDeclaration'
 import DoStatement from './DoStatement'
 import EmptyStatement from './EmptyStatement'
 import ExpressionStatement from './ExpressionStatement'
@@ -22,7 +22,7 @@ interface Props {
 
 export default function Statement({ node }: Props): ReactElement {
     if (ts.isTypeAliasDeclaration(node)) {
-        return <Declaration node={node as any}></Declaration>
+        return <TypeAliasDeclaration node={node as any}></TypeAliasDeclaration>
     }
 
     switch (node.kind) {
