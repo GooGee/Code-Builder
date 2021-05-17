@@ -4,7 +4,7 @@ import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import Vendor from '../../model/Vendor'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
-import LineButton from '../control/LineButton'
+import MenuButton from '../control/MenuButton'
 import Declaration from '../declaration/Declaration'
 
 interface Props {
@@ -39,10 +39,10 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
         <SourceFileContext.Provider value={data}>
             {getList(ast)}
             <div>
-                <LineButton
+                <MenuButton
                     visible={true}
                     factory={SourceFileMenuFactory()}
-                ></LineButton>
+                ></MenuButton>
             </div>
         </SourceFileContext.Provider>
     )

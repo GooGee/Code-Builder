@@ -4,7 +4,7 @@ import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import DeclarationLine from '../control/DeclarationLine'
-import LineButton from '../control/LineButton'
+import MenuButton from '../control/MenuButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
@@ -29,10 +29,10 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                 {node.members.map((member) => {
                     return <EnumMember node={member} key={uk()}></EnumMember>
                 })}
-                <LineButton
+                <MenuButton
                     visible={true}
                     factory={EnumMenuFactory(node)}
-                ></LineButton>
+                ></MenuButton>
             </div>
             {'}'}
         </div>

@@ -4,7 +4,7 @@ import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import DeclarationLine from '../control/DeclarationLine'
-import LineButton from '../control/LineButton'
+import MenuButton from '../control/MenuButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
@@ -47,10 +47,10 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                         ></PropertySignature>
                     ) : null,
                 )}
-                <LineButton
+                <MenuButton
                     visible={true}
                     factory={InterfaceMenuFactory(node)}
-                ></LineButton>
+                ></MenuButton>
             </div>
             {'}'}
         </div>

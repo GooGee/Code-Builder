@@ -10,7 +10,7 @@ interface Props {
     visible: boolean
 }
 
-export default function LineButton({
+export default function MenuButton({
     factory,
     visible,
 }: Props): ReactElement | null {
