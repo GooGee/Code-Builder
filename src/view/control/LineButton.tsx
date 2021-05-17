@@ -3,6 +3,7 @@ import Popup from 'reactjs-popup'
 import UniqueKey from '../../helper/UniqueKey'
 import Menu from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
+import Button from './Button'
 
 interface Props {
     factory: () => Menu
@@ -52,8 +53,8 @@ export default function LineButton({
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
-                <span className="cursor-pointer hover:bg-blue-200 px-2 border border-blue-300 rounded-md">
-                    *
+                <span>
+                    <Button>*</Button>
                 </span>
             }
             closeOnDocumentClick
