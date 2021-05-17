@@ -4,6 +4,7 @@ import UniqueKey from '../../helper/UniqueKey'
 import Menu from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from './Button'
+import MenuItem from './MenuItem'
 
 interface Props {
     factory: () => Menu
@@ -23,22 +24,47 @@ export default function MenuButton({
             return null
         }
         return factory().list.map((item) => {
+            if (item.list.length === 0) {
+                return (
+                    <MenuItem
+                        callback={() => {
+                            closeModal()
+                            item.cb()
+                            context.update!()
+                        }}
+                        disabled={item.disabled}
+                        key={uk()}
+                    >
+                        {item.title}
+                    </MenuItem>
+                )
+            }
             return (
-                <div
-                    onClick={() => {
-                        closeModal()
-                        item.cb()
-                        context.update!()
-                    }}
+                <Popup
+                    on="hover"
+                    position="right center"
                     key={uk()}
-                    className={
-                        item.disabled
-                            ? 'pl-2'
-                            : 'cursor-pointer hover:bg-blue-200 p-2'
+                    trigger={
+                        <span>
+                            <MenuItem disabled={item.disabled} key={uk()}>
+                                {item.title}
+                            </MenuItem>
+                        </span>
                     }
                 >
-                    {item.title}
-                </div>
+                    {item.list.map((one) => (
+                        <MenuItem
+                            callback={() => {
+                                closeModal()
+                                one.cb()
+                            }}
+                            key={uk()}
+                            disabled={one.disabled}
+                        >
+                            {one.title}
+                        </MenuItem>
+                    ))}
+                </Popup>
             )
         })
     }
