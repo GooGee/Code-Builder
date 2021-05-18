@@ -1,35 +1,25 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import TypeMenuFactory, {
-    UpdateTypeNode,
-} from '../../helper/Menu/TypeMenuFactory'
+import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import MenuButton from '../control/MenuButton'
 
 interface Props {
     children: ReactElement | null
-    editing?: boolean
-    node: ts.TypeNode | undefined
-    updateType: UpdateTypeNode
+    node?: ts.TypeNode
+    parent: ts.Node
+    propertyName?: string
 }
 
 export default function TypeRoot({
     children,
-    editing,
     node,
-    updateType,
-}: Props): ReactElement | null {
-    if (node === undefined) {
-        return null
-    }
-
-    if (!editing) {
-        return children
-    }
-
+    parent,
+    propertyName = 'type',
+}: Props): ReactElement {
     return (
         <span>
             <MenuButton
-                factory={TypeMenuFactory(updateType)}
+                factory={TypeMenuFactory(parent, node, propertyName)}
                 visible={true}
             ></MenuButton>
 
