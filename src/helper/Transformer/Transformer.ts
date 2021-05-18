@@ -45,14 +45,28 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
     })
 }
 
+function set(parent: ts.Node, to: ts.TypeNode, propertyName: string) {
+    console.log(propertyName)
+    run((context: ts.TransformationContext) => {
+        const visitor = (node: ts.Node): ts.Node => {
+            if (Object.is(node, parent)) {
+                const clone = ts.getMutableClone(parent) as any
+                clone[propertyName] = to
+                return clone
+            }
+            return ts.visitEachChild(node, visitor, context)
+        }
+        return visitor
+    })
+}
+
 function transform(from: ts.Node, to: ts.Node) {
     run(makeTransformer(from, to))
 }
 
 export default {
     insert,
-    makeTransformer,
     remove,
-    run,
+    set,
     transform,
 }
