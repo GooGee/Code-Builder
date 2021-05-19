@@ -8,11 +8,13 @@ import MenuItem from './MenuItem'
 
 interface Props {
     factory: () => Menu
+    text?: string
     visible: boolean
 }
 
 export default function MenuButton({
     factory,
+    text = '*',
     visible,
 }: Props): ReactElement | null {
     const context = useContext(SourceFileContext)
@@ -73,7 +75,7 @@ export default function MenuButton({
             open={open}
             trigger={
                 <span>
-                    <Button>*</Button>
+                    <Button>{text}</Button>
                 </span>
             }
             closeOnDocumentClick
