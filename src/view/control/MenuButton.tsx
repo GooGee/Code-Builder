@@ -40,23 +40,16 @@ export default function MenuButton({
                 )
             }
             return (
-                <Popup
-                    on="hover"
-                    position="right center"
-                    key={uk()}
-                    trigger={
-                        <span>
-                            <MenuItem disabled={item.disabled} key={uk()}>
-                                {item.title}
-                            </MenuItem>
-                        </span>
-                    }
-                >
+                <span key={uk()}>
+                    <MenuItem disabled={item.disabled} key={uk()}>
+                        {item.title}
+                    </MenuItem>
                     {item.list.map((one) => (
                         <MenuItem
                             callback={() => {
                                 closeModal()
                                 one.cb()
+                                context.update!()
                             }}
                             key={uk()}
                             disabled={one.disabled}
@@ -64,7 +57,7 @@ export default function MenuButton({
                             {one.title}
                         </MenuItem>
                     ))}
-                </Popup>
+                </span>
             )
         })
     }
