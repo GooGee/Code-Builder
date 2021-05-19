@@ -12,9 +12,9 @@ function insert<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T, at?: T) {
     return ts.factory.createNodeArray(list)
 }
 
-function makeTransformer(from: ts.Node, to: ts.Node) {
+function makeTransformer(from: ts.Node, to: ts.Node | undefined) {
     return (context: ts.TransformationContext) => {
-        const visitor = (node: ts.Node): ts.Node => {
+        const visitor = (node: ts.Node): ts.Node | undefined => {
             if (Object.is(node, from)) {
                 return to
             }
@@ -60,8 +60,8 @@ function set(parent: ts.Node, to: ts.TypeNode, propertyName: string) {
     })
 }
 
-function transform(from: ts.Node, to: ts.Node) {
-    run(makeTransformer(from, to))
+function transform(from: ts.Node, to: ts.Node | undefined) {
+    run(makeTransformer(from, to) as any)
 }
 
 export default {
