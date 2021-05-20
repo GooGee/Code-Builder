@@ -10,11 +10,6 @@ function addNote(
     update(parent, list)
 }
 
-function deleteNote(parent: ts.EnumDeclaration, item: ts.EnumMember) {
-    const list = Transformer.remove<ts.EnumMember>(parent.members, item)
-    update(parent, list)
-}
-
 function update(parent: ts.EnumDeclaration, list: ts.NodeArray<ts.EnumMember>) {
     const to = ts.factory.updateEnumDeclaration(
         parent,
@@ -28,5 +23,4 @@ function update(parent: ts.EnumDeclaration, list: ts.NodeArray<ts.EnumMember>) {
 
 export default {
     addNote,
-    deleteNote,
 }

@@ -11,12 +11,7 @@ export default function InterfaceMenuFactory(
         console.log('InterfaceMenuFactory')
         const menu = MenuFactory.makeMenu('')
         if (at !== undefined) {
-            menu.list.push(
-                MenuFactory.makeMenu('Delete', () => {
-                    InterfaceTransformer.deleteNote(parent, at)
-                }),
-                MenuFactory.makeMenu('----', MenuFactory.nothing, true),
-            )
+            MenuFactory.addDelete(menu, at)
         }
 
         menu.list.push(

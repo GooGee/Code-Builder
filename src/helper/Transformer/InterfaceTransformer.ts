@@ -10,11 +10,6 @@ function addNote(
     update(parent, list)
 }
 
-function deleteNote(parent: ts.InterfaceDeclaration, item: ts.TypeElement) {
-    const list = Transformer.remove<ts.TypeElement>(parent.members, item)
-    update(parent, list)
-}
-
 function update(
     parent: ts.InterfaceDeclaration,
     list: ts.NodeArray<ts.TypeElement>,
@@ -33,5 +28,4 @@ function update(
 
 export default {
     addNote,
-    deleteNote,
 }
