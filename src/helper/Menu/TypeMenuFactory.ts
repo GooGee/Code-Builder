@@ -1,7 +1,6 @@
 import ts from 'typescript'
 import CommonTypeList from '../../asset/CommonTypeList'
 import KeywordTypeList from '../../asset/KeywordTypeList'
-import Menu from '../../model/Menu'
 import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -18,15 +17,6 @@ function transform(
     }
 
     Transformer.transform(node, type)
-}
-
-function makeDelete(menu: Menu, node: ts.TypeNode) {
-    menu.list.push(
-        MenuFactory.makeMenu('Delete', () => {
-            Transformer.transform(node, undefined)
-        }),
-        MenuFactory.makeMenu('----', MenuFactory.nothing, true),
-    )
 }
 
 function makeBasicTypeMenu(
@@ -91,7 +81,7 @@ export default function TypeMenuFactory(
         console.log('TypeMenuFactory')
         const menu = MenuFactory.makeMenu('')
         if (node !== undefined) {
-            makeDelete(menu, node)
+            MenuFactory.addDelete(menu, node)
         }
 
         menu.list.push(
