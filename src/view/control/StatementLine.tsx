@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import Menu from '../../model/Menu'
+import EditingBox from './EditingBox'
 import MenuButton from './MenuButton'
 
 export interface Hide {
@@ -8,7 +9,7 @@ export interface Hide {
 
 interface Props {
     children: any
-    editingView?: (hide: Hide) => ReactElement | null
+    editingView?: () => ReactElement | null
     factory: () => Menu
 }
 
@@ -26,7 +27,9 @@ export default function StatementLine({
         >
             <MenuButton visible={visible} factory={factory}></MenuButton>
             {editing ? (
-                editingView!(() => setEditing(false))
+                <EditingBox hide={() => setEditing(false)}>
+                    {editingView!()}
+                </EditingBox>
             ) : (
                 <span onClick={() => setEditing(true)}>{children}</span>
             )}
