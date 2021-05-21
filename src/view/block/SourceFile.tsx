@@ -1,11 +1,11 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
+import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import Vendor from '../../model/Vendor'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import MenuButton from '../control/MenuButton'
-import Declaration from '../declaration/Declaration'
+import Statement from '../statement/Statement'
 
 interface Props {
     sf: ts.SourceFile
@@ -23,15 +23,9 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
         if (sf.statements.length === 0) {
             return null
         }
-        return sf.statements
-            .map((item) => (
-                <Declaration node={item as any} key={uk()}></Declaration>
-            ))
-            .reduce((previousValue, currentValue): any => [
-                previousValue,
-                <hr key={uk()} />,
-                currentValue,
-            ])
+        return sf.statements.map((item) => (
+            <Statement node={item as any} key={uk()}></Statement>
+        ))
     }
 
     const data = new ContextData(ast, update)
@@ -41,7 +35,7 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
             <div>
                 <MenuButton
                     visible={true}
-                    factory={SourceFileMenuFactory()}
+                    factory={StatementMenuFactory(ast)}
                 ></MenuButton>
             </div>
         </SourceFileContext.Provider>
