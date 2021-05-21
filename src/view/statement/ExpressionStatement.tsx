@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
 
 interface Props {
@@ -7,9 +8,8 @@ interface Props {
 }
 
 export default function ExpressionStatement({ node }: Props): ReactElement {
-    return (
-        <div>
-            <ExpressionRoot node={node.expression}></ExpressionRoot>
-        </div>
-    )
+    if (ts.isBinaryExpression(node.expression)) {
+        return <Assign node={node.expression}></Assign>
+    }
+    return <ExpressionRoot node={node.expression}></ExpressionRoot>
 }
