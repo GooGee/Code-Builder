@@ -3,7 +3,7 @@ import ts from 'typescript'
 import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import DeclarationLine from '../control/DeclarationLine'
+import StatementLine from '../control/StatementLine'
 import MenuButton from '../control/MenuButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
@@ -18,11 +18,11 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <DeclarationLine factory={SourceFileMenuFactory(node)}>
+            <StatementLine factory={SourceFileMenuFactory(node)}>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>
-            </DeclarationLine>
+            </StatementLine>
 
             {'{'}
             <div className="pl-9">

@@ -3,7 +3,7 @@ import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import DeclarationLine from '../control/DeclarationLine'
+import StatementLine from '../control/StatementLine'
 import MenuButton from '../control/MenuButton'
 import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
@@ -21,14 +21,14 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <DeclarationLine factory={SourceFileMenuFactory(node)}>
+            <StatementLine factory={SourceFileMenuFactory(node)}>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>
                 <TypeParameterDeclarationxx
                     list={node.typeParameters}
                 ></TypeParameterDeclarationxx>
-            </DeclarationLine>
+            </StatementLine>
 
             <Heritagexx list={node.heritageClauses}></Heritagexx>
 

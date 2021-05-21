@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import Block from '../block/Block'
-import DeclarationLine from '../control/DeclarationLine'
+import StatementLine from '../control/StatementLine'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
@@ -14,7 +14,7 @@ interface Props {
 export default function ConstructorDeclaration({ node }: Props): ReactElement {
     return (
         <div>
-            <DeclarationLine
+            <StatementLine
                 factory={ClassMenuFactory(node.parent as any, node)}
             >
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -22,7 +22,7 @@ export default function ConstructorDeclaration({ node }: Props): ReactElement {
                 <ParameterDeclarationxx
                     list={node.parameters}
                 ></ParameterDeclarationxx>
-            </DeclarationLine>
+            </StatementLine>
 
             <Block node={node.body}></Block>
         </div>

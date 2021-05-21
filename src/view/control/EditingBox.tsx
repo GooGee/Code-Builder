@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Button from './Button'
-import { Hide } from './DeclarationLine'
+import { Hide } from './StatementLine'
 
 interface Props {
     children: any

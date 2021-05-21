@@ -12,7 +12,7 @@ interface Props {
     factory: () => Menu
 }
 
-export default function DeclarationLine({
+export default function StatementLine({
     children,
     editingView,
     factory,

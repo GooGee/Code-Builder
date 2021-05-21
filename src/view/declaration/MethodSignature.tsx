@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
-import DeclarationLine from '../control/DeclarationLine'
+import StatementLine from '../control/StatementLine'
 import Identifier from '../expression/Identifier'
 import Colon from '../text/Colon'
 import Modifierxx from '../text/Modifierxx'
@@ -15,7 +15,7 @@ interface Props {
 
 export default function MethodSignature({ node }: Props): ReactElement {
     return (
-        <DeclarationLine
+        <StatementLine
             factory={InterfaceMenuFactory(node.parent as any, node)}
         >
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -33,6 +33,6 @@ export default function MethodSignature({ node }: Props): ReactElement {
             ) : (
                 ''
             )}
-        </DeclarationLine>
+        </StatementLine>
     )
 }
