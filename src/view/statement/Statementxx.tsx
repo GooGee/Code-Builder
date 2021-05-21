@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import StatementLine from '../control/StatementLine'
 import Statement from './Statement'
 
 interface Props {
@@ -12,7 +14,14 @@ export default function Statementxx({ list }: Props): ReactElement {
     return (
         <div>
             {list.map((item) => {
-                return <Statement node={item} key={uk()}></Statement>
+                return (
+                    <StatementLine
+                        factory={StatementMenuFactory(item.parent as any, item)}
+                        key={uk()}
+                    >
+                        <Statement node={item}></Statement>
+                    </StatementLine>
+                )
             })}
         </div>
     )
