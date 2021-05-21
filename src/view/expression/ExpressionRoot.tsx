@@ -3,10 +3,14 @@ import ts from 'typescript'
 import Expression from './Expression'
 
 interface Props {
+    isLeft?: boolean
     node: ts.Expression | undefined
 }
 
-export default function ExpressionRoot({ node }: Props): ReactElement | null {
+export default function ExpressionRoot({
+    isLeft = false,
+    node,
+}: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
