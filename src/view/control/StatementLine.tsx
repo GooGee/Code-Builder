@@ -7,7 +7,7 @@ export interface Hide {
 }
 
 interface Props {
-    children: Array<ReactElement | string>
+    children: any
     editingView?: (hide: Hide) => ReactElement | null
     factory: () => Menu
 }
