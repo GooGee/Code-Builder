@@ -12,8 +12,8 @@ export default function SourceFileMenuFactory(at?: ts.Statement) {
                 MenuFactory.makeMenu('Delete', () => {
                     SourceFileTransformer.deleteNote(at)
                 }),
-                MenuFactory.makeMenu('----', MenuFactory.nothing, true),
             )
+            MenuFactory.addSeparator(menu)
         }
 
         menu.list.push(

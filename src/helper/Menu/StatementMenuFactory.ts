@@ -74,6 +74,7 @@ export default function StatementMenuFactory(
         let index = 2
         if (at !== undefined) {
             MenuFactory.addDelete(menu, at)
+            MenuFactory.addSeparator(menu)
             index += 2
         }
 

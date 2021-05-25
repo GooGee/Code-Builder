@@ -12,6 +12,7 @@ export default function InterfaceMenuFactory(
         const menu = MenuFactory.makeMenu('')
         if (at !== undefined) {
             MenuFactory.addDelete(menu, at)
+            MenuFactory.addSeparator(menu)
         }
 
         menu.list.push(

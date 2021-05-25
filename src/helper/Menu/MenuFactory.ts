@@ -7,10 +7,13 @@ const nothing = () => {}
 function addDelete(menu: Menu, node: ts.Node) {
     menu.list.push(
         makeMenu('Delete', () => {
-            Transformer.transform(node, undefined)
+            Transformer.replace(node, undefined)
         }),
-        makeMenu('----', nothing, true),
     )
+}
+
+function addSeparator(menu: Menu) {
+    menu.list.push(makeMenu('----', nothing, true))
 }
 
 function makeMenu(title: string, cb: CallBack = nothing, disabled = false) {
@@ -19,6 +22,7 @@ function makeMenu(title: string, cb: CallBack = nothing, disabled = false) {
 
 export default {
     addDelete,
+    addSeparator,
     makeMenu,
     nothing,
 }
