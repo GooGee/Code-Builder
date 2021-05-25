@@ -5,20 +5,6 @@ import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
-function transform(
-    type: ts.TypeNode,
-    parent: ts.Node,
-    propertyName: string,
-    node?: ts.TypeNode,
-) {
-    if (node === undefined) {
-        Transformer.set(parent, type, propertyName)
-        return
-    }
-
-    Transformer.transform(node, type)
-}
-
 function makeBasicTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode,
@@ -29,7 +15,7 @@ function makeBasicTypeMenu(
         menu.list.push(
             MenuFactory.makeMenu(KeywordText(item)!, () => {
                 const type = ts.factory.createKeywordTypeNode(item)
-                transform(type, parent, propertyName, node)
+                Transformer.transform(type, parent, propertyName, node)
             }),
         )
     })
@@ -38,7 +24,7 @@ function makeBasicTypeMenu(
             const type = ts.factory.createLiteralTypeNode(
                 ts.factory.createNull(),
             )
-            transform(type, parent, propertyName, node)
+            Transformer.transform(type, parent, propertyName, node)
         }),
     )
     CommonTypeList.forEach((item) => {
@@ -47,7 +33,7 @@ function makeBasicTypeMenu(
                 const type = ts.factory.createTypeReferenceNode(
                     ts.factory.createIdentifier(item),
                 )
-                transform(type, parent, propertyName, node)
+                Transformer.transform(type, parent, propertyName, node)
             }),
         )
     })
@@ -82,6 +68,7 @@ export default function TypeMenuFactory(
         const menu = MenuFactory.makeMenu('')
         if (node !== undefined) {
             MenuFactory.addDelete(menu, node)
+            MenuFactory.addSeparator(menu)
         }
 
         menu.list.push(

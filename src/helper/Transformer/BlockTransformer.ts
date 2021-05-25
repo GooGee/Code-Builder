@@ -8,11 +8,11 @@ function addNote(
 ) {
     const list = Transformer.insert<ts.Statement>(parent.statements, item, at)
     if (ts.isSourceFile(parent)) {
-        Transformer.transform(parent, ts.factory.updateSourceFile(parent, list))
+        Transformer.replace(parent, ts.factory.updateSourceFile(parent, list))
         return
     }
 
-    Transformer.transform(parent, ts.factory.updateBlock(parent, list))
+    Transformer.replace(parent, ts.factory.updateBlock(parent, list))
 }
 
 export default {

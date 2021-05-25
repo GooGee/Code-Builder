@@ -5,7 +5,7 @@ import Transformer from './Transformer'
 function addNote(item: ts.Statement, at?: ts.Statement) {
     const list = Transformer.insert<ts.Statement>(state.sf.statements, item, at)
     const to = ts.factory.updateSourceFile(state.sf, list)
-    Transformer.transform(state.sf, to)
+    Transformer.replace(state.sf, to)
 }
 
 function deleteNote(item: ts.Statement) {
@@ -19,7 +19,7 @@ function deleteNote(item: ts.Statement) {
         state.sf,
         ts.factory.createNodeArray(list),
     )
-    Transformer.transform(state.sf, to)
+    Transformer.replace(state.sf, to)
 }
 
 export default {

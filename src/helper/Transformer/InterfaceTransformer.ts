@@ -23,7 +23,7 @@ function update(
         parent.heritageClauses,
         list,
     )
-    Transformer.transform(parent, to)
+    Transformer.replace(parent, to)
 }
 
 export default {

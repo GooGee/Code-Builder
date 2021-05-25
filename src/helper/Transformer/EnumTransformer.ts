@@ -18,7 +18,7 @@ function update(parent: ts.EnumDeclaration, list: ts.NodeArray<ts.EnumMember>) {
         parent.name,
         list,
     )
-    Transformer.transform(parent, to)
+    Transformer.replace(parent, to)
 }
 
 export default {

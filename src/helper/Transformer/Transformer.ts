@@ -45,7 +45,7 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
     })
 }
 
-function set(parent: ts.Node, to: ts.TypeNode, propertyName: string) {
+function set(parent: ts.Node, to: ts.Node, propertyName: string) {
     console.log(propertyName)
     run((context: ts.TransformationContext) => {
         const visitor = (node: ts.Node): ts.Node => {
@@ -60,13 +60,28 @@ function set(parent: ts.Node, to: ts.TypeNode, propertyName: string) {
     })
 }
 
-function transform(from: ts.Node, to: ts.Node | undefined) {
+function replace(from: ts.Node, to: ts.Node | undefined) {
     run(makeTransformer(from, to) as any)
+}
+
+function transform(
+    nnn: ts.Node,
+    parent: ts.Node,
+    propertyName: string,
+    node?: ts.Node,
+) {
+    if (node === undefined) {
+        set(parent, nnn, propertyName)
+        return
+    }
+
+    replace(node, nnn)
 }
 
 export default {
     insert,
     remove,
     set,
+    replace,
     transform,
 }
