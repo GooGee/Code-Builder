@@ -8,13 +8,16 @@ export interface Hide {
 }
 
 interface Props {
-    children: any
     menuFactory: () => Menu
+    viewFactory: (
+        editing: boolean,
+        setEditing: React.Dispatch<React.SetStateAction<boolean>>,
+    ) => ReactElement
 }
 
 export default function StatementLine({
-    children,
     menuFactory,
+    viewFactory,
 }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
     const [visible, setVisible] = useState(false)
@@ -26,10 +29,12 @@ export default function StatementLine({
             <MenuButton visible={visible} factory={menuFactory}></MenuButton>
             {editing ? (
                 <EditingBox hide={() => setEditing(false)}>
-                    {children}
+                    {viewFactory(editing, setEditing)}
                 </EditingBox>
             ) : (
-                <span onClick={() => setEditing(true)}>{children}</span>
+                <span onClick={() => setEditing(true)}>
+                    {viewFactory(editing, setEditing)}
+                </span>
             )}
         </div>
     )

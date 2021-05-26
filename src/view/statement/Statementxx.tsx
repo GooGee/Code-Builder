@@ -16,11 +16,18 @@ export default function Statementxx({ list }: Props): ReactElement {
             {list.map((item) => {
                 return (
                     <StatementLine
-                        factory={StatementMenuFactory(item.parent as any, item)}
+                        menuFactory={StatementMenuFactory(
+                            item.parent as any,
+                            item,
+                        )}
+                        viewFactory={(editing) => (
+                            <Statement
+                                editing={editing}
+                                node={item}
+                            ></Statement>
+                        )}
                         key={uk()}
-                    >
-                        <Statement node={item}></Statement>
-                    </StatementLine>
+                    ></StatementLine>
                 )
             })}
         </div>
