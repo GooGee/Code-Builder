@@ -18,10 +18,14 @@ import PropertyAccessExpression from './PropertyAccessExpression'
 import TypeOfExpression from './TypeOfExpression'
 
 interface Props {
+    editing?: boolean
     node: ts.Expression
 }
 
-export default function Expression({ node }: Props): ReactElement | null {
+export default function Expression({
+    editing = false,
+    node,
+}: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
