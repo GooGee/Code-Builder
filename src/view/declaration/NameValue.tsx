@@ -8,6 +8,7 @@ import Token from '../text/Token'
 import TypeNode from '../type/TypeNode'
 
 interface Props {
+    editing: boolean
     node:
         | ts.ParameterDeclaration
         | ts.PropertyDeclaration
@@ -15,21 +16,10 @@ interface Props {
         | ts.VariableDeclaration
 }
 
-export default function NameValue({ node }: Props): ReactElement {
+export default function NameValue({ editing, node }: Props): ReactElement {
     function getToken(nnn: ts.ParameterPropertyDeclaration) {
         if (nnn.questionToken) {
             return <Token kind={nnn.questionToken.kind}></Token>
-        }
-        return null
-    }
-
-    function getType() {
-        if (node.type) {
-            return (
-                <>
-                    <Colon></Colon> <TypeNode node={node.type}></TypeNode>
-                </>
-            )
         }
         return null
     }
@@ -38,9 +28,18 @@ export default function NameValue({ node }: Props): ReactElement {
         <span>
             <Identifier node={node.name as any}></Identifier>
             {getToken(node as any)}
-            {getType()}
-            {node.initializer ? <Equal></Equal> : null}
-            <ExpressionRoot node={node.initializer}></ExpressionRoot>
+            {node.type === undefined ? null : (
+                <>
+                    <Colon></Colon> <TypeNode node={node.type}></TypeNode>
+                </>
+            )}
+            {node.initializer ? <Equal /> : null}
+            <ExpressionRoot
+                editing={editing}
+                node={node.initializer}
+                parent={node}
+                propertyName="initializer"
+            ></ExpressionRoot>
         </span>
     )
 }
