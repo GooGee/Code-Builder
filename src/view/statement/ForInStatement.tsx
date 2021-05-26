@@ -6,21 +6,27 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
+    editing: boolean
     node: ts.ForInStatement
 }
 
-export default function ForInStatement({ node }: Props): ReactElement {
+export default function ForInStatement({ editing, node }: Props): ReactElement {
     return (
         <div>
             <div>
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <VariableDeclarationList
+                    editing={editing}
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </div>
             <div className="pl-9">
                 <span className="keyword">in </span>
-                <ExpressionRoot node={node.expression}></ExpressionRoot>
+                <ExpressionRoot
+                    editing={editing}
+                    node={node.expression}
+                    parent={node}
+                ></ExpressionRoot>
             </div>
             <Block node={node.statement as any}></Block>
         </div>

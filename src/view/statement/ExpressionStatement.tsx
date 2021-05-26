@@ -4,12 +4,22 @@ import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
 
 interface Props {
+    editing: boolean
     node: ts.ExpressionStatement
 }
 
-export default function ExpressionStatement({ node }: Props): ReactElement {
+export default function ExpressionStatement({
+    editing,
+    node,
+}: Props): ReactElement {
     if (ts.isBinaryExpression(node.expression)) {
         return <Assign node={node.expression}></Assign>
     }
-    return <ExpressionRoot node={node.expression}></ExpressionRoot>
+    return (
+        <ExpressionRoot
+            editing={editing}
+            node={node.expression}
+            parent={node}
+        ></ExpressionRoot>
+    )
 }

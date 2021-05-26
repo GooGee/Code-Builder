@@ -5,14 +5,19 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
+    editing: boolean
     node: ts.WhileStatement
 }
 
-export default function WhileStatement({ node }: Props): ReactElement {
+export default function WhileStatement({ editing, node }: Props): ReactElement {
     return (
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <ExpressionRoot node={node.expression}></ExpressionRoot>
+            <ExpressionRoot
+                editing={editing}
+                node={node.expression}
+                parent={node}
+            ></ExpressionRoot>
             <Block node={node.statement as any}></Block>
         </div>
     )

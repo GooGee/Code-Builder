@@ -5,14 +5,19 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
+    editing: boolean
     node: ts.IfStatement
 }
 
-export default function IfStatement({ node }: Props): ReactElement {
+export default function IfStatement({ editing, node }: Props): ReactElement {
     return (
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <ExpressionRoot node={node.expression}></ExpressionRoot>
+            <ExpressionRoot
+                editing={editing}
+                node={node.expression}
+                parent={node}
+            ></ExpressionRoot>
             <Block node={node.thenStatement as any}></Block>
             <div className="keyword">else</div>
             <Block node={node.elseStatement as any}></Block>

@@ -5,15 +5,17 @@ import Keyword from '../text/Keyword'
 import Block from './Block'
 
 interface Props {
+    editing: boolean
     node: ts.CatchClause
 }
 
-export default function CatchClause({ node }: Props): ReactElement {
+export default function CatchClause({ editing, node }: Props): ReactElement {
     return (
         <div>
             <div>
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <VariableDeclaration
+                    editing={editing}
                     node={node.variableDeclaration!}
                 ></VariableDeclaration>
             </div>
