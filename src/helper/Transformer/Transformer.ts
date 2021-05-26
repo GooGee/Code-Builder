@@ -68,20 +68,19 @@ function transform(
     nnn: ts.Node,
     parent: ts.Node,
     propertyName: string,
-    node?: ts.Node,
+    old?: ts.Node,
 ) {
-    if (node === undefined) {
+    if (old === undefined) {
         set(parent, nnn, propertyName)
         return
     }
 
-    replace(node, nnn)
+    replace(old, nnn)
 }
 
 export default {
     insert,
     remove,
-    set,
     replace,
     transform,
 }
