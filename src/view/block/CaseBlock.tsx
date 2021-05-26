@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import CaseMenuFactory from '../../helper/Menu/CaseMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import StatementLine from '../control/StatementLine'
 import CaseClause from './CaseClause'
 import DefaultClause from './DefaultClause'
 
@@ -13,15 +15,27 @@ export default function CaseBlock({ node }: Props): ReactElement {
     return (
         <div>
             {'{'}
-            <div className="pl-9">
+            <div onClick={(event) => event.stopPropagation()} className="pl-9">
                 {node.clauses.map((clause) => {
                     if (ts.isCaseClause(clause)) {
                         return (
-                            <CaseClause node={clause} key={uk()}></CaseClause>
+                            <StatementLine
+                                key={uk()}
+                                menuFactory={CaseMenuFactory(node, clause)}
+                                viewFactory={() => (
+                                    <CaseClause node={clause}></CaseClause>
+                                )}
+                            ></StatementLine>
                         )
                     }
                     return (
-                        <DefaultClause node={clause} key={uk()}></DefaultClause>
+                        <StatementLine
+                            key={uk()}
+                            menuFactory={CaseMenuFactory(node, clause as any)}
+                            viewFactory={() => (
+                                <DefaultClause node={clause}></DefaultClause>
+                            )}
+                        ></StatementLine>
                     )
                 })}
             </div>
