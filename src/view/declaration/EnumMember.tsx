@@ -11,7 +11,7 @@ interface Props {
 
 export default function EnumMember({ node }: Props): ReactElement {
     return (
-        <StatementLine factory={EnumMenuFactory(node.parent as any, node)}>
+        <StatementLine menuFactory={EnumMenuFactory(node.parent as any, node)}>
             <Identifier node={node.name as any}></Identifier>
             {node.initializer ? ' = ' : ''}
             <ExpressionRoot node={node.initializer}></ExpressionRoot>

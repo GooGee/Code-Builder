@@ -15,7 +15,7 @@ export default function ConstructorDeclaration({ node }: Props): ReactElement {
     return (
         <div>
             <StatementLine
-                factory={ClassMenuFactory(node.parent as any, node)}
+                menuFactory={ClassMenuFactory(node.parent as any, node)}
             >
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>

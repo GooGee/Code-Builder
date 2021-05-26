@@ -16,7 +16,7 @@ interface Props {
 export default function MethodSignature({ node }: Props): ReactElement {
     return (
         <StatementLine
-            factory={InterfaceMenuFactory(node.parent as any, node)}
+            menuFactory={InterfaceMenuFactory(node.parent as any, node)}
         >
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <Identifier node={node.name as any}></Identifier>

@@ -11,7 +11,7 @@ interface Props {
 
 export default function PropertyDeclaration({ node }: Props): ReactElement {
     return (
-        <StatementLine factory={ClassMenuFactory(node.parent as any, node)}>
+        <StatementLine menuFactory={ClassMenuFactory(node.parent as any, node)}>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <NameValue node={node}></NameValue>
         </StatementLine>

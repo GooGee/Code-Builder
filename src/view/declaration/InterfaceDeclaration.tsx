@@ -21,7 +21,7 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <StatementLine factory={SourceFileMenuFactory(node)}>
+            <StatementLine menuFactory={SourceFileMenuFactory(node)}>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <Identifier node={node.name}></Identifier>

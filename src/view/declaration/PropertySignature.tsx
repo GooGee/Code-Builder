@@ -13,7 +13,7 @@ interface Props {
 export default function PropertySignature({ node }: Props): ReactElement {
     return (
         <StatementLine
-            factory={InterfaceMenuFactory(node.parent as any, node)}
+            menuFactory={InterfaceMenuFactory(node.parent as any, node)}
         >
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <NameValue node={node}></NameValue>

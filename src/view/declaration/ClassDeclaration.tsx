@@ -3,9 +3,9 @@ import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import DeclarationLine from '../control/DeclarationLine'
-import LineButton from '../control/LineButton'
-import Identifier from '../expression/Identifier'
+import StatementLine from '../control/StatementLine'
+import MenuButton from '../control/MenuButton'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 import ConstructorDeclaration from './ConstructorDeclaration'
@@ -22,14 +22,16 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <DeclarationLine factory={SourceFileMenuFactory(node)}>
+            <StatementLine menuFactory={SourceFileMenuFactory(node)}>
                 <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                 <Keyword kind={node.kind}></Keyword>{' '}
-                <Identifier node={node.name!}></Identifier>
+                <IdentifierDeclaration
+                    node={node.name!}
+                ></IdentifierDeclaration>
                 <TypeParameterDeclarationxx
                     list={node.typeParameters}
                 ></TypeParameterDeclarationxx>
-            </DeclarationLine>
+            </StatementLine>
 
             <Heritagexx list={node.heritageClauses}></Heritagexx>
 
@@ -53,10 +55,10 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         ></PropertyDeclaration>
                     ) : null,
                 )}
-                <LineButton
+                <MenuButton
                     visible={true}
                     factory={ClassMenuFactory(node)}
-                ></LineButton>
+                ></MenuButton>
             </div>
             {'}'}
         </div>
