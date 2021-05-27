@@ -26,7 +26,7 @@ export default function NameValue({ editing, node }: Props): ReactElement {
 
     return (
         <span>
-            <Identifier node={node.name as any}></Identifier>
+            <Identifier editing={editing} node={node.name as any}></Identifier>
             {getToken(node as any)}
             {node.type === undefined ? null : (
                 <>

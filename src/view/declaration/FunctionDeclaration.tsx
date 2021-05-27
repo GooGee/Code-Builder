@@ -9,18 +9,24 @@ import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
+    editing: boolean
     node: ts.FunctionDeclaration
 }
 
-export default function FunctionDeclaration({ node }: Props): ReactElement {
+export default function FunctionDeclaration({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <Identifier node={node.name as any}></Identifier>
+            <Identifier editing={editing} node={node.name as any}></Identifier>
             <TypeParameterDeclarationxx
+                editing={editing}
                 list={node.typeParameters}
             ></TypeParameterDeclarationxx>
             <ParameterDeclarationxx
+                editing={editing}
                 list={node.parameters}
             ></ParameterDeclarationxx>
             <Colon></Colon> <TypeNode node={node.type}></TypeNode>

@@ -6,14 +6,18 @@ import Keyword from '../text/Keyword'
 import TypeNode from '../type/TypeNode'
 
 interface Props {
+    editing: boolean
     node: ts.TypeAliasDeclaration
 }
 
-export default function TypeAliasDeclaration({ node }: Props): ReactElement {
+export default function TypeAliasDeclaration({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <Identifier node={node.name}></Identifier>
+            <Identifier editing={editing} node={node.name}></Identifier>
             <Equal></Equal>
             <TypeNode node={node.type}></TypeNode>
         </span>
