@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import VariableDeclaration from '../declaration/VariableDeclaration'
+import Identifier from '../expression/Identifier'
 import Keyword from '../text/Keyword'
 import Block from './Block'
 
@@ -14,10 +14,10 @@ export default function CatchClause({ editing, node }: Props): ReactElement {
         <div>
             <div>
                 <Keyword kind={node.kind}></Keyword>{' '}
-                <VariableDeclaration
+                <Identifier
                     editing={editing}
-                    node={node.variableDeclaration!}
-                ></VariableDeclaration>
+                    node={node.variableDeclaration!.name as any}
+                ></Identifier>
             </div>
             <Block node={node.block}></Block>
         </div>
