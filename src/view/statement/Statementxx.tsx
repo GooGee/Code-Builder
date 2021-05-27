@@ -12,7 +12,7 @@ interface Props {
 export default function Statementxx({ list }: Props): ReactElement {
     const uk = UniqueKey()
     return (
-        <div>
+        <div onClick={(event) => event.stopPropagation()}>
             {list.map((item) => {
                 return (
                     <StatementLine
