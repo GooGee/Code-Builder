@@ -4,10 +4,14 @@ import UniqueKey from '../../helper/UniqueKey'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
+    editing: boolean
     list: ts.NodeArray<ts.Expression>
 }
 
-export default function Expressionxx({ list }: Props): ReactElement | null {
+export default function Expressionxx({
+    editing = false,
+    list,
+}: Props): ReactElement | null {
     if (list === undefined) {
         return null
     }
@@ -21,7 +25,11 @@ export default function Expressionxx({ list }: Props): ReactElement | null {
             {list
                 .map((item) => {
                     return (
-                        <ExpressionRoot node={item} key={uk()}></ExpressionRoot>
+                        <ExpressionRoot
+                            editing={editing}
+                            node={item}
+                            parent={item.parent}
+                        ></ExpressionRoot>
                     )
                 })
                 .reduce((previousValue, currentValue): any => {

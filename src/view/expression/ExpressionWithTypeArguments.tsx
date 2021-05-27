@@ -4,15 +4,17 @@ import TypeArgumentxx from '../type/TypeArgumentxx'
 import Expression from './Expression'
 
 interface Props {
+    editing?: boolean
     node: ts.ExpressionWithTypeArguments
 }
 
 export default function ExpressionWithTypeArguments({
+    editing = false,
     node,
 }: Props): ReactElement {
     return (
         <span>
-            <Expression node={node.expression}></Expression>
+            <Expression editing={editing} node={node.expression}></Expression>
             <TypeArgumentxx list={node.typeArguments}></TypeArgumentxx>
         </span>
     )

@@ -32,7 +32,12 @@ export default function Statement({ editing, node }: Props): ReactElement {
         )
     }
     if (ts.isTypeAliasDeclaration(node)) {
-        return <TypeAliasDeclaration node={node}></TypeAliasDeclaration>
+        return (
+            <TypeAliasDeclaration
+                editing={editing}
+                node={node}
+            ></TypeAliasDeclaration>
+        )
     }
 
     switch (node.kind) {

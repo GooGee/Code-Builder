@@ -4,15 +4,19 @@ import Expression from './Expression'
 import Expressionxx from './Expressionxx'
 
 interface Props {
+    editing: boolean
     node: ts.CallExpression | ts.NewExpression
 }
 
-export default function CallExpression({ node }: Props): ReactElement {
+export default function CallExpression({ editing, node }: Props): ReactElement {
     return (
         <span>
-            <Expression node={node.expression}></Expression>
+            <Expression editing={editing} node={node.expression}></Expression>
             {'('}
-            <Expressionxx list={node.arguments!}></Expressionxx>
+            <Expressionxx
+                editing={editing}
+                list={node.arguments!}
+            ></Expressionxx>
             {')'}
         </span>
     )

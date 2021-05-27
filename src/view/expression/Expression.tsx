@@ -18,12 +18,12 @@ import PropertyAccessExpression from './PropertyAccessExpression'
 import TypeOfExpression from './TypeOfExpression'
 
 interface Props {
-    editing?: boolean
+    editing: boolean
     node: ts.Expression
 }
 
 export default function Expression({
-    editing = false,
+    editing,
     node,
 }: Props): ReactElement | null {
     if (node === undefined) {
@@ -34,24 +34,50 @@ export default function Expression({
         case ts.SyntaxKind.ArrayLiteralExpression:
             return (
                 <ArrayLiteralExpression
+                    editing={editing}
                     node={node as any}
                 ></ArrayLiteralExpression>
             )
 
         case ts.SyntaxKind.ArrowFunction:
-            return <ArrowFunction node={node as any}></ArrowFunction>
+            return (
+                <ArrowFunction
+                    editing={editing}
+                    node={node as any}
+                ></ArrowFunction>
+            )
 
         case ts.SyntaxKind.AsExpression:
-            return <AsExpression node={node as any}></AsExpression>
+            return (
+                <AsExpression
+                    editing={editing}
+                    node={node as any}
+                ></AsExpression>
+            )
 
         case ts.SyntaxKind.BinaryExpression:
-            return <BinaryExpression node={node as any}></BinaryExpression>
+            return (
+                <BinaryExpression
+                    editing={editing}
+                    node={node as any}
+                ></BinaryExpression>
+            )
 
         case ts.SyntaxKind.CallExpression:
-            return <CallExpression node={node as any}></CallExpression>
+            return (
+                <CallExpression
+                    editing={editing}
+                    node={node as any}
+                ></CallExpression>
+            )
 
         case ts.SyntaxKind.DeleteExpression:
-            return <DeleteExpression node={node as any}></DeleteExpression>
+            return (
+                <DeleteExpression
+                    editing={editing}
+                    node={node as any}
+                ></DeleteExpression>
+            )
 
         case ts.SyntaxKind.FalseKeyword:
         case ts.SyntaxKind.NullKeyword:
@@ -65,23 +91,32 @@ export default function Expression({
         case ts.SyntaxKind.ExpressionWithTypeArguments:
             return (
                 <ExpressionWithTypeArguments
+                    editing={editing}
                     node={node as any}
                 ></ExpressionWithTypeArguments>
             )
 
         case ts.SyntaxKind.Identifier:
-            return <Identifier node={node as any}></Identifier>
+            return (
+                <Identifier editing={editing} node={node as any}></Identifier>
+            )
 
         case ts.SyntaxKind.NewExpression:
-            return <NewExpression node={node as any}></NewExpression>
+            return (
+                <NewExpression
+                    editing={editing}
+                    node={node as any}
+                ></NewExpression>
+            )
 
         case ts.SyntaxKind.NumericLiteral:
         case ts.SyntaxKind.StringLiteral:
-            return <Literal node={node as any}></Literal>
+            return <Literal editing={editing} node={node as any}></Literal>
 
         case ts.SyntaxKind.ObjectLiteralExpression:
             return (
                 <ObjectLiteralExpression
+                    editing={editing}
                     node={node as any}
                 ></ObjectLiteralExpression>
             )
@@ -89,6 +124,7 @@ export default function Expression({
         case ts.SyntaxKind.PostfixUnaryExpression:
             return (
                 <PostfixUnaryExpression
+                    editing={editing}
                     node={node as any}
                 ></PostfixUnaryExpression>
             )
@@ -96,6 +132,7 @@ export default function Expression({
         case ts.SyntaxKind.PrefixUnaryExpression:
             return (
                 <PrefixUnaryExpression
+                    editing={editing}
                     node={node as any}
                 ></PrefixUnaryExpression>
             )
@@ -103,12 +140,18 @@ export default function Expression({
         case ts.SyntaxKind.PropertyAccessExpression:
             return (
                 <PropertyAccessExpression
+                    editing={editing}
                     node={node as any}
                 ></PropertyAccessExpression>
             )
 
         case ts.SyntaxKind.TypeOfExpression:
-            return <TypeOfExpression node={node as any}></TypeOfExpression>
+            return (
+                <TypeOfExpression
+                    editing={editing}
+                    node={node as any}
+                ></TypeOfExpression>
+            )
 
         default:
             break

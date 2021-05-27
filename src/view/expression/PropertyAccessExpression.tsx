@@ -4,17 +4,19 @@ import Expression from './Expression'
 import Identifier from './Identifier'
 
 interface Props {
+    editing: boolean
     node: ts.PropertyAccessExpression
 }
 
 export default function PropertyAccessExpression({
+    editing,
     node,
 }: Props): ReactElement {
     return (
         <span>
-            <Expression node={node.expression}></Expression>
+            <Expression editing={editing} node={node.expression}></Expression>
             {'.'}
-            <Identifier node={node.name}></Identifier>
+            <Identifier editing={editing} node={node.name}></Identifier>
         </span>
     )
 }

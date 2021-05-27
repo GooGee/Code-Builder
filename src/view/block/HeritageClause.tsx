@@ -5,10 +5,14 @@ import ExpressionWithTypeArguments from '../expression/ExpressionWithTypeArgumen
 import Keyword from '../text/Keyword'
 
 interface Props {
+    editing: boolean
     node: ts.HeritageClause | undefined
 }
 
-export default function HeritageClause({ node }: Props): ReactElement | null {
+export default function HeritageClause({
+    editing,
+    node,
+}: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
@@ -20,6 +24,7 @@ export default function HeritageClause({ node }: Props): ReactElement | null {
             {node.types.map((type) => {
                 return (
                     <ExpressionWithTypeArguments
+                        editing={editing}
                         node={type}
                         key={uk()}
                     ></ExpressionWithTypeArguments>

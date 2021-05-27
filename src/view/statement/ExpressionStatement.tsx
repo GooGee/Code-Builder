@@ -13,7 +13,7 @@ export default function ExpressionStatement({
     node,
 }: Props): ReactElement {
     if (ts.isBinaryExpression(node.expression)) {
-        return <Assign node={node.expression}></Assign>
+        return <Assign editing={editing} node={node.expression}></Assign>
     }
     return (
         <ExpressionRoot

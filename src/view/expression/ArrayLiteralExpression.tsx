@@ -3,13 +3,19 @@ import ts from 'typescript'
 import Expressionxx from './Expressionxx'
 
 interface Props {
+    editing: boolean
     node: ts.ArrayLiteralExpression
 }
 
-export default function ArrayLiteralExpression({ node }: Props): ReactElement {
+export default function ArrayLiteralExpression({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
         <span>
-            [<Expressionxx list={node.elements}></Expressionxx>]
+            [
+            <Expressionxx editing={editing} list={node.elements}></Expressionxx>
+            ]
         </span>
     )
 }

@@ -4,15 +4,25 @@ import Token from '../text/Token'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
+    editing: boolean
     node: ts.BinaryExpression
 }
 
-export default function Assign({ node }: Props): ReactElement {
+export default function Assign({ editing, node }: Props): ReactElement {
     return (
         <span>
-            <ExpressionRoot node={node.left} isLeft={true}></ExpressionRoot>{' '}
+            <ExpressionRoot
+                editing={editing}
+                node={node.left}
+                isLeft={true}
+                parent={node}
+            ></ExpressionRoot>{' '}
             <Token kind={node.operatorToken.kind}></Token>{' '}
-            <ExpressionRoot node={node.right}></ExpressionRoot>
+            <ExpressionRoot
+                editing={editing}
+                node={node.right}
+                parent={node}
+            ></ExpressionRoot>
         </span>
     )
 }

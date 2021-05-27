@@ -5,10 +5,14 @@ import NamedImports from '../expression/NamedImports'
 import NamespaceImport from '../expression/NamespaceImport'
 
 interface Props {
+    editing: boolean
     node: ts.ImportClause | undefined
 }
 
-export default function ImportClause({ node }: Props): ReactElement | null {
+export default function ImportClause({
+    editing,
+    node,
+}: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
@@ -21,10 +25,20 @@ export default function ImportClause({ node }: Props): ReactElement | null {
         }
 
         if (ts.isNamedImports(nnn.namedBindings)) {
-            return <NamedImports node={nnn.namedBindings}></NamedImports>
+            return (
+                <NamedImports
+                    editing={editing}
+                    node={nnn.namedBindings}
+                ></NamedImports>
+            )
         }
         if (ts.isNamespaceImport(nnn.namedBindings)) {
-            return <NamespaceImport node={nnn.namedBindings}></NamespaceImport>
+            return (
+                <NamespaceImport
+                    editing={editing}
+                    node={nnn.namedBindings}
+                ></NamespaceImport>
+            )
         }
 
         return new Error('Unknown ImportClause')
@@ -32,7 +46,9 @@ export default function ImportClause({ node }: Props): ReactElement | null {
 
     return (
         <span>
-            {nnn.name ? <Identifier node={nnn.name}></Identifier> : null}
+            {nnn.name === undefined ? null : (
+                <Identifier editing={editing} node={nnn.name}></Identifier>
+            )}
             {getBinding()}
         </span>
     )

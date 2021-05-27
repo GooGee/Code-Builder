@@ -5,13 +5,18 @@ import TypeNode from '../type/TypeNode'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
+    editing: boolean
     node: ts.AsExpression
 }
 
-export default function AsExpression({ node }: Props): ReactElement {
+export default function AsExpression({ editing, node }: Props): ReactElement {
     return (
         <span>
-            <ExpressionRoot node={node.expression}></ExpressionRoot>{' '}
+            <ExpressionRoot
+                editing={editing}
+                node={node.expression}
+                parent={node}
+            ></ExpressionRoot>{' '}
             <Keyword kind={node.kind}></Keyword>{' '}
             <TypeNode node={node.type}></TypeNode>
         </span>
