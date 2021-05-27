@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from './Identifier'
+import Identifier from '../expression/Identifier'
 import QualifiedName from './QualifiedName'
 
 interface Props {

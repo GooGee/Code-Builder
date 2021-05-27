@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import Identifier from '../expression/Identifier'
 import EntityName from './EntityName'
-import Identifier from './Identifier'
 
 interface Props {
     editing: boolean
