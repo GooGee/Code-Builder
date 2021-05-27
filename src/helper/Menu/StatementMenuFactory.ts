@@ -104,10 +104,10 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeReturn()
                 BlockTransformer.addNote(parent, item, at)
             }),
-            MenuFactory.makeMenu('+ switch', () => {
-                const item = StatementFactory.makeSwitch()
-                BlockTransformer.addNote(parent, item, at)
-            }),
+            // MenuFactory.makeMenu('+ switch', () => {
+            //     const item = StatementFactory.makeSwitch()
+            //     BlockTransformer.addNote(parent, item, at)
+            // }),
             MenuFactory.makeMenu('+ try', () => {
                 const item = StatementFactory.makeTry()
                 BlockTransformer.addNote(parent, item, at)
