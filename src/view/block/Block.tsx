@@ -4,14 +4,14 @@ import Statementxx from '../statement/Statementxx'
 
 interface Props {
     node: ts.Block | undefined
-    postfix?: string | ReactElement
     prefix?: string | ReactElement
+    suffix?: string | ReactElement
 }
 
 export default function Block({
     node,
     prefix,
-    postfix,
+    suffix,
 }: Props): ReactElement | null {
     if (node === undefined) {
         return null
@@ -25,7 +25,7 @@ export default function Block({
                 <Statementxx list={node.statements}></Statementxx>
             </div>
             {'}'}
-            {postfix}
+            {suffix}
         </div>
     )
 }

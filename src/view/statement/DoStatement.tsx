@@ -15,7 +15,7 @@ export default function DoStatement({ editing, node }: Props): ReactElement {
             <Keyword kind={node.kind}></Keyword>{' '}
         </>
     )
-    const postfix = (
+    const suffix = (
         <>
             <span className="keyword"> while </span>
             <ExpressionRoot
@@ -30,7 +30,7 @@ export default function DoStatement({ editing, node }: Props): ReactElement {
             <Block
                 node={node.statement as any}
                 prefix={prefix}
-                postfix={postfix}
+                suffix={suffix}
             ></Block>
         </div>
     )
