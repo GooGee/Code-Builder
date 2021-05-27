@@ -13,16 +13,14 @@ export default function EditingBox({ children, hide }: Props): ReactElement {
             {children}
 
             <div>
-                <Button color="red">
-                    <span
-                        onClick={(event) => {
-                            event.stopPropagation()
-                            hide()
-                        }}
-                        className="text-red-600"
-                    >
-                        x
-                    </span>
+                <Button
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        hide()
+                    }}
+                    color="red"
+                >
+                    <span className="text-red-600">x</span>
                 </Button>
             </div>
         </div>
