@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from '../expression/Identifier'
 import EntityName from './EntityName'
+import TypeIdentifier from './TypeIdentifier'
 
 interface Props {
     editing: boolean
@@ -11,8 +11,11 @@ interface Props {
 export default function QualifiedName({ editing, node }: Props): ReactElement {
     return (
         <span>
-            <EntityName editing={editing} node={node.left}></EntityName>
-            <Identifier editing={editing} node={node.right}></Identifier>
+            <EntityName editing={editing} node={node.left}></EntityName>.
+            <TypeIdentifier
+                editing={editing}
+                node={node.right}
+            ></TypeIdentifier>
         </span>
     )
 }
