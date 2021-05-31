@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionRoot from '../expression/ExpressionRoot'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Equal from '../text/Equal'
 import Token from '../text/Token'
@@ -26,7 +26,10 @@ export default function NameValue({ editing, node }: Props): ReactElement {
 
     return (
         <span>
-            <Identifier editing={editing} node={node.name as any}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name as any}
+            ></IdentifierDeclaration>
             {getToken(node as any)}
             {node.type === undefined ? null : (
                 <>

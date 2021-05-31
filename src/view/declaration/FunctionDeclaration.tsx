@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Block from '../block/Block'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Keyword from '../text/Keyword'
 import TypeNode from '../type/TypeNode'
@@ -20,7 +20,10 @@ export default function FunctionDeclaration({
     return (
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <Identifier editing={editing} node={node.name as any}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name as any}
+            ></IdentifierDeclaration>
             <TypeParameterDeclarationxx
                 editing={editing}
                 list={node.typeParameters}
