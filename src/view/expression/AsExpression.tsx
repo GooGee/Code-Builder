@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Keyword from '../text/Keyword'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
@@ -18,7 +18,11 @@ export default function AsExpression({ editing, node }: Props): ReactElement {
                 parent={node}
             ></ExpressionRoot>{' '}
             <Keyword kind={node.kind}></Keyword>{' '}
-            <TypeNode node={node.type}></TypeNode>
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
         </span>
     )
 }

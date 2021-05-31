@@ -3,7 +3,7 @@ import ts from 'typescript'
 import Identifier from '../expression/Identifier'
 import Equal from '../text/Equal'
 import Keyword from '../text/Keyword'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 
 interface Props {
     editing: boolean
@@ -19,7 +19,11 @@ export default function TypeAliasDeclaration({
             <Keyword kind={node.kind}></Keyword>{' '}
             <Identifier editing={editing} node={node.name}></Identifier>
             <Equal></Equal>
-            <TypeNode node={node.type}></TypeNode>
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
         </span>
     )
 }

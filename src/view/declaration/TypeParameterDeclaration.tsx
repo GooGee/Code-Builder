@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Identifier from '../expression/Identifier'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 
 interface Props {
     editing: boolean
@@ -18,7 +18,12 @@ export default function TypeParameterDeclaration({
             {node.constraint ? (
                 <span className="keyword"> extends </span>
             ) : null}
-            <TypeNode node={node.constraint}></TypeNode>
+            <TypeRoot
+                editing={editing}
+                node={node.constraint}
+                parent={node}
+                propertyName="constraint"
+            ></TypeRoot>
         </span>
     )
 }

@@ -4,7 +4,7 @@ import Block from '../block/Block'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Keyword from '../text/Keyword'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
@@ -32,7 +32,12 @@ export default function FunctionDeclaration({
                 editing={editing}
                 list={node.parameters}
             ></ParameterDeclarationxx>
-            <Colon></Colon> <TypeNode node={node.type}></TypeNode>
+            <Colon></Colon>{' '}
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
             <Block node={node.body}></Block>
         </div>
     )

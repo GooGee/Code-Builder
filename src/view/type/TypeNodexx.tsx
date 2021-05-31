@@ -1,14 +1,16 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import UniqueKey from '../../helper/UniqueKey'
-import TypeNode from './TypeNode'
+import TypeRoot from './TypeRoot'
 
 interface Props {
+    editing: boolean
     list: ts.NodeArray<ts.TypeNode>
     separator: string
 }
 
 export default function TypeNodexx({
+    editing,
     list,
     separator,
 }: Props): ReactElement | null {
@@ -21,7 +23,14 @@ export default function TypeNodexx({
         <span>
             {list
                 .map((item) => {
-                    return <TypeNode node={item} key={uk()}></TypeNode>
+                    return (
+                        <TypeRoot
+                            editing={editing}
+                            node={item}
+                            parent={item.parent}
+                            key={uk()}
+                        ></TypeRoot>
+                    )
                 })
                 .reduce((previousValue, currentValue): any => {
                     return [previousValue, separator, currentValue]

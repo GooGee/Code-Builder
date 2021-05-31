@@ -1,17 +1,23 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import TypeNode from './TypeNode'
+import TypeRoot from './TypeRoot'
 
 interface Props {
+    editing: boolean
     node: ts.ArrayTypeNode
 }
 
-export default function ArrayType({ node }: Props): ReactElement {
+export default function ArrayType({ editing, node }: Props): ReactElement {
     return (
         <span>
             <span className="identifier">Array</span>
             &lt;
-            <TypeNode node={node.elementType}></TypeNode>
+            <TypeRoot
+                editing={editing}
+                node={node.elementType}
+                parent={node}
+                propertyName="elementType"
+            ></TypeRoot>
             &gt;
         </span>
     )

@@ -5,7 +5,7 @@ import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Equal from '../text/Equal'
 import Token from '../text/Token'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 
 interface Props {
     editing: boolean
@@ -33,7 +33,12 @@ export default function NameValue({ editing, node }: Props): ReactElement {
             {getToken(node as any)}
             {node.type === undefined ? null : (
                 <>
-                    <Colon></Colon> <TypeNode node={node.type}></TypeNode>
+                    <Colon></Colon>{' '}
+                    <TypeRoot
+                        editing={editing}
+                        node={node.type}
+                        parent={node}
+                    ></TypeRoot>
                 </>
             )}
             {node.initializer ? <Equal /> : null}
