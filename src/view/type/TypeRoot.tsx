@@ -2,16 +2,17 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import MenuButton from '../control/MenuButton'
+import TypeNode from './TypeNode'
 
 interface Props {
-    children: ReactElement | null
+    editing: boolean
     node?: ts.TypeNode
     parent: ts.Node
     propertyName?: string
 }
 
 export default function TypeRoot({
-    children,
+    editing,
     node,
     parent,
     propertyName = 'type',
@@ -35,7 +36,7 @@ export default function TypeRoot({
                 visible={true}
             ></MenuButton>
 
-            {children}
+            <TypeNode editing={editing} node={node}></TypeNode>
         </span>
     )
 }
