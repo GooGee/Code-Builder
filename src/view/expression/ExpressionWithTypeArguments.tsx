@@ -4,7 +4,7 @@ import TypeArgumentxx from '../type/TypeArgumentxx'
 import Expression from './Expression'
 
 interface Props {
-    editing?: boolean
+    editing: boolean
     node: ts.ExpressionWithTypeArguments
 }
 
@@ -15,7 +15,7 @@ export default function ExpressionWithTypeArguments({
     return (
         <span>
             <Expression editing={editing} node={node.expression}></Expression>
-            <TypeArgumentxx list={node.typeArguments}></TypeArgumentxx>
+            <TypeArgumentxx editing={editing} list={node.typeArguments}></TypeArgumentxx>
         </span>
     )
 }

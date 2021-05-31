@@ -3,10 +3,14 @@ import ts from 'typescript'
 import TypeNodexx from './TypeNodexx'
 
 interface Props {
+    editing: boolean
     list: ts.NodeArray<ts.TypeNode> | undefined
 }
 
-export default function TypeArgumentxx({ list }: Props): ReactElement | null {
+export default function TypeArgumentxx({
+    editing,
+    list,
+}: Props): ReactElement | null {
     if (list === undefined) {
         return null
     }
@@ -14,7 +18,11 @@ export default function TypeArgumentxx({ list }: Props): ReactElement | null {
     return (
         <span>
             &lt;
-            <TypeNodexx list={list} separator=", "></TypeNodexx>
+            <TypeNodexx
+                editing={editing}
+                list={list}
+                separator=", "
+            ></TypeNodexx>
             &gt;
         </span>
     )
