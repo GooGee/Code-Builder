@@ -87,6 +87,10 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeAssignStatement()
                 BlockTransformer.addNote(parent, item, at)
             }),
+            MenuFactory.makeMenu('+ do', () => {
+                const item = StatementFactory.makeDoWhile()
+                BlockTransformer.addNote(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ for', () => {
                 const item = StatementFactory.makeFor()
                 BlockTransformer.addNote(parent, item, at)

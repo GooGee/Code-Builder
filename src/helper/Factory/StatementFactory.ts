@@ -22,6 +22,13 @@ export function makeContinue() {
     return ts.factory.createContinueStatement()
 }
 
+export function makeDoWhile() {
+    return ts.factory.createDoStatement(
+        ts.factory.createBlock([]),
+        ts.factory.createFalse(),
+    )
+}
+
 export function makeExpressionStatement(expression: ts.Expression) {
     return ts.factory.createExpressionStatement(expression)
 }
