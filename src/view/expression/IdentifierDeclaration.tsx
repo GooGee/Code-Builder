@@ -28,5 +28,5 @@ export default function IdentifierDeclaration({
             </Button>
         )
     }
-    return <Identifier editing={editing} node={node}></Identifier>
+    return <Identifier node={node}></Identifier>
 }

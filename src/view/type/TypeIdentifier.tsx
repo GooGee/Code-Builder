@@ -17,7 +17,7 @@ export default function TypeIdentifier({ editing, node }: Props): ReactElement {
                 visible={true}
             ></MenuButton>
 
-            <Identifier editing={editing} node={node}></Identifier>
+            <Identifier node={node}></Identifier>
         </span>
     )
 }
