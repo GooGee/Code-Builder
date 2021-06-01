@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Expression from './Expression'
-import Identifier from './Identifier'
+import IdentifierExpression from './IdentifierExpression'
 
 interface Props {
     editing: boolean
@@ -16,7 +16,10 @@ export default function PropertyAccessExpression({
         <span>
             <Expression editing={editing} node={node.expression}></Expression>
             {'.'}
-            <Identifier editing={editing} node={node.name}></Identifier>
+            <IdentifierExpression
+                editing={editing}
+                node={node.name}
+            ></IdentifierExpression>
         </span>
     )
 }

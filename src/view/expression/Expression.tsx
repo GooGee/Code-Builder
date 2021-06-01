@@ -8,7 +8,7 @@ import BinaryExpression from './BinaryExpression'
 import CallExpression from './CallExpression'
 import DeleteExpression from './DeleteExpression'
 import ExpressionWithTypeArguments from './ExpressionWithTypeArguments'
-import Identifier from './Identifier'
+import IdentifierExpression from './IdentifierExpression'
 import Literal from './Literal'
 import NewExpression from './NewExpression'
 import ObjectLiteralExpression from './ObjectLiteralExpression'
@@ -98,7 +98,10 @@ export default function Expression({
 
         case ts.SyntaxKind.Identifier:
             return (
-                <Identifier editing={editing} node={node as any}></Identifier>
+                <IdentifierExpression
+                    editing={editing}
+                    node={node as any}
+                ></IdentifierExpression>
             )
 
         case ts.SyntaxKind.NewExpression:

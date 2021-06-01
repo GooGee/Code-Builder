@@ -42,9 +42,5 @@ export default function ExpressionRoot({
         return null
     }
 
-    return (
-        <span>
-            <Expression editing={editing} node={node}></Expression>
-        </span>
-    )
+    return <Expression editing={editing} node={node}></Expression>
 }

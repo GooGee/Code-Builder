@@ -28,5 +28,6 @@ export default function IdentifierDeclaration({
             </Button>
         )
     }
+
     return <Identifier node={node}></Identifier>
 }
