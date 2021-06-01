@@ -18,7 +18,7 @@ export default function EnumMenuFactory(
         menu.list.push(
             MenuFactory.makeMenu('+ member', () => {
                 const item = DeclarationFactory.makeEnumMember('MemberName')
-                EnumTransformer.addNote(parent, item, at)
+                EnumTransformer.addNode(parent, item, at)
             }),
         )
         return menu

@@ -81,48 +81,48 @@ export default function StatementMenuFactory(
         menu.list.push(
             MenuFactory.makeMenu('+ Access', () => {
                 const item = StatementFactory.makeAccessStatement()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ Assign', () => {
                 const item = StatementFactory.makeAssignStatement()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ do', () => {
                 const item = StatementFactory.makeDoWhile()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ for', () => {
                 const item = StatementFactory.makeFor()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ if', () => {
                 const item = StatementFactory.makeIf()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ let', () => {
                 const item =
                     StatementFactory.makeVariableStatement('VariableName')
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ return', () => {
                 const item = StatementFactory.makeReturn()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             // MenuFactory.makeMenu('+ switch', () => {
             //     const item = StatementFactory.makeSwitch()
-            //     BlockTransformer.addNote(parent, item, at)
+            //     BlockTransformer.addNode(parent, item, at)
             // }),
             MenuFactory.makeMenu('+ try', () => {
                 const item = StatementFactory.makeTry()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ throw', () => {
                 const item = StatementFactory.makeThrow()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ while', () => {
                 const item = StatementFactory.makeWhile()
-                BlockTransformer.addNote(parent, item, at)
+                BlockTransformer.addNode(parent, item, at)
             }),
         )
 
@@ -137,7 +137,7 @@ export default function StatementMenuFactory(
                 0,
                 MenuFactory.makeMenu('+ continue', () => {
                     const item = StatementFactory.makeContinue()
-                    BlockTransformer.addNote(parent, item, at)
+                    BlockTransformer.addNode(parent, item, at)
                 }),
             )
         }
@@ -147,7 +147,7 @@ export default function StatementMenuFactory(
                 0,
                 MenuFactory.makeMenu('+ break', () => {
                     const item = StatementFactory.makeBreak()
-                    BlockTransformer.addNote(parent, item, at)
+                    BlockTransformer.addNode(parent, item, at)
                 }),
             )
         }

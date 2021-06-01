@@ -1,7 +1,7 @@
 import ts from 'typescript'
 import Transformer from './Transformer'
 
-function addNote(
+function addNode(
     parent: ts.EnumDeclaration,
     item: ts.EnumMember,
     at?: ts.EnumMember,
@@ -22,5 +22,5 @@ function update(parent: ts.EnumDeclaration, list: ts.NodeArray<ts.EnumMember>) {
 }
 
 export default {
-    addNote,
+    addNode,
 }

@@ -2,7 +2,7 @@ import ts from 'typescript'
 import state from '../../state'
 import Transformer from './Transformer'
 
-function addNote(item: ts.Statement, at?: ts.Statement) {
+function addNode(item: ts.Statement, at?: ts.Statement) {
     const list = Transformer.insert<ts.Statement>(state.sf.statements, item, at)
     const to = ts.factory.updateSourceFile(state.sf, list)
     Transformer.replace(state.sf, to)
@@ -23,6 +23,6 @@ function deleteNote(item: ts.Statement) {
 }
 
 export default {
-    addNote,
+    addNode,
     deleteNote,
 }

@@ -1,7 +1,7 @@
 import ts from 'typescript'
 import Transformer from './Transformer'
 
-function addNote(
+function addNode(
     parent: ts.Block | ts.SourceFile,
     item: ts.Statement,
     at?: ts.Statement,
@@ -16,5 +16,5 @@ function addNote(
 }
 
 export default {
-    addNote,
+    addNode,
 }

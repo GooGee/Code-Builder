@@ -19,17 +19,17 @@ export default function InterfaceMenuFactory(
             MenuFactory.makeMenu('+ constructor', () => {
                 const item =
                     DeclarationFactory.makeMethodSignature('constructor')
-                InterfaceTransformer.addNote(parent, item, at)
+                InterfaceTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ method', () => {
                 const item =
                     DeclarationFactory.makeMethodSignature('MethodName')
-                InterfaceTransformer.addNote(parent, item, at)
+                InterfaceTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ property', () => {
                 const item =
                     DeclarationFactory.makePropertySignature('PropertyName')
-                InterfaceTransformer.addNote(parent, item, at)
+                InterfaceTransformer.addNode(parent, item, at)
             }),
         )
         return menu

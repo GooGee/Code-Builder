@@ -1,7 +1,7 @@
 import ts from 'typescript'
 import Transformer from './Transformer'
 
-function addNote(
+function addNode(
     parent: ts.ClassDeclaration,
     item: ts.ClassElement,
     at?: ts.ClassElement,
@@ -27,5 +27,5 @@ function update(
 }
 
 export default {
-    addNote,
+    addNode,
 }
