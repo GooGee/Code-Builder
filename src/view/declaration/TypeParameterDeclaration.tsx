@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import TypeRoot from '../type/TypeRoot'
 
 interface Props {
@@ -14,7 +14,10 @@ export default function TypeParameterDeclaration({
 }: Props): ReactElement {
     return (
         <span>
-            <Identifier editing={editing} node={node.name}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name}
+            ></IdentifierDeclaration>
             {node.constraint ? (
                 <span className="keyword"> extends </span>
             ) : null}

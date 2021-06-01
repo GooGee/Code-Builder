@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from './Identifier'
+import IdentifierDeclaration from './IdentifierDeclaration'
 
 interface Props {
     editing: boolean
@@ -15,7 +15,10 @@ export default function NamespaceImport({
         <span>
             {'*'}
             <span className="keyword">as</span>
-            <Identifier editing={editing} node={node.name}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name}
+            ></IdentifierDeclaration>
         </span>
     )
 }

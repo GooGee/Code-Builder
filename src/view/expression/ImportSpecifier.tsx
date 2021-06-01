@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from './Identifier'
+import IdentifierDeclaration from './IdentifierDeclaration'
 
 interface Props {
     editing: boolean
@@ -11,5 +11,10 @@ export default function ImportSpecifier({
     editing,
     node,
 }: Props): ReactElement {
-    return <Identifier editing={editing} node={node.name}></Identifier>
+    return (
+        <IdentifierDeclaration
+            editing={editing}
+            node={node.name}
+        ></IdentifierDeclaration>
+    )
 }

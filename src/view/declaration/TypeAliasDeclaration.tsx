@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Equal from '../text/Equal'
 import Keyword from '../text/Keyword'
 import TypeRoot from '../type/TypeRoot'
@@ -17,7 +17,10 @@ export default function TypeAliasDeclaration({
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
-            <Identifier editing={editing} node={node.name}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name}
+            ></IdentifierDeclaration>
             <Equal></Equal>
             <TypeRoot
                 editing={editing}

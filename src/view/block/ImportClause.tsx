@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import NamedImports from '../expression/NamedImports'
 import NamespaceImport from '../expression/NamespaceImport'
 
@@ -47,7 +47,10 @@ export default function ImportClause({
     return (
         <span>
             {nnn.name === undefined ? null : (
-                <Identifier editing={editing} node={nnn.name}></Identifier>
+                <IdentifierDeclaration
+                    editing={editing}
+                    node={nnn.name}
+                ></IdentifierDeclaration>
             )}
             {getBinding()}
         </span>
