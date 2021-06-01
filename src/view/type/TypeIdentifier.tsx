@@ -10,14 +10,18 @@ interface Props {
 }
 
 export default function TypeIdentifier({ editing, node }: Props): ReactElement {
-    return (
-        <span>
-            <MenuButton
-                factory={ModuleChildMenuFactory(node)}
-                visible={true}
-            ></MenuButton>
+    if (editing) {
+        return (
+            <span>
+                <MenuButton
+                    factory={ModuleChildMenuFactory(node)}
+                    visible={true}
+                ></MenuButton>
 
-            <Identifier node={node}></Identifier>
-        </span>
-    )
+                <Identifier node={node}></Identifier>
+            </span>
+        )
+    }
+
+    return <Identifier node={node}></Identifier>
 }

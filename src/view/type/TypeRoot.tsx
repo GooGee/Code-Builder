@@ -18,25 +18,31 @@ export default function TypeRoot({
     propertyName = 'type',
 }: Props): ReactElement {
     if (node === undefined) {
-        return (
-            <span>
+        if (editing) {
+            return (
                 <MenuButton
                     factory={TypeMenuFactory(parent, node, propertyName)}
                     text="+ Type"
                     visible={true}
                 ></MenuButton>
+            )
+        }
+
+        return <span></span>
+    }
+
+    if (editing) {
+        return (
+            <span>
+                <MenuButton
+                    factory={TypeMenuFactory(parent, node, propertyName)}
+                    visible={true}
+                ></MenuButton>
+
+                <TypeNode editing={editing} node={node}></TypeNode>
             </span>
         )
     }
 
-    return (
-        <span>
-            <MenuButton
-                factory={TypeMenuFactory(parent, node, propertyName)}
-                visible={true}
-            ></MenuButton>
-
-            <TypeNode editing={editing} node={node}></TypeNode>
-        </span>
-    )
+    return <TypeNode editing={false} node={node}></TypeNode>
 }
