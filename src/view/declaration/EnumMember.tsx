@@ -1,20 +1,24 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
-import StatementLine from '../control/StatementLine'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Identifier from '../expression/Identifier'
 
 interface Props {
+    editing: boolean
     node: ts.EnumMember
 }
 
-export default function EnumMember({ node }: Props): ReactElement {
+export default function EnumMember({ editing, node }: Props): ReactElement {
     return (
-        <StatementLine menuFactory={EnumMenuFactory(node.parent as any, node)}>
+        <span>
             <Identifier node={node.name as any}></Identifier>
             {node.initializer ? ' = ' : ''}
-            <ExpressionRoot node={node.initializer}></ExpressionRoot>
-        </StatementLine>
+            <ExpressionRoot
+                editing={editing}
+                node={node.initializer}
+                parent={node}
+                propertyName="initializer"
+            ></ExpressionRoot>
+        </span>
     )
 }
