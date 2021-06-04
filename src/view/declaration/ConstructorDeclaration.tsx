@@ -1,29 +1,27 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import Block from '../block/Block'
-import StatementLine from '../control/StatementLine'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
 
 interface Props {
+    editing: boolean
     node: ts.ConstructorDeclaration
 }
 
-export default function ConstructorDeclaration({ node }: Props): ReactElement {
+export default function ConstructorDeclaration({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
         <div>
-            <StatementLine
-                menuFactory={ClassMenuFactory(node.parent as any, node)}
-            >
-                <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-                <Keyword kind={node.kind}></Keyword>
-                <ParameterDeclarationxx
-                    list={node.parameters}
-                ></ParameterDeclarationxx>
-            </StatementLine>
-
+            <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+            <Keyword kind={node.kind}></Keyword>
+            <ParameterDeclarationxx
+                editing={editing}
+                list={node.parameters}
+            ></ParameterDeclarationxx>
             <Block node={node.body}></Block>
         </div>
     )
