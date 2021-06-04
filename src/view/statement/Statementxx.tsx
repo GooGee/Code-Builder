@@ -3,6 +3,7 @@ import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import StatementLine from '../control/StatementLine'
+import InterfaceDeclaration from '../declaration/InterfaceDeclaration'
 import Statement from './Statement'
 
 interface Props {
@@ -14,8 +15,18 @@ export default function Statementxx({ list }: Props): ReactElement {
     return (
         <div onClick={(event) => event.stopPropagation()}>
             {list.map((item) => {
+                if (ts.isInterfaceDeclaration(item)) {
+                    return (
+                        <InterfaceDeclaration
+                            key={uk()}
+                            node={item}
+                        ></InterfaceDeclaration>
+                    )
+                }
+
                 return (
                     <StatementLine
+                        key={uk()}
                         menuFactory={StatementMenuFactory(
                             item.parent as any,
                             item,
@@ -26,7 +37,6 @@ export default function Statementxx({ list }: Props): ReactElement {
                                 node={item}
                             ></Statement>
                         )}
-                        key={uk()}
                     ></StatementLine>
                 )
             })}
