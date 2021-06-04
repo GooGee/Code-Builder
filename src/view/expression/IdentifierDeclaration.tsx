@@ -17,7 +17,7 @@ export default function IdentifierDeclaration({
         return (
             <Button
                 onClick={() => {
-                    const value = prompt('Enter a name')
+                    const value = prompt('Enter a name', node.text)
                     if (value === null) {
                         return
                     }
