@@ -12,7 +12,7 @@ interface Props {
     viewFactory: (
         editing: boolean,
         setEditing: React.Dispatch<React.SetStateAction<boolean>>,
-    ) => ReactElement
+    ) => any
 }
 
 export default function StatementLine({
