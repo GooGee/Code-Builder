@@ -1,38 +1,43 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import Block from '../block/Block'
-import StatementLine from '../control/StatementLine'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Modifierxx from '../text/Modifierxx'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
+    editing: boolean
     node: ts.MethodDeclaration
 }
 
-export default function MethodDeclaration({ node }: Props): ReactElement {
+export default function MethodDeclaration({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
         <div>
-            <StatementLine
-                menuFactory={ClassMenuFactory(node.parent as any, node)}
-            >
-                <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-                <IdentifierDeclaration
-                    node={node.name as any}
-                ></IdentifierDeclaration>
-                <TypeParameterDeclarationxx
-                    list={node.typeParameters}
-                ></TypeParameterDeclarationxx>
-                <ParameterDeclarationxx
-                    list={node.parameters}
-                ></ParameterDeclarationxx>
-                <Colon></Colon> <TypeNode node={node.type}></TypeNode>
-            </StatementLine>
-
+            <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name as any}
+            ></IdentifierDeclaration>
+            <TypeParameterDeclarationxx
+                editing={editing}
+                list={node.typeParameters}
+            ></TypeParameterDeclarationxx>
+            <ParameterDeclarationxx
+                editing={editing}
+                list={node.parameters}
+            ></ParameterDeclarationxx>
+            <Colon></Colon>{' '}
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
             <Block node={node.body}></Block>
         </div>
     )
