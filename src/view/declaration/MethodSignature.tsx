@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
-import StatementLine from '../control/StatementLine'
-import Identifier from '../expression/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Modifierxx from '../text/Modifierxx'
 import TypeNode from '../type/TypeNode'
@@ -10,29 +8,35 @@ import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
+    editing: boolean
     node: ts.MethodSignature
 }
 
-export default function MethodSignature({ node }: Props): ReactElement {
+export default function MethodSignature({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
-        <StatementLine
-            menuFactory={InterfaceMenuFactory(node.parent as any, node)}
-        >
+        <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <Identifier node={node.name as any}></Identifier>
+            <IdentifierDeclaration
+                editing={editing}
+                node={node.name as any}
+            ></IdentifierDeclaration>
             <TypeParameterDeclarationxx
+                editing={editing}
                 list={node.typeParameters}
             ></TypeParameterDeclarationxx>
             <ParameterDeclarationxx
+                editing={editing}
                 list={node.parameters}
             ></ParameterDeclarationxx>
-            {node.type ? (
+            {node.type === undefined ? null : (
                 <>
-                    <Colon></Colon> <TypeNode node={node.type}></TypeNode>
+                    <Colon></Colon>{' '}
+                    <TypeNode editing={editing} node={node.type}></TypeNode>
                 </>
-            ) : (
-                ''
             )}
-        </StatementLine>
+        </span>
     )
 }
