@@ -1,19 +1,21 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
-import StatementLine from '../control/StatementLine'
 import Modifierxx from '../text/Modifierxx'
 import NameValue from './NameValue'
 
 interface Props {
+    editing: boolean
     node: ts.PropertyDeclaration
 }
 
-export default function PropertyDeclaration({ node }: Props): ReactElement {
+export default function PropertyDeclaration({
+    editing,
+    node,
+}: Props): ReactElement {
     return (
-        <StatementLine menuFactory={ClassMenuFactory(node.parent as any, node)}>
+        <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <NameValue node={node}></NameValue>
-        </StatementLine>
+            <NameValue editing={editing} node={node}></NameValue>
+        </span>
     )
 }
