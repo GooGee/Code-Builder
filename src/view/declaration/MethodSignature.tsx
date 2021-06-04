@@ -3,7 +3,7 @@ import ts from 'typescript'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Modifierxx from '../text/Modifierxx'
-import TypeNode from '../type/TypeNode'
+import TypeRoot from '../type/TypeRoot'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
@@ -34,7 +34,11 @@ export default function MethodSignature({
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
-                    <TypeNode editing={editing} node={node.type}></TypeNode>
+                    <TypeRoot
+                        editing={editing}
+                        node={node.type}
+                        parent={node}
+                    ></TypeRoot>
                 </>
             )}
         </span>
