@@ -12,6 +12,7 @@ import ConstructorDeclaration from './ConstructorDeclaration'
 import MethodDeclaration from './MethodDeclaration'
 import PropertyDeclaration from './PropertyDeclaration'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
+import Heritagexx from './Heritagexx'
 
 interface Props {
     node: ts.ClassDeclaration
@@ -35,6 +36,11 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                             editing={editing}
                             list={node.typeParameters}
                         ></TypeParameterDeclarationxx>
+                        <Heritagexx
+                            editing={editing}
+                            list={node.heritageClauses}
+                            parent={node}
+                        ></Heritagexx>
                     </span>
                 )}
             ></StatementLine>
