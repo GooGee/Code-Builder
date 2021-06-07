@@ -5,17 +5,10 @@ import TypeNodexx from '../type/TypeNodexx'
 
 interface Props {
     editing: boolean
-    node: ts.HeritageClause | undefined
+    node: ts.HeritageClause
 }
 
-export default function HeritageClause({
-    editing,
-    node,
-}: Props): ReactElement | null {
-    if (node === undefined) {
-        return null
-    }
-
+export default function HeritageClause({ editing, node }: Props): ReactElement {
     return (
         <div>
             <Keyword kind={node.token}></Keyword>{' '}

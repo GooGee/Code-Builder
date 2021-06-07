@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import UniqueKey from '../../helper/UniqueKey'
 import HeritageClause from '../block/HeritageClause'
 
 interface Props {
@@ -17,18 +18,16 @@ export default function Heritagexx({
         return null
     }
 
+    const uk = UniqueKey()
     return (
         <div className="pl-9">
-            <HeritageClause
-                editing={editing}
-                node={list[0]}
-                key="aaa"
-            ></HeritageClause>
-            <HeritageClause
-                editing={editing}
-                node={list[1]}
-                key="bbb"
-            ></HeritageClause>
+            {list.map((item) => (
+                <HeritageClause
+                    editing={editing}
+                    node={item}
+                    key={uk()}
+                ></HeritageClause>
+            ))}
         </div>
     )
 }
