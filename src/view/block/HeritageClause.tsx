@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import UniqueKey from '../../helper/UniqueKey'
-import ExpressionWithTypeArguments from '../expression/ExpressionWithTypeArguments'
 import Keyword from '../text/Keyword'
+import TypeNodexx from '../type/TypeNodexx'
 
 interface Props {
     editing: boolean
@@ -17,19 +16,14 @@ export default function HeritageClause({
         return null
     }
 
-    const uk = UniqueKey()
     return (
         <div>
             <Keyword kind={node.token}></Keyword>{' '}
-            {node.types.map((type) => {
-                return (
-                    <ExpressionWithTypeArguments
-                        editing={editing}
-                        node={type}
-                        key={uk()}
-                    ></ExpressionWithTypeArguments>
-                )
-            })}
+            <TypeNodexx
+                editing={editing}
+                list={node.types}
+                separator=", "
+            ></TypeNodexx>
         </div>
     )
 }
