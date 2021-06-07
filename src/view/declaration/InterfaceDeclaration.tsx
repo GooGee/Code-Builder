@@ -8,6 +8,7 @@ import StatementLine from '../control/StatementLine'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
+import Heritagexx from './Heritagexx'
 import MethodSignature from './MethodSignature'
 import PropertySignature from './PropertySignature'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
@@ -34,6 +35,11 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                             editing={editing}
                             list={node.typeParameters}
                         ></TypeParameterDeclarationxx>
+                        <Heritagexx
+                            editing={editing}
+                            list={node.heritageClauses}
+                            parent={node}
+                        ></Heritagexx>
                     </span>
                 )}
             ></StatementLine>
