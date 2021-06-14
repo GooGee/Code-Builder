@@ -1,8 +1,6 @@
-interface Map {
-    [key: string]: string
-}
+import StringMap from '../model/StringMap'
 
-const LibraryMap: Map = {
+const LibraryMap: StringMap = {
     'es6.d.ts': require('!raw-loader!typescript/lib/lib.es2015.d.ts'),
     'dom.d.ts': require('!raw-loader!typescript/lib/lib.dom.d.ts'),
     'lib.es5.d.ts': require('!raw-loader!typescript/lib/lib.es5.d.ts'),
