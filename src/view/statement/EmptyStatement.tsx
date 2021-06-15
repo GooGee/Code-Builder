@@ -6,5 +6,5 @@ interface Props {
 }
 
 export default function EmptyStatement({ node }: Props): ReactElement {
-    return <div></div>
+    return <span></span>
 }

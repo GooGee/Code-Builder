@@ -13,13 +13,13 @@ export default function ExportAssignment({
     node,
 }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
                 editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>
-        </div>
+        </span>
     )
 }

@@ -7,9 +7,5 @@ interface Props {
 }
 
 export default function KeywordStatement({ node }: Props): ReactElement {
-    return (
-        <div>
-            <Keyword kind={node.kind}></Keyword>
-        </div>
-    )
+    return <Keyword kind={node.kind}></Keyword>
 }

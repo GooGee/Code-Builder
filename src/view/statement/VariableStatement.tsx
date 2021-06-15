@@ -13,12 +13,12 @@ export default function VariableStatement({
     node,
 }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Modifierxx list={node.modifiers}></Modifierxx>
             <VariableDeclarationList
                 editing={editing}
                 node={node.declarationList}
             ></VariableDeclarationList>
-        </div>
+        </span>
     )
 }
