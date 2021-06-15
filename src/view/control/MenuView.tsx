@@ -21,42 +21,32 @@ export default function MenuView({
     }
 
     const uk = UniqueKey()
+    function makeItem(item: MenuData) {
+        return (
+            <MenuItem
+                onClick={() => {
+                    closeModal()
+                    item.cb()
+                    context.update!()
+                }}
+                className="cursor-pointer hover:bg-blue-200 p-2"
+                disabled={item.disabled}
+                key={uk()}
+            >
+                {item.title}
+            </MenuItem>
+        )
+    }
     return (
         <Menu>
             {factory().list.map((item) => {
                 if (item.list.length === 0) {
-                    return (
-                        <MenuItem
-                            onClick={() => {
-                                closeModal()
-                                item.cb()
-                                context.update!()
-                            }}
-                            className="cursor-pointer hover:bg-blue-200 p-2"
-                            disabled={item.disabled}
-                            key={uk()}
-                        >
-                            {item.title}
-                        </MenuItem>
-                    )
+                    return makeItem(item)
                 }
 
                 return (
                     <SubMenu key={uk()} title={item.title}>
-                        {item.list.map((one) => (
-                            <MenuItem
-                                onClick={() => {
-                                    closeModal()
-                                    one.cb()
-                                    context.update!()
-                                }}
-                                className="cursor-pointer hover:bg-blue-200 p-2"
-                                disabled={one.disabled}
-                                key={uk()}
-                            >
-                                {one.title}
-                            </MenuItem>
-                        ))}
+                        {item.list.map((one) => makeItem(one))}
                     </SubMenu>
                 )
             })}
