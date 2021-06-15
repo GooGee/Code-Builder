@@ -19,6 +19,9 @@ export default function MenuButton({
     const closeModal = () => setOpen(false)
 
     if (!visible) {
+        if (open) {
+            setOpen(false)
+        }
         return null
     }
 
