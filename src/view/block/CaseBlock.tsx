@@ -22,8 +22,11 @@ export default function CaseBlock({ node }: Props): ReactElement {
                             <StatementLine
                                 key={uk()}
                                 menuFactory={CaseMenuFactory(node, clause)}
-                                viewFactory={() => (
-                                    <CaseClause node={clause}></CaseClause>
+                                viewFactory={(editing) => (
+                                    <CaseClause
+                                        editing={editing}
+                                        node={clause}
+                                    ></CaseClause>
                                 )}
                             ></StatementLine>
                         )

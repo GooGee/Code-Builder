@@ -9,11 +9,11 @@ interface Props {
 
 export default function DefaultClause({ node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>
             <div className="pl-9">
                 <Statementxx list={node.statements}></Statementxx>
             </div>
-        </div>
+        </span>
     )
 }
