@@ -1,12 +1,12 @@
+import Menu, { SubMenu, MenuItem } from 'rc-menu'
 import React, { ReactElement, useContext } from 'react'
 import UniqueKey from '../../helper/UniqueKey'
-import Menu from '../../model/Menu'
+import MenuData from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
-import MenuItem from './MenuItem'
 
 interface Props {
     closeModal: () => void
-    factory: () => Menu
+    factory: () => MenuData
     open: boolean
 }
 
@@ -22,16 +22,17 @@ export default function MenuView({
 
     const uk = UniqueKey()
     return (
-        <span>
+        <Menu>
             {factory().list.map((item) => {
                 if (item.list.length === 0) {
                     return (
                         <MenuItem
-                            callback={() => {
+                            onClick={() => {
                                 closeModal()
                                 item.cb()
                                 context.update!()
                             }}
+                            className="cursor-pointer hover:bg-blue-200 p-2"
                             disabled={item.disabled}
                             key={uk()}
                         >
@@ -39,27 +40,26 @@ export default function MenuView({
                         </MenuItem>
                     )
                 }
+
                 return (
-                    <span>
-                        <MenuItem disabled={item.disabled} key={uk()}>
-                            {item.title}
-                        </MenuItem>
+                    <SubMenu key={uk()} title={item.title}>
                         {item.list.map((one) => (
                             <MenuItem
-                                callback={() => {
+                                onClick={() => {
                                     closeModal()
                                     one.cb()
                                     context.update!()
                                 }}
-                                key={uk()}
+                                className="cursor-pointer hover:bg-blue-200 p-2"
                                 disabled={one.disabled}
+                                key={uk()}
                             >
                                 {one.title}
                             </MenuItem>
                         ))}
-                    </span>
+                    </SubMenu>
                 )
             })}
-        </span>
+        </Menu>
     )
 }
