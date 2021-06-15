@@ -23,6 +23,7 @@ export default function StatementLine({
     const [visible, setVisible] = useState(false)
     return (
         <div
+            className="my-4"
             onClick={(event) => event.stopPropagation()}
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => (editing ? null : setVisible(false))}
