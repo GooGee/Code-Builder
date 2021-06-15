@@ -11,7 +11,7 @@ interface Props {
 
 export default function IfStatement({ editing, node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
                 editing={editing}
@@ -21,6 +21,6 @@ export default function IfStatement({ editing, node }: Props): ReactElement {
             <Block node={node.thenStatement as any}></Block>
             <div className="keyword">else</div>
             <Block node={node.elseStatement as any}></Block>
-        </div>
+        </span>
     )
 }

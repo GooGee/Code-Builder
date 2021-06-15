@@ -12,14 +12,14 @@ interface Props {
 
 export default function ForInStatement({ editing, node }: Props): ReactElement {
     return (
-        <div>
-            <div>
+        <span>
+            <span>
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <VariableDeclarationList
                     editing={editing}
                     node={node.initializer as any}
                 ></VariableDeclarationList>
-            </div>
+            </span>
             <div className="pl-9">
                 <span className="keyword">in </span>
                 <ExpressionRoot
@@ -29,6 +29,6 @@ export default function ForInStatement({ editing, node }: Props): ReactElement {
                 ></ExpressionRoot>
             </div>
             <Block node={node.statement as any}></Block>
-        </div>
+        </span>
     )
 }

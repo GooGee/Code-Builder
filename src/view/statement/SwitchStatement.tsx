@@ -14,7 +14,7 @@ export default function SwitchStatement({
     node,
 }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
                 editing={editing}
@@ -22,6 +22,6 @@ export default function SwitchStatement({
                 parent={node}
             ></ExpressionRoot>
             <CaseBlock node={node.caseBlock}></CaseBlock>
-        </div>
+        </span>
     )
 }

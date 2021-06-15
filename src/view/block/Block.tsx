@@ -22,7 +22,7 @@ export default function Block({
     }
 
     return (
-        <div onClick={() => setEditing(true)}>
+        <span onClick={() => setEditing(true)}>
             {prefix}
             {'{'}
             <div className="pl-9">
@@ -40,6 +40,6 @@ export default function Block({
             </div>
             {'}'}
             {suffix}
-        </div>
+        </span>
     )
 }

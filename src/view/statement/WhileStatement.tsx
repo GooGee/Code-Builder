@@ -11,7 +11,7 @@ interface Props {
 
 export default function WhileStatement({ editing, node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
                 editing={editing}
@@ -19,6 +19,6 @@ export default function WhileStatement({ editing, node }: Props): ReactElement {
                 parent={node}
             ></ExpressionRoot>
             <Block node={node.statement as any}></Block>
-        </div>
+        </span>
     )
 }

@@ -12,7 +12,7 @@ interface Props {
 
 export default function ForStatement({ editing, node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <span>
                 <Keyword kind={node.kind}></Keyword>{' '}
                 <VariableDeclarationList
@@ -39,6 +39,6 @@ export default function ForStatement({ editing, node }: Props): ReactElement {
                 </div>
             </div>
             <Block node={node.statement as any}></Block>
-        </div>
+        </span>
     )
 }

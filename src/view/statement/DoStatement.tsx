@@ -26,12 +26,10 @@ export default function DoStatement({ editing, node }: Props): ReactElement {
         </>
     )
     return (
-        <div>
-            <Block
-                node={node.statement as any}
-                prefix={prefix}
-                suffix={suffix}
-            ></Block>
-        </div>
+        <Block
+            node={node.statement as any}
+            prefix={prefix}
+            suffix={suffix}
+        ></Block>
     )
 }

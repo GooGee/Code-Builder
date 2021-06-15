@@ -11,7 +11,7 @@ interface Props {
 
 export default function TryStatement({ editing, node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <Keyword kind={node.kind}></Keyword>
             <Block node={node.tryBlock}></Block>
             <CatchClause
@@ -20,6 +20,6 @@ export default function TryStatement({ editing, node }: Props): ReactElement {
             ></CatchClause>
             <div className="keyword">finally</div>
             <Block node={node.finallyBlock}></Block>
-        </div>
+        </span>
     )
 }

@@ -9,20 +9,18 @@ interface Props {
 
 export default function EditingBox({ children, hide }: Props): ReactElement {
     return (
-        <div>
-            {children}
+        <span>
+            <Button
+                onClick={(event) => {
+                    event.stopPropagation()
+                    hide()
+                }}
+                color="red"
+            >
+                <span className="text-red-600">x</span>
+            </Button>
 
-            <div>
-                <Button
-                    onClick={(event) => {
-                        event.stopPropagation()
-                        hide()
-                    }}
-                    color="red"
-                >
-                    <span className="text-red-600">x</span>
-                </Button>
-            </div>
-        </div>
+            {children}
+        </span>
     )
 }
