@@ -38,7 +38,7 @@ export default function MenuView({
         )
     }
     return (
-        <Menu>
+        <Menu mode="inline">
             {factory().list.map((item) => {
                 if (item.list.length === 0) {
                     return makeItem(item)
