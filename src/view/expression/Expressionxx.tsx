@@ -27,6 +27,7 @@ export default function Expressionxx({
                     return (
                         <ExpressionRoot
                             editing={editing}
+                            key={uk()}
                             node={item}
                             parent={item.parent}
                         ></ExpressionRoot>
