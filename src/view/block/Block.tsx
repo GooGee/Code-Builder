@@ -22,12 +22,7 @@ export default function Block({
     }
 
     return (
-        <div
-            onClick={(event) => {
-                event.stopPropagation()
-                setEditing(true)
-            }}
-        >
+        <div onClick={() => setEditing(true)}>
             {prefix}
             {'{'}
             <div className="pl-9">

@@ -15,7 +15,7 @@ interface Props {
 export default function Statementxx({ list }: Props): ReactElement {
     const uk = UniqueKey()
     return (
-        <div onClick={(event) => event.stopPropagation()}>
+        <div>
             {list.map((item) => {
                 if (ts.isClassDeclaration(item)) {
                     return (
