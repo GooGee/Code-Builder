@@ -30,6 +30,7 @@ const map = new Map([
     [ts.SyntaxKind.EnumDeclaration, 'enum'],
     [ts.SyntaxKind.EnumKeyword, 'enum'],
     [ts.SyntaxKind.EnumMember, 'enum'],
+    [ts.SyntaxKind.ExportAssignment, 'export'],
     [ts.SyntaxKind.FalseKeyword, 'false'],
     [ts.SyntaxKind.ForKeyword, 'for'],
     [ts.SyntaxKind.ForStatement, 'for'],

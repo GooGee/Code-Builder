@@ -4,6 +4,7 @@ import FunctionDeclaration from '../declaration/FunctionDeclaration'
 import TypeAliasDeclaration from '../declaration/TypeAliasDeclaration'
 import DoStatement from './DoStatement'
 import EmptyStatement from './EmptyStatement'
+import ExportAssignment from './ExportAssignment'
 import ExpressionStatement from './ExpressionStatement'
 import ForInStatement from './ForInStatement'
 import ForOfStatement from './ForOfStatement'
@@ -52,6 +53,14 @@ export default function Statement({ editing, node }: Props): ReactElement {
 
         case ts.SyntaxKind.EmptyStatement:
             return <EmptyStatement node={node as any}></EmptyStatement>
+
+        case ts.SyntaxKind.ExportAssignment:
+            return (
+                <ExportAssignment
+                    editing={editing}
+                    node={node as any}
+                ></ExportAssignment>
+            )
 
         case ts.SyntaxKind.ExpressionStatement:
             return (
