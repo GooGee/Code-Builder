@@ -12,18 +12,6 @@ function insert<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T, at?: T) {
     return ts.factory.createNodeArray(list)
 }
 
-function makeTransformer(from: ts.Node, to: ts.Node | undefined) {
-    return (context: ts.TransformationContext) => {
-        const visitor = (node: ts.Node): ts.Node | undefined => {
-            if (Object.is(node, from)) {
-                return to
-            }
-            return ts.visitEachChild(node, visitor, context)
-        }
-        return visitor
-    }
-}
-
 function remove<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T) {
     const index = nodexx.indexOf(item)
     const list = Array.from(nodexx.values())
@@ -47,7 +35,7 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
 
 function set(parent: ts.Node, to: ts.Node, propertyName: string) {
     console.log(propertyName)
-    run((context: ts.TransformationContext) => {
+    run((context) => {
         const visitor = (node: ts.Node): ts.Node => {
             if (Object.is(node, parent)) {
                 const clone = ts.getMutableClone(parent) as any
@@ -61,7 +49,15 @@ function set(parent: ts.Node, to: ts.Node, propertyName: string) {
 }
 
 function replace(from: ts.Node, to: ts.Node | undefined) {
-    run(makeTransformer(from, to) as any)
+    run((context) => {
+        const visitor = (node: ts.Node): any => {
+            if (Object.is(node, from)) {
+                return to
+            }
+            return ts.visitEachChild(node, visitor, context)
+        }
+        return visitor
+    })
 }
 
 function transform(
