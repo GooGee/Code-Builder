@@ -16,26 +16,30 @@ export default function Block({
     prefix,
     suffix,
 }: Props): ReactElement | null {
-    const [editing, setEditing] = useState(false)
+    const [visible, setVisible] = useState(false)
     if (node === undefined) {
         return null
     }
 
     return (
-        <span onClick={() => setEditing(true)}>
+        <span onClick={(event) => event.stopPropagation()}>
             {prefix}
             {'{'}
             <div className="pl-9">
                 <Statementxx list={node.statements}></Statementxx>
-                <div>
-                    {editing ? (
-                        <EditingBox hide={() => setEditing(false)}>
-                            <MenuButton
-                                visible={true}
-                                factory={StatementMenuFactory(node)}
-                            ></MenuButton>
-                        </EditingBox>
-                    ) : null}
+                <div
+                    onMouseOver={() => setVisible(true)}
+                    onMouseLeave={() => setVisible(false)}
+                >
+                    {visible ? (
+                        <MenuButton
+                            factory={StatementMenuFactory(node)}
+                            text="+"
+                            visible={visible}
+                        ></MenuButton>
+                    ) : (
+                        <span className="cursor-pointer px-2 py-2 mr-1">+</span>
+                    )}
                 </div>
             </div>
             {'}'}
