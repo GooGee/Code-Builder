@@ -74,9 +74,12 @@ function transform(
     replace(old, nnn)
 }
 
-export default {
+const Transformer = {
     insert,
     remove,
     replace,
+    run,
     transform,
 }
+
+export default Transformer
