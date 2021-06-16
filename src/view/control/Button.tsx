@@ -12,6 +12,7 @@ export default function Button({
     onClick,
 }: Props): ReactElement {
     const list = [
+        'mr-1',
         'p-1',
         `border-${color}-300`,
         `hover:bg-${color}-200`,
