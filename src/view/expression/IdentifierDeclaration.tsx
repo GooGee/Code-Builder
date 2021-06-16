@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
 import refactor from '../../helper/refactor'
+import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
 import Identifier from './Identifier'
 
@@ -13,6 +14,7 @@ export default function IdentifierDeclaration({
     editing,
     node,
 }: Props): ReactElement {
+    const context = useContext(SourceFileContext)
     if (editing) {
         return (
             <Button
@@ -21,7 +23,12 @@ export default function IdentifierDeclaration({
                     if (value === null) {
                         return
                     }
-                    refactor(node, value)
+                    try {
+                        refactor(node, value)
+                        context.update!()
+                    } catch (error) {
+                        alert(error.message)
+                    }
                 }}
             >
                 {node.text}
