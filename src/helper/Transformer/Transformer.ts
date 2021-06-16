@@ -19,6 +19,18 @@ function remove<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T) {
     return ts.factory.createNodeArray(list)
 }
 
+function replace(from: ts.Node, to: ts.Node | undefined) {
+    run((context) => {
+        const visitor = (node: ts.Node): any => {
+            if (Object.is(node, from)) {
+                return to
+            }
+            return ts.visitEachChild(node, visitor, context)
+        }
+        return visitor
+    })
+}
+
 function run(transformer: ts.TransformerFactory<ts.Node>) {
     const result = ts.transform(state.sf, [transformer])
     result.diagnostics?.forEach((diagnostic) => {
@@ -41,18 +53,6 @@ function set(parent: ts.Node, to: ts.Node, propertyName: string) {
                 const clone = ts.getMutableClone(parent) as any
                 clone[propertyName] = to
                 return clone
-            }
-            return ts.visitEachChild(node, visitor, context)
-        }
-        return visitor
-    })
-}
-
-function replace(from: ts.Node, to: ts.Node | undefined) {
-    run((context) => {
-        const visitor = (node: ts.Node): any => {
-            if (Object.is(node, from)) {
-                return to
             }
             return ts.visitEachChild(node, visitor, context)
         }
