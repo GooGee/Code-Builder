@@ -34,13 +34,13 @@ export default function NameValue({ editing, node }: Props): ReactElement {
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
-                    <TypeRoot
-                        editing={editing}
-                        node={node.type}
-                        parent={node}
-                    ></TypeRoot>
                 </>
             )}
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
             {node.initializer ? <Equal /> : null}
             <ExpressionRoot
                 editing={editing}
