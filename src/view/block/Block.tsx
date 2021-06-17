@@ -28,7 +28,7 @@ export default function Block({
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
                 {node.statements.length > 0 ? null : (
-                    <span
+                    <div
                         onMouseOver={() => setVisible(true)}
                         onMouseLeave={() => setVisible(false)}
                     >
@@ -43,7 +43,7 @@ export default function Block({
                                 +
                             </span>
                         )}
-                    </span>
+                    </div>
                 )}
             </div>
             {'}'}
