@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default {
     empty: '\n',
     declaration: require('!raw-loader!./code/Declaration.ts').default,
