@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function Literal({ editing, node }: Props): ReactElement {
+    const text = ts.isStringLiteral(node) ? `"${node.text}"` : node.text
     if (editing) {
         return (
             <Button
@@ -20,11 +21,10 @@ export default function Literal({ editing, node }: Props): ReactElement {
                     replaceLiteral(node, value)
                 }}
             >
-                {node.text}
+                {text}
             </Button>
         )
     }
 
-    const text = ts.isStringLiteral(node) ? `"${node.text}"` : node.text
     return <span className="literal">{text}</span>
 }
