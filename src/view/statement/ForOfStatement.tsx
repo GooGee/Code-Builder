@@ -20,7 +20,7 @@ export default function ForOfStatement({ editing, node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </span>
-            <div className="pl-9">
+            <div className="pl-11">
                 <span className="keyword">of </span>
                 <ExpressionRoot
                     editing={editing}

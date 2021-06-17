@@ -33,7 +33,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
             ></StatementLine>
 
             {'{'}
-            <div className="pl-9">
+            <div className="pl-11">
                 {node.members.map((member) => (
                     <StatementLine
                         key={uk()}

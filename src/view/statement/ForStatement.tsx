@@ -20,7 +20,7 @@ export default function ForStatement({ editing, node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </span>
-            <div className="pl-9">
+            <div className="pl-11">
                 <div>
                     <ExpressionRoot
                         editing={editing}

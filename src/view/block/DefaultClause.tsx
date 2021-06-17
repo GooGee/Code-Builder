@@ -11,7 +11,7 @@ export default function DefaultClause({ node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>
-            <div className="pl-9">
+            <div className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
             </div>
         </span>

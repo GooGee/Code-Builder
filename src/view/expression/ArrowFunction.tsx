@@ -13,7 +13,7 @@ interface Props {
 export default function ArrowFunction({ editing, node }: Props): ReactElement {
     if (ts.isBlock(node.body)) {
         return (
-            <div className="pl-9">
+            <div className="pl-11">
                 <ParameterDeclarationxx
                     editing={editing}
                     list={node.parameters}

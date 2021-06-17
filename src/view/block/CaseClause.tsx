@@ -18,7 +18,7 @@ export default function CaseClause({ editing, node }: Props): ReactElement {
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>
-            <div className="pl-9">
+            <div className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
             </div>
         </span>
