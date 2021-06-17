@@ -37,19 +37,25 @@ export default function MenuView({
             </MenuItem>
         )
     }
+
+    const list = factory().list
     return (
         <Menu mode="inline">
-            {factory().list.map((item) => {
-                if (item.list.length === 0) {
-                    return makeItem(item)
-                }
+            {list.length === 0 ? (
+                <div className="text-gray-500 p-2">empty</div>
+            ) : (
+                list.map((item) => {
+                    if (item.list.length === 0) {
+                        return makeItem(item)
+                    }
 
-                return (
-                    <SubMenu key={uk()} title={item.title}>
-                        {item.list.map((one) => makeItem(one))}
-                    </SubMenu>
-                )
-            })}
+                    return (
+                        <SubMenu key={uk()} title={item.title}>
+                            {item.list.map((one) => makeItem(one))}
+                        </SubMenu>
+                    )
+                })
+            )}
         </Menu>
     )
 }
