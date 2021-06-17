@@ -13,6 +13,7 @@ export default function TryStatement({ editing, node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>
+            <br />
             <Block node={node.tryBlock}></Block>
             <CatchClause
                 editing={editing}

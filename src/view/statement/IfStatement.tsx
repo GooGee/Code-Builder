@@ -18,6 +18,7 @@ export default function IfStatement({ editing, node }: Props): ReactElement {
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>
+            <br />
             <Block node={node.thenStatement as any}></Block>
             <div className="keyword">else</div>
             <Block node={node.elseStatement as any}></Block>
