@@ -27,20 +27,24 @@ export default function Block({
             {'{'}
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
-                <div
-                    onMouseOver={() => setVisible(true)}
-                    onMouseLeave={() => setVisible(false)}
-                >
-                    {visible ? (
-                        <MenuButton
-                            factory={StatementMenuFactory(node)}
-                            text="+"
-                            visible={visible}
-                        ></MenuButton>
-                    ) : (
-                        <span className="cursor-pointer px-2 py-2 mr-1">+</span>
-                    )}
-                </div>
+                {node.statements.length > 0 ? null : (
+                    <span
+                        onMouseOver={() => setVisible(true)}
+                        onMouseLeave={() => setVisible(false)}
+                    >
+                        {visible ? (
+                            <MenuButton
+                                factory={StatementMenuFactory(node)}
+                                text="+"
+                                visible={visible}
+                            ></MenuButton>
+                        ) : (
+                            <span className="cursor-pointer px-2 py-1 mr-1">
+                                +
+                            </span>
+                        )}
+                    </span>
+                )}
             </div>
             {'}'}
             {suffix}
