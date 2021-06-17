@@ -22,10 +22,10 @@ export default function Block({
     }
 
     return (
-        <span onClick={(event) => event.stopPropagation()}>
+        <span>
             {prefix}
             {'{'}
-            <div className="pl-9">
+            <div onClick={(event) => event.stopPropagation()} className="pl-9">
                 <Statementxx list={node.statements}></Statementxx>
                 <div
                     onMouseOver={() => setVisible(true)}
