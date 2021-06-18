@@ -13,11 +13,16 @@ function addDelete(menu: Menu, node: ts.Node) {
 }
 
 function addSeparator(menu: Menu) {
-    menu.list.push(makeMenu('----', nothing, true))
+    menu.list.push(makeMenu('----', nothing, true, true))
 }
 
-function makeMenu(title: string, cb: CallBack = nothing, disabled = false) {
-    return new Menu(title, cb, disabled)
+function makeMenu(
+    title: string,
+    cb: CallBack = nothing,
+    disabled = false,
+    isDivider = false,
+) {
+    return new Menu(title, cb, disabled, isDivider)
 }
 
 export default {

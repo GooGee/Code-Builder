@@ -5,6 +5,7 @@ export default class Menu {
         readonly title: string,
         readonly cb: CallBack,
         readonly disabled = false,
+        readonly isDivider = false,
     ) {}
 }
 
