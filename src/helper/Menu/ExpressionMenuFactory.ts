@@ -1,4 +1,5 @@
 import ts from 'typescript'
+import state from '../../state'
 import * as ExpressionFactory from '../Factory/ExpressionFactory'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -70,6 +71,23 @@ function makeConstantMenu(
     return menu
 }
 
+function makeIdentifierMenu(
+    parent: ts.Node,
+    propertyName: string,
+    old?: ts.Expression,
+) {
+    const menu = MenuFactory.makeMenu('Identifier')
+    state.worker.checker.getVariableList(parent).forEach((item) => {
+        menu.list.push(
+            MenuFactory.makeMenu(item.name, () => {
+                const nnn = ts.factory.createIdentifier(item.name)
+                Transformer.transform(nnn, parent, propertyName, old)
+            }),
+        )
+    })
+    return menu
+}
+
 export default function ExpressionMenuFactory(
     parent: ts.Node,
     old?: ts.Expression,
@@ -80,8 +98,11 @@ export default function ExpressionMenuFactory(
         console.log('ExpressionMenuFactory')
         const menu = MenuFactory.makeMenu('')
         if (old !== undefined) {
-            MenuFactory.addDelete(menu, old)
-            MenuFactory.addSeparator(menu)
+            if (ts.isReturnStatement(old)) {
+                MenuFactory.addDelete(menu, old)
+                MenuFactory.addSeparator(menu)
+            }
+
             const one = MenuFactory.makeMenu('Compute', () => {
                 const nnn = ExpressionFactory.makeCompute(old)
                 Transformer.replace(old, nnn)
@@ -91,6 +112,7 @@ export default function ExpressionMenuFactory(
 
         if (isLeft === false) {
             menu.list.push(makeConstantMenu(parent, propertyName, old))
+
             const one = MenuFactory.makeMenu('Enter a Number', () => {
                 const value = prompt('Enter a Number')
                 if (value === null) {
@@ -103,6 +125,7 @@ export default function ExpressionMenuFactory(
                 makeNumericLiteral(value, parent, propertyName, old)
             })
             menu.list.push(one)
+
             const two = MenuFactory.makeMenu('Enter a String', () => {
                 const value = prompt('Enter a String')
                 if (value === null) {
@@ -111,6 +134,8 @@ export default function ExpressionMenuFactory(
                 makeStringLiteral(value, parent, propertyName, old)
             })
             menu.list.push(two)
+
+            menu.list.push(makeIdentifierMenu(parent, propertyName, old))
         }
 
         return menu
