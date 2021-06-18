@@ -1,5 +1,5 @@
 import Menu, { SubMenu, MenuItem, Divider } from 'rc-menu'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import UniqueKey from '../../helper/UniqueKey'
 import MenuData from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
@@ -16,6 +16,7 @@ export default function MenuView({
     closeModal,
 }: Props): ReactElement | null {
     const context = useContext(SourceFileContext)
+    const [openKeys, setOpenKeys] = useState<string[]>([])
     if (open === false) {
         return null
     }
@@ -23,7 +24,9 @@ export default function MenuView({
     const uk = UniqueKey()
     function makeItem(item: MenuData) {
         if (item.isDivider) {
-            return <Divider key={uk()} className="bg-gray-300 px-2 h-px"></Divider>
+            return (
+                <Divider key={uk()} className="bg-gray-300 px-2 h-px"></Divider>
+            )
         }
 
         return (
@@ -44,7 +47,11 @@ export default function MenuView({
 
     const list = factory().list
     return (
-        <Menu mode="inline">
+        <Menu
+            openKeys={openKeys}
+            onOpenChange={(keys) => setOpenKeys([...keys] as string[])}
+            mode="inline"
+        >
             {list.length === 0 ? (
                 <div className="text-gray-500 p-2">empty</div>
             ) : (
