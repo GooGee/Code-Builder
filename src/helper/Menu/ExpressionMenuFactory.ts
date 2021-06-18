@@ -10,8 +10,8 @@ function makeNumericLiteral(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const nnn = ts.factory.createNumericLiteral(text)
-    Transformer.transform(nnn, parent, propertyName, old)
+    const node = ts.factory.createNumericLiteral(text)
+    Transformer.transform(node, parent, propertyName, old)
 }
 
 function makeStringLiteral(
@@ -20,8 +20,8 @@ function makeStringLiteral(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const nnn = ts.factory.createStringLiteral(text)
-    Transformer.transform(nnn, parent, propertyName, old)
+    const node = ts.factory.createStringLiteral(text)
+    Transformer.transform(node, parent, propertyName, old)
 }
 
 function makeConstantMenu(
@@ -32,24 +32,24 @@ function makeConstantMenu(
     const menu = MenuFactory.makeMenu('Constant')
     menu.list.push(
         MenuFactory.makeMenu('false', () => {
-            const nnn = ts.factory.createFalse()
-            Transformer.transform(nnn, parent, propertyName, old)
+            const node = ts.factory.createFalse()
+            Transformer.transform(node, parent, propertyName, old)
         }),
         MenuFactory.makeMenu('true', () => {
-            const nnn = ts.factory.createTrue()
-            Transformer.transform(nnn, parent, propertyName, old)
+            const node = ts.factory.createTrue()
+            Transformer.transform(node, parent, propertyName, old)
         }),
         MenuFactory.makeMenu('null', () => {
-            const nnn = ts.factory.createNull()
-            Transformer.transform(nnn, parent, propertyName, old)
+            const node = ts.factory.createNull()
+            Transformer.transform(node, parent, propertyName, old)
         }),
         MenuFactory.makeMenu('undefined', () => {
-            const nnn = ts.factory.createIdentifier('undefined')
-            Transformer.transform(nnn, parent, propertyName, old)
+            const node = ts.factory.createIdentifier('undefined')
+            Transformer.transform(node, parent, propertyName, old)
         }),
         MenuFactory.makeMenu('this', () => {
-            const nnn = ts.factory.createThis()
-            Transformer.transform(nnn, parent, propertyName, old)
+            const node = ts.factory.createThis()
+            Transformer.transform(node, parent, propertyName, old)
         }),
         MenuFactory.makeMenu(
             '0',
@@ -80,8 +80,8 @@ function makeIdentifierMenu(
     state.worker.checker.getVariableList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name, () => {
-                const nnn = ts.factory.createIdentifier(item.name)
-                Transformer.transform(nnn, parent, propertyName, old)
+                const node = ts.factory.createIdentifier(item.name)
+                Transformer.transform(node, parent, propertyName, old)
             }),
         )
     })
@@ -104,8 +104,8 @@ export default function ExpressionMenuFactory(
             }
 
             const one = MenuFactory.makeMenu('Compute', () => {
-                const nnn = ExpressionFactory.makeCompute(old)
-                Transformer.replace(old, nnn)
+                const node = ExpressionFactory.makeCompute(old)
+                Transformer.replace(old, node)
             })
             menu.list.push(one)
         }
