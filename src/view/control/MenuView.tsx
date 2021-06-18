@@ -29,7 +29,7 @@ export default function MenuView({
                     item.cb()
                     context.update!()
                 }}
-                className="cursor-pointer hover:bg-blue-200 p-2"
+                className="hover:bg-blue-200 p-2"
                 disabled={item.disabled}
                 key={uk()}
             >
@@ -50,7 +50,11 @@ export default function MenuView({
                     }
 
                     return (
-                        <SubMenu key={uk()} title={item.title}>
+                        <SubMenu
+                            key={uk()}
+                            title={'+ ' + item.title}
+                            className="py-2"
+                        >
                             {item.list.map((one) => makeItem(one))}
                         </SubMenu>
                     )
