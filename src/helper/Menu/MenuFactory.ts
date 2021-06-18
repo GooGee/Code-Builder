@@ -7,7 +7,9 @@ const nothing = () => {}
 function addDelete(menu: Menu, node: ts.Node) {
     menu.list.push(
         makeMenu('Delete', () => {
-            Transformer.replace(node, undefined)
+            if (window.confirm('Are you sure?')) {
+                Transformer.replace(node, undefined)
+            }
         }),
     )
 }
