@@ -1,4 +1,4 @@
-import Menu, { SubMenu, MenuItem } from 'rc-menu'
+import Menu, { SubMenu, MenuItem, Divider } from 'rc-menu'
 import React, { ReactElement, useContext } from 'react'
 import UniqueKey from '../../helper/UniqueKey'
 import MenuData from '../../model/Menu'
@@ -22,6 +22,10 @@ export default function MenuView({
 
     const uk = UniqueKey()
     function makeItem(item: MenuData) {
+        if (item.isDivider) {
+            return <Divider key={uk()} className="bg-gray-300 px-2 h-px"></Divider>
+        }
+
         return (
             <MenuItem
                 onClick={() => {
