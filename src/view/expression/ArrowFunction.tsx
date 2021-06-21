@@ -24,6 +24,28 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
         )
     }
 
+    if (editing) {
+        return (
+            <span>
+                <div className="pl-11">
+                    <ParameterDeclarationxx
+                        editing={editing}
+                        list={node.parameters}
+                    ></ParameterDeclarationxx>
+                </div>
+                <div className="pl-11">
+                    <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
+                    <ExpressionRoot
+                        editing={editing}
+                        node={node.body}
+                        parent={node}
+                        propertyName="body"
+                    ></ExpressionRoot>
+                </div>
+            </span>
+        )
+    }
+
     return (
         <span>
             <ParameterDeclarationxx
