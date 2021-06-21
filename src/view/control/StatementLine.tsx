@@ -20,15 +20,9 @@ export default function StatementLine({
     viewFactory,
 }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
-    const [visible, setVisible] = useState(false)
     return (
-        <div
-            className="my-4"
-            onClick={(event) => event.stopPropagation()}
-            onMouseOver={() => setVisible(true)}
-            onMouseLeave={() => (editing ? null : setVisible(false))}
-        >
-            <MenuButton visible={visible} factory={menuFactory}></MenuButton>
+        <div className="my-4" onClick={(event) => event.stopPropagation()}>
+            <MenuButton visible={editing} factory={menuFactory}></MenuButton>
             {editing ? (
                 <EditingBox hide={() => setEditing(false)}>
                     {viewFactory(editing, setEditing)}
