@@ -37,7 +37,12 @@ export default function refactor(
         throw new Error('Invalid name')
     }
 
-    // todo check if name exists
+    const list = state.worker.checker.getVariableList(node)
+    list.forEach((item) => {
+        if (item.name === text) {
+            throw new Error(text + ' already exists')
+        }
+    })
 
     replace(node, ts.factory.createIdentifier(text))
 }
