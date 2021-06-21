@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import EditingBox from '../control/EditingBox'
 import MenuButton from '../control/MenuButton'
 import Statementxx from '../statement/Statementxx'
 

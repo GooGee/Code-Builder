@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import Menu from '../../model/Menu'
-import EditingBox from './EditingBox'
+import Button from './Button'
 import MenuButton from './MenuButton'
 
 export interface Hide {
@@ -24,9 +24,19 @@ export default function StatementLine({
         <div className="my-4" onClick={(event) => event.stopPropagation()}>
             <MenuButton visible={editing} factory={menuFactory}></MenuButton>
             {editing ? (
-                <EditingBox hide={() => setEditing(false)}>
+                <span>
+                    <Button
+                        onClick={(event) => {
+                            event.stopPropagation()
+                            setEditing(false)
+                        }}
+                        color="red"
+                    >
+                        <span className="text-red-600">x</span>
+                    </Button>
+
                     {viewFactory(editing, setEditing)}
-                </EditingBox>
+                </span>
             ) : (
                 <span onClick={() => setEditing(true)}>
                     {viewFactory(editing, setEditing)}
