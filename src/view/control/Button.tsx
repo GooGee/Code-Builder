@@ -14,7 +14,7 @@ export default function Button({
     const list = [
         `border-${color}-300`,
         `hover:bg-${color}-200`,
-        'cursor-pointer px-2 py-1 mr-1 border rounded-md',
+        'cursor-pointer px-2 mr-1 border rounded-md',
     ]
     return (
         <span onClick={onClick} className={list.join(' ')}>
