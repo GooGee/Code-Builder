@@ -99,6 +99,6 @@ export default class Checker {
     }
 
     getVariableList(node: ts.Node) {
-        return this.checker.getSymbolsInScope(node, ts.SymbolFlags.Variable)
+        return this.checker.getSymbolsInScope(node, ts.SymbolFlags.BlockScopedVariable)
     }
 }
