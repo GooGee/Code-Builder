@@ -20,28 +20,31 @@ export default function StatementLine({
     viewFactory,
 }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
-    return (
-        <div className="my-4" onClick={(event) => event.stopPropagation()}>
-            <MenuButton visible={editing} factory={menuFactory}></MenuButton>
-            {editing ? (
-                <span>
-                    <Button
-                        onClick={(event) => {
-                            event.stopPropagation()
-                            setEditing(false)
-                        }}
-                        color="red"
-                    >
-                        <span className="text-red-600">x</span>
-                    </Button>
+    if (editing) {
+        return (
+            <div className="my-4" onClick={(event) => event.stopPropagation()}>
+                <MenuButton
+                    visible={editing}
+                    factory={menuFactory}
+                ></MenuButton>
+                <Button onClick={() => setEditing(false)} color="red">
+                    <span className="text-red-600">x</span>
+                </Button>
 
-                    {viewFactory(editing, setEditing)}
-                </span>
-            ) : (
-                <span onClick={() => setEditing(true)}>
-                    {viewFactory(editing, setEditing)}
-                </span>
-            )}
+                {viewFactory(editing, setEditing)}
+            </div>
+        )
+    }
+
+    return (
+        <div
+            className="my-4"
+            onClick={(event) => {
+                event.stopPropagation()
+                setEditing(true)
+            }}
+        >
+            {viewFactory(editing, setEditing)}
         </div>
     )
 }
