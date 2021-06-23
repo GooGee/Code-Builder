@@ -95,6 +95,15 @@ export function ObjectChildMenuFactory(node: ts.Expression) {
         state.worker.checker.getPropertyList(node).forEach((item) => {
             menu.list.push(
                 MenuFactory.makeMenu(item.name, () => {
+                    if (ts.isPropertyAccessExpression(node.parent)) {
+                        const type = ts.factory.createPropertyAccessExpression(
+                            node,
+                            ts.factory.createIdentifier(item.name),
+                        )
+                        Transformer.replace(node.parent, type)
+                        return
+                    }
+
                     const type = ts.factory.createPropertyAccessExpression(
                         node,
                         ts.factory.createIdentifier(item.name),
