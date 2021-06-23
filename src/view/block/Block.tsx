@@ -1,6 +1,7 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
+import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import Statementxx from '../statement/Statementxx'
 
@@ -15,7 +16,6 @@ export default function Block({
     prefix,
     suffix,
 }: Props): ReactElement | null {
-    const [visible, setVisible] = useState(false)
     if (node === undefined) {
         return null
     }
@@ -27,22 +27,21 @@ export default function Block({
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
                 {node.statements.length > 0 ? null : (
-                    <div
-                        onMouseOver={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                    >
-                        {visible ? (
-                            <MenuButton
-                                factory={StatementMenuFactory(node)}
-                                text="+"
-                                visible={visible}
-                            ></MenuButton>
-                        ) : (
-                            <span className="cursor-pointer px-2 py-1 mr-1">
-                                +
-                            </span>
-                        )}
-                    </div>
+                    <HoverButton
+                        viewFactory={(visible) =>
+                            visible ? (
+                                <MenuButton
+                                    factory={StatementMenuFactory(node)}
+                                    text="+"
+                                    visible={visible}
+                                ></MenuButton>
+                            ) : (
+                                <span className="cursor-pointer px-2 py-1 mr-1">
+                                    +
+                                </span>
+                            )
+                        }
+                    ></HoverButton>
                 )}
             </div>
             {'}'}
