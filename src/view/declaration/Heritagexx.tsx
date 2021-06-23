@@ -20,7 +20,7 @@ export default function Heritagexx({
 
     const uk = UniqueKey()
     return (
-        <div className="pl-9">
+        <div className="pl-11">
             {list.map((item) => (
                 <HeritageClause
                     editing={editing}
