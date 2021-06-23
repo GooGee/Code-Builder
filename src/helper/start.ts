@@ -17,7 +17,7 @@ for (const key in LibraryMap) {
 }
 
 const file = 'index.ts'
-fileMap.set(file, CodeMap.empty)
+fileMap.set(file, CodeMap.statement)
 
 export default function start() {
     const fs = createSystem(fileMap)
