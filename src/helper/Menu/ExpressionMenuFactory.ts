@@ -88,6 +88,25 @@ function makeIdentifierMenu(
     return menu
 }
 
+export function ObjectChildMenuFactory(node: ts.Expression) {
+    return () => {
+        console.log('ObjectChildMenuFactory')
+        const menu = MenuFactory.makeMenu('')
+        state.worker.checker.getPropertyList(node).forEach((item) => {
+            menu.list.push(
+                MenuFactory.makeMenu(item.name, () => {
+                    const type = ts.factory.createPropertyAccessExpression(
+                        node,
+                        ts.factory.createIdentifier(item.name),
+                    )
+                    Transformer.replace(node, type)
+                }),
+            )
+        })
+        return menu
+    }
+}
+
 export default function ExpressionMenuFactory(
     parent: ts.Node,
     old?: ts.Expression,
