@@ -1,7 +1,8 @@
 import ts from 'typescript'
 
 export default abstract class LanguageServiceHost
-    implements ts.LanguageServiceHost {
+    implements ts.LanguageServiceHost
+{
     constructor(
         readonly fs: ts.System,
         readonly compilerOptions: ts.CompilerOptions,
