@@ -4,7 +4,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "es2015"
     ],
     "allowJs": false,
     "skipLibCheck": true,
@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/asset"
   ]
 }
