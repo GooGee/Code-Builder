@@ -18,7 +18,7 @@ export default function PropertyAccessExpression({
             {'.'}
             <IdentifierExpression
                 editing={editing}
-                node={node.name}
+                node={node.name as any}
             ></IdentifierExpression>
         </span>
     )

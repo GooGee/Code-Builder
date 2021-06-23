@@ -7,7 +7,7 @@ import Identifier from './Identifier'
 
 interface Props {
     editing: boolean
-    node: ts.Identifier | ts.PrivateIdentifier
+    node: ts.Identifier
 }
 
 export default function IdentifierDeclaration({

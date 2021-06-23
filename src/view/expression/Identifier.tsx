@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 
 interface Props {
-    node: ts.Identifier | ts.PrivateIdentifier
+    node: ts.Identifier
 }
 
 export default function Identifier({ node }: Props): ReactElement {

@@ -2,10 +2,7 @@ import ts from 'typescript'
 import state from '../state'
 import Transformer from './Transformer/Transformer'
 
-function replace(
-    from: ts.Identifier | ts.PrivateIdentifier,
-    to: ts.Identifier | ts.PrivateIdentifier,
-) {
+function replace(from: ts.Identifier, to: ts.Identifier) {
     const symbol = state.worker.checker.getSymbol(from)
     if (symbol === undefined) {
         throw new Error('Symbol undefined')
@@ -25,10 +22,7 @@ function replace(
     })
 }
 
-export default function refactor(
-    node: ts.Identifier | ts.PrivateIdentifier,
-    text: string,
-) {
+export default function refactor(node: ts.Identifier, text: string) {
     const name = text.trim()
     if (node.text === name) {
         return
