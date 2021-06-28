@@ -23,13 +23,15 @@ export default function StatementLine({
     if (editing) {
         return (
             <div className="my-4" onClick={(event) => event.stopPropagation()}>
-                <MenuButton
-                    visible={editing}
-                    factory={menuFactory}
-                ></MenuButton>
-                <Button onClick={() => setEditing(false)} color="red">
-                    <span className="text-red-600">x</span>
-                </Button>
+                <div>
+                    <MenuButton
+                        visible={editing}
+                        factory={menuFactory}
+                    ></MenuButton>
+                    <Button onClick={() => setEditing(false)} color="red">
+                        <span className="text-red-600">x</span>
+                    </Button>
+                </div>
 
                 {viewFactory(editing, setEditing)}
             </div>
