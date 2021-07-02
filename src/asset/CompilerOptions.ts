@@ -2,14 +2,14 @@ import ts from 'typescript'
 
 const options: ts.CompilerOptions = {
     ...ts.getDefaultCompilerOptions(),
-    strict: true,
-    target: ts.ScriptTarget.ES2015,
     esModuleInterop: true,
     module: ts.ModuleKind.None,
+    moduleResolution: ts.ModuleResolutionKind.NodeJs,
     suppressOutputPathCheck: true,
     skipLibCheck: true,
     skipDefaultLibCheck: true,
-    moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    strict: true,
+    target: ts.ScriptTarget.ES2015,
 }
 
 export default options
