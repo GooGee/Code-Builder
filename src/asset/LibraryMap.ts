@@ -39,10 +39,4 @@ const LibraryMap: StringMap = {
         .default,
 }
 
-Object.keys(LibraryMap).forEach((key) => {
-    if (key.includes('lib.')) {
-        LibraryMap[key.substring(4)] = LibraryMap[key]
-    }
-})
-
 export default LibraryMap
