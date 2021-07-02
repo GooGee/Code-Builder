@@ -131,13 +131,20 @@ export default function ExpressionMenuFactory(
 ) {
     return () => {
         console.log('ExpressionMenuFactory')
+
+        if (isLeft) {
+            return makeIdentifierMenu(parent, propertyName, old)
+        }
+
         const menu = MenuFactory.makeMenu('')
         if (old !== undefined) {
-            if (ts.isReturnStatement(old)) {
+            if (ts.isReturnStatement(old.parent)) {
                 MenuFactory.addDelete(menu, old)
                 MenuFactory.addSeparator(menu)
             }
+        }
 
+        if (old !== undefined) {
             const one = MenuFactory.makeMenu('Compute', () => {
                 const node = ExpressionFactory.makeCompute(old)
                 Transformer.replace(old, node)
@@ -145,31 +152,29 @@ export default function ExpressionMenuFactory(
             menu.list.push(one)
         }
 
-        if (isLeft === false) {
-            menu.list.push(makeConstantMenu(parent, propertyName, old))
+        menu.list.push(makeConstantMenu(parent, propertyName, old))
 
-            const one = MenuFactory.makeMenu('Enter a Number', () => {
-                const value = prompt('Enter a Number')
-                if (value === null) {
-                    return
-                }
-                if (isNaN(parseFloat(value))) {
-                    alert('Invalid number')
-                    return
-                }
-                makeNumericLiteral(value, parent, propertyName, old)
-            })
-            menu.list.push(one)
+        const one = MenuFactory.makeMenu('Enter a Number', () => {
+            const value = prompt('Enter a Number')
+            if (value === null) {
+                return
+            }
+            if (isNaN(parseFloat(value))) {
+                alert('Invalid number')
+                return
+            }
+            makeNumericLiteral(value, parent, propertyName, old)
+        })
+        menu.list.push(one)
 
-            const two = MenuFactory.makeMenu('Enter a String', () => {
-                const value = prompt('Enter a String')
-                if (value === null) {
-                    return
-                }
-                makeStringLiteral(value, parent, propertyName, old)
-            })
-            menu.list.push(two)
-        }
+        const two = MenuFactory.makeMenu('Enter a String', () => {
+            const value = prompt('Enter a String')
+            if (value === null) {
+                return
+            }
+            makeStringLiteral(value, parent, propertyName, old)
+        })
+        menu.list.push(two)
 
         menu.list.push(makeIdentifierMenu(parent, propertyName, old))
 
