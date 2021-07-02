@@ -28,9 +28,7 @@ export default function StatementLine({
                         visible={editing}
                         factory={menuFactory}
                     ></MenuButton>
-                    <Button onClick={() => setEditing(false)} color="red">
-                        <span className="text-red-600">x</span>
-                    </Button>
+                    <Button onClick={() => setEditing(false)}>x</Button>
                 </div>
 
                 {viewFactory(editing, setEditing)}
