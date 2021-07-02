@@ -8,21 +8,28 @@ import Host from '../model/TS/Host'
 import Worker from '../model/TS/Worker'
 import Vendor from '../model/Vendor'
 
-const fileMap: Map<string, string> = new Map()
+const file = 'index.ts'
 
-for (const key in LibraryMap) {
-    if (Object.prototype.hasOwnProperty.call(LibraryMap, key)) {
-        fileMap.set(key, LibraryMap[key])
+function getFileMap() {
+    const fileMap: Map<string, string> = new Map()
+
+    for (const key in LibraryMap) {
+        if (Object.prototype.hasOwnProperty.call(LibraryMap, key)) {
+            fileMap.set(key, LibraryMap[key])
+        }
     }
+
+    fileMap.set(file, CodeMap.statement)
+
+    return fileMap
 }
 
-const file = 'index.ts'
-fileMap.set(file, CodeMap.statement)
-
 export default function start() {
+    const fileMap = getFileMap()
     const fs = createSystem(fileMap)
-    const host = new Host(fs, options, [file])
+    const host = new Host(fs, options, Array.from(fileMap.keys()))
     const ls = ts.createLanguageService(host)
+    console.log(ls.getSemanticDiagnostics(file))
     const checker = new Checker(ls.getProgram()!)
     const worker = new Worker(checker, fs, host, ls)
     return new Vendor(worker, file)
