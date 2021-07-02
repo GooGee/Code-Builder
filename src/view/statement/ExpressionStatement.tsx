@@ -18,6 +18,7 @@ export default function ExpressionStatement({
     return (
         <ExpressionRoot
             editing={editing}
+            isLeft={true}
             node={node.expression}
             parent={node}
         ></ExpressionRoot>
