@@ -162,9 +162,9 @@ export default function ExpressionMenuFactory(
                 makeStringLiteral(value, parent, propertyName, old)
             })
             menu.list.push(two)
-
-            menu.list.push(makeIdentifierMenu(parent, propertyName, old))
         }
+
+        menu.list.push(makeIdentifierMenu(parent, propertyName, old))
 
         return menu
     }
