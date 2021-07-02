@@ -152,8 +152,6 @@ export default function ExpressionMenuFactory(
             menu.list.push(one)
         }
 
-        menu.list.push(makeConstantMenu(parent, propertyName, old))
-
         const one = MenuFactory.makeMenu('Enter a Number', () => {
             const value = prompt('Enter a Number')
             if (value === null) {
@@ -175,6 +173,10 @@ export default function ExpressionMenuFactory(
             makeStringLiteral(value, parent, propertyName, old)
         })
         menu.list.push(two)
+
+        MenuFactory.addSeparator(menu)
+
+        menu.list.push(makeConstantMenu(parent, propertyName, old))
 
         menu.list.push(makeIdentifierMenu(parent, propertyName, old))
 
