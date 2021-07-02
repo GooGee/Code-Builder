@@ -2,7 +2,7 @@ do {
     break
 } while (false)
 
-for (let index = 0; index < 0; index++) {
+for (let index = 0; index < 0; index += 1) {
     continue
 }
 

@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Block from '../block/Block'
 import VariableDeclarationList from '../declaration/VariableDeclarationList'
+import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
@@ -30,12 +31,10 @@ export default function ForStatement({ editing, node }: Props): ReactElement {
                     ></ExpressionRoot>
                 </div>
                 <div>
-                    <ExpressionRoot
+                    <Assign
                         editing={editing}
-                        node={node.incrementor}
-                        parent={node}
-                        propertyName="incrementor"
-                    ></ExpressionRoot>
+                        node={node.incrementor as any}
+                    ></Assign>
                 </div>
             </div>
             <Block node={node.statement as any}></Block>
