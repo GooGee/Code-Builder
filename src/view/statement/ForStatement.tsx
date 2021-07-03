@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Block from '../block/Block'
-import VariableDeclarationList from '../declaration/VariableDeclarationList'
+import VDLView from '../declaration/VDLView'
 import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
@@ -16,10 +16,7 @@ export default function ForStatement({ editing, node }: Props): ReactElement {
         <span>
             <span>
                 <Keyword kind={node.kind}></Keyword>{' '}
-                <VariableDeclarationList
-                    editing={editing}
-                    node={node.initializer as any}
-                ></VariableDeclarationList>
+                <VDLView node={node.initializer as any}></VDLView>
             </span>
             <div className="pl-11">
                 <div>

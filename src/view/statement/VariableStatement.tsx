@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import VariableDeclarationList from '../declaration/VariableDeclarationList'
+import VDLView from '../declaration/VDLView'
 import Modifierxx from '../text/Modifierxx'
 
 interface Props {
@@ -15,10 +15,7 @@ export default function VariableStatement({
     return (
         <span>
             <Modifierxx list={node.modifiers}></Modifierxx>
-            <VariableDeclarationList
-                editing={editing}
-                node={node.declarationList}
-            ></VariableDeclarationList>
+            <VDLView node={node.declarationList}></VDLView>
         </span>
     )
 }
