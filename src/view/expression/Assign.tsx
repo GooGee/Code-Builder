@@ -11,8 +11,8 @@ export default function Assign({ node }: Props): ReactElement {
     return (
         <span>
             <ExpressionRoot
-                node={node.left}
                 isLeft={true}
+                node={node.left}
                 parent={node}
             ></ExpressionRoot>{' '}
             <Token kind={node.operatorToken.kind}></Token>{' '}

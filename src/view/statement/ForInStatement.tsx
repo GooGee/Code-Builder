@@ -19,6 +19,7 @@ export default function ForInStatement({ node }: Props): ReactElement {
             <div className="pl-11">
                 <span className="keyword">in </span>
                 <ExpressionRoot
+                    isLeft={true}
                     node={node.expression}
                     parent={node}
                 ></ExpressionRoot>
