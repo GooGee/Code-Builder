@@ -16,7 +16,6 @@ export default function DeleteExpression({
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>

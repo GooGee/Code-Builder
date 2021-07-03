@@ -9,14 +9,11 @@ import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
-    editing: boolean
     node: ts.FunctionDeclaration
 }
 
-export default function FunctionDeclaration({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function FunctionDeclaration({ node }: Props): ReactElement {
+    const editing = false
     return (
         <div>
             <Keyword kind={node.kind}></Keyword>{' '}

@@ -6,14 +6,11 @@ import Keyword from '../text/Keyword'
 import TypeRoot from '../type/TypeRoot'
 
 interface Props {
-    editing: boolean
     node: ts.TypeAliasDeclaration
 }
 
-export default function TypeAliasDeclaration({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function TypeAliasDeclaration({ node }: Props): ReactElement {
+    const editing = false
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}

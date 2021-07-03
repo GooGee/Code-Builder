@@ -13,7 +13,6 @@ export default function AsExpression({ editing, node }: Props): ReactElement {
     return (
         <span>
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>{' '}

@@ -14,7 +14,6 @@ export default function CallExpression({ editing, node }: Props): ReactElement {
             <Expression editing={editing} node={node.expression}></Expression>
             {'('}
             <Expressionxx
-                editing={editing}
                 list={node.arguments!}
             ></Expressionxx>
             {')'}

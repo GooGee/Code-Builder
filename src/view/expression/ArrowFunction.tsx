@@ -36,7 +36,6 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
                 <div className="pl-11">
                     <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
                     <ExpressionRoot
-                        editing={editing}
                         node={node.body}
                         parent={node}
                         propertyName="body"
@@ -54,7 +53,6 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
             ></ParameterDeclarationxx>{' '}
             <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.body}
                 parent={node}
                 propertyName="body"

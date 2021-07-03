@@ -7,15 +7,10 @@ interface Props {
     node: ts.ArrayLiteralExpression
 }
 
-export default function ArrayLiteralExpression({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function ArrayLiteralExpression({ node }: Props): ReactElement {
     return (
         <span>
-            [
-            <Expressionxx editing={editing} list={node.elements}></Expressionxx>
-            ]
+            [<Expressionxx list={node.elements}></Expressionxx>]
         </span>
     )
 }

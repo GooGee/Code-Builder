@@ -43,7 +43,6 @@ export default function NameValue({ editing, node }: Props): ReactElement {
             ></TypeRoot>
             {node.initializer ? <Equal /> : null}
             <ExpressionRoot
-                editing={editing}
                 node={node.initializer}
                 parent={node}
                 propertyName="initializer"

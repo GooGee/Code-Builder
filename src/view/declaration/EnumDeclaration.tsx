@@ -42,10 +42,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                             member,
                         )}
                         viewFactory={(editing) => (
-                            <EnumMember
-                                editing={editing}
-                                node={member}
-                            ></EnumMember>
+                            <EnumMember node={member}></EnumMember>
                         )}
                     ></StatementLine>
                 ))}

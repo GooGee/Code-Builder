@@ -16,7 +16,6 @@ export default function TypeOfExpression({
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>

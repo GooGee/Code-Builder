@@ -15,13 +15,11 @@ export default function BinaryExpression({
     return (
         <span>
             <ExpressionRoot
-                editing={editing}
                 node={node.left}
                 parent={node}
             ></ExpressionRoot>{' '}
             <Token kind={node.operatorToken.kind}></Token>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.right}
                 parent={node}
             ></ExpressionRoot>
