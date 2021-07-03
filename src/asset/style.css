@@ -1,5 +1,6 @@
 [role='tooltip'].popup-content {
     width: auto;
+    min-width: 222px;
 }
 
 .keyword {
