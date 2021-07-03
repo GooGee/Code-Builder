@@ -24,7 +24,6 @@ export default function CaseBlock({ node }: Props): ReactElement {
                                 menuFactory={CaseMenuFactory(node, clause)}
                                 viewFactory={(editing) => (
                                     <CaseClause
-                                        editing={editing}
                                         node={clause}
                                     ></CaseClause>
                                 )}

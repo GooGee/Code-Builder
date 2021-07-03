@@ -5,19 +5,14 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.SwitchStatement
 }
 
-export default function SwitchStatement({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function SwitchStatement({ node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>

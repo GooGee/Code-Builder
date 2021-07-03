@@ -7,11 +7,10 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.ForStatement
 }
 
-export default function ForStatement({ editing, node }: Props): ReactElement {
+export default function ForStatement({ node }: Props): ReactElement {
     return (
         <span>
             <span>
@@ -21,17 +20,13 @@ export default function ForStatement({ editing, node }: Props): ReactElement {
             <div className="pl-11">
                 <div>
                     <ExpressionRoot
-                        editing={editing}
                         node={node.condition}
                         parent={node}
                         propertyName="condition"
                     ></ExpressionRoot>
                 </div>
                 <div>
-                    <Assign
-                        editing={editing}
-                        node={node.incrementor as any}
-                    ></Assign>
+                    <Assign node={node.incrementor as any}></Assign>
                 </div>
             </div>
             <Block node={node.statement as any}></Block>

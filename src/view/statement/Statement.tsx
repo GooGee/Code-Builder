@@ -19,26 +19,15 @@ import VariableStatement from './VariableStatement'
 import WhileStatement from './WhileStatement'
 
 interface Props {
-    editing: boolean
     node: ts.Statement
 }
 
-export default function Statement({ editing, node }: Props): ReactElement {
+export default function Statement({ node }: Props): ReactElement {
     if (ts.isFunctionDeclaration(node)) {
-        return (
-            <FunctionDeclaration
-                editing={editing}
-                node={node}
-            ></FunctionDeclaration>
-        )
+        return <FunctionDeclaration node={node}></FunctionDeclaration>
     }
     if (ts.isTypeAliasDeclaration(node)) {
-        return (
-            <TypeAliasDeclaration
-                editing={editing}
-                node={node}
-            ></TypeAliasDeclaration>
-        )
+        return <TypeAliasDeclaration node={node}></TypeAliasDeclaration>
     }
 
     switch (node.kind) {
@@ -47,105 +36,48 @@ export default function Statement({ editing, node }: Props): ReactElement {
             return <KeywordStatement node={node as any}></KeywordStatement>
 
         case ts.SyntaxKind.DoStatement:
-            return (
-                <DoStatement editing={editing} node={node as any}></DoStatement>
-            )
+            return <DoStatement node={node as any}></DoStatement>
 
         case ts.SyntaxKind.EmptyStatement:
             return <EmptyStatement node={node as any}></EmptyStatement>
 
         case ts.SyntaxKind.ExportAssignment:
-            return (
-                <ExportAssignment
-                    editing={editing}
-                    node={node as any}
-                ></ExportAssignment>
-            )
+            return <ExportAssignment node={node as any}></ExportAssignment>
 
         case ts.SyntaxKind.ExpressionStatement:
             return (
-                <ExpressionStatement
-                    editing={editing}
-                    node={node as any}
-                ></ExpressionStatement>
+                <ExpressionStatement node={node as any}></ExpressionStatement>
             )
 
         case ts.SyntaxKind.ForInStatement:
-            return (
-                <ForInStatement
-                    editing={editing}
-                    node={node as any}
-                ></ForInStatement>
-            )
+            return <ForInStatement node={node as any}></ForInStatement>
 
         case ts.SyntaxKind.ForOfStatement:
-            return (
-                <ForOfStatement
-                    editing={editing}
-                    node={node as any}
-                ></ForOfStatement>
-            )
+            return <ForOfStatement node={node as any}></ForOfStatement>
 
         case ts.SyntaxKind.ForStatement:
-            return (
-                <ForStatement
-                    editing={editing}
-                    node={node as any}
-                ></ForStatement>
-            )
+            return <ForStatement node={node as any}></ForStatement>
 
         case ts.SyntaxKind.IfStatement:
-            return (
-                <IfStatement editing={editing} node={node as any}></IfStatement>
-            )
+            return <IfStatement node={node as any}></IfStatement>
 
         case ts.SyntaxKind.ReturnStatement:
-            return (
-                <ReturnStatement
-                    editing={editing}
-                    node={node as any}
-                ></ReturnStatement>
-            )
+            return <ReturnStatement node={node as any}></ReturnStatement>
 
         case ts.SyntaxKind.SwitchStatement:
-            return (
-                <SwitchStatement
-                    editing={editing}
-                    node={node as any}
-                ></SwitchStatement>
-            )
+            return <SwitchStatement node={node as any}></SwitchStatement>
 
         case ts.SyntaxKind.ThrowStatement:
-            return (
-                <ThrowStatement
-                    editing={editing}
-                    node={node as any}
-                ></ThrowStatement>
-            )
+            return <ThrowStatement node={node as any}></ThrowStatement>
 
         case ts.SyntaxKind.TryStatement:
-            return (
-                <TryStatement
-                    editing={editing}
-                    node={node as any}
-                ></TryStatement>
-            )
+            return <TryStatement node={node as any}></TryStatement>
 
         case ts.SyntaxKind.VariableStatement:
-            return (
-                <VariableStatement
-                    editing={editing}
-                    node={node as any}
-                ></VariableStatement>
-            )
+            return <VariableStatement node={node as any}></VariableStatement>
 
         case ts.SyntaxKind.WhileStatement:
-            return (
-                <WhileStatement
-                    editing={editing}
-                    node={node as any}
-                ></WhileStatement>
-            )
+            return <WhileStatement node={node as any}></WhileStatement>
 
         default:
             break

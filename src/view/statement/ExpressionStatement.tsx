@@ -4,20 +4,15 @@ import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
 
 interface Props {
-    editing: boolean
     node: ts.ExpressionStatement
 }
 
-export default function ExpressionStatement({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function ExpressionStatement({ node }: Props): ReactElement {
     if (ts.isBinaryExpression(node.expression)) {
-        return <Assign editing={editing} node={node.expression}></Assign>
+        return <Assign node={node.expression}></Assign>
     }
     return (
         <ExpressionRoot
-            editing={editing}
             isLeft={true}
             node={node.expression}
             parent={node}

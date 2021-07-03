@@ -50,10 +50,7 @@ export default function Statementxx({ list }: Props): ReactElement {
                             item,
                         )}
                         viewFactory={(editing) => (
-                            <Statement
-                                editing={editing}
-                                node={item}
-                            ></Statement>
+                            <Statement node={item}></Statement>
                         )}
                     ></StatementLine>
                 )

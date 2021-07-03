@@ -4,19 +4,14 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.ReturnStatement
 }
 
-export default function ReturnStatement({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function ReturnStatement({ node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>

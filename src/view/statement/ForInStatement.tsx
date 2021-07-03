@@ -6,11 +6,10 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.ForInStatement
 }
 
-export default function ForInStatement({ editing, node }: Props): ReactElement {
+export default function ForInStatement({ node }: Props): ReactElement {
     return (
         <span>
             <span>
@@ -20,7 +19,6 @@ export default function ForInStatement({ editing, node }: Props): ReactElement {
             <div className="pl-11">
                 <span className="keyword">in </span>
                 <ExpressionRoot
-                    editing={editing}
                     node={node.expression}
                     parent={node}
                 ></ExpressionRoot>

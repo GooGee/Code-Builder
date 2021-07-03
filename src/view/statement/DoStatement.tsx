@@ -5,11 +5,10 @@ import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.DoStatement
 }
 
-export default function DoStatement({ editing, node }: Props): ReactElement {
+export default function DoStatement({ node }: Props): ReactElement {
     const prefix = (
         <>
             <Keyword kind={node.kind}></Keyword>{' '}
@@ -19,7 +18,6 @@ export default function DoStatement({ editing, node }: Props): ReactElement {
         <>
             <span className="keyword"> while </span>
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>

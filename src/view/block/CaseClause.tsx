@@ -5,16 +5,14 @@ import Statementxx from '../statement/Statementxx'
 import Keyword from '../text/Keyword'
 
 interface Props {
-    editing: boolean
     node: ts.CaseClause
 }
 
-export default function CaseClause({ editing, node }: Props): ReactElement {
+export default function CaseClause({ node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind}></Keyword>{' '}
             <ExpressionRoot
-                editing={editing}
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>
