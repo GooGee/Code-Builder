@@ -7,9 +7,9 @@ interface Props {
     list: ts.NodeArray<ts.Modifier> | undefined
 }
 
-export default function Modifierxx({ list }: Props): ReactElement | null {
+export default function Modifierxx({ list }: Props): ReactElement {
     if (list === undefined) {
-        return null
+        return <span className="keyword">define </span>
     }
 
     const uk = UniqueKey()

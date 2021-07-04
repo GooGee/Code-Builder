@@ -9,13 +9,22 @@ interface Props {
 
 export default function ExpressionStatement({ node }: Props): ReactElement {
     if (ts.isBinaryExpression(node.expression)) {
-        return <Assign node={node.expression}></Assign>
+        return (
+            <span>
+                <span className="keyword">assign </span>
+                <Assign node={node.expression}></Assign>
+            </span>
+        )
     }
+
     return (
-        <ExpressionRoot
-            isLeft={true}
-            node={node.expression}
-            parent={node}
-        ></ExpressionRoot>
+        <span>
+            <span className="keyword">access </span>
+            <ExpressionRoot
+                isLeft={true}
+                node={node.expression}
+                parent={node}
+            ></ExpressionRoot>
+        </span>
     )
 }
