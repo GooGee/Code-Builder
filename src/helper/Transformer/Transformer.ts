@@ -40,7 +40,7 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
     result.transformed.forEach((file) => {
         const sf = file as ts.SourceFile
         const text = printer.printFile(sf)
-        console.log(text)
+        // console.log(text)
         state.worker.lsh.writeFile(sf.fileName, text)
     })
 }

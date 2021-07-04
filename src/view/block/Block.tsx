@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import HoverAddButton from '../control/HoverAddButton'
-import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import Statementxx from '../statement/Statementxx'
 
