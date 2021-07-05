@@ -34,7 +34,7 @@ function replace(from: ts.Node, to: ts.Node | undefined) {
 function run(transformer: ts.TransformerFactory<ts.Node>) {
     const result = ts.transform(state.sf, [transformer])
     result.diagnostics?.forEach((diagnostic) => {
-        console.log(diagnostic.messageText)
+        console.error(diagnostic.messageText)
     })
     const printer = ts.createPrinter()
     result.transformed.forEach((file) => {
@@ -45,7 +45,7 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
     })
 }
 
-function set(parent: ts.Node, to: ts.Node, propertyName: string) {
+function setProperty(parent: ts.Node, to: ts.Node, propertyName: string) {
     console.log(propertyName)
     run((context) => {
         const visitor = (node: ts.Node): ts.Node => {
@@ -67,7 +67,7 @@ function transform(
     old?: ts.Node,
 ) {
     if (old === undefined) {
-        set(parent, nnn, propertyName)
+        setProperty(parent, nnn, propertyName)
         return
     }
 
@@ -79,6 +79,7 @@ const Transformer = {
     remove,
     replace,
     run,
+    setProperty,
     transform,
 }
 
