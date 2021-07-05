@@ -19,6 +19,25 @@ export function AssignTokenMenuFactory(token: ts.BinaryOperatorToken) {
     }
 }
 
+const ComputeTokenList = [
+    ts.SyntaxKind.AmpersandAmpersandToken,
+    ts.SyntaxKind.AmpersandToken,
+    ts.SyntaxKind.BarBarToken,
+    ts.SyntaxKind.BarToken,
+    ts.SyntaxKind.EqualsEqualsEqualsToken,
+    ts.SyntaxKind.GreaterThanEqualsToken,
+    ts.SyntaxKind.GreaterThanToken,
+    ts.SyntaxKind.LessThanEqualsToken,
+    ts.SyntaxKind.LessThanToken,
+]
+
+export function ComputeTokenMenuFactory(token: ts.BinaryOperatorToken) {
+    return () => {
+        console.log('ComputeTokenMenuFactory')
+        return makeAllMenu(token, ComputeTokenList)
+    }
+}
+
 export function makeMenu(parent: ts.BinaryExpression, kind: ts.SyntaxKind) {
     const text = ts.tokenToString(kind) ?? ''
     const menu = MenuFactory.makeMenu(text, () => {
