@@ -9,7 +9,7 @@ interface Props {
 
 export default function Modifierxx({ list }: Props): ReactElement {
     if (list === undefined) {
-        return <span className="keyword">define </span>
+        return <span></span>
     }
 
     const uk = UniqueKey()
