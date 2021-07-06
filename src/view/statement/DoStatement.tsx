@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
+import MenuButton from '../control/MenuButton'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
@@ -10,9 +12,9 @@ interface Props {
 
 export default function DoStatement({ node }: Props): ReactElement {
     const prefix = (
-        <>
-            <Keyword kind={node.kind}></Keyword>{' '}
-        </>
+        <MenuButton factory={StatementMenuFactory(node.parent as any, node)}>
+            <Keyword kind={node.kind}></Keyword>
+        </MenuButton>
     )
     const suffix = (
         <>

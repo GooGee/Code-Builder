@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
+import MenuButton from '../control/MenuButton'
 import VDLView from '../declaration/VDLView'
 import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
@@ -14,7 +16,11 @@ export default function ForStatement({ node }: Props): ReactElement {
     return (
         <span>
             <span>
-                <Keyword kind={node.kind}></Keyword>{' '}
+                <MenuButton
+                    factory={StatementMenuFactory(node.parent as any, node)}
+                >
+                    <Keyword kind={node.kind}></Keyword>
+                </MenuButton>
                 <VDLView node={node.initializer as any}></VDLView>
             </span>
             <div className="pl-11">
