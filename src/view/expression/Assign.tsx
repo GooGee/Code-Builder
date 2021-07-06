@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import EditingView from '../control/EditingView'
 import AssignToken from '../text/AssignToken'
 import ExpressionRoot from './ExpressionRoot'
 
@@ -16,14 +15,7 @@ export default function Assign({ node }: Props): ReactElement {
                 node={node.left}
                 parent={node}
             ></ExpressionRoot>{' '}
-            <EditingView
-                viewFactory={(editing) => (
-                    <AssignToken
-                        editing={editing}
-                        token={node.operatorToken}
-                    ></AssignToken>
-                )}
-            ></EditingView>{' '}
+            <AssignToken token={node.operatorToken}></AssignToken>{' '}
             <ExpressionRoot node={node.right} parent={node}></ExpressionRoot>
         </span>
     )
