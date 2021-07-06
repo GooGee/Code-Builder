@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import EditingView from '../control/EditingView'
 import ComputeToken from '../text/ComputeToken'
-import Token from '../text/Token'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
@@ -17,14 +15,7 @@ export default function BinaryExpression({
     return (
         <span>
             <ExpressionRoot node={node.left} parent={node}></ExpressionRoot>{' '}
-            <EditingView
-                viewFactory={(editing) => (
-                    <ComputeToken
-                        editing={editing}
-                        token={node.operatorToken}
-                    ></ComputeToken>
-                )}
-            ></EditingView>{' '}
+            <ComputeToken token={node.operatorToken}></ComputeToken>{' '}
             <ExpressionRoot node={node.right} parent={node}></ExpressionRoot>
         </span>
     )
