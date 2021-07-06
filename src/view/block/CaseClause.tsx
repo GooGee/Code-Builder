@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import CaseMenuFactory from '../../helper/Menu/CaseMenuFactory'
+import MenuButton from '../control/MenuButton'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Statementxx from '../statement/Statementxx'
 import Keyword from '../text/Keyword'
@@ -11,7 +13,11 @@ interface Props {
 export default function CaseClause({ node }: Props): ReactElement {
     return (
         <span>
-            <Keyword kind={node.kind}></Keyword>{' '}
+            <MenuButton
+                factory={CaseMenuFactory(node.parent, node)}
+            >
+                <Keyword kind={node.kind}></Keyword>
+            </MenuButton>
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
