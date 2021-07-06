@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import StatementLine from '../control/StatementLine'
 import ClassDeclaration from '../declaration/ClassDeclaration'
 import EnumDeclaration from '../declaration/EnumDeclaration'
 import InterfaceDeclaration from '../declaration/InterfaceDeclaration'
@@ -43,16 +41,9 @@ export default function Statementxx({ list }: Props): ReactElement {
                 }
 
                 return (
-                    <StatementLine
-                        key={uk()}
-                        menuFactory={StatementMenuFactory(
-                            item.parent as any,
-                            item,
-                        )}
-                        viewFactory={(editing) => (
-                            <Statement node={item}></Statement>
-                        )}
-                    ></StatementLine>
+                    <div key={uk()}>
+                        <Statement node={item}></Statement>
+                    </div>
                 )
             })}
         </div>
