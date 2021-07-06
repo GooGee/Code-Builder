@@ -10,8 +10,11 @@ export default function CaseMenuFactory(
         console.log('CaseMenuFactory')
         const menu = MenuFactory.makeMenu('')
         if (at !== undefined) {
-            MenuFactory.addDelete(menu, at)
-            MenuFactory.addSeparator(menu)
+            // no delete default case
+            if (ts.isCaseClause(at)) {
+                MenuFactory.addDelete(menu, at)
+                MenuFactory.addSeparator(menu)
+            }
         }
 
         menu.list.push(
