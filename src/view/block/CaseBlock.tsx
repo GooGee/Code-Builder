@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import CaseMenuFactory from '../../helper/Menu/CaseMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import StatementLine from '../control/StatementLine'
 import CaseClause from './CaseClause'
 import DefaultClause from './DefaultClause'
 
@@ -19,25 +17,11 @@ export default function CaseBlock({ node }: Props): ReactElement {
                 {node.clauses.map((clause) => {
                     if (ts.isCaseClause(clause)) {
                         return (
-                            <StatementLine
-                                key={uk()}
-                                menuFactory={CaseMenuFactory(node, clause)}
-                                viewFactory={(editing) => (
-                                    <CaseClause
-                                        node={clause}
-                                    ></CaseClause>
-                                )}
-                            ></StatementLine>
+                            <CaseClause key={uk()} node={clause}></CaseClause>
                         )
                     }
                     return (
-                        <StatementLine
-                            key={uk()}
-                            menuFactory={CaseMenuFactory(node, clause as any)}
-                            viewFactory={() => (
-                                <DefaultClause node={clause}></DefaultClause>
-                            )}
-                        ></StatementLine>
+                        <DefaultClause key={uk()} node={clause}></DefaultClause>
                     )
                 })}
             </div>
