@@ -5,15 +5,17 @@ import Button from './Button'
 import MenuView from './MenuView'
 
 interface Props {
+    children?: ReactElement
     factory: () => Menu
     text?: string
-    visible: boolean
+    visible?: boolean
 }
 
 export default function MenuButton({
+    children,
     factory,
     text = '*',
-    visible,
+    visible = true,
 }: Props): ReactElement | null {
     const [open, setOpen] = useState(false)
     const closeModal = () => setOpen(false)
@@ -31,9 +33,7 @@ export default function MenuButton({
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
-                <span>
-                    <Button>{text}</Button>
-                </span>
+                <span>{children ? children : <Button>{text}</Button>}</span>
             }
             closeOnDocumentClick
             position="right center"
