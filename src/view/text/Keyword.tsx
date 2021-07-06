@@ -11,5 +11,5 @@ export default function Keyword({ kind }: Props): ReactElement {
     if (text === undefined) {
         throw new Error(`Keyword not found: ${ts.SyntaxKind[kind]}`)
     }
-    return <span className="keyword">{text}</span>
+    return <span className="keyword">{text} </span>
 }
