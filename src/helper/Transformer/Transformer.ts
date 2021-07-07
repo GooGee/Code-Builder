@@ -38,7 +38,11 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
     })
 }
 
-function setProperty(parent: ts.Node, to: ts.Node, propertyName: string) {
+function setProperty(
+    parent: ts.Node,
+    to: ts.Node | ts.NodeArray<ts.Node>,
+    propertyName: string,
+) {
     console.log(propertyName)
     run((context) => {
         const visitor = (node: ts.Node): ts.Node => {
