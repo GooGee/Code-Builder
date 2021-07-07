@@ -19,15 +19,17 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
     const data = new ContextData(ast, update)
     return (
         <SourceFileContext.Provider value={data}>
-            {sf.statements.length === 0 ? null : (
-                <Statementxx list={ast.statements}></Statementxx>
-            )}
-            <div>
-                <MenuButton
-                    text="+"
-                    visible={true}
-                    factory={StatementMenuFactory(ast)}
-                ></MenuButton>
+            <div className="p-4">
+                {sf.statements.length === 0 ? null : (
+                    <Statementxx list={ast.statements}></Statementxx>
+                )}
+                <div>
+                    <MenuButton
+                        text="+"
+                        visible={true}
+                        factory={StatementMenuFactory(ast)}
+                    ></MenuButton>
+                </div>
             </div>
         </SourceFileContext.Provider>
     )
