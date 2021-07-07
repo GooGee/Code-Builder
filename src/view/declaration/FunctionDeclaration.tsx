@@ -28,6 +28,7 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
             <ParameterDeclarationxx
                 editing={editing}
                 list={node.parameters}
+                parent={node}
             ></ParameterDeclarationxx>
             <Colon></Colon>{' '}
             <TypeRoot

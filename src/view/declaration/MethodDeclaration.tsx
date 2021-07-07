@@ -31,6 +31,7 @@ export default function MethodDeclaration({
             <ParameterDeclarationxx
                 editing={editing}
                 list={node.parameters}
+                parent={node}
             ></ParameterDeclarationxx>
             <Colon></Colon>{' '}
             <TypeRoot

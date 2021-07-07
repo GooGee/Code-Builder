@@ -30,6 +30,7 @@ export default function MethodSignature({
             <ParameterDeclarationxx
                 editing={editing}
                 list={node.parameters}
+                parent={node}
             ></ParameterDeclarationxx>
             {node.type === undefined ? null : (
                 <>

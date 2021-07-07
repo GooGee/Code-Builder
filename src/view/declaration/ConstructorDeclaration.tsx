@@ -21,6 +21,7 @@ export default function ConstructorDeclaration({
             <ParameterDeclarationxx
                 editing={editing}
                 list={node.parameters}
+                parent={node}
             ></ParameterDeclarationxx>
             <Block node={node.body}></Block>
         </div>
