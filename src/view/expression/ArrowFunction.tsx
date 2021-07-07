@@ -17,31 +17,14 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
                 <ParameterDeclarationxx
                     editing={editing}
                     list={node.parameters}
+                    parent={node}
                 ></ParameterDeclarationxx>{' '}
-                <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
+                <Token
+                    kind={node.equalsGreaterThanToken.kind}
+                    suffix=" "
+                ></Token>
                 <Block node={node.body}></Block>
             </div>
-        )
-    }
-
-    if (editing) {
-        return (
-            <span>
-                <div className="pl-11">
-                    <ParameterDeclarationxx
-                        editing={editing}
-                        list={node.parameters}
-                    ></ParameterDeclarationxx>
-                </div>
-                <div className="pl-11">
-                    <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
-                    <ExpressionRoot
-                        node={node.body}
-                        parent={node}
-                        propertyName="body"
-                    ></ExpressionRoot>
-                </div>
-            </span>
         )
     }
 
@@ -50,8 +33,9 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
             <ParameterDeclarationxx
                 editing={editing}
                 list={node.parameters}
+                parent={node}
             ></ParameterDeclarationxx>{' '}
-            <Token kind={node.equalsGreaterThanToken.kind}></Token>{' '}
+            <Token kind={node.equalsGreaterThanToken.kind} suffix=" "></Token>
             <ExpressionRoot
                 node={node.body}
                 parent={node}
