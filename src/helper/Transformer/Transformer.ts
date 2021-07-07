@@ -1,21 +1,14 @@
 import ts from 'typescript'
 import state from '../../state'
 
-function insert<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T, at?: T) {
+function insert<T extends ts.Node>(nodexx: ts.NodeArray<T>, node: T, at?: T) {
     const list = Array.from(nodexx.values())
     if (at === undefined) {
-        list.push(item)
+        list.push(node)
     } else {
         const index = nodexx.indexOf(at)
-        list.splice(index, 0, item)
+        list.splice(index, 0, node)
     }
-    return ts.factory.createNodeArray(list)
-}
-
-function remove<T extends ts.Node>(nodexx: ts.NodeArray<T>, item: T) {
-    const index = nodexx.indexOf(item)
-    const list = Array.from(nodexx.values())
-    list.splice(index, 1)
     return ts.factory.createNodeArray(list)
 }
 
@@ -61,22 +54,21 @@ function setProperty(parent: ts.Node, to: ts.Node, propertyName: string) {
 }
 
 function transform(
-    nnn: ts.Node,
+    node: ts.Node,
     parent: ts.Node,
     propertyName: string,
     old?: ts.Node,
 ) {
     if (old === undefined) {
-        setProperty(parent, nnn, propertyName)
+        setProperty(parent, node, propertyName)
         return
     }
 
-    replace(old, nnn)
+    replace(old, node)
 }
 
 const Transformer = {
     insert,
-    remove,
     replace,
     run,
     setProperty,
