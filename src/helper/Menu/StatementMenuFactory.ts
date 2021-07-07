@@ -79,12 +79,12 @@ export default function StatementMenuFactory(
         }
 
         menu.list.push(
-            MenuFactory.makeMenu('+ Access', () => {
-                const item = StatementFactory.makeAccessStatement()
-                BlockTransformer.addNode(parent, item, at)
-            }),
             MenuFactory.makeMenu('+ Assign', () => {
                 const item = StatementFactory.makeAssignStatement()
+                BlockTransformer.addNode(parent, item, at)
+            }),
+            MenuFactory.makeMenu('+ Call', () => {
+                const item = StatementFactory.makeAccessStatement()
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ do', () => {

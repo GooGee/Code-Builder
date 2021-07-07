@@ -28,7 +28,7 @@ export default function ExpressionStatement({ node }: Props): ReactElement {
             <MenuButton
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
-                <span className="keyword">access </span>
+                <span className="keyword">call </span>
             </MenuButton>
             <ExpressionRoot
                 isLeft={true}
