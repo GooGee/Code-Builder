@@ -3,8 +3,18 @@ import ts from 'typescript'
 
 interface Props {
     kind: ts.SyntaxKind
+    prefix?: string
+    suffix?: string
 }
 
-export default function Token({ kind }: Props): ReactElement {
-    return <span className="token">{ts.tokenToString(kind)}</span>
+export default function Token({
+    kind,
+    prefix = '',
+    suffix = '',
+}: Props): ReactElement {
+    return (
+        <span className="token">
+            {prefix + ts.tokenToString(kind) + suffix}
+        </span>
+    )
 }
