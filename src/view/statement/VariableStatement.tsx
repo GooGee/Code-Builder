@@ -13,21 +13,21 @@ interface Props {
 
 export default function VariableStatement({ node }: Props): ReactElement {
     return (
-        <span>
-            <Modifierxx list={node.modifiers}></Modifierxx>
-            <MenuButton
-                factory={StatementMenuFactory(node.parent as any, node)}
-            >
-                <Flag node={node.declarationList}></Flag>
-            </MenuButton>
-            <EditingView
-                viewFactory={(editing) => (
+        <EditingView
+            viewFactory={(editing) => (
+                <span>
+                    <Modifierxx list={node.modifiers}></Modifierxx>
+                    <MenuButton
+                        factory={StatementMenuFactory(node.parent as any, node)}
+                    >
+                        <Flag node={node.declarationList}></Flag>
+                    </MenuButton>
                     <VariableDeclarationxx
                         editing={editing}
                         list={node.declarationList.declarations}
                     ></VariableDeclarationxx>
-                )}
-            ></EditingView>
-        </span>
+                </span>
+            )}
+        ></EditingView>
     )
 }
