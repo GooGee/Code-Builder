@@ -16,7 +16,7 @@ export default function CaseClause({ node }: Props): ReactElement {
             <MenuButton
                 factory={CaseMenuFactory(node.parent, node)}
             >
-                <Keyword kind={node.kind}></Keyword>
+                <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
             <ExpressionRoot
                 node={node.expression}

@@ -15,7 +15,7 @@ export default function ReturnStatement({ node }: Props): ReactElement {
             <MenuButton
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
-                <Keyword kind={node.kind}></Keyword>
+                <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
             <ExpressionRoot
                 node={node.expression}

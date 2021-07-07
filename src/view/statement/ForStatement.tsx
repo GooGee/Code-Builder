@@ -19,7 +19,7 @@ export default function ForStatement({ node }: Props): ReactElement {
                 <MenuButton
                     factory={StatementMenuFactory(node.parent as any, node)}
                 >
-                    <Keyword kind={node.kind}></Keyword>
+                    <Keyword kind={node.kind} suffix=" "></Keyword>
                 </MenuButton>
                 <VDLView node={node.initializer as any}></VDLView>
             </span>

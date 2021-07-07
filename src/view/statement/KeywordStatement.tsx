@@ -11,7 +11,7 @@ interface Props {
 export default function KeywordStatement({ node }: Props): ReactElement {
     return (
         <MenuButton factory={StatementMenuFactory(node.parent as any, node)}>
-            <Keyword kind={node.kind}></Keyword>
+            <Keyword kind={node.kind} suffix=" "></Keyword>
         </MenuButton>
     )
 }

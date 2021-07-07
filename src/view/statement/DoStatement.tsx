@@ -13,7 +13,7 @@ interface Props {
 export default function DoStatement({ node }: Props): ReactElement {
     const prefix = (
         <MenuButton factory={StatementMenuFactory(node.parent as any, node)}>
-            <Keyword kind={node.kind}></Keyword>
+            <Keyword kind={node.kind} suffix=" "></Keyword>
         </MenuButton>
     )
     const suffix = (

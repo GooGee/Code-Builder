@@ -18,7 +18,7 @@ export default function TypeAliasDeclaration({ node }: Props): ReactElement {
             <MenuButton
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
-                <Keyword kind={node.kind}></Keyword>
+                <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
             <IdentifierDeclaration
                 editing={editing}

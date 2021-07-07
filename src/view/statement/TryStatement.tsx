@@ -16,7 +16,7 @@ export default function TryStatement({ node }: Props): ReactElement {
             <MenuButton
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
-                <Keyword kind={node.kind}></Keyword>
+                <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
             <br />
             <Block node={node.tryBlock}></Block>
