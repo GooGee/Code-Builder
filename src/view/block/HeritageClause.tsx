@@ -11,7 +11,7 @@ interface Props {
 export default function HeritageClause({ editing, node }: Props): ReactElement {
     return (
         <div>
-            <Keyword kind={node.token}></Keyword>{' '}
+            <Keyword kind={node.token} suffix=" "></Keyword>
             <TypeNodexx
                 editing={editing}
                 list={node.types}

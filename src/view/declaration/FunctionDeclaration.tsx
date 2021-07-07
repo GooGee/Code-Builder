@@ -16,7 +16,7 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
     const editing = false
     return (
         <div>
-            <Keyword kind={node.kind}></Keyword>{' '}
+            <Keyword kind={node.kind} suffix=" "></Keyword>
             <IdentifierDeclaration
                 editing={editing}
                 node={node.name as any}

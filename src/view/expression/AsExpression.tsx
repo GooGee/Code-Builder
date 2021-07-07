@@ -16,7 +16,7 @@ export default function AsExpression({ editing, node }: Props): ReactElement {
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>{' '}
-            <Keyword kind={node.kind}></Keyword>{' '}
+            <Keyword kind={node.kind} suffix=" "></Keyword>
             <TypeRoot
                 editing={editing}
                 node={node.type}

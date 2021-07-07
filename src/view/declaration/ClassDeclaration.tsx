@@ -27,7 +27,7 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                 viewFactory={(editing) => (
                     <span>
                         <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-                        <Keyword kind={node.kind}></Keyword>{' '}
+                        <Keyword kind={node.kind} suffix=" "></Keyword>
                         <IdentifierDeclaration
                             editing={editing}
                             node={node.name!}

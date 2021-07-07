@@ -11,7 +11,7 @@ interface Props {
 export default function NewExpression({ editing, node }: Props): ReactElement {
     return (
         <>
-            <Keyword kind={node.kind}></Keyword>{' '}
+            <Keyword kind={node.kind} suffix=" "></Keyword>
             <CallExpression editing={editing} node={node}></CallExpression>
         </>
     )

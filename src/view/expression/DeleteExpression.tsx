@@ -14,7 +14,7 @@ export default function DeleteExpression({
 }: Props): ReactElement {
     return (
         <span>
-            <Keyword kind={node.kind}></Keyword>{' '}
+            <Keyword kind={node.kind} suffix=" "></Keyword>
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
