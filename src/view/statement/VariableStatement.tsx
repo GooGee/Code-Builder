@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import EditingView from '../control/EditingView'
 import MenuButton from '../control/MenuButton'
-import VariableDeclarationxx from '../declaration/VariableDeclarationxx'
-import Flag from '../text/Flag'
+import VDLView from '../declaration/VDLView'
 import Modifierxx from '../text/Modifierxx'
 
 interface Props {
@@ -13,21 +11,14 @@ interface Props {
 
 export default function VariableStatement({ node }: Props): ReactElement {
     return (
-        <EditingView
-            viewFactory={(editing) => (
-                <span>
-                    <Modifierxx list={node.modifiers}></Modifierxx>
-                    <MenuButton
-                        factory={StatementMenuFactory(node.parent as any, node)}
-                    >
-                        <Flag node={node.declarationList}></Flag>
-                    </MenuButton>
-                    <VariableDeclarationxx
-                        editing={editing}
-                        list={node.declarationList.declarations}
-                    ></VariableDeclarationxx>
-                </span>
-            )}
-        ></EditingView>
+        <span>
+            <MenuButton
+                factory={StatementMenuFactory(node.parent as any, node)}
+            >
+                <span className="keyword">define </span>
+            </MenuButton>
+            <Modifierxx list={node.modifiers}></Modifierxx>
+            <VDLView node={node.declarationList}></VDLView>
+        </span>
     )
 }
