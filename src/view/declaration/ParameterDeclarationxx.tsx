@@ -20,7 +20,6 @@ export default function ParameterDeclarationxx({
         return list.map((item) => {
             return (
                 <ParameterDeclaration
-                    editing={editing}
                     node={item}
                     key={uk()}
                 ></ParameterDeclaration>
