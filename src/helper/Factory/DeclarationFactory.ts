@@ -87,6 +87,10 @@ export function makeMethodSignature(name: string) {
     )
 }
 
+export function makeParameter(name: string) {
+    return ts.factory.createParameterDeclaration([], [], undefined, name)
+}
+
 export function makeProperty(name: string) {
     return ts.factory.createPropertyDeclaration(
         [],
