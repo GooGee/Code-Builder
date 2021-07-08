@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import MenuButton from '../control/MenuButton'
 import ExpressionRoot from '../expression/ExpressionRoot'
@@ -17,10 +18,19 @@ export default function ReturnStatement({ node }: Props): ReactElement {
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
-            <ExpressionRoot
-                node={node.expression}
-                parent={node}
-            ></ExpressionRoot>
+            {node.expression === undefined ? (
+                <MenuButton
+                    factory={ExpressionMenuFactory(node, node.expression)}
+                    visible={true}
+                >
+                    <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                </MenuButton>
+            ) : (
+                <ExpressionRoot
+                    node={node.expression}
+                    parent={node}
+                ></ExpressionRoot>
+            )}
         </span>
     )
 }
