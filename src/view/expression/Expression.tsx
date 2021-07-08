@@ -98,10 +98,7 @@ export default function Expression({
 
         case ts.SyntaxKind.Identifier:
             return (
-                <IdentifierExpression
-                    editing={editing}
-                    node={node as any}
-                ></IdentifierExpression>
+                <IdentifierExpression node={node as any}></IdentifierExpression>
             )
 
         case ts.SyntaxKind.NewExpression:
