@@ -26,6 +26,8 @@ function update(
     Transformer.replace(parent, to)
 }
 
-export default {
+const InterfaceTransformer = {
     addNode,
 }
+
+export default InterfaceTransformer

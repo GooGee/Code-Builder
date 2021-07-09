@@ -21,6 +21,8 @@ function update(parent: ts.EnumDeclaration, list: ts.NodeArray<ts.EnumMember>) {
     Transformer.replace(parent, to)
 }
 
-export default {
+const EnumTransformer = {
     addNode,
 }
+
+export default EnumTransformer

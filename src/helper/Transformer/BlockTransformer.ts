@@ -15,6 +15,8 @@ function addNode(
     Transformer.replace(parent, ts.factory.updateBlock(parent, list))
 }
 
-export default {
+const BlockTransformer = {
     addNode,
 }
+
+export default BlockTransformer

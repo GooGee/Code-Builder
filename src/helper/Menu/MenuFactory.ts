@@ -27,9 +27,11 @@ function makeMenu(
     return new Menu(title, cb, disabled, isDivider)
 }
 
-export default {
+const MenuFactory = {
     addDelete,
     addSeparator,
     makeMenu,
     nothing,
 }
+
+export default MenuFactory

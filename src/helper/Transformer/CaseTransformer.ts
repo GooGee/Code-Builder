@@ -10,6 +10,8 @@ function addNode(parent: ts.CaseBlock, at?: ts.CaseClause) {
     Transformer.replace(parent, to)
 }
 
-export default {
+const CaseTransformer = {
     addNode,
 }
+
+export default CaseTransformer

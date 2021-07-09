@@ -22,7 +22,9 @@ function deleteNote(item: ts.Statement) {
     Transformer.replace(state.sf, to)
 }
 
-export default {
+const SourceFileTransformer = {
     addNode,
     deleteNote,
 }
+
+export default SourceFileTransformer
