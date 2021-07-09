@@ -88,17 +88,24 @@ function makeIdentifierMenu(
     return menu
 }
 
-export function ObjectChildMenuFactory(node: ts.Identifier) {
+export function ObjectChildMenuFactory(
+    node: ts.Identifier | ts.NumericLiteral | ts.StringLiteral,
+) {
     return () => {
         console.log('ObjectChildMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        state.worker.checker.getCallSignatureList(node).forEach((item) => {
-            const text = item.parameters.map((item) => item.name).join(', ')
-            const mmm = MenuFactory.makeMenu(node.text + `( ${text} )`, () => {
-                console.log(item)
+        if (ts.isIdentifier(node)) {
+            state.worker.checker.getCallSignatureList(node).forEach((item) => {
+                const text = item.parameters.map((item) => item.name).join(', ')
+                const mmm = MenuFactory.makeMenu(
+                    node.text + `( ${text} )`,
+                    () => {
+                        console.log(item)
+                    },
+                )
+                menu.list.push(mmm)
             })
-            menu.list.push(mmm)
-        })
+        }
         state.worker.checker.getPropertyList(node).forEach((item) => {
             menu.list.push(
                 MenuFactory.makeMenu(item.name, () => {
