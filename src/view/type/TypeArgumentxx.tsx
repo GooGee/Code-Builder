@@ -11,15 +11,10 @@ export default function TypeArgumentxx({ list }: Props): ReactElement | null {
         return null
     }
 
-    const editing = false
     return (
         <span>
             &lt;
-            <TypeNodexx
-                editing={editing}
-                list={list}
-                separator=", "
-            ></TypeNodexx>
+            <TypeNodexx list={list} separator=", "></TypeNodexx>
             &gt;
         </span>
     )

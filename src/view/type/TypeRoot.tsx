@@ -5,44 +5,28 @@ import MenuButton from '../control/MenuButton'
 import TypeNode from './TypeNode'
 
 interface Props {
-    editing: boolean
     node?: ts.TypeNode
     parent: ts.Node
     propertyName?: string
 }
 
 export default function TypeRoot({
-    editing,
     node,
     parent,
     propertyName = 'type',
 }: Props): ReactElement {
-    if (node === undefined) {
-        if (editing) {
-            return (
-                <MenuButton
-                    factory={TypeMenuFactory(parent, node, propertyName)}
-                    text="+ Type"
-                    visible={true}
-                ></MenuButton>
-            )
-        }
+    return (
+        <span>
+            <MenuButton
+                factory={TypeMenuFactory(parent, node, propertyName)}
+                visible={true}
+            >
+                <span className="cursor-pointer px-2 text-gray-50 hover:text-red-500">
+                    *
+                </span>
+            </MenuButton>
 
-        return <span></span>
-    }
-
-    if (editing) {
-        return (
-            <span>
-                <MenuButton
-                    factory={TypeMenuFactory(parent, node, propertyName)}
-                    visible={true}
-                ></MenuButton>
-
-                <TypeNode editing={editing} node={node}></TypeNode>
-            </span>
-        )
-    }
-
-    return <TypeNode editing={false} node={node}></TypeNode>
+            <TypeNode node={node}></TypeNode>
+        </span>
+    )
 }

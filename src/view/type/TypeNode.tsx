@@ -9,20 +9,16 @@ import TypeReference from './TypeReference'
 import UnionType from './UnionType'
 
 interface Props {
-    editing: boolean
     node?: ts.TypeNode
 }
 
-export default function TypeNode({
-    editing,
-    node,
-}: Props): ReactElement | null {
+export default function TypeNode({ node }: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
 
     if (ts.isArrayTypeNode(node)) {
-        return <ArrayType editing={editing} node={node}></ArrayType>
+        return <ArrayType node={node}></ArrayType>
     }
 
     if (ts.isExpressionWithTypeArguments(node)) {
@@ -38,11 +34,11 @@ export default function TypeNode({
     }
 
     if (ts.isTypeReferenceNode(node)) {
-        return <TypeReference editing={editing} node={node}></TypeReference>
+        return <TypeReference node={node}></TypeReference>
     }
 
     if (ts.isUnionTypeNode(node)) {
-        return <UnionType editing={editing} node={node}></UnionType>
+        return <UnionType node={node}></UnionType>
     }
 
     if (KeywordTypeList.includes(node.kind as any)) {

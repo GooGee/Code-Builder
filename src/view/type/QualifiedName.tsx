@@ -4,18 +4,14 @@ import EntityName from './EntityName'
 import TypeIdentifier from './TypeIdentifier'
 
 interface Props {
-    editing: boolean
     node: ts.QualifiedName
 }
 
-export default function QualifiedName({ editing, node }: Props): ReactElement {
+export default function QualifiedName({ node }: Props): ReactElement {
     return (
         <span>
-            <EntityName editing={editing} node={node.left}></EntityName>.
-            <TypeIdentifier
-                editing={editing}
-                node={node.right}
-            ></TypeIdentifier>
+            <EntityName node={node.left}></EntityName>.
+            <TypeIdentifier node={node.right}></TypeIdentifier>
         </span>
     )
 }

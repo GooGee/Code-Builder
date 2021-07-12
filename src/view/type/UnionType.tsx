@@ -3,16 +3,9 @@ import ts from 'typescript'
 import TypeNodexx from './TypeNodexx'
 
 interface Props {
-    editing: boolean
     node: ts.UnionTypeNode
 }
 
-export default function UnionType({ editing, node }: Props): ReactElement {
-    return (
-        <TypeNodexx
-            editing={editing}
-            list={node.types}
-            separator=" | "
-        ></TypeNodexx>
-    )
+export default function UnionType({ node }: Props): ReactElement {
+    return <TypeNodexx list={node.types} separator=" | "></TypeNodexx>
 }
