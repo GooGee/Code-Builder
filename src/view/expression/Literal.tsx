@@ -1,30 +1,17 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import { replaceLiteral } from '../../helper/Transformer/ExpressionTransformer'
-import Button from '../control/Button'
+import { ObjectChildMenuFactory } from '../../helper/Menu/ExpressionMenuFactory'
+import MenuButton from '../control/MenuButton'
 
 interface Props {
-    editing?: boolean
     node: ts.NumericLiteral | ts.StringLiteral
 }
 
-export default function Literal({ editing, node }: Props): ReactElement {
+export default function Literal({ node }: Props): ReactElement {
     const text = ts.isStringLiteral(node) ? `"${node.text}"` : node.text
-    if (editing) {
-        return (
-            <Button
-                onClick={() => {
-                    const value = prompt('Enter a literal', node.text)
-                    if (value === null) {
-                        return
-                    }
-                    replaceLiteral(node, value)
-                }}
-            >
-                {text}
-            </Button>
-        )
-    }
-
-    return <span className="literal">{text}</span>
+    return (
+        <MenuButton factory={ObjectChildMenuFactory(node)} visible={true}>
+            <span className="literal">{text}</span>
+        </MenuButton>
+    )
 }
