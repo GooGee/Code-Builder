@@ -23,7 +23,6 @@ export default function NameValue({ node }: Props): ReactElement {
         return null
     }
 
-    const editing = false
     return (
         <span>
             <IdentifierDeclaration
@@ -35,11 +34,7 @@ export default function NameValue({ node }: Props): ReactElement {
                     <Colon></Colon>{' '}
                 </>
             )}
-            <TypeRoot
-                editing={editing}
-                node={node.type}
-                parent={node}
-            ></TypeRoot>
+            <TypeRoot node={node.type} parent={node}></TypeRoot>
             {node.initializer ? <Equal /> : null}
             <ExpressionRoot
                 node={node.initializer}

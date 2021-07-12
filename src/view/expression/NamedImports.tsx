@@ -12,15 +12,11 @@ export default function NamedImports({ node }: Props): ReactElement {
     return (
         <span>
             {'{'}
-            {/* {node.elements.map((item) => {
+            {node.elements.map((item) => {
                 return (
-                    <ImportSpecifier
-                        editing={editing}
-                        node={item}
-                        key={uk()}
-                    ></ImportSpecifier>
+                    <ImportSpecifier node={item} key={uk()}></ImportSpecifier>
                 )
-            })} */}
+            })}
             {'}'}
         </span>
     )

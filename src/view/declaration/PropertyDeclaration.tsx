@@ -4,7 +4,6 @@ import Modifierxx from '../text/Modifierxx'
 import NameValue from './NameValue'
 
 interface Props {
-    editing: boolean
     node: ts.PropertyDeclaration
 }
 

@@ -6,12 +6,12 @@ import Modifierxx from '../text/Modifierxx'
 import ParameterDeclarationxx from './ParameterDeclarationxx'
 
 interface Props {
-    editing: boolean
+    
     node: ts.ConstructorDeclaration
 }
 
 export default function ConstructorDeclaration({
-    editing,
+    
     node,
 }: Props): ReactElement {
     return (

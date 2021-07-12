@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function TypeAliasDeclaration({ node }: Props): ReactElement {
-    const editing = false
     return (
         <span>
             <MenuButton
@@ -22,11 +21,7 @@ export default function TypeAliasDeclaration({ node }: Props): ReactElement {
             </MenuButton>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             <Equal></Equal>
-            <TypeRoot
-                editing={editing}
-                node={node.type}
-                parent={node}
-            ></TypeRoot>
+            <TypeRoot node={node.type} parent={node}></TypeRoot>
         </span>
     )
 }

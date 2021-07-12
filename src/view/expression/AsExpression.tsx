@@ -11,16 +11,12 @@ interface Props {
 export default function AsExpression({ node }: Props): ReactElement {
     return (
         <span>
-            {/* <ExpressionRoot
+            <ExpressionRoot
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>{' '}
             <Keyword kind={node.kind} suffix=" "></Keyword>
-            <TypeRoot
-                editing={editing}
-                node={node.type}
-                parent={node}
-            ></TypeRoot> */}
+            <TypeRoot node={node.type} parent={node}></TypeRoot>
         </span>
     )
 }

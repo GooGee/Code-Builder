@@ -17,7 +17,6 @@ export default function TypeParameterDeclarationxx({
         return null
     }
 
-    const editing = false
     const uk = UniqueKey()
     function getxx(lll: ts.NodeArray<ts.TypeParameterDeclaration>) {
         if (lll.length === 0) {
@@ -27,7 +26,6 @@ export default function TypeParameterDeclarationxx({
             .map((item) => {
                 return (
                     <TypeParameterDeclaration
-                        editing={editing}
                         node={item}
                         key={uk()}
                     ></TypeParameterDeclaration>

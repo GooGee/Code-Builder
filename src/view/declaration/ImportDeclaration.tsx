@@ -14,10 +14,7 @@ export default function ImportDeclaration({ node }: Props): ReactElement {
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>
             <Keyword kind={node.kind}></Keyword>
-            <ImportClause
-                editing={false}
-                node={node.importClause}
-            ></ImportClause>
+            <ImportClause node={node.importClause}></ImportClause>
             <span className="keyword">from</span>
             <Literal node={node.moduleSpecifier as any}></Literal>
         </div>

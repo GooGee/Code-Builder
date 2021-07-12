@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default function FunctionDeclaration({ node }: Props): ReactElement {
-    const editing = false
     return (
         <div>
             <Keyword kind={node.kind} suffix=" "></Keyword>
@@ -27,12 +26,7 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>
-            <Colon></Colon>{' '}
-            <TypeRoot
-                editing={editing}
-                node={node.type}
-                parent={node}
-            ></TypeRoot>
+            <Colon></Colon> <TypeRoot node={node.type} parent={node}></TypeRoot>
             <Block node={node.body}></Block>
         </div>
     )

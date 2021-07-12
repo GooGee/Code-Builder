@@ -9,14 +9,10 @@ import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
-    editing: boolean
     node: ts.MethodDeclaration
 }
 
-export default function MethodDeclaration({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function MethodDeclaration({ node }: Props): ReactElement {
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -30,12 +26,7 @@ export default function MethodDeclaration({
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>
-            <Colon></Colon>{' '}
-            <TypeRoot
-                editing={editing}
-                node={node.type}
-                parent={node}
-            ></TypeRoot>
+            <Colon></Colon> <TypeRoot node={node.type} parent={node}></TypeRoot>
             <Block node={node.body}></Block>
         </div>
     )

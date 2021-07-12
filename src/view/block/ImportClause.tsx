@@ -5,12 +5,12 @@ import NamedImports from '../expression/NamedImports'
 import NamespaceImport from '../expression/NamespaceImport'
 
 interface Props {
-    editing: boolean
+    
     node: ts.ImportClause | undefined
 }
 
 export default function ImportClause({
-    editing,
+    
     node,
 }: Props): ReactElement | null {
     if (node === undefined) {

@@ -8,14 +8,10 @@ import ParameterDeclarationxx from './ParameterDeclarationxx'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
-    editing: boolean
     node: ts.MethodSignature
 }
 
-export default function MethodSignature({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function MethodSignature({ node }: Props): ReactElement {
     return (
         <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -32,11 +28,7 @@ export default function MethodSignature({
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
-                    <TypeRoot
-                        editing={editing}
-                        node={node.type}
-                        parent={node}
-                    ></TypeRoot>
+                    <TypeRoot node={node.type} parent={node}></TypeRoot>
                 </>
             )}
         </span>
