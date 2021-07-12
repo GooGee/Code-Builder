@@ -1,9 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
-import SourceFileMenuFactory from '../../helper/Menu/SourceFileMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
-import StatementLine from '../control/StatementLine'
 import MenuButton from '../control/MenuButton'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Keyword from '../text/Keyword'
@@ -22,53 +20,34 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <div>
-            <StatementLine
-                menuFactory={SourceFileMenuFactory(node)}
-                viewFactory={(editing) => (
-                    <span>
-                        <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-                        <Keyword kind={node.kind} suffix=" "></Keyword>
-                        <IdentifierDeclaration
-                            node={node.name!}
-                        ></IdentifierDeclaration>
-                        <TypeParameterDeclarationxx
-                            list={node.typeParameters}
-                        ></TypeParameterDeclarationxx>
-                        <Heritagexx
-                            editing={editing}
-                            list={node.heritageClauses}
-                            parent={node}
-                        ></Heritagexx>
-                    </span>
-                )}
-            ></StatementLine>
+            <span>
+                <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+                <Keyword kind={node.kind} suffix=" "></Keyword>
+                <IdentifierDeclaration
+                    node={node.name!}
+                ></IdentifierDeclaration>
+                <TypeParameterDeclarationxx
+                    list={node.typeParameters}
+                ></TypeParameterDeclarationxx>
+                <Heritagexx
+                    list={node.heritageClauses}
+                    parent={node}
+                ></Heritagexx>
+            </span>
 
             {'{'}
             <div className="pl-11">
-                {node.members.map((item) => (
-                    <StatementLine
-                        key={uk()}
-                        menuFactory={ClassMenuFactory(node, item)}
-                        viewFactory={(editing) =>
-                            ts.isConstructorDeclaration(item) ? (
-                                <ConstructorDeclaration
-                                    editing={editing}
-                                    node={item}
-                                ></ConstructorDeclaration>
-                            ) : ts.isMethodDeclaration(item) ? (
-                                <MethodDeclaration
-                                    editing={editing}
-                                    node={item}
-                                ></MethodDeclaration>
-                            ) : ts.isPropertyDeclaration(item) ? (
-                                <PropertyDeclaration
-                                    editing={editing}
-                                    node={item}
-                                ></PropertyDeclaration>
-                            ) : null
-                        }
-                    ></StatementLine>
-                ))}
+                {node.members.map((item) =>
+                    ts.isConstructorDeclaration(item) ? (
+                        <ConstructorDeclaration
+                            node={item}
+                        ></ConstructorDeclaration>
+                    ) : ts.isMethodDeclaration(item) ? (
+                        <MethodDeclaration node={item}></MethodDeclaration>
+                    ) : ts.isPropertyDeclaration(item) ? (
+                        <PropertyDeclaration node={item}></PropertyDeclaration>
+                    ) : null,
+                )}
                 <MenuButton
                     visible={true}
                     factory={ClassMenuFactory(node)}
