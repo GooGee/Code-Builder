@@ -23,7 +23,9 @@ if (!true) {
 } else {
 }
 
-let literal: 'sss' | 'ccc'
+let literal: 'sss' | 'ccc' = 'ccc'
+
+literal = 'sss'
 
 try {
     throw new Error('Error')
