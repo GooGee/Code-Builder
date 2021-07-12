@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import EditingView from '../control/EditingView'
+import MenuButton from '../control/MenuButton'
 import Expression from './Expression'
 
 interface Props {
@@ -18,19 +18,22 @@ export default function ExpressionRoot({
     propertyName,
 }: Props): ReactElement | null {
     return (
-        <EditingView
-            menuFactory={ExpressionMenuFactory(
-                parent,
-                node,
-                propertyName,
-                isLeft,
-            )}
-            viewFactory={(editing) => {
-                if (node === undefined) {
-                    return null
-                }
-                return <Expression editing={editing} node={node}></Expression>
-            }}
-        ></EditingView>
+        <span>
+            <MenuButton
+                factory={ExpressionMenuFactory(
+                    parent,
+                    node,
+                    propertyName,
+                    isLeft,
+                )}
+                visible={true}
+            >
+                <span className="cursor-pointer px-2 text-gray-50 hover:text-red-500">
+                    *
+                </span>
+            </MenuButton>
+
+            {node === undefined ? null : <Expression node={node}></Expression>}
+        </span>
     )
 }
