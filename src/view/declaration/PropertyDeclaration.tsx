@@ -8,14 +8,11 @@ interface Props {
     node: ts.PropertyDeclaration
 }
 
-export default function PropertyDeclaration({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function PropertyDeclaration({ node }: Props): ReactElement {
     return (
         <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <NameValue editing={editing} node={node}></NameValue>
+            <NameValue node={node}></NameValue>
         </span>
     )
 }

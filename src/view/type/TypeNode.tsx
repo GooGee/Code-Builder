@@ -28,7 +28,6 @@ export default function TypeNode({
     if (ts.isExpressionWithTypeArguments(node)) {
         return (
             <ExpressionWithTypeArguments
-                editing={editing}
                 node={node}
             ></ExpressionWithTypeArguments>
         )

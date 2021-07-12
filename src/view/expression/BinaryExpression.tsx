@@ -4,14 +4,10 @@ import ComputeToken from '../text/ComputeToken'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
-    editing: boolean
     node: ts.BinaryExpression
 }
 
-export default function BinaryExpression({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function BinaryExpression({ node }: Props): ReactElement {
     return (
         <span>
             <ExpressionRoot node={node.left} parent={node}></ExpressionRoot>{' '}

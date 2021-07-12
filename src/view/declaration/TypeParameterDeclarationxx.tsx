@@ -4,12 +4,10 @@ import UniqueKey from '../../helper/UniqueKey'
 import TypeParameterDeclaration from './TypeParameterDeclaration'
 
 interface Props {
-    editing: boolean
     list: ts.NodeArray<ts.TypeParameterDeclaration> | undefined
 }
 
 export default function TypeParameterDeclarationxx({
-    editing,
     list,
 }: Props): ReactElement | null {
     if (list === undefined) {
@@ -19,6 +17,7 @@ export default function TypeParameterDeclarationxx({
         return null
     }
 
+    const editing = false
     const uk = UniqueKey()
     function getxx(lll: ts.NodeArray<ts.TypeParameterDeclaration>) {
         if (lll.length === 0) {

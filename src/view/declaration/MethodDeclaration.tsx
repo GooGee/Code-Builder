@@ -21,15 +21,12 @@ export default function MethodDeclaration({
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <IdentifierDeclaration
-                editing={editing}
                 node={node.name as any}
             ></IdentifierDeclaration>
             <TypeParameterDeclarationxx
-                editing={editing}
                 list={node.typeParameters}
             ></TypeParameterDeclarationxx>
             <ParameterDeclarationxx
-                editing={editing}
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>

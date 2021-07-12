@@ -12,7 +12,6 @@ export default function VDLView({ node }: Props): ReactElement {
         <EditingView
             viewFactory={(editing) => (
                 <VariableDeclarationList
-                    editing={editing}
                     node={node}
                 ></VariableDeclarationList>
             )}

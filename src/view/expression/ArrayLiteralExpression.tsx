@@ -3,7 +3,6 @@ import ts from 'typescript'
 import Expressionxx from './Expressionxx'
 
 interface Props {
-    editing: boolean
     node: ts.ArrayLiteralExpression
 }
 

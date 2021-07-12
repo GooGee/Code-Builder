@@ -14,7 +14,6 @@ export default function CatchClause({ node }: Props): ReactElement {
             <div>
                 <Keyword kind={node.kind} suffix=" "></Keyword>
                 <IdentifierDeclaration
-                    editing={false}
                     node={node.variableDeclaration!.name as any}
                 ></IdentifierDeclaration>
             </div>

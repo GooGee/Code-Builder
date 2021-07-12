@@ -25,7 +25,6 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                         <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                         <Keyword kind={node.kind} suffix=" "></Keyword>
                         <IdentifierDeclaration
-                            editing={editing}
                             node={node.name}
                         ></IdentifierDeclaration>
                     </span>

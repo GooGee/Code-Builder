@@ -6,16 +6,14 @@ import Token from '../text/Token'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
-    editing: boolean
     node: ts.ArrowFunction
 }
 
-export default function ArrowFunction({ editing, node }: Props): ReactElement {
+export default function ArrowFunction({ node }: Props): ReactElement {
     if (ts.isBlock(node.body)) {
         return (
             <div className="pl-11">
                 <ParameterDeclarationxx
-                    editing={editing}
                     list={node.parameters}
                     parent={node}
                 ></ParameterDeclarationxx>{' '}
@@ -31,7 +29,6 @@ export default function ArrowFunction({ editing, node }: Props): ReactElement {
     return (
         <span>
             <ParameterDeclarationxx
-                editing={editing}
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>{' '}

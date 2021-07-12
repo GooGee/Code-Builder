@@ -29,11 +29,9 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         <Modifierxx list={node.modifiers}></Modifierxx>{' '}
                         <Keyword kind={node.kind} suffix=" "></Keyword>
                         <IdentifierDeclaration
-                            editing={editing}
                             node={node.name!}
                         ></IdentifierDeclaration>
                         <TypeParameterDeclarationxx
-                            editing={editing}
                             list={node.typeParameters}
                         ></TypeParameterDeclarationxx>
                         <Heritagexx

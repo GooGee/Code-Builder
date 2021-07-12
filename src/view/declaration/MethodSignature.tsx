@@ -20,15 +20,12 @@ export default function MethodSignature({
         <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <IdentifierDeclaration
-                editing={editing}
                 node={node.name as any}
             ></IdentifierDeclaration>
             <TypeParameterDeclarationxx
-                editing={editing}
                 list={node.typeParameters}
             ></TypeParameterDeclarationxx>
             <ParameterDeclarationxx
-                editing={editing}
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>

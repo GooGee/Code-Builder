@@ -4,16 +4,15 @@ import UniqueKey from '../../helper/UniqueKey'
 import ImportSpecifier from './ImportSpecifier'
 
 interface Props {
-    editing: boolean
     node: ts.NamedImports
 }
 
-export default function NamedImports({ editing, node }: Props): ReactElement {
+export default function NamedImports({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
         <span>
             {'{'}
-            {node.elements.map((item) => {
+            {/* {node.elements.map((item) => {
                 return (
                     <ImportSpecifier
                         editing={editing}
@@ -21,7 +20,7 @@ export default function NamedImports({ editing, node }: Props): ReactElement {
                         key={uk()}
                     ></ImportSpecifier>
                 )
-            })}
+            })} */}
             {'}'}
         </span>
     )

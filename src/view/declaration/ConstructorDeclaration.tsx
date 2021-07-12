@@ -19,7 +19,6 @@ export default function ConstructorDeclaration({
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <Keyword kind={node.kind}></Keyword>
             <ParameterDeclarationxx
-                editing={editing}
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>

@@ -12,10 +12,7 @@ export default function TypeReference({ editing, node }: Props): ReactElement {
     return (
         <span>
             <EntityName editing={editing} node={node.typeName}></EntityName>
-            <TypeArgumentxx
-                editing={editing}
-                list={node.typeArguments}
-            ></TypeArgumentxx>
+            <TypeArgumentxx list={node.typeArguments}></TypeArgumentxx>
         </span>
     )
 }

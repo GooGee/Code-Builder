@@ -14,10 +14,7 @@ export default function TypeParameterDeclaration({
 }: Props): ReactElement {
     return (
         <span>
-            <IdentifierDeclaration
-                editing={editing}
-                node={node.name}
-            ></IdentifierDeclaration>
+            <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             {node.constraint ? (
                 <span className="keyword"> extends </span>
             ) : null}

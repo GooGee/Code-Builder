@@ -8,7 +8,6 @@ import Token from '../text/Token'
 import TypeRoot from '../type/TypeRoot'
 
 interface Props {
-    editing: boolean
     node:
         | ts.ParameterDeclaration
         | ts.PropertyDeclaration
@@ -16,7 +15,7 @@ interface Props {
         | ts.VariableDeclaration
 }
 
-export default function NameValue({ editing, node }: Props): ReactElement {
+export default function NameValue({ node }: Props): ReactElement {
     function getToken(nnn: ts.ParameterPropertyDeclaration) {
         if (nnn.questionToken) {
             return <Token kind={nnn.questionToken.kind}></Token>
@@ -24,10 +23,10 @@ export default function NameValue({ editing, node }: Props): ReactElement {
         return null
     }
 
+    const editing = false
     return (
         <span>
             <IdentifierDeclaration
-                editing={editing}
                 node={node.name as any}
             ></IdentifierDeclaration>
             {getToken(node as any)}

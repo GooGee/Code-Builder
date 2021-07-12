@@ -8,14 +8,11 @@ interface Props {
     node: ts.PropertySignature
 }
 
-export default function PropertySignature({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function PropertySignature({ node }: Props): ReactElement {
     return (
         <span>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <NameValue editing={editing} node={node}></NameValue>
+            <NameValue node={node}></NameValue>
         </span>
     )
 }

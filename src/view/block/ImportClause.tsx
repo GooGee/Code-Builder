@@ -25,20 +25,10 @@ export default function ImportClause({
         }
 
         if (ts.isNamedImports(nnn.namedBindings)) {
-            return (
-                <NamedImports
-                    editing={editing}
-                    node={nnn.namedBindings}
-                ></NamedImports>
-            )
+            return <NamedImports node={nnn.namedBindings}></NamedImports>
         }
         if (ts.isNamespaceImport(nnn.namedBindings)) {
-            return (
-                <NamespaceImport
-                    editing={editing}
-                    node={nnn.namedBindings}
-                ></NamespaceImport>
-            )
+            return <NamespaceImport node={nnn.namedBindings}></NamespaceImport>
         }
 
         return new Error('Unknown ImportClause')
@@ -47,10 +37,7 @@ export default function ImportClause({
     return (
         <span>
             {nnn.name === undefined ? null : (
-                <IdentifierDeclaration
-                    editing={editing}
-                    node={nnn.name}
-                ></IdentifierDeclaration>
+                <IdentifierDeclaration node={nnn.name}></IdentifierDeclaration>
             )}
             {getBinding()}
         </span>

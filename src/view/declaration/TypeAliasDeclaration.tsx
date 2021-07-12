@@ -20,10 +20,7 @@ export default function TypeAliasDeclaration({ node }: Props): ReactElement {
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
-            <IdentifierDeclaration
-                editing={editing}
-                node={node.name}
-            ></IdentifierDeclaration>
+            <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             <Equal></Equal>
             <TypeRoot
                 editing={editing}

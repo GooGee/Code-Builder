@@ -6,16 +6,15 @@ import MenuButton from '../control/MenuButton'
 import ParameterDeclaration from './ParameterDeclaration'
 
 interface Props {
-    editing: boolean
     list: ts.NodeArray<ts.ParameterDeclaration>
     parent: ts.SignatureDeclarationBase
 }
 
 export default function ParameterDeclarationxx({
-    editing,
     list,
     parent,
 }: Props): ReactElement {
+    const editing = false
     const uk = UniqueKey()
     return (
         <span>

@@ -4,14 +4,10 @@ import Keyword from '../text/Keyword'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
-    editing: boolean
     node: ts.DeleteExpression
 }
 
-export default function DeleteExpression({
-    editing,
-    node,
-}: Props): ReactElement {
+export default function DeleteExpression({ node }: Props): ReactElement {
     return (
         <span>
             <Keyword kind={node.kind} suffix=" "></Keyword>

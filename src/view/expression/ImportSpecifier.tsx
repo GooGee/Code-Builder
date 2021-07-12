@@ -3,18 +3,9 @@ import ts from 'typescript'
 import IdentifierDeclaration from './IdentifierDeclaration'
 
 interface Props {
-    editing: boolean
     node: ts.ImportSpecifier
 }
 
-export default function ImportSpecifier({
-    editing,
-    node,
-}: Props): ReactElement {
-    return (
-        <IdentifierDeclaration
-            editing={editing}
-            node={node.name}
-        ></IdentifierDeclaration>
-    )
+export default function ImportSpecifier({ node }: Props): ReactElement {
+    return <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
 }

@@ -5,14 +5,13 @@ import TypeRoot from '../type/TypeRoot'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
-    editing: boolean
     node: ts.AsExpression
 }
 
-export default function AsExpression({ editing, node }: Props): ReactElement {
+export default function AsExpression({ node }: Props): ReactElement {
     return (
         <span>
-            <ExpressionRoot
+            {/* <ExpressionRoot
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>{' '}
@@ -21,7 +20,7 @@ export default function AsExpression({ editing, node }: Props): ReactElement {
                 editing={editing}
                 node={node.type}
                 parent={node}
-            ></TypeRoot>
+            ></TypeRoot> */}
         </span>
     )
 }
