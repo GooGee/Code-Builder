@@ -2,7 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
 import refactor from '../../helper/refactor'
 import SourceFileContext from '../context/SourceFileContext'
-import Identifier from './Identifier'
+import Identifier from '../text/Identifier'
 
 interface Props {
     node: ts.Identifier

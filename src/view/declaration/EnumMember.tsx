@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionRoot from '../expression/ExpressionRoot'
-import Identifier from '../expression/Identifier'
+import Identifier from '../text/Identifier'
 
 interface Props {
     node: ts.EnumMember
