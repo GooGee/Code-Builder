@@ -8,7 +8,7 @@ import MenuFactory from './MenuFactory'
 
 function makeBasicTypeMenu(
     parent: ts.Node,
-    node?: ts.TypeNode,
+    node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('basic')
@@ -33,7 +33,7 @@ function makeBasicTypeMenu(
 
 function makeClassTypeMenu(
     parent: ts.Node,
-    node?: ts.TypeNode,
+    node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('class')
@@ -52,7 +52,7 @@ function makeClassTypeMenu(
 
 function makeLocalTypeMenu(
     parent: ts.Node,
-    node?: ts.TypeNode,
+    node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('local')
@@ -61,7 +61,7 @@ function makeLocalTypeMenu(
 
 function makeImportedTypeMenu(
     parent: ts.Node,
-    node?: ts.TypeNode,
+    node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('imported')
@@ -89,7 +89,7 @@ export function ModuleChildMenuFactory(node: ts.EntityName) {
 
 export default function TypeMenuFactory(
     parent: ts.Node,
-    node?: ts.TypeNode,
+    node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
     return () => {
