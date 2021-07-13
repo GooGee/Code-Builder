@@ -9,7 +9,7 @@ import CallExpression from './CallExpression'
 import DeleteExpression from './DeleteExpression'
 import ExpressionWithTypeArguments from './ExpressionWithTypeArguments'
 import IdentifierExpression from './IdentifierExpression'
-import Literal from './Literal'
+import LiteralExpression from './LiteralExpression'
 import NewExpression from './NewExpression'
 import ObjectLiteralExpression from './ObjectLiteralExpression'
 import PostfixUnaryExpression from './PostfixUnaryExpression'
@@ -75,7 +75,7 @@ export default function Expression({ node }: Props): ReactElement | null {
 
         case ts.SyntaxKind.NumericLiteral:
         case ts.SyntaxKind.StringLiteral:
-            return <Literal node={node as any}></Literal>
+            return <LiteralExpression node={node as any}></LiteralExpression>
 
         case ts.SyntaxKind.ObjectLiteralExpression:
             return (

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ImportClause from '../block/ImportClause'
-import Literal from '../expression/Literal'
+import LiteralExpression from '../expression/LiteralExpression'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 
@@ -16,7 +16,7 @@ export default function ImportDeclaration({ node }: Props): ReactElement {
             <Keyword kind={node.kind}></Keyword>
             <ImportClause node={node.importClause}></ImportClause>
             <span className="keyword">from</span>
-            <Literal node={node.moduleSpecifier as any}></Literal>
+            <LiteralExpression node={node.moduleSpecifier as any}></LiteralExpression>
         </div>
     )
 }
