@@ -36,9 +36,15 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
             <div className="pl-11">
                 {node.members.map((item) =>
                     ts.isMethodSignature(item) ? (
-                        <MethodSignature node={item}></MethodSignature>
+                        <MethodSignature
+                            key={uk()}
+                            node={item}
+                        ></MethodSignature>
                     ) : ts.isPropertySignature(item) ? (
-                        <PropertySignature node={item}></PropertySignature>
+                        <PropertySignature
+                            key={uk()}
+                            node={item}
+                        ></PropertySignature>
                     ) : null,
                 )}
                 <MenuButton

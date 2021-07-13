@@ -40,12 +40,19 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                 {node.members.map((item) =>
                     ts.isConstructorDeclaration(item) ? (
                         <ConstructorDeclaration
+                            key={uk()}
                             node={item}
                         ></ConstructorDeclaration>
                     ) : ts.isMethodDeclaration(item) ? (
-                        <MethodDeclaration node={item}></MethodDeclaration>
+                        <MethodDeclaration
+                            key={uk()}
+                            node={item}
+                        ></MethodDeclaration>
                     ) : ts.isPropertyDeclaration(item) ? (
-                        <PropertyDeclaration node={item}></PropertyDeclaration>
+                        <PropertyDeclaration
+                            key={uk()}
+                            node={item}
+                        ></PropertyDeclaration>
                     ) : null,
                 )}
                 <MenuButton

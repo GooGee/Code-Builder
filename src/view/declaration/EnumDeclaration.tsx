@@ -25,7 +25,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
             {'{'}
             <div className="pl-11">
                 {node.members.map((member) => (
-                    <EnumMember node={member}></EnumMember>
+                    <EnumMember key={uk()} node={member}></EnumMember>
                 ))}
 
                 <MenuButton
