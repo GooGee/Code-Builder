@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
+import MenuButton from '../control/MenuButton'
 import Keyword from '../text/Keyword'
 
 interface Props {
@@ -7,5 +9,9 @@ interface Props {
 }
 
 export default function KeywordType({ node }: Props): ReactElement {
-    return <Keyword kind={node.kind}></Keyword>
+    return (
+        <MenuButton factory={TypeMenuFactory(node.parent, node)} visible={true}>
+            <Keyword kind={node.kind}></Keyword>
+        </MenuButton>
+    )
 }

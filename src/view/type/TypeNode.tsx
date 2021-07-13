@@ -9,14 +9,10 @@ import TypeReference from './TypeReference'
 import UnionType from './UnionType'
 
 interface Props {
-    node?: ts.TypeNode
+    node: ts.TypeNode
 }
 
 export default function TypeNode({ node }: Props): ReactElement | null {
-    if (node === undefined) {
-        return null
-    }
-
     if (ts.isArrayTypeNode(node)) {
         return <ArrayType node={node}></ArrayType>
     }

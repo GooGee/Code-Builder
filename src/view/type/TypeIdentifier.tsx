@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import { ModuleChildMenuFactory } from '../../helper/Menu/TypeMenuFactory'
+import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import MenuButton from '../control/MenuButton'
 import Identifier from '../expression/Identifier'
 
@@ -10,13 +10,8 @@ interface Props {
 
 export default function TypeIdentifier({ node }: Props): ReactElement {
     return (
-        <span>
-            {/* <MenuButton
-                factory={ModuleChildMenuFactory(node)}
-                visible={true}
-            ></MenuButton> */}
-
+        <MenuButton factory={TypeMenuFactory(node.parent, node)} visible={true}>
             <Identifier node={node}></Identifier>
-        </span>
+        </MenuButton>
     )
 }
