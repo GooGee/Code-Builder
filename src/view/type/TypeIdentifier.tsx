@@ -11,10 +11,10 @@ interface Props {
 export default function TypeIdentifier({ node }: Props): ReactElement {
     return (
         <span>
-            <MenuButton
+            {/* <MenuButton
                 factory={ModuleChildMenuFactory(node)}
                 visible={true}
-            ></MenuButton>
+            ></MenuButton> */}
 
             <Identifier node={node}></Identifier>
         </span>
