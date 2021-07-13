@@ -1,7 +1,5 @@
 import React, { ReactElement } from 'react'
 
-interface Props {}
-
-export default function Dot({}: Props): ReactElement {
+export default function Dot(): ReactElement {
     return <span>.</span>
 }
