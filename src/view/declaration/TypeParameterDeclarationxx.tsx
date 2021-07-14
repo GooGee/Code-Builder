@@ -18,22 +18,20 @@ export default function TypeParameterDeclarationxx({
     }
 
     const uk = UniqueKey()
-    function getxx(lll: ts.NodeArray<ts.TypeParameterDeclaration>) {
-        if (lll.length === 0) {
-            return null
-        }
-        return lll
-            .map((item) => {
-                return (
+    return (
+        <span>
+            &lt;
+            {list
+                .map((item) => (
                     <TypeParameterDeclaration
                         node={item}
                         key={uk()}
                     ></TypeParameterDeclaration>
-                )
-            })
-            .reduce((previousValue, currentValue): any => {
-                return [previousValue, ', ', currentValue]
-            })
-    }
-    return <span>&lt;{getxx(list)}&gt;</span>
+                ))
+                .reduce((previousValue, currentValue): any => {
+                    return [previousValue, ', ', currentValue]
+                })}
+            &gt;
+        </span>
+    )
 }
