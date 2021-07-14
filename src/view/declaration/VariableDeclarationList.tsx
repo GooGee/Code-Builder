@@ -7,12 +7,10 @@ interface Props {
     node: ts.VariableDeclarationList
 }
 
-export default function VariableDeclarationList({
-    node,
-}: Props): ReactElement {
+export default function VariableDeclarationList({ node }: Props): ReactElement {
     return (
         <span>
-            <Flag node={node}></Flag>{' '}
+            <Flag node={node} suffix=" "></Flag>
             <VariableDeclarationxx
                 list={node.declarations}
             ></VariableDeclarationxx>

@@ -3,7 +3,7 @@ import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
 import MenuButton from '../control/MenuButton'
-import VDLView from '../declaration/VDLView'
+import VariableDeclarationList from '../declaration/VariableDeclarationList'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
@@ -20,7 +20,9 @@ export default function ForOfStatement({ node }: Props): ReactElement {
                 >
                     <Keyword kind={node.kind} suffix=" "></Keyword>
                 </MenuButton>
-                <VDLView node={node.initializer as any}></VDLView>
+                <VariableDeclarationList
+                    node={node.initializer as any}
+                ></VariableDeclarationList>
             </span>
             <div className="pl-11">
                 <span className="keyword">of </span>
