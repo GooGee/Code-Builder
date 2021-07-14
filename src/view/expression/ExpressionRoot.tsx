@@ -27,7 +27,6 @@ export default function ExpressionRoot({
                     propertyName,
                     isLeft,
                 )}
-                visible={true}
             >
                 <HoverStar></HoverStar>
             </MenuButton>

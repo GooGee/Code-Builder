@@ -55,10 +55,7 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         ></PropertyDeclaration>
                     ) : null,
                 )}
-                <MenuButton
-                    visible={true}
-                    factory={ClassMenuFactory(node)}
-                ></MenuButton>
+                <MenuButton factory={ClassMenuFactory(node)}></MenuButton>
             </div>
             {'}'}
         </div>

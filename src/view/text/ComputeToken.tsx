@@ -10,7 +10,7 @@ interface Props {
 
 export default function ComputeToken({ token }: Props): ReactElement {
     return (
-        <MenuButton factory={ComputeTokenMenuFactory(token)} visible={true}>
+        <MenuButton factory={ComputeTokenMenuFactory(token)}>
             <Token kind={token.kind}></Token>
         </MenuButton>
     )

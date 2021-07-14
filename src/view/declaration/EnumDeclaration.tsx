@@ -28,10 +28,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                     <EnumMember key={uk()} node={member}></EnumMember>
                 ))}
 
-                <MenuButton
-                    visible={true}
-                    factory={EnumMenuFactory(node)}
-                ></MenuButton>
+                <MenuButton factory={EnumMenuFactory(node)}></MenuButton>
             </div>
             {'}'}
         </div>

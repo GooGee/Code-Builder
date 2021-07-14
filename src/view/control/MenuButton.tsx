@@ -8,24 +8,15 @@ interface Props {
     children?: ReactElement
     factory: () => Menu
     text?: string
-    visible?: boolean
 }
 
 export default function MenuButton({
     children,
     factory,
     text = '*',
-    visible = true,
-}: Props): ReactElement | null {
+}: Props): ReactElement {
     const [open, setOpen] = useState(false)
     const closeModal = () => setOpen(false)
-
-    if (!visible) {
-        if (open) {
-            setOpen(false)
-        }
-        return null
-    }
 
     return (
         <Popup

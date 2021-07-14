@@ -47,10 +47,7 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                         ></PropertySignature>
                     ) : null,
                 )}
-                <MenuButton
-                    visible={true}
-                    factory={InterfaceMenuFactory(node)}
-                ></MenuButton>
+                <MenuButton factory={InterfaceMenuFactory(node)}></MenuButton>
             </div>
             {'}'}
         </div>

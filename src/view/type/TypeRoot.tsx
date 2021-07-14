@@ -18,10 +18,7 @@ export default function TypeRoot({
 }: Props): ReactElement {
     return (
         <span>
-            <MenuButton
-                factory={TypeMenuFactory(parent, node, propertyName)}
-                visible={true}
-            >
+            <MenuButton factory={TypeMenuFactory(parent, node, propertyName)}>
                 <HoverStar></HoverStar>
             </MenuButton>
             {node === undefined ? null : <TypeNode node={node}></TypeNode>}

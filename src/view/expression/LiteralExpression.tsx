@@ -10,7 +10,7 @@ interface Props {
 
 export default function LiteralExpression({ node }: Props): ReactElement {
     return (
-        <MenuButton factory={ObjectChildMenuFactory(node)} visible={true}>
+        <MenuButton factory={ObjectChildMenuFactory(node)}>
             <Literal node={node}></Literal>
         </MenuButton>
     )

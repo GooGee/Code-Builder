@@ -25,7 +25,6 @@ export default function ParameterDeclarationxx({
                       <span key={uk()}>
                           {editing === false ? null : (
                               <MenuButton
-                                  visible={true}
                                   factory={ParameterMenuFactory(parent, item)}
                               ></MenuButton>
                           )}
@@ -39,7 +38,6 @@ export default function ParameterDeclarationxx({
                     {', '}
                     <MenuButton
                         text="+"
-                        visible={true}
                         factory={ParameterMenuFactory(parent)}
                     ></MenuButton>
                 </span>

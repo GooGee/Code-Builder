@@ -21,7 +21,6 @@ export default function ReturnStatement({ node }: Props): ReactElement {
             {node.expression === undefined ? (
                 <MenuButton
                     factory={ExpressionMenuFactory(node, node.expression)}
-                    visible={true}
                 >
                     <span className="cursor-pointer px-2 py-1 mr-1">+</span>
                 </MenuButton>

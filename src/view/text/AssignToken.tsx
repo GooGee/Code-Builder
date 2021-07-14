@@ -10,7 +10,7 @@ interface Props {
 
 export default function AssignToken({ token }: Props): ReactElement {
     return (
-        <MenuButton factory={AssignTokenMenuFactory(token)} visible={true}>
+        <MenuButton factory={AssignTokenMenuFactory(token)}>
             <Token kind={token.kind}></Token>
         </MenuButton>
     )

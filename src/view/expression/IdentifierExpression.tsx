@@ -10,7 +10,7 @@ interface Props {
 
 export default function IdentifierExpression({ node }: Props): ReactElement {
     return (
-        <MenuButton factory={ObjectChildMenuFactory(node)} visible={true}>
+        <MenuButton factory={ObjectChildMenuFactory(node)}>
             <Identifier node={node}></Identifier>
         </MenuButton>
     )

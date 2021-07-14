@@ -26,10 +26,7 @@ export default function Block({
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
                 {node.statements.length > 0 ? null : (
-                    <MenuButton
-                        factory={StatementMenuFactory(node)}
-                        visible={true}
-                    >
+                    <MenuButton factory={StatementMenuFactory(node)}>
                         <span className="cursor-pointer px-2 py-1 mr-1">+</span>
                     </MenuButton>
                 )}

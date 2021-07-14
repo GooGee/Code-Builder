@@ -26,7 +26,6 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
                 <div>
                     <MenuButton
                         text="+"
-                        visible={true}
                         factory={StatementMenuFactory(ast)}
                     ></MenuButton>
                 </div>
