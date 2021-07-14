@@ -9,9 +9,9 @@ interface Props {
 
 export default function PropertySignature({ node }: Props): ReactElement {
     return (
-        <span>
+        <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <NameValue node={node}></NameValue>
-        </span>
+        </div>
     )
 }

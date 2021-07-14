@@ -13,7 +13,7 @@ interface Props {
 
 export default function MethodSignature({ node }: Props): ReactElement {
     return (
-        <span>
+        <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
             <IdentifierDeclaration
                 node={node.name as any}
@@ -31,6 +31,6 @@ export default function MethodSignature({ node }: Props): ReactElement {
                     <TypeRoot node={node.type} parent={node}></TypeRoot>
                 </>
             )}
-        </span>
+        </div>
     )
 }

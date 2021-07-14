@@ -47,7 +47,9 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                         ></PropertySignature>
                     ) : null,
                 )}
-                <MenuButton factory={InterfaceMenuFactory(node)}></MenuButton>
+                <MenuButton factory={InterfaceMenuFactory(node)}>
+                    <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                </MenuButton>
             </div>
             {'}'}
         </div>
