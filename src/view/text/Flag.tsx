@@ -3,12 +3,18 @@ import ts from 'typescript'
 
 interface Props {
     node: ts.Node
+    prefix?: string
+    suffix?: string
 }
 
-export default function Flag({ node }: Props): ReactElement {
+export default function Flag({
+    node,
+    prefix = '',
+    suffix = '',
+}: Props): ReactElement {
     return (
         <span className="keyword">
-            {ts.NodeFlags[node.flags & 3].toLowerCase() + ' '}
+            {prefix + ts.NodeFlags[node.flags & 3].toLowerCase() + suffix}
         </span>
     )
 }
