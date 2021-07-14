@@ -5,9 +5,15 @@ import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
     list: ts.NodeArray<ts.Expression>
+    prefix?: string
+    suffix?: string
 }
 
-export default function Expressionxx({ list }: Props): ReactElement | null {
+export default function Expressionxx({
+    list,
+    prefix = '(',
+    suffix = ')',
+}: Props): ReactElement | null {
     if (list === undefined) {
         return null
     }
@@ -18,6 +24,7 @@ export default function Expressionxx({ list }: Props): ReactElement | null {
     const uk = UniqueKey()
     return (
         <span>
+            {prefix}
             {list
                 .map((item) => {
                     return (
@@ -31,6 +38,7 @@ export default function Expressionxx({ list }: Props): ReactElement | null {
                 .reduce((previousValue, currentValue): any => {
                     return [previousValue, ', ', currentValue]
                 })}
+            {suffix}
         </span>
     )
 }
