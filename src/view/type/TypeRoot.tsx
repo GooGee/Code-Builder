@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
+import HoverStar from '../control/HoverStar'
 import MenuButton from '../control/MenuButton'
 import TypeNode from './TypeNode'
 
@@ -21,9 +22,7 @@ export default function TypeRoot({
                 factory={TypeMenuFactory(parent, node, propertyName)}
                 visible={true}
             >
-                <span className="cursor-pointer px-2 text-gray-50 hover:text-red-500">
-                    *
-                </span>
+                <HoverStar></HoverStar>
             </MenuButton>
             {node === undefined ? null : <TypeNode node={node}></TypeNode>}
         </span>

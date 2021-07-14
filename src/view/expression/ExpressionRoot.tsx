@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
+import HoverStar from '../control/HoverStar'
 import MenuButton from '../control/MenuButton'
 import Expression from './Expression'
 
@@ -28,9 +29,7 @@ export default function ExpressionRoot({
                 )}
                 visible={true}
             >
-                <span className="cursor-pointer px-2 text-gray-50 hover:text-red-500">
-                    *
-                </span>
+                <HoverStar></HoverStar>
             </MenuButton>
 
             {node === undefined ? null : <Expression node={node}></Expression>}
