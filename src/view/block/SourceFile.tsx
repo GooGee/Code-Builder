@@ -24,10 +24,9 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
                     <Statementxx list={ast.statements}></Statementxx>
                 )}
                 <div>
-                    <MenuButton
-                        text="+"
-                        factory={StatementMenuFactory(ast)}
-                    ></MenuButton>
+                    <MenuButton factory={StatementMenuFactory(ast)}>
+                        <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                    </MenuButton>
                 </div>
             </div>
         </SourceFileContext.Provider>
