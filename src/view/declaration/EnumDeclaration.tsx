@@ -28,7 +28,9 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                     <EnumMember key={uk()} node={member}></EnumMember>
                 ))}
 
-                <MenuButton factory={EnumMenuFactory(node)}></MenuButton>
+                <MenuButton factory={EnumMenuFactory(node)}>
+                    <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                </MenuButton>
             </div>
             {'}'}
         </div>

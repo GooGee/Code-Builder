@@ -9,7 +9,7 @@ interface Props {
 
 export default function EnumMember({ node }: Props): ReactElement {
     return (
-        <span>
+        <div>
             <Identifier node={node.name as any}></Identifier>
             {node.initializer ? ' = ' : ''}
             <ExpressionRoot
@@ -17,6 +17,6 @@ export default function EnumMember({ node }: Props): ReactElement {
                 parent={node}
                 propertyName="initializer"
             ></ExpressionRoot>
-        </span>
+        </div>
     )
 }
