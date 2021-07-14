@@ -55,7 +55,9 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         ></PropertyDeclaration>
                     ) : null,
                 )}
-                <MenuButton factory={ClassMenuFactory(node)}></MenuButton>
+                <MenuButton factory={ClassMenuFactory(node)}>
+                    <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                </MenuButton>
             </div>
             {'}'}
         </div>
