@@ -16,7 +16,7 @@ export default function SourceFile({ sf, state }: Props): ReactElement | null {
     function update() {
         setSourceFile(state.sf)
     }
-    const data = new ContextData(ast, update)
+    const data = new ContextData(state, update)
     return (
         <SourceFileContext.Provider value={data}>
             <div className="p-4">

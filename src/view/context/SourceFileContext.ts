@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import ts from 'typescript'
+import Vendor from '../../model/Vendor'
 
 interface Update {
     (): void
@@ -7,7 +7,7 @@ interface Update {
 
 export class ContextData {
     constructor(
-        readonly sf: ts.SourceFile | undefined,
+        readonly state: Vendor | undefined,
         readonly update: Update | undefined,
     ) {}
 }
