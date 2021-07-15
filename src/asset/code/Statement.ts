@@ -1,3 +1,5 @@
+const map: Map<string, string> = new Map<string, string>()
+
 do {
     break
 } while (false)
