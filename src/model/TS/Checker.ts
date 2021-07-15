@@ -11,9 +11,14 @@ export default class Checker {
         return this.checker.getAmbientModules()
     }
 
-    getCallSignatureList(node: ts.Node) {
+    getCallSignatureList(node: ts.Identifier) {
         const ttt = this.getType(node)
         return ttt.getCallSignatures()
+    }
+
+    getConstructSignature(node: ts.Identifier) {
+        const ttt = this.getType(node)
+        return ttt.getConstructSignatures()
     }
 
     /**
@@ -99,6 +104,9 @@ export default class Checker {
     }
 
     getVariableList(node: ts.Node) {
-        return this.checker.getSymbolsInScope(node, ts.SymbolFlags.BlockScopedVariable)
+        return this.checker.getSymbolsInScope(
+            node,
+            ts.SymbolFlags.BlockScopedVariable,
+        )
     }
 }
