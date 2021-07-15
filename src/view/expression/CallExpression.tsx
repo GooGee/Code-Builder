@@ -11,7 +11,7 @@ export default function CallExpression({ node }: Props): ReactElement {
     return (
         <span>
             <Expression node={node.expression}></Expression>
-            <Expressionxx list={node.arguments!}></Expressionxx>
+            <Expressionxx list={node.arguments!} parent={node}></Expressionxx>
         </span>
     )
 }
