@@ -13,7 +13,7 @@ export default function Flag({
     suffix = '',
 }: Props): ReactElement {
     return (
-        <span className="keyword">
+        <span className="keyword cursor-pointer">
             {prefix + ts.NodeFlags[node.flags & 3].toLowerCase() + suffix}
         </span>
     )

@@ -13,7 +13,7 @@ export default function Token({
     suffix = '',
 }: Props): ReactElement {
     return (
-        <span className="token">
+        <span className="token cursor-pointer">
             {prefix + ts.tokenToString(kind) + suffix}
         </span>
     )

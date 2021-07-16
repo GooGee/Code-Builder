@@ -6,5 +6,5 @@ interface Props {
 }
 
 export default function Identifier({ node }: Props): ReactElement {
-    return <span className="identifier">{node.text}</span>
+    return <span className="identifier cursor-pointer">{node.text}</span>
 }

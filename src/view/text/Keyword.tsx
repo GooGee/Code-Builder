@@ -17,5 +17,5 @@ export default function Keyword({
     if (text === undefined) {
         throw new Error(`Keyword not found: ${ts.SyntaxKind[kind]}`)
     }
-    return <span className="keyword">{prefix + text + suffix}</span>
+    return <span className="keyword cursor-pointer">{prefix + text + suffix}</span>
 }
