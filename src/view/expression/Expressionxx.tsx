@@ -1,7 +1,10 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
+import ExpressionTransformer from '../../helper/Transformer/ExpressionTransformer'
+import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
+import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
 import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
@@ -20,6 +23,7 @@ export default function Expressionxx({
     prefix = '(',
     suffix = ')',
 }: Props): ReactElement {
+    const context = useContext(SourceFileContext)
     const [editing, setEditing] = useState(false)
     function make(child?: ReactElement) {
         return (
@@ -45,9 +49,28 @@ export default function Expressionxx({
     if (editing) {
         if (ts.isArrayLiteralExpression(parent)) {
             return (
-                <span>
+                <div className="ml-11 p-2 border-gray-200 border rounded-md">
                     {list.map((item) => (
                         <div key={uk()}>
+                            <Button
+                                onClick={() => {
+                                    if (window.confirm('Are you sure:')) {
+                                        Transformer.replace(item, undefined)
+                                        context.update!()
+                                    }
+                                }}
+                                color="red"
+                            >
+                                -
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    ExpressionTransformer.addNode(parent, item)
+                                    context.update!()
+                                }}
+                            >
+                                +
+                            </Button>
                             <MenuButton
                                 factory={ExpressionMenuFactory(parent, item)}
                             >
@@ -55,7 +78,17 @@ export default function Expressionxx({
                             </MenuButton>
                         </div>
                     ))}
-                </span>
+                    <div>
+                        <Button
+                            onClick={() => {
+                                ExpressionTransformer.addNode(parent)
+                                context.update!()
+                            }}
+                        >
+                            +
+                        </Button>
+                    </div>
+                </div>
             )
         }
 
