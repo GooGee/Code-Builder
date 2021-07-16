@@ -10,7 +10,7 @@ interface Props {
 
 export default function CatchClause({ node }: Props): ReactElement {
     return (
-        <div>
+        <span>
             <div>
                 <Keyword kind={node.kind} suffix=" "></Keyword>
                 <IdentifierDeclaration
@@ -18,6 +18,6 @@ export default function CatchClause({ node }: Props): ReactElement {
                 ></IdentifierDeclaration>
             </div>
             <Block node={node.block}></Block>
-        </div>
+        </span>
     )
 }
