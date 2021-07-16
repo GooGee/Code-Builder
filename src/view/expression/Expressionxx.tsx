@@ -2,7 +2,9 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
+import Button from '../control/Button'
 import MenuButton from '../control/MenuButton'
+import ArgumentTable from './ArgumentTable'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
@@ -58,8 +60,11 @@ export default function Expressionxx({
         }
 
         return (
-            <span>
-            </span>
+            <ArgumentTable list={list} parent={parent}>
+                <Button onClick={() => setEditing(false)} color="red">
+                    x
+                </Button>
+            </ArgumentTable>
         )
     }
 
