@@ -1,6 +1,8 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
+import ExpressionTransformer from '../../helper/Transformer/ExpressionTransformer'
+import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import Button from '../control/Button'
@@ -79,19 +81,42 @@ export default function ArgumentTable({
                         </td>
                         <td className="p-2">
                             {index < list.length ? (
-                                <MenuButton
-                                    factory={ExpressionMenuFactory(
-                                        parent,
-                                        list[index],
-                                    )}
-                                >
-                                    <span>{list[index].getText()}</span>
-                                </MenuButton>
+                                <span>
+                                    <Button
+                                        onClick={() => {
+                                            if (
+                                                window.confirm('Are you sure:')
+                                            ) {
+                                                Transformer.replace(
+                                                    list[index],
+                                                    undefined,
+                                                )
+                                                context.update!()
+                                            }
+                                        }}
+                                        color="red"
+                                    >
+                                        -
+                                    </Button>
+                                    <MenuButton
+                                        factory={ExpressionMenuFactory(
+                                            parent,
+                                            list[index],
+                                        )}
+                                    >
+                                        <span>{list[index].getText()}</span>
+                                    </MenuButton>
+                                </span>
                             ) : (
-                                <Button>
-                                    <span className="cursor-pointer px-2 py-1 mr-1">
-                                        +
-                                    </span>
+                                <Button
+                                    onClick={() => {
+                                        ExpressionTransformer.addArgument(
+                                            parent,
+                                        )
+                                        context.update!()
+                                    }}
+                                >
+                                    +
                                 </Button>
                             )}
                         </td>
