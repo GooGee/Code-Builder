@@ -1,6 +1,30 @@
 import ts from 'typescript'
 import Transformer from './Transformer'
 
+function addArgument(parent: ts.CallExpression | ts.NewExpression) {
+    const list = Transformer.insert(
+        parent.arguments!,
+        ts.factory.createIdentifier('undefined'),
+    )
+    if (ts.isCallExpression(parent)) {
+        const node = ts.factory.updateCallExpression(
+            parent,
+            parent.expression,
+            parent.typeArguments,
+            list,
+        )
+        Transformer.replace(parent, node)
+        return
+    }
+    const node = ts.factory.updateNewExpression(
+        parent,
+        parent.expression,
+        parent.typeArguments,
+        list,
+    )
+    Transformer.replace(parent, node)
+}
+
 export function replaceLiteral(
     node: ts.StringLiteral | ts.NumericLiteral,
     text: string,
@@ -17,3 +41,10 @@ export function replaceLiteral(
         return
     }
 }
+
+const ExpressionTransformer = {
+    addArgument,
+    replaceLiteral,
+}
+
+export default ExpressionTransformer
