@@ -1,5 +1,11 @@
 import ts from 'typescript'
 
+type TypeNode =
+    | ts.EntityName
+    | ts.Identifier
+    | ts.NumericLiteral
+    | ts.StringLiteral
+
 export default class Checker {
     constructor(private program: ts.Program) {}
 
@@ -38,7 +44,7 @@ export default class Checker {
      * get generic types of type
      * @param node
      */
-    getGenericList(node: ts.Node) {
+    getGenericList(node: ts.Identifier) {
         const type = this.getType(node) as any
         // basic type
         if (type.intrinsicName) {
@@ -75,7 +81,7 @@ export default class Checker {
         return []
     }
 
-    getPropertyList(node: ts.Node) {
+    getPropertyList(node: TypeNode) {
         const type = this.getType(node)
         return type.getProperties()
     }
@@ -84,7 +90,7 @@ export default class Checker {
         return this.checker.getSymbolAtLocation(node)
     }
 
-    getType(node: ts.Node) {
+    getType(node: TypeNode) {
         return this.checker.getTypeAtLocation(node)
     }
 
@@ -93,7 +99,7 @@ export default class Checker {
         return this.checker.getSymbolsInScope(node, ts.SymbolFlags.Type)
     }
 
-    getTypeSignatureList(node: ts.Node) {
+    getTypeSignatureList(node: ts.Identifier) {
         const ttt = this.getType(node) as any
         // basic type
         if (ttt.intrinsicName) {
