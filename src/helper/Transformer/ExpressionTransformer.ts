@@ -25,6 +25,16 @@ function addArgument(parent: ts.CallExpression | ts.NewExpression) {
     Transformer.replace(parent, node)
 }
 
+function addNode(parent: ts.ArrayLiteralExpression, at?: ts.Expression) {
+    const list = Transformer.insert(
+        parent.elements,
+        ts.factory.createIdentifier('undefined'),
+        at,
+    )
+    const node = ts.factory.updateArrayLiteralExpression(parent, list)
+    Transformer.replace(parent, node)
+}
+
 export function replaceLiteral(
     node: ts.StringLiteral | ts.NumericLiteral,
     text: string,
@@ -44,6 +54,7 @@ export function replaceLiteral(
 
 const ExpressionTransformer = {
     addArgument,
+    addNode,
     replaceLiteral,
 }
 
