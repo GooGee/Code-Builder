@@ -50,6 +50,10 @@ export default function Expressionxx({
         if (ts.isArrayLiteralExpression(parent)) {
             return (
                 <div className="ml-11 p-2 border-gray-200 border rounded-md">
+                    <Button onClick={() => setEditing(false)} color="red">
+                        x
+                    </Button>
+
                     {list.map((item) => (
                         <div key={uk()}>
                             <Button
