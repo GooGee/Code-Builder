@@ -3,13 +3,20 @@ import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
 const AssignTokenList = [
+    ts.SyntaxKind.PlusEqualsToken,
+    ts.SyntaxKind.MinusEqualsToken,
+    ts.SyntaxKind.AsteriskEqualsToken,
+    ts.SyntaxKind.AsteriskAsteriskEqualsToken,
+    ts.SyntaxKind.SlashEqualsToken,
+    ts.SyntaxKind.PercentEqualsToken,
+    ts.SyntaxKind.LessThanLessThanEqualsToken,
+    ts.SyntaxKind.GreaterThanGreaterThanEqualsToken,
+    ts.SyntaxKind.GreaterThanGreaterThanGreaterThanEqualsToken,
     ts.SyntaxKind.AmpersandEqualsToken,
     ts.SyntaxKind.BarEqualsToken,
-    ts.SyntaxKind.AsteriskEqualsToken,
-    ts.SyntaxKind.EqualsToken,
-    ts.SyntaxKind.MinusEqualsToken,
-    ts.SyntaxKind.PlusEqualsToken,
-    ts.SyntaxKind.SlashEqualsToken,
+    ts.SyntaxKind.BarBarEqualsToken,
+    ts.SyntaxKind.AmpersandAmpersandEqualsToken,
+    ts.SyntaxKind.CaretEqualsToken,
 ]
 
 export function AssignTokenMenuFactory(token: ts.BinaryOperatorToken) {
@@ -20,15 +27,30 @@ export function AssignTokenMenuFactory(token: ts.BinaryOperatorToken) {
 }
 
 const ComputeTokenList = [
-    ts.SyntaxKind.AmpersandAmpersandToken,
-    ts.SyntaxKind.AmpersandToken,
-    ts.SyntaxKind.BarBarToken,
-    ts.SyntaxKind.BarToken,
-    ts.SyntaxKind.EqualsEqualsEqualsToken,
-    ts.SyntaxKind.GreaterThanEqualsToken,
+    ts.SyntaxKind.LessThanToken,
     ts.SyntaxKind.GreaterThanToken,
     ts.SyntaxKind.LessThanEqualsToken,
-    ts.SyntaxKind.LessThanToken,
+    ts.SyntaxKind.GreaterThanEqualsToken,
+    ts.SyntaxKind.EqualsEqualsToken,
+    ts.SyntaxKind.ExclamationEqualsToken,
+    ts.SyntaxKind.EqualsEqualsEqualsToken,
+    ts.SyntaxKind.ExclamationEqualsEqualsToken,
+    ts.SyntaxKind.PlusToken,
+    ts.SyntaxKind.MinusToken,
+    ts.SyntaxKind.AsteriskToken,
+    ts.SyntaxKind.AsteriskAsteriskToken,
+    ts.SyntaxKind.SlashToken,
+    ts.SyntaxKind.PercentToken,
+    ts.SyntaxKind.LessThanLessThanToken,
+    ts.SyntaxKind.GreaterThanGreaterThanToken,
+    ts.SyntaxKind.GreaterThanGreaterThanGreaterThanToken,
+    ts.SyntaxKind.AmpersandToken,
+    ts.SyntaxKind.BarToken,
+    ts.SyntaxKind.CaretToken,
+    ts.SyntaxKind.ExclamationToken,
+    ts.SyntaxKind.TildeToken,
+    ts.SyntaxKind.AmpersandAmpersandToken,
+    ts.SyntaxKind.BarBarToken,
 ]
 
 export function ComputeTokenMenuFactory(token: ts.BinaryOperatorToken) {
