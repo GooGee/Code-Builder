@@ -45,6 +45,47 @@ export default function ArgumentTable({
 
     const [signature, setSignature] = useState(signaturexx[0])
     const uk = UniqueKey()
+
+    function getType(node: ts.Declaration) {
+        if (ts.isParameter(node)) {
+            if (node.type === undefined) {
+                return null
+            }
+            if (ts.isFunctionTypeNode(node.type)) {
+                if (node.type.parameters.length === 0) {
+                    return node.type.getText()
+                }
+                return (
+                    <table className="border-gray-200 border rounded-md">
+                        <tbody>
+                            <tr>
+                                <td>(</td>
+                                <td></td>
+                            </tr>
+                            {node.type.parameters.map((item) => (
+                                <tr key={uk()}>
+                                    <td className="p-2">
+                                        {item.name.getText()}
+                                    </td>
+                                    <td className="p-2">
+                                        {item.type === undefined
+                                            ? null
+                                            : item.type.getText()}
+                                    </td>
+                                </tr>
+                            ))}
+                            <tr>
+                                <td className="p-2">{') =>'}</td>
+                                <td className="p-2">{node.type.type.getText()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                )
+            }
+            return node.getText()
+        }
+        return null
+    }
     return (
         <table className="ml-11 border-gray-200 border rounded-md">
             <tbody>
@@ -64,11 +105,7 @@ export default function ArgumentTable({
                         >
                             {signaturexx.map((item, index) => (
                                 <option key={uk()} value={index}>
-                                    {parent.expression.getText()}(
-                                    {item.parameters
-                                        .map((ppp) => ppp.name)
-                                        .join(', ')}
-                                    )
+                                    {item.declaration?.getText()}
                                 </option>
                             ))}
                         </select>
@@ -77,7 +114,7 @@ export default function ArgumentTable({
                 {signature.parameters.map((item, index) => (
                     <tr key={uk()}>
                         <td className="text-right p-2 px-5">
-                            {item.valueDeclaration.getText()}
+                            {getType(item.valueDeclaration)}
                         </td>
                         <td className="p-2">
                             {index < list.length ? (
