@@ -4,6 +4,7 @@ type TypeNode =
     | ts.EntityName
     | ts.Identifier
     | ts.NumericLiteral
+    | ts.PrivateIdentifier
     | ts.StringLiteral
 
 export default class Checker {
@@ -75,7 +76,7 @@ export default class Checker {
         return this.checker.getSymbolAtLocation(node)
     }
 
-    getType(node: TypeNode) {
+    getType(node: TypeNode | ts.LeftHandSideExpression) {
         return this.checker.getTypeAtLocation(node)
     }
 

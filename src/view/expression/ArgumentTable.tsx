@@ -22,7 +22,7 @@ function getSignatureList(
 
     if (ts.isCallExpression(parent)) {
         return context.state.worker.checker
-            .getType(parent.expression as ts.Identifier)
+            .getType(parent.expression)
             .getCallSignatures()
     }
     return context.state.worker.checker
