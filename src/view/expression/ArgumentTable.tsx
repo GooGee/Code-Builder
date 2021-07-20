@@ -21,13 +21,13 @@ function getSignatureList(
     }
 
     if (ts.isCallExpression(parent)) {
-        return context.state.worker.checker.getCallSignatureList(
-            parent.expression as ts.Identifier,
-        )
+        return context.state.worker.checker
+            .getType(parent.expression as ts.Identifier)
+            .getCallSignatures()
     }
-    return context.state.worker.checker.getConstructSignature(
-        parent.expression as ts.Identifier,
-    )
+    return context.state.worker.checker
+        .getType(parent.expression as ts.Identifier)
+        .getConstructSignatures()
 }
 
 export default function ArgumentTable({

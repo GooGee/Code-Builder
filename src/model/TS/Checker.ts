@@ -17,16 +17,6 @@ export default class Checker {
         return this.checker.getAmbientModules()
     }
 
-    getCallSignatureList(node: ts.Identifier) {
-        const ttt = this.getType(node)
-        return ttt.getCallSignatures()
-    }
-
-    getConstructSignature(node: ts.Identifier) {
-        const ttt = this.getType(node)
-        return ttt.getConstructSignatures()
-    }
-
     /**
      * get export members of module
      * @param type
