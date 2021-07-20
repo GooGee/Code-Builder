@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import * as StatementFactory from '../Factory/StatementFactory'
 import BlockTransformer from '../Transformer/BlockTransformer'
+import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
 function inLoop(node: ts.Node): boolean {
@@ -64,6 +65,24 @@ function isFunction(node: ts.Node) {
     return false
 }
 
+function makeVariableStatementMenu(old: ts.VariableStatement) {
+    const value = old.declarationList.flags & 3
+    let flag = ts.NodeFlags.Const
+    let text = ts.NodeFlags[ts.NodeFlags.Const]
+    if (value === ts.NodeFlags.Const) {
+        flag = ts.NodeFlags.Let
+        text = ts.NodeFlags[ts.NodeFlags.Let]
+    }
+    const menu = MenuFactory.makeMenu(text, () => {
+        const vdl = ts.factory.createVariableDeclarationList(
+            old.declarationList.declarations,
+            flag,
+        )
+        Transformer.replace(old, vdl)
+    })
+    return menu
+}
+
 export default function StatementMenuFactory(
     parent: ts.Block | ts.SourceFile,
     at?: ts.Statement,
@@ -76,6 +95,10 @@ export default function StatementMenuFactory(
             MenuFactory.addDelete(menu, at)
             MenuFactory.addSeparator(menu)
             index += 2
+            if (ts.isVariableStatement(at)) {
+                menu.list.push(makeVariableStatementMenu(at))
+                index += 1
+            }
         }
 
         menu.list.push(
