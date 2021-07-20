@@ -1,7 +1,6 @@
 import ts from 'typescript'
 import Menu from '../../model/Menu'
 import state from '../../state'
-import * as ExpressionFactory from '../Factory/ExpressionFactory'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
@@ -98,7 +97,7 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
             const text = item.declaration?.getText() ?? '()'
             const mmm = MenuFactory.makeMenu(text, () => {
                 // to do: fill arguments
-                const nnn = ExpressionFactory.makeNew(node)
+                const nnn = ts.factory.createNewExpression(node, [], [])
                 Transformer.replace(node.parent, nnn)
             })
             menu.list.push(mmm)
@@ -111,7 +110,7 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
         const text = item.declaration?.getText() ?? '()'
         const mmm = MenuFactory.makeMenu(text, () => {
             // to do: fill arguments
-            const nnn = ExpressionFactory.makeCall(node)
+            const nnn = ts.factory.createCallExpression(node, [], [])
             Transformer.replace(node.parent, nnn)
         })
         menu.list.push(mmm)
@@ -178,7 +177,11 @@ export default function ExpressionMenuFactory(
 
         if (old !== undefined) {
             const one = MenuFactory.makeMenu('Compute', () => {
-                const node = ExpressionFactory.makeCompute(old)
+                const node = ts.factory.createBinaryExpression(
+                    old,
+                    ts.SyntaxKind.EqualsEqualsEqualsToken,
+                    ts.factory.createNull(),
+                )
                 Transformer.replace(old, node)
             })
             menu.list.push(one)
