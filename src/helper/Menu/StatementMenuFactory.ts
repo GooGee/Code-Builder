@@ -1,8 +1,37 @@
 import ts from 'typescript'
+import Menu from '../../model/Menu'
 import * as StatementFactory from '../Factory/StatementFactory'
 import BlockTransformer from '../Transformer/BlockTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
+
+function addLoopMenu(
+    menu: Menu,
+    parent: ts.Block | ts.SourceFile,
+    at?: ts.Statement,
+) {
+    if (ts.isSourceFile(parent)) {
+        return
+    }
+
+    const isLoop = inLoop(parent)
+    if (isLoop || inSwitch(parent)) {
+        menu.list.push(
+            MenuFactory.makeMenu('+ break', () => {
+                const item = StatementFactory.makeBreak()
+                BlockTransformer.addNode(parent, item, at)
+            }),
+        )
+    }
+    if (isLoop) {
+        menu.list.push(
+            MenuFactory.makeMenu('+ continue', () => {
+                const item = StatementFactory.makeContinue()
+                BlockTransformer.addNode(parent, item, at)
+            }),
+        )
+    }
+}
 
 function inLoop(node: ts.Node): boolean {
     if (node.parent === undefined) {
@@ -90,14 +119,11 @@ export default function StatementMenuFactory(
     return () => {
         console.log('StatementMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        let index = 2
         if (at !== undefined) {
             MenuFactory.addDelete(menu, at)
             MenuFactory.addSeparator(menu)
-            index += 2
             if (ts.isVariableStatement(at)) {
                 menu.list.push(makeVariableStatementMenu(at))
-                index += 1
             }
         }
 
@@ -110,6 +136,11 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeAccessStatement()
                 BlockTransformer.addNode(parent, item, at)
             }),
+        )
+
+        addLoopMenu(menu, parent, at)
+
+        menu.list.push(
             MenuFactory.makeMenu('+ do', () => {
                 const item = StatementFactory.makeDoWhile()
                 BlockTransformer.addNode(parent, item, at)
@@ -149,31 +180,6 @@ export default function StatementMenuFactory(
             }),
         )
 
-        if (ts.isSourceFile(parent)) {
-            return menu
-        }
-
-        const isLoop = inLoop(parent)
-        if (isLoop) {
-            menu.list.splice(
-                index,
-                0,
-                MenuFactory.makeMenu('+ continue', () => {
-                    const item = StatementFactory.makeContinue()
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-            )
-        }
-        if (isLoop || inSwitch(parent)) {
-            menu.list.splice(
-                index,
-                0,
-                MenuFactory.makeMenu('+ break', () => {
-                    const item = StatementFactory.makeBreak()
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-            )
-        }
         return menu
     }
 }
