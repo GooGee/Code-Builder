@@ -91,19 +91,6 @@ function makeIdentifierMenu(
 
 function addCallMenu(menu: Menu, node: ts.Identifier) {
     const type = state.worker.checker.getType(node)
-    if (ts.isCallExpression(node.parent)) {
-        const list = type.getCallSignatures()
-        list.forEach((item) => {
-            const text = item.declaration?.getText() ?? '()'
-            const mmm = MenuFactory.makeMenu(text, () => {
-                // to do: fill arguments
-                const nnn = ExpressionFactory.makeCall(node)
-                Transformer.replace(node.parent, nnn)
-            })
-            menu.list.push(mmm)
-        })
-        return
-    }
 
     if (ts.isNewExpression(node.parent)) {
         const list = type.getConstructSignatures()
@@ -116,7 +103,19 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
             })
             menu.list.push(mmm)
         })
+        return
     }
+
+    const list = type.getCallSignatures()
+    list.forEach((item) => {
+        const text = item.declaration?.getText() ?? '()'
+        const mmm = MenuFactory.makeMenu(text, () => {
+            // to do: fill arguments
+            const nnn = ExpressionFactory.makeCall(node)
+            Transformer.replace(node.parent, nnn)
+        })
+        menu.list.push(mmm)
+    })
 }
 
 export function ObjectChildMenuFactory(
@@ -128,26 +127,30 @@ export function ObjectChildMenuFactory(
         if (ts.isIdentifier(node)) {
             addCallMenu(menu, node)
         }
-        state.worker.checker.getType(node).getProperties().forEach((item) => {
-            menu.list.push(
-                MenuFactory.makeMenu(item.name, () => {
-                    if (ts.isPropertyAccessExpression(node.parent)) {
+        state.worker.checker
+            .getType(node)
+            .getProperties()
+            .forEach((item) => {
+                menu.list.push(
+                    MenuFactory.makeMenu(item.name, () => {
+                        if (ts.isPropertyAccessExpression(node.parent)) {
+                            const type =
+                                ts.factory.createPropertyAccessExpression(
+                                    node,
+                                    ts.factory.createIdentifier(item.name),
+                                )
+                            Transformer.replace(node.parent, type)
+                            return
+                        }
+
                         const type = ts.factory.createPropertyAccessExpression(
                             node,
                             ts.factory.createIdentifier(item.name),
                         )
-                        Transformer.replace(node.parent, type)
-                        return
-                    }
-
-                    const type = ts.factory.createPropertyAccessExpression(
-                        node,
-                        ts.factory.createIdentifier(item.name),
-                    )
-                    Transformer.replace(node, type)
-                }),
-            )
-        })
+                        Transformer.replace(node, type)
+                    }),
+                )
+            })
         return menu
     }
 }
