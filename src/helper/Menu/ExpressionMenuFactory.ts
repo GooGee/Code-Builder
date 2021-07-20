@@ -1,4 +1,5 @@
 import ts from 'typescript'
+import Menu from '../../model/Menu'
 import state from '../../state'
 import * as ExpressionFactory from '../Factory/ExpressionFactory'
 import Transformer from '../Transformer/Transformer'
@@ -88,6 +89,36 @@ function makeIdentifierMenu(
     return menu
 }
 
+function addCallMenu(menu: Menu, node: ts.Identifier) {
+    const type = state.worker.checker.getType(node)
+    if (ts.isCallExpression(node.parent)) {
+        const list = type.getCallSignatures()
+        list.forEach((item) => {
+            const text = item.declaration?.getText() ?? '()'
+            const mmm = MenuFactory.makeMenu(text, () => {
+                // to do: fill arguments
+                const nnn = ExpressionFactory.makeCall(node)
+                Transformer.replace(node.parent, nnn)
+            })
+            menu.list.push(mmm)
+        })
+        return
+    }
+
+    if (ts.isNewExpression(node.parent)) {
+        const list = type.getConstructSignatures()
+        list.forEach((item) => {
+            const text = item.declaration?.getText() ?? '()'
+            const mmm = MenuFactory.makeMenu(text, () => {
+                // to do: fill arguments
+                const nnn = ExpressionFactory.makeNew(node)
+                Transformer.replace(node.parent, nnn)
+            })
+            menu.list.push(mmm)
+        })
+    }
+}
+
 export function ObjectChildMenuFactory(
     node: ts.Identifier | ts.NumericLiteral | ts.StringLiteral,
 ) {
@@ -95,16 +126,7 @@ export function ObjectChildMenuFactory(
         console.log('ObjectChildMenuFactory')
         const menu = MenuFactory.makeMenu('')
         if (ts.isIdentifier(node)) {
-            state.worker.checker.getCallSignatureList(node).forEach((item) => {
-                const text = item.parameters.map((item) => item.name).join(', ')
-                const mmm = MenuFactory.makeMenu(
-                    node.text + `( ${text} )`,
-                    () => {
-                        console.log(item)
-                    },
-                )
-                menu.list.push(mmm)
-            })
+            addCallMenu(menu, node)
         }
         state.worker.checker.getPropertyList(node).forEach((item) => {
             menu.list.push(
