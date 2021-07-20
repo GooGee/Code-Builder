@@ -128,7 +128,7 @@ export function ObjectChildMenuFactory(
         if (ts.isIdentifier(node)) {
             addCallMenu(menu, node)
         }
-        state.worker.checker.getPropertyList(node).forEach((item) => {
+        state.worker.checker.getType(node).getProperties().forEach((item) => {
             menu.list.push(
                 MenuFactory.makeMenu(item.name, () => {
                     if (ts.isPropertyAccessExpression(node.parent)) {

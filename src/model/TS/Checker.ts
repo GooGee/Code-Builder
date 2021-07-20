@@ -71,11 +71,6 @@ export default class Checker {
         return []
     }
 
-    getPropertyList(node: TypeNode) {
-        const type = this.getType(node)
-        return type.getProperties()
-    }
-
     getSymbol(node: ts.Node) {
         return this.checker.getSymbolAtLocation(node)
     }
