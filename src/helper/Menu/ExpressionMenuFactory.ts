@@ -105,16 +105,21 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
         return
     }
 
-    const list = type.getCallSignatures()
-    list.forEach((item) => {
-        const text = item.declaration?.getText() ?? '()'
-        const mmm = MenuFactory.makeMenu(text, () => {
-            // to do: fill arguments
-            const nnn = ts.factory.createCallExpression(node, [], [])
-            Transformer.replace(node.parent, nnn)
-        })
-        menu.list.push(mmm)
-    })
+    const parent = node.parent
+    if (ts.isPropertyAccessExpression(parent)) {
+        if (ts.isCallExpression(parent.parent)) {
+            const list = type.getCallSignatures()
+            list.forEach((item) => {
+                const text = item.declaration?.getText() ?? '()'
+                const mmm = MenuFactory.makeMenu(text, () => {
+                    // to do: fill arguments
+                    const nnn = ts.factory.createCallExpression(parent, [], [])
+                    Transformer.replace(parent.parent, nnn)
+                })
+                menu.list.push(mmm)
+            })
+        }
+    }
 }
 
 export function ObjectChildMenuFactory(
