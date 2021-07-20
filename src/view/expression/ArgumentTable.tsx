@@ -1,12 +1,10 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import ts from 'typescript'
-import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
 import ExpressionTransformer from '../../helper/Transformer/ExpressionTransformer'
 import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import Button from '../control/Button'
-import MenuButton from '../control/MenuButton'
 
 interface Props {
     children: ReactElement
@@ -56,15 +54,15 @@ export default function ArgumentTable({
                     return node.type.getText()
                 }
                 return (
-                    <table className="border-gray-200 border rounded-md">
+                    <table className="border rounded-md">
                         <tbody>
                             <tr>
-                                <td>(</td>
-                                <td></td>
+                                <td className="p-2">(</td>
+                                <td className="p-2"></td>
                             </tr>
                             {node.type.parameters.map((item) => (
                                 <tr key={uk()}>
-                                    <td className="p-2">
+                                    <td className="text-right p-2">
                                         {item.name.getText()}
                                     </td>
                                     <td className="p-2">
@@ -76,7 +74,9 @@ export default function ArgumentTable({
                             ))}
                             <tr>
                                 <td className="p-2">{') =>'}</td>
-                                <td className="p-2">{node.type.type.getText()}</td>
+                                <td className="p-2">
+                                    {node.type.type.getText()}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -87,21 +87,21 @@ export default function ArgumentTable({
         return null
     }
     return (
-        <table className="ml-11 border-gray-200 border rounded-md">
-            <tbody>
+        <table className="ml-11 border rounded-md">
+            <thead>
                 <tr>
-                    <td className="text-right p-2 px-5">
+                    <th className="text-right p-2 border">
                         {children}
                         signature
-                    </td>
-                    <td className="p-2">
+                    </th>
+                    <th className="p-2 border">
                         <select
                             onChange={(event) =>
                                 setSignature(
                                     signaturexx[parseInt(event.target.value)],
                                 )
                             }
-                            className="border-gray-300 border rounded-md p-1"
+                            className="border rounded-md p-1"
                         >
                             {signaturexx.map((item, index) => (
                                 <option key={uk()} value={index}>
@@ -109,11 +109,13 @@ export default function ArgumentTable({
                                 </option>
                             ))}
                         </select>
-                    </td>
+                    </th>
                 </tr>
+            </thead>
+            <tbody>
                 {signature.parameters.map((item, index) => (
                     <tr key={uk()}>
-                        <td className="text-right p-2 px-5">
+                        <td className="p-2 px-5">
                             {getType(item.valueDeclaration)}
                         </td>
                         <td className="p-2">
@@ -135,14 +137,7 @@ export default function ArgumentTable({
                                     >
                                         -
                                     </Button>
-                                    <MenuButton
-                                        factory={ExpressionMenuFactory(
-                                            parent,
-                                            list[index],
-                                        )}
-                                    >
-                                        <span>{list[index].getText()}</span>
-                                    </MenuButton>
+                                    <span>{list[index].getText()}</span>
                                 </span>
                             ) : (
                                 <Button
