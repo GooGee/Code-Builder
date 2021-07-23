@@ -63,7 +63,7 @@ export default function MenuView({
                     return (
                         <SubMenu
                             key={uk()}
-                            title={'+ ' + item.title}
+                            title={'* ' + item.title}
                             className="py-2"
                         >
                             {item.list.map((one) => makeItem(one))}
