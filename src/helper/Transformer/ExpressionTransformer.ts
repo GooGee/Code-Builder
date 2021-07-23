@@ -1,10 +1,14 @@
 import ts from 'typescript'
+import ArgumentFactory from '../Factory/ArgumentFactory'
 import Transformer from './Transformer'
 
-function addArgument(parent: ts.CallExpression | ts.NewExpression) {
+function addArgument(
+    parent: ts.CallExpression | ts.NewExpression,
+    parameter: ts.ParameterDeclaration,
+) {
     const list = Transformer.insert(
         parent.arguments!,
-        ts.factory.createIdentifier('undefined'),
+        ArgumentFactory.makeArgument(parameter),
     )
     if (ts.isCallExpression(parent)) {
         const node = ts.factory.updateCallExpression(

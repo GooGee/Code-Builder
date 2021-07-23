@@ -96,7 +96,6 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
         list.forEach((item) => {
             const text = item.declaration?.getText() ?? '()'
             const mmm = MenuFactory.makeMenu(text, () => {
-                // to do: fill arguments
                 const nnn = ts.factory.createNewExpression(node, [], [])
                 Transformer.replace(node.parent, nnn)
             })
@@ -112,7 +111,6 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
             list.forEach((item) => {
                 const text = item.declaration?.getText() ?? '()'
                 const mmm = MenuFactory.makeMenu(text, () => {
-                    // to do: fill arguments
                     const nnn = ts.factory.createCallExpression(parent, [], [])
                     Transformer.replace(parent.parent, nnn)
                 })
