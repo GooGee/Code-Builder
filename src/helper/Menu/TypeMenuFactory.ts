@@ -2,6 +2,7 @@ import ts from 'typescript'
 import CommonTypeList from '../../asset/CommonTypeList'
 import KeywordTypeList from '../../asset/KeywordTypeList'
 import state from '../../state'
+import TypeArgumentFactory from '../Factory/TypeArgumentFactory'
 import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -40,8 +41,27 @@ function makeClassTypeMenu(
     CommonTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
+                // console.log(node)
+                let list: ts.TypeNode[] = []
+                const found = state.worker.checker
+                    .getTypeList(parent)
+                    .find((symbol) => symbol.name === item)
+                if (found) {
+                    // console.log(found)
+                    if (found.declarations.length) {
+                        const declaration = found
+                            .declarations[0] as ts.SignatureDeclarationBase
+                        // console.log(declaration)
+                        if (declaration.typeParameters) {
+                            list = TypeArgumentFactory.makeTypeArgumentList(
+                                declaration.typeParameters,
+                            )
+                        }
+                    }
+                }
                 const type = ts.factory.createTypeReferenceNode(
                     ts.factory.createIdentifier(item),
+                    list,
                 )
                 Transformer.transform(type, parent, propertyName, node)
             }),
@@ -56,6 +76,7 @@ function makeLocalTypeMenu(
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('local')
+    // todo
     return menu
 }
 
@@ -65,6 +86,7 @@ function makeImportedTypeMenu(
     propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('imported')
+    // todo
     return menu
 }
 
@@ -72,17 +94,20 @@ export function ModuleChildMenuFactory(node: ts.EntityName) {
     return () => {
         console.log('ModuleChildMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        state.worker.checker.getPropertyList(node).forEach((item) => {
-            menu.list.push(
-                MenuFactory.makeMenu(item.name, () => {
-                    const type = ts.factory.createQualifiedName(
-                        node,
-                        ts.factory.createIdentifier(item.name),
-                    )
-                    Transformer.replace(node, type)
-                }),
-            )
-        })
+        state.worker.checker
+            .getType(node)
+            .getProperties()
+            .forEach((item) => {
+                menu.list.push(
+                    MenuFactory.makeMenu(item.name, () => {
+                        const type = ts.factory.createQualifiedName(
+                            node,
+                            ts.factory.createIdentifier(item.name),
+                        )
+                        Transformer.replace(node, type)
+                    }),
+                )
+            })
         return menu
     }
 }
@@ -104,7 +129,7 @@ export default function TypeMenuFactory(
             makeBasicTypeMenu(parent, node, propertyName),
             makeClassTypeMenu(parent, node, propertyName),
             makeLocalTypeMenu(parent, node, propertyName),
-            // makeImportedTypeMenu(parent, node, propertyName),
+            makeImportedTypeMenu(parent, node, propertyName),
         )
         return menu
     }
