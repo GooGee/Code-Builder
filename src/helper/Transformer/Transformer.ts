@@ -36,6 +36,7 @@ function run(transformer: ts.TransformerFactory<ts.Node>) {
         // console.log(text)
         state.worker.lsh.writeFile(sf.fileName, text)
     })
+    state.worker.checkDiagnostic(state.file)
 }
 
 function setProperty(
