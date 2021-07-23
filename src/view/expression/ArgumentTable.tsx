@@ -139,18 +139,19 @@ export default function ArgumentTable({
                                     </Button>
                                     <span>{list[index].getText()}</span>
                                 </span>
-                            ) : (
+                            ) : index === list.length ? (
                                 <Button
                                     onClick={() => {
                                         ExpressionTransformer.addArgument(
                                             parent,
+                                            item.valueDeclaration as ts.ParameterDeclaration,
                                         )
                                         context.update!()
                                     }}
                                 >
                                     +
                                 </Button>
-                            )}
+                            ) : null}
                         </td>
                     </tr>
                 ))}
