@@ -3,6 +3,10 @@
     min-width: 222px;
 }
 
+.error {
+    color: red;
+}
+
 .keyword {
     color: dodgerblue;
 }
