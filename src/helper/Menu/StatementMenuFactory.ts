@@ -94,9 +94,8 @@ function isFunction(node: ts.Node) {
     return false
 }
 
-function makeVariableStatementMenu(old: ts.VariableStatement) {
-    const value =
-        old.declarationList.flags & (ts.NodeFlags.Const | ts.NodeFlags.Let)
+function makeVariableDeclarationMenu(node: ts.VariableDeclarationList) {
+    const value = node.flags & (ts.NodeFlags.Const | ts.NodeFlags.Let)
     let flag = ts.NodeFlags.Const
     let text = 'const'
     if (value === ts.NodeFlags.Const) {
@@ -105,12 +104,22 @@ function makeVariableStatementMenu(old: ts.VariableStatement) {
     }
     const menu = MenuFactory.makeMenu(text, () => {
         const vdl = ts.factory.createVariableDeclarationList(
-            old.declarationList.declarations,
+            node.declarations,
             flag,
         )
-        Transformer.replace(old, vdl)
+        Transformer.replace(node, vdl)
     })
     return menu
+}
+
+export function VariableDeclarationMenuFactory(
+    node: ts.VariableDeclarationList,
+) {
+    return () => {
+        const menu = MenuFactory.makeMenu('')
+        menu.list.push(makeVariableDeclarationMenu(node))
+        return menu
+    }
 }
 
 export default function StatementMenuFactory(
@@ -124,7 +133,7 @@ export default function StatementMenuFactory(
             MenuFactory.addDelete(menu, at)
             MenuFactory.addSeparator(menu)
             if (ts.isVariableStatement(at)) {
-                menu.list.push(makeVariableStatementMenu(at))
+                menu.list.push(makeVariableDeclarationMenu(at.declarationList))
             }
         }
 
