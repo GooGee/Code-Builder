@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Flag from '../text/Flag'
+import VariableFlag from '../text/VariableFlag'
 import VariableDeclarationxx from './VariableDeclarationxx'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export default function VariableDeclarationList({ node }: Props): ReactElement {
     return (
         <span>
-            <Flag node={node} suffix=" "></Flag>
+            <VariableFlag flags={node.flags} suffix=" "></VariableFlag>
             <VariableDeclarationxx
                 list={node.declarations}
             ></VariableDeclarationxx>
