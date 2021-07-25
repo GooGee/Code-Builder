@@ -36,7 +36,7 @@ export default function MenuView({
                     item.cb()
                     context.update!()
                 }}
-                className="hover:bg-blue-200 p-2"
+                className="cursor-pointer hover:bg-blue-200 p-2"
                 disabled={item.disabled}
                 key={uk()}
             >
