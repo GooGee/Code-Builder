@@ -1,4 +1,5 @@
 import ts from 'typescript'
+import CommonTypeList from '../../asset/CommonTypeList'
 import Menu from '../../model/Menu'
 import state from '../../state'
 import Transformer from '../Transformer/Transformer'
@@ -82,6 +83,24 @@ function makeIdentifierMenu(
             MenuFactory.makeMenu(item.name, () => {
                 const node = ts.factory.createIdentifier(item.name)
                 Transformer.transform(node, parent, propertyName, old)
+            }),
+        )
+    })
+    return menu
+}
+
+function makeClassMenu(
+    parent: ts.Node,
+    propertyName: string,
+    old?: ts.Expression,
+) {
+    const menu = MenuFactory.makeMenu('Class')
+    CommonTypeList.forEach((item) => {
+        menu.list.push(
+            MenuFactory.makeMenu(item, () => {
+                const node = ts.factory.createIdentifier(item)
+                const nnn = ts.factory.createNewExpression(node, [], [])
+                Transformer.transform(nnn, parent, propertyName, old)
             }),
         )
     })
@@ -217,6 +236,8 @@ export default function ExpressionMenuFactory(
         menu.list.push(makeConstantMenu(parent, propertyName, old))
 
         menu.list.push(makeIdentifierMenu(parent, propertyName, old))
+
+        menu.list.push(makeClassMenu(parent, propertyName, old))
 
         return menu
     }
