@@ -3,6 +3,7 @@ import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
 const AssignTokenList = [
+    ts.SyntaxKind.EqualsToken,
     ts.SyntaxKind.PlusEqualsToken,
     ts.SyntaxKind.MinusEqualsToken,
     ts.SyntaxKind.AsteriskEqualsToken,
@@ -17,6 +18,7 @@ const AssignTokenList = [
     ts.SyntaxKind.BarBarEqualsToken,
     ts.SyntaxKind.AmpersandAmpersandEqualsToken,
     ts.SyntaxKind.CaretEqualsToken,
+    ts.SyntaxKind.QuestionQuestionEqualsToken,
 ]
 
 export function AssignTokenMenuFactory(token: ts.BinaryOperatorToken) {
@@ -35,6 +37,7 @@ const ComputeTokenList = [
     ts.SyntaxKind.ExclamationEqualsToken,
     ts.SyntaxKind.EqualsEqualsEqualsToken,
     ts.SyntaxKind.ExclamationEqualsEqualsToken,
+    ts.SyntaxKind.QuestionQuestionToken,
     ts.SyntaxKind.PlusToken,
     ts.SyntaxKind.MinusToken,
     ts.SyntaxKind.AsteriskToken,
