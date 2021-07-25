@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import Keyword from '../text/Keyword'
 import ArrayLiteralExpression from './ArrayLiteralExpression'
 import ArrowFunction from './ArrowFunction'
 import AsExpression from './AsExpression'
@@ -9,6 +8,7 @@ import CallExpression from './CallExpression'
 import DeleteExpression from './DeleteExpression'
 import ExpressionWithTypeArguments from './ExpressionWithTypeArguments'
 import IdentifierExpression from './IdentifierExpression'
+import KeywordExpression from './KeywordExpression'
 import LiteralExpression from './LiteralExpression'
 import NewExpression from './NewExpression'
 import ObjectLiteralExpression from './ObjectLiteralExpression'
@@ -56,7 +56,7 @@ export default function Expression({ node }: Props): ReactElement | null {
         case ts.SyntaxKind.TrueKeyword:
         case ts.SyntaxKind.UndefinedKeyword:
         case ts.SyntaxKind.VoidKeyword:
-            return <Keyword kind={node.kind as any}></Keyword>
+            return <KeywordExpression node={node}></KeywordExpression>
 
         case ts.SyntaxKind.ExpressionWithTypeArguments:
             return (
