@@ -95,12 +95,13 @@ function isFunction(node: ts.Node) {
 }
 
 function makeVariableStatementMenu(old: ts.VariableStatement) {
-    const value = old.declarationList.flags & 3
+    const value =
+        old.declarationList.flags & (ts.NodeFlags.Const | ts.NodeFlags.Let)
     let flag = ts.NodeFlags.Const
-    let text = ts.NodeFlags[ts.NodeFlags.Const]
+    let text = 'const'
     if (value === ts.NodeFlags.Const) {
         flag = ts.NodeFlags.Let
-        text = ts.NodeFlags[ts.NodeFlags.Let]
+        text = 'let'
     }
     const menu = MenuFactory.makeMenu(text, () => {
         const vdl = ts.factory.createVariableDeclarationList(

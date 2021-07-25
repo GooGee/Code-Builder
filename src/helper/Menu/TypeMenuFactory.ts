@@ -12,7 +12,7 @@ function makeBasicTypeMenu(
     node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
-    const menu = MenuFactory.makeMenu('basic')
+    const menu = MenuFactory.makeMenu('Basic')
     KeywordTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(KeywordText(item)!, () => {
@@ -37,7 +37,7 @@ function makeClassTypeMenu(
     node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
-    const menu = MenuFactory.makeMenu('class')
+    const menu = MenuFactory.makeMenu('Class')
     CommonTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
@@ -75,7 +75,7 @@ function makeLocalTypeMenu(
     node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
-    const menu = MenuFactory.makeMenu('local')
+    const menu = MenuFactory.makeMenu('Local')
     // todo
     return menu
 }
@@ -85,7 +85,7 @@ function makeImportedTypeMenu(
     node?: ts.TypeNode | ts.Identifier,
     propertyName: string = 'type',
 ) {
-    const menu = MenuFactory.makeMenu('imported')
+    const menu = MenuFactory.makeMenu('Imported')
     // todo
     return menu
 }
