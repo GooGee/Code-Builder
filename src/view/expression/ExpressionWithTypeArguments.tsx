@@ -13,7 +13,10 @@ export default function ExpressionWithTypeArguments({
     return (
         <span>
             <Expression node={node.expression}></Expression>
-            <TypeArgumentxx list={node.typeArguments}></TypeArgumentxx>
+            <TypeArgumentxx
+                list={node.typeArguments}
+                parent={node}
+            ></TypeArgumentxx>
         </span>
     )
 }

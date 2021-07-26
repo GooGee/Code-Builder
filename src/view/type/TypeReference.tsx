@@ -11,7 +11,10 @@ export default function TypeReference({ node }: Props): ReactElement {
     return (
         <span>
             <EntityName node={node.typeName}></EntityName>
-            <TypeArgumentxx list={node.typeArguments}></TypeArgumentxx>
+            <TypeArgumentxx
+                list={node.typeArguments}
+                parent={node}
+            ></TypeArgumentxx>
         </span>
     )
 }
