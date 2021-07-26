@@ -32,12 +32,13 @@ export default function Expressionxx({
                     event.stopPropagation()
                     setEditing(true)
                 }}
+                className="array-view"
             >
-                {prefix}
+                <span className="prefix">{prefix}</span>
                 <span onClick={(event) => event.stopPropagation()}>
                     {child}
                 </span>
-                {suffix}
+                <span className="suffix">{suffix}</span>
             </span>
         )
     }

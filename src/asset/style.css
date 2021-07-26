@@ -3,6 +3,12 @@
     min-width: 222px;
 }
 
+.array-view .prefix:hover,
+.array-view .suffix:hover {
+    color: red;
+    cursor: pointer;
+}
+
 .error {
     color: red;
 }
