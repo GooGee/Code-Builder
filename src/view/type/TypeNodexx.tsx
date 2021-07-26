@@ -1,33 +1,47 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import UniqueKey from '../../helper/UniqueKey'
-import TypeRoot from './TypeRoot'
+import Button from '../control/Button'
+import TypeArrayView from './TypeArrayView'
+import TypeNode from './TypeNode'
 
 interface Props {
     list: ts.NodeArray<ts.TypeNode>
-    separator: string
+    separator?: string
+    parent: ts.HeritageClause | ts.UnionTypeNode
 }
 
 export default function TypeNodexx({
     list,
-    separator,
+    parent,
+    separator = ', ',
 }: Props): ReactElement | null {
+    const [editing, setEditing] = useState(false)
+    if (editing) {
+        return (
+            <TypeArrayView list={list} parent={parent}>
+                <Button onClick={() => setEditing(false)} color="red">
+                    x
+                </Button>
+            </TypeArrayView>
+        )
+    }
+
     if (list.length === 0) {
         return null
     }
 
     const uk = UniqueKey()
     return (
-        <span>
+        <span
+            onClick={(event) => {
+                event.stopPropagation()
+                setEditing(true)
+            }}
+        >
             {list
                 .map((item) => {
-                    return (
-                        <TypeRoot
-                            node={item}
-                            parent={item.parent}
-                            key={uk()}
-                        ></TypeRoot>
-                    )
+                    return <TypeNode node={item} key={uk()}></TypeNode>
                 })
                 .reduce((previousValue, currentValue): any => {
                     return [previousValue, separator, currentValue]

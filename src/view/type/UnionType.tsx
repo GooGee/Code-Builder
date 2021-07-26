@@ -7,5 +7,11 @@ interface Props {
 }
 
 export default function UnionType({ node }: Props): ReactElement {
-    return <TypeNodexx list={node.types} separator=" | "></TypeNodexx>
+    return (
+        <TypeNodexx
+            list={node.types}
+            parent={node}
+            separator=" | "
+        ></TypeNodexx>
+    )
 }
