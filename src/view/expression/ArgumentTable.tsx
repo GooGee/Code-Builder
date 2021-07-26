@@ -46,14 +46,14 @@ export default function ArgumentTable({
     const [signature, setSignature] = useState(signaturexx[0])
     const uk = UniqueKey()
     return (
-        <table className="ml-11">
+        <table className="table ml-11">
             <thead>
                 <tr>
-                    <th className="text-right p-2 border-b border-grey-light">
+                    <th className="text-right ">
                         {children}
                         signature
                     </th>
-                    <th className="p-2 border-b border-grey-light">
+                    <th>
                         <select
                             onChange={(event) =>
                                 setSignature(
@@ -74,14 +74,16 @@ export default function ArgumentTable({
             <tbody>
                 {signature.parameters.map((item, index) => (
                     <tr key={uk()}>
-                        <td className="p-2 px-5 border-b border-grey-light">
+                        <td className="px-5">
                             {ts.isParameter(item.valueDeclaration) ? (
-                                <ArgumentType node={item.valueDeclaration}></ArgumentType>
+                                <ArgumentType
+                                    node={item.valueDeclaration}
+                                ></ArgumentType>
                             ) : (
                                 item.valueDeclaration.getText()
                             )}
                         </td>
-                        <td className="p-2 border-b border-grey-light">
+                        <td>
                             {index < list.length ? (
                                 <span>
                                     <Button

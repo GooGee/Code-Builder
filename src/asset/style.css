@@ -16,3 +16,14 @@
 .keyword {
     color: dodgerblue;
 }
+
+table.table th,
+table.table td {
+    padding: 0.5rem;
+    border-bottom-width: 1px;
+}
+
+table.no-border th,
+table.no-border td {
+    border-width: 0;
+}

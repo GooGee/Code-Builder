@@ -18,7 +18,7 @@ export default function ArgumentType({ node }: Props): ReactElement | null {
         }
 
         return (
-            <table>
+            <table className="no-border">
                 <tbody>
                     <tr>
                         <td className="p-2">(</td>

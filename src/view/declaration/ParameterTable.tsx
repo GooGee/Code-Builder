@@ -18,29 +18,29 @@ export default function ParameterTable({
 }: Props): ReactElement {
     const uk = UniqueKey()
     return (
-        <table className="ml-11 border rounded-md">
+        <table className="ml-11 table">
             <thead>
                 <tr>
-                    <th className="p-2 border text-right">
+                    <th className="text-right">
                         {children}
                         name
                     </th>
-                    <th className="p-2 border">type</th>
-                    <th className="p-2 border">value</th>
+                    <th>type</th>
+                    <th>value</th>
                 </tr>
             </thead>
             <tbody>
                 {list.map((node) => (
                     <tr key={uk()}>
-                        <td className="p-2 text-right">
+                        <td className="text-right">
                             <IdentifierDeclaration
                                 node={node.name as any}
                             ></IdentifierDeclaration>
                         </td>
-                        <td className="p-2">
+                        <td>
                             <TypeRoot node={node.type} parent={node}></TypeRoot>
                         </td>
-                        <td className="p-2">
+                        <td>
                             <ExpressionRoot
                                 node={node.initializer}
                                 parent={node}
