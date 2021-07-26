@@ -4,7 +4,7 @@ import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
 import ArgumentTable from './ArgumentTable'
 import ArrayView from './ArrayView'
-import ExpressionRoot from './ExpressionRoot'
+import Expression from './Expression'
 
 interface Props {
     list: ts.NodeArray<ts.Expression>
@@ -67,14 +67,8 @@ export default function Expressionxx({
 
     const uk = UniqueKey()
     const re = list
-        .map((item) => {
-            return (
-                <ExpressionRoot
-                    key={uk()}
-                    node={item}
-                    parent={item.parent}
-                ></ExpressionRoot>
-            )
+        .map((node) => {
+            return <Expression key={uk()} node={node}></Expression>
         })
         .reduce((previousValue, currentValue): any => {
             return [previousValue, ', ', currentValue]
