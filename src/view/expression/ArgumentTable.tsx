@@ -89,7 +89,7 @@ export default function ArgumentTable({
                                     <Button
                                         onClick={() => {
                                             if (
-                                                window.confirm('Are you sure:')
+                                                window.confirm('Are you sure?')
                                             ) {
                                                 Transformer.replace(
                                                     list[index],

@@ -37,7 +37,7 @@ export default function ArrayView({
                     </Button>
                     <Button
                         onClick={() => {
-                            if (window.confirm('Are you sure:')) {
+                            if (window.confirm('Are you sure?')) {
                                 Transformer.replace(item, undefined)
                                 context.update!()
                             }
