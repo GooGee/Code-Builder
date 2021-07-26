@@ -54,7 +54,7 @@ export default function ArgumentTable({
                     return node.type.getText()
                 }
                 return (
-                    <table className="border rounded-md">
+                    <table>
                         <tbody>
                             <tr>
                                 <td className="p-2">(</td>
@@ -87,14 +87,14 @@ export default function ArgumentTable({
         return null
     }
     return (
-        <table className="ml-11 border rounded-md">
+        <table className="ml-11">
             <thead>
                 <tr>
-                    <th className="text-right p-2 border">
+                    <th className="text-right p-2 border-b border-grey-light">
                         {children}
                         signature
                     </th>
-                    <th className="p-2 border">
+                    <th className="p-2 border-b border-grey-light">
                         <select
                             onChange={(event) =>
                                 setSignature(
@@ -115,10 +115,10 @@ export default function ArgumentTable({
             <tbody>
                 {signature.parameters.map((item, index) => (
                     <tr key={uk()}>
-                        <td className="p-2 px-5">
+                        <td className="p-2 px-5 border-b border-grey-light">
                             {getType(item.valueDeclaration)}
                         </td>
-                        <td className="p-2">
+                        <td className="p-2 border-b border-grey-light">
                             {index < list.length ? (
                                 <span>
                                     <Button
