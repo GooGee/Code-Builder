@@ -70,26 +70,6 @@ function makeClassTypeMenu(
     return menu
 }
 
-function makeLocalTypeMenu(
-    parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
-    propertyName: string = 'type',
-) {
-    const menu = MenuFactory.makeMenu('Local')
-    // todo
-    return menu
-}
-
-function makeImportedTypeMenu(
-    parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
-    propertyName: string = 'type',
-) {
-    const menu = MenuFactory.makeMenu('Imported')
-    // todo
-    return menu
-}
-
 export function ModuleChildMenuFactory(node: ts.EntityName) {
     return () => {
         console.log('ModuleChildMenuFactory')
@@ -128,8 +108,6 @@ export default function TypeMenuFactory(
         menu.list.push(
             makeBasicTypeMenu(parent, node, propertyName),
             makeClassTypeMenu(parent, node, propertyName),
-            makeLocalTypeMenu(parent, node, propertyName),
-            makeImportedTypeMenu(parent, node, propertyName),
         )
         return menu
     }
