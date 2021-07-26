@@ -7,6 +7,7 @@ import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
 import MenuButton from '../control/MenuButton'
+import Expression from './Expression'
 
 interface Props {
     children: ReactElement
@@ -45,9 +46,10 @@ export default function ArrayView({
                     >
                         -
                     </Button>
-                    <MenuButton factory={ExpressionMenuFactory(parent, item)}>
-                        <span>{item.getText()}</span>
-                    </MenuButton>
+                    <MenuButton
+                        factory={ExpressionMenuFactory(parent, item)}
+                    ></MenuButton>
+                    <Expression node={item}></Expression>
                 </div>
             ))}
             <div>
