@@ -5,6 +5,7 @@ import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import Button from '../control/Button'
+import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
     children: ReactElement
@@ -137,7 +138,14 @@ export default function ArgumentTable({
                                     >
                                         -
                                     </Button>
-                                    <span>{list[index].getText()}</span>
+                                    {ts.isArrowFunction(list[index]) ? (
+                                        list[index].getText()
+                                    ) : (
+                                        <ExpressionRoot
+                                            node={list[index]}
+                                            parent={list[index].parent}
+                                        ></ExpressionRoot>
+                                    )}
                                 </span>
                             ) : index === list.length ? (
                                 <Button
