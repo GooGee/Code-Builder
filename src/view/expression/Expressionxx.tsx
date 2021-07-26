@@ -1,13 +1,9 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import ExpressionTransformer from '../../helper/Transformer/ExpressionTransformer'
-import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
-import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
-import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
+import ArrayView from './ArrayView'
 import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
@@ -23,7 +19,6 @@ export default function Expressionxx({
     prefix = '(',
     suffix = ')',
 }: Props): ReactElement {
-    const context = useContext(SourceFileContext)
     const [editing, setEditing] = useState(false)
     function make(child?: ReactElement) {
         return (
@@ -46,54 +41,14 @@ export default function Expressionxx({
         return make()
     }
 
-    const uk = UniqueKey()
     if (editing) {
         if (ts.isArrayLiteralExpression(parent)) {
             return (
-                <div className="ml-11 p-2 border-gray-200 border rounded-md">
+                <ArrayView list={list} parent={parent}>
                     <Button onClick={() => setEditing(false)} color="red">
                         x
                     </Button>
-
-                    {list.map((item) => (
-                        <div key={uk()}>
-                            <Button
-                                onClick={() => {
-                                    if (window.confirm('Are you sure:')) {
-                                        Transformer.replace(item, undefined)
-                                        context.update!()
-                                    }
-                                }}
-                                color="red"
-                            >
-                                -
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    ExpressionTransformer.addNode(parent, item)
-                                    context.update!()
-                                }}
-                            >
-                                +
-                            </Button>
-                            <MenuButton
-                                factory={ExpressionMenuFactory(parent, item)}
-                            >
-                                <span>{item.getText()}</span>
-                            </MenuButton>
-                        </div>
-                    ))}
-                    <div>
-                        <Button
-                            onClick={() => {
-                                ExpressionTransformer.addNode(parent)
-                                context.update!()
-                            }}
-                        >
-                            +
-                        </Button>
-                    </div>
-                </div>
+                </ArrayView>
             )
         }
 
@@ -110,6 +65,7 @@ export default function Expressionxx({
         return make()
     }
 
+    const uk = UniqueKey()
     const re = list
         .map((item) => {
             return (

@@ -8,13 +8,11 @@ interface Props {
 
 export default function ArrayLiteralExpression({ node }: Props): ReactElement {
     return (
-        <span>
-            <Expressionxx
-                list={node.elements}
-                parent={node}
-                prefix="["
-                suffix="]"
-            ></Expressionxx>
-        </span>
+        <Expressionxx
+            list={node.elements}
+            parent={node}
+            prefix="["
+            suffix="]"
+        ></Expressionxx>
     )
 }
