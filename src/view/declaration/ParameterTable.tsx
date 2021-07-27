@@ -26,10 +26,8 @@ export default function ParameterTable({
         <table className="ml-11 table">
             <thead>
                 <tr>
-                    <th className="text-right">
-                        {children}
-                        name
-                    </th>
+                    <th>{children}</th>
+                    <th className="text-right">name</th>
                     <th>type</th>
                     <th>value</th>
                 </tr>
@@ -37,7 +35,7 @@ export default function ParameterTable({
             <tbody>
                 {list.map((node) => (
                     <tr key={uk()}>
-                        <td className="text-right">
+                        <td>
                             <Button
                                 onClick={() => {
                                     ParameterTransformer.addNode(parent, node)
@@ -57,6 +55,8 @@ export default function ParameterTable({
                             >
                                 -
                             </Button>
+                        </td>
+                        <td className="text-right">
                             <IdentifierDeclaration
                                 node={node.name as any}
                             ></IdentifierDeclaration>
