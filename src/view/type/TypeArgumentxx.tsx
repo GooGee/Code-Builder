@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
 import TypeArgumentTable from './TypeArgumentTable'
-import TypeNode from './TypeNode'
+import TypeNodexx from './TypeNodexx'
 
 interface Props {
     list: ts.NodeArray<ts.TypeNode> | undefined
@@ -33,7 +32,6 @@ export default function TypeArgumentxx({
         return null
     }
 
-    const uk = UniqueKey()
     return (
         <span
             onClick={(event) => {
@@ -42,13 +40,7 @@ export default function TypeArgumentxx({
             }}
         >
             &lt;
-            {list
-                .map((item) => {
-                    return <TypeNode node={item} key={uk()}></TypeNode>
-                })
-                .reduce((previousValue, currentValue): any => {
-                    return [previousValue, ', ', currentValue]
-                })}
+            <TypeNodexx list={list}></TypeNodexx>
             &gt;
         </span>
     )
