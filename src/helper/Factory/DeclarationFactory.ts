@@ -113,7 +113,7 @@ export function makePropertySignature(name: string) {
 
 export function makeVariable(name: string) {
     return ts.factory.createVariableDeclaration(
-        ts.factory.createUniqueName(name),
+        name,
         undefined,
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
         ts.factory.createStringLiteral(''),
