@@ -7,17 +7,34 @@ import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
+function getPropertyName(parent: ts.Node) {
+    if (ts.isTypeParameterDeclaration(parent)) {
+        // parent.constraint
+        return 'constraint'
+    }
+    if (ts.isArrayTypeNode(parent)) {
+        // parent.elementType
+        return 'elementType'
+    }
+
+    return 'type'
+}
+
 function makeBasicTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
-    propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('Basic')
     KeywordTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(KeywordText(item)!, () => {
                 const type = ts.factory.createKeywordTypeNode(item)
-                Transformer.transform(type, parent, propertyName, node)
+                Transformer.transform(
+                    type,
+                    parent,
+                    getPropertyName(parent),
+                    node,
+                )
             }),
         )
     })
@@ -26,7 +43,7 @@ function makeBasicTypeMenu(
             const type = ts.factory.createLiteralTypeNode(
                 ts.factory.createNull(),
             )
-            Transformer.transform(type, parent, propertyName, node)
+            Transformer.transform(type, parent, getPropertyName(parent), node)
         }),
     )
     return menu
@@ -35,7 +52,6 @@ function makeBasicTypeMenu(
 function makeClassTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
-    propertyName: string = 'type',
 ) {
     const menu = MenuFactory.makeMenu('Class')
     CommonTypeList.forEach((item) => {
@@ -63,7 +79,12 @@ function makeClassTypeMenu(
                     ts.factory.createIdentifier(item),
                     list,
                 )
-                Transformer.transform(type, parent, propertyName, node)
+                Transformer.transform(
+                    type,
+                    parent,
+                    getPropertyName(parent),
+                    node,
+                )
             }),
         )
     })
@@ -95,7 +116,6 @@ export function ModuleChildMenuFactory(node: ts.EntityName) {
 export default function TypeMenuFactory(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
-    propertyName: string = 'type',
 ) {
     return () => {
         console.log('TypeMenuFactory')
@@ -106,8 +126,8 @@ export default function TypeMenuFactory(
         }
 
         menu.list.push(
-            makeBasicTypeMenu(parent, node, propertyName),
-            makeClassTypeMenu(parent, node, propertyName),
+            makeBasicTypeMenu(parent, node),
+            makeClassTypeMenu(parent, node),
         )
         return menu
     }
