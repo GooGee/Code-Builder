@@ -1,8 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import Button from '../control/Button'
-import TypeArgumentTable from './TypeArgumentTable'
-import TypeNodexx from './TypeNodexx'
+import UniqueKey from '../../helper/UniqueKey'
+import TypeRoot from './TypeRoot'
 
 interface Props {
     list: ts.NodeArray<ts.TypeNode> | undefined
@@ -13,34 +12,28 @@ export default function TypeArgumentxx({
     list,
     parent,
 }: Props): ReactElement | null {
-    const [editing, setEditing] = useState(false)
     if (list === undefined) {
         return null
     }
-
-    if (editing) {
-        return (
-            <TypeArgumentTable list={list}>
-                <Button onClick={() => setEditing(false)} color="red">
-                    x
-                </Button>
-            </TypeArgumentTable>
-        )
-    }
-
     if (list.length === 0) {
         return null
     }
 
+    const uk = UniqueKey()
     return (
-        <span
-            onClick={(event) => {
-                event.stopPropagation()
-                setEditing(true)
-            }}
-        >
+        <span onClick={(event) => event.stopPropagation()}>
             &lt;
-            <TypeNodexx list={list}></TypeNodexx>
+            {list
+                .map((node) => (
+                    <TypeRoot
+                        key={uk()}
+                        node={node}
+                        parent={node.parent}
+                    ></TypeRoot>
+                ))
+                .reduce((previousValue, currentValue): any => {
+                    return [previousValue, ', ', currentValue]
+                })}
             &gt;
         </span>
     )
