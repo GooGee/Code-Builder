@@ -11,11 +11,7 @@ export default function ArrayType({ node }: Props): ReactElement {
         <span>
             <span className="identifier">Array</span>
             &lt;
-            <TypeRoot
-                node={node.elementType}
-                parent={node}
-                propertyName="elementType"
-            ></TypeRoot>
+            <TypeRoot node={node.elementType} parent={node}></TypeRoot>
             &gt;
         </span>
     )

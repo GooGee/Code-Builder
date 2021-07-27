@@ -16,11 +16,7 @@ export default function TypeParameterDeclaration({
             {node.constraint ? (
                 <span className="keyword"> extends </span>
             ) : null}
-            <TypeRoot
-                node={node.constraint}
-                parent={node}
-                propertyName="constraint"
-            ></TypeRoot>
+            <TypeRoot node={node.constraint} parent={node}></TypeRoot>
         </span>
     )
 }
