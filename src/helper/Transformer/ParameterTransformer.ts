@@ -1,16 +1,17 @@
 import ts from 'typescript'
 import { makeParameter } from '../Factory/DeclarationFactory'
+import InputTool from '../InputTool'
 import Transformer from './Transformer'
 
 function addNode(
     parent: ts.SignatureDeclarationBase,
     at?: ts.ParameterDeclaration,
 ) {
-    const value = prompt('Enter a name')
-    if (value === null) {
+    const text = InputTool.inputName()
+    if (text === null) {
         return
     }
-    const node = makeParameter(value)
+    const node = makeParameter(text)
     const list = Transformer.insert<ts.ParameterDeclaration>(
         parent.parameters,
         node,

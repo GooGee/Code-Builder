@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import Menu from '../../model/Menu'
 import * as StatementFactory from '../Factory/StatementFactory'
+import InputTool from '../InputTool'
 import BlockTransformer from '../Transformer/BlockTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -164,8 +165,11 @@ export default function StatementMenuFactory(
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ let', () => {
-                const item =
-                    StatementFactory.makeVariableStatement('VariableName')
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = StatementFactory.makeVariableStatement(text)
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ return', () => {
