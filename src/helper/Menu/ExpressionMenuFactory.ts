@@ -72,12 +72,12 @@ function makeConstantMenu(
     return menu
 }
 
-function makeIdentifierMenu(
+function makeVariableMenu(
     parent: ts.Node,
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu('Identifier')
+    const menu = MenuFactory.makeMenu('Variable')
     state.worker.checker.getVariableList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name, () => {
@@ -186,7 +186,7 @@ export default function ExpressionMenuFactory(
         console.log('ExpressionMenuFactory')
 
         if (isLeft) {
-            return makeIdentifierMenu(parent, propertyName, old)
+            return makeVariableMenu(parent, propertyName, old)
         }
 
         const menu = MenuFactory.makeMenu('')
@@ -235,9 +235,9 @@ export default function ExpressionMenuFactory(
 
         menu.list.push(makeConstantMenu(parent, propertyName, old))
 
-        menu.list.push(makeIdentifierMenu(parent, propertyName, old))
-
         menu.list.push(makeClassMenu(parent, propertyName, old))
+
+        menu.list.push(makeVariableMenu(parent, propertyName, old))
 
         return menu
     }
