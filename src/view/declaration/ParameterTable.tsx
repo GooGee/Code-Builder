@@ -88,6 +88,7 @@ export default function ParameterTable({
                     </td>
                     <td></td>
                     <td></td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
