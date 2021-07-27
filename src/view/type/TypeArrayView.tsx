@@ -24,7 +24,10 @@ export default function TypeArrayView({
     if (editing) {
         const uk = UniqueKey()
         return (
-            <div className="ml-11 p-2 border-gray-200 border rounded-md">
+            <div
+                onClick={(event) => event.stopPropagation()}
+                className="ml-11 p-2 border-gray-200 border rounded-md"
+            >
                 <Button onClick={() => setEditing(false)} color="red">
                     x
                 </Button>

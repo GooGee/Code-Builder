@@ -14,7 +14,10 @@ export default function TypeArgumentTable({
 }: Props): ReactElement {
     const uk = UniqueKey()
     return (
-        <table className="table ml-11">
+        <table
+            onClick={(event) => event.stopPropagation()}
+            className="table ml-11"
+        >
             <thead>
                 <tr>
                     <th className="text-right">{children}</th>
