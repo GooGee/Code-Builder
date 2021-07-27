@@ -120,10 +120,10 @@ export default function TypeMenuFactory(
     return () => {
         console.log('TypeMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        if (node !== undefined) {
-            MenuFactory.addDelete(menu, node)
-            MenuFactory.addSeparator(menu)
-        }
+        // if (node !== undefined) {
+        //     MenuFactory.addDelete(menu, node)
+        //     MenuFactory.addSeparator(menu)
+        // }
 
         menu.list.push(
             makeBasicTypeMenu(parent, node),
