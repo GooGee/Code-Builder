@@ -1,13 +1,11 @@
 import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
-import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
 import ExpressionTransformer from '../../helper/Transformer/ExpressionTransformer'
 import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
-import MenuButton from '../control/MenuButton'
-import Expression from './Expression'
+import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
     children: ReactElement
@@ -46,10 +44,10 @@ export default function ArrayView({
                     >
                         -
                     </Button>
-                    <MenuButton
-                        factory={ExpressionMenuFactory(parent, item)}
-                    ></MenuButton>
-                    <Expression node={item}></Expression>
+                    <ExpressionRoot
+                        node={item}
+                        parent={item.parent}
+                    ></ExpressionRoot>
                 </div>
             ))}
             <div>
