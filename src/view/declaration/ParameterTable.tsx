@@ -1,6 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
+import ParameterTransformer from '../../helper/Transformer/ParameterTransformer'
+import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
+import SourceFileContext from '../context/SourceFileContext'
+import Button from '../control/Button'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import TypeRoot from '../type/TypeRoot'
@@ -16,6 +20,7 @@ export default function ParameterTable({
     list,
     parent,
 }: Props): ReactElement {
+    const context = useContext(SourceFileContext)
     const uk = UniqueKey()
     return (
         <table className="ml-11 table">
@@ -33,6 +38,25 @@ export default function ParameterTable({
                 {list.map((node) => (
                     <tr key={uk()}>
                         <td className="text-right">
+                            <Button
+                                onClick={() => {
+                                    ParameterTransformer.addNode(parent, node)
+                                    context.update!()
+                                }}
+                            >
+                                +
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (window.confirm('Are you sure?')) {
+                                        Transformer.replace(node, undefined)
+                                        context.update!()
+                                    }
+                                }}
+                                color="red"
+                            >
+                                -
+                            </Button>
                             <IdentifierDeclaration
                                 node={node.name as any}
                             ></IdentifierDeclaration>
@@ -50,6 +74,22 @@ export default function ParameterTable({
                     </tr>
                 ))}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <Button
+                            onClick={() => {
+                                ParameterTransformer.addNode(parent)
+                                context.update!()
+                            }}
+                        >
+                            +
+                        </Button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     )
 }
