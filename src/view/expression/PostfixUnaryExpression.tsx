@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Token from '../text/Token'
-import Expression from './Expression'
+import ExpressionRoot from './ExpressionRoot'
 
 interface Props {
     node: ts.PostfixUnaryExpression
@@ -10,7 +10,11 @@ interface Props {
 export default function PostfixUnaryExpression({ node }: Props): ReactElement {
     return (
         <span>
-            <Expression node={node.operand}></Expression>
+            <ExpressionRoot
+                node={node.operand}
+                parent={node}
+                propertyName="operand"
+            ></ExpressionRoot>
             <Token kind={node.operator}></Token>
         </span>
     )
