@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import { ObjectChildMenuFactory } from '../../helper/Menu/ExpressionMenuFactory'
+import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import MenuButton from '../control/MenuButton'
 import Identifier from '../text/Identifier'
 
