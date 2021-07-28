@@ -10,9 +10,17 @@ interface Props {
 export default function BinaryExpression({ node }: Props): ReactElement {
     return (
         <span>
-            <ExpressionRoot node={node.left} parent={node}></ExpressionRoot>{' '}
+            <ExpressionRoot
+                node={node.left}
+                parent={node}
+                propertyName="left"
+            ></ExpressionRoot>{' '}
             <ComputeToken token={node.operatorToken}></ComputeToken>{' '}
-            <ExpressionRoot node={node.right} parent={node}></ExpressionRoot>
+            <ExpressionRoot
+                node={node.right}
+                parent={node}
+                propertyName="right"
+            ></ExpressionRoot>
         </span>
     )
 }

@@ -14,9 +14,14 @@ export default function Assign({ node }: Props): ReactElement {
                 isLeft={true}
                 node={node.left}
                 parent={node}
+                propertyName="left"
             ></ExpressionRoot>{' '}
             <AssignToken token={node.operatorToken}></AssignToken>{' '}
-            <ExpressionRoot node={node.right} parent={node}></ExpressionRoot>
+            <ExpressionRoot
+                node={node.right}
+                parent={node}
+                propertyName="right"
+            ></ExpressionRoot>
         </span>
     )
 }
