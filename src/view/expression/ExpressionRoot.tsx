@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import HoverStar from '../control/HoverStar'
 import MenuButton from '../control/MenuButton'
+import TextButton from '../control/TextButton'
 import Expression from './Expression'
 
 interface Props {
@@ -18,18 +18,24 @@ export default function ExpressionRoot({
     parent,
     propertyName,
 }: Props): ReactElement | null {
+    const [visible, setVisible] = useState(false)
     return (
-        <span>
-            <MenuButton
-                factory={ExpressionMenuFactory(
-                    parent,
-                    node,
-                    propertyName,
-                    isLeft,
-                )}
-            >
-                <HoverStar></HoverStar>
-            </MenuButton>
+        <span
+            onMouseEnter={(event) => setVisible(true)}
+            onMouseLeave={(event) => setVisible(false)}
+        >
+            {visible === false ? null : (
+                <MenuButton
+                    factory={ExpressionMenuFactory(
+                        parent,
+                        node,
+                        propertyName,
+                        isLeft,
+                    )}
+                >
+                    <TextButton></TextButton>
+                </MenuButton>
+            )}
 
             {node === undefined ? null : <Expression node={node}></Expression>}
         </span>
