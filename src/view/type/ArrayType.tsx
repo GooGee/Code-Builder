@@ -9,7 +9,7 @@ interface Props {
 export default function ArrayType({ node }: Props): ReactElement {
     return (
         <span>
-            <span className="identifier">Array</span>
+            <span className="identifier cursor-pointer">Array</span>
             &lt;
             <TypeRoot node={node.elementType} parent={node}></TypeRoot>
             &gt;
