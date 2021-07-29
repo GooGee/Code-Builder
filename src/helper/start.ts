@@ -19,7 +19,7 @@ function getFileMap() {
         }
     }
 
-    fileMap.set(file, CodeMap.statement)
+    fileMap.set(file, CodeMap.test)
 
     return fileMap
 }
