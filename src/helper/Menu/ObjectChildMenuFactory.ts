@@ -32,6 +32,16 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
                 })
                 menu.list.push(mmm)
             })
+        } else {
+            const list = type.getCallSignatures()
+            list.forEach((item) => {
+                const text = item.declaration?.getText() ?? '()'
+                const mmm = MenuFactory.makeMenu(text, () => {
+                    const nnn = ts.factory.createCallExpression(parent, [], [])
+                    Transformer.replace(parent, nnn)
+                })
+                menu.list.push(mmm)
+            })
         }
     }
 }
