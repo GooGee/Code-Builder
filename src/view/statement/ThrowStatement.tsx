@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import MenuButton from '../control/MenuButton'
-import ExpressionRoot from '../expression/ExpressionRoot'
+import NewExpression from '../expression/NewExpression'
 import Keyword from '../text/Keyword'
 
 interface Props {
@@ -17,10 +17,7 @@ export default function ThrowStatement({ node }: Props): ReactElement {
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuButton>
-            <ExpressionRoot
-                node={node.expression}
-                parent={node}
-            ></ExpressionRoot>
+            <NewExpression node={node.expression as any}></NewExpression>
         </span>
     )
 }
