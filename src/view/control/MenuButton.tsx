@@ -7,21 +7,35 @@ import MenuView from './MenuView'
 interface Props {
     children?: ReactElement
     factory: () => Menu
+    onClose?: () => void
+    onOpen?: () => void
     text?: string
 }
 
 export default function MenuButton({
     children,
     factory,
+    onClose,
+    onOpen,
     text = '*',
 }: Props): ReactElement {
     const [open, setOpen] = useState(false)
-    const closeModal = () => setOpen(false)
+    const closeModal = () => {
+        setOpen(false)
+        if (onClose) {
+            onClose()
+        }
+    }
 
     return (
         <Popup
             onClose={closeModal}
-            onOpen={() => setOpen(true)}
+            onOpen={() => {
+                setOpen(true)
+                if (onOpen) {
+                    onOpen()
+                }
+            }}
             open={open}
             trigger={
                 <span>{children ? children : <Button>{text}</Button>}</span>

@@ -18,11 +18,17 @@ export default function ExpressionRoot({
     parent,
     propertyName,
 }: Props): ReactElement | null {
+    const [open, setOpen] = useState(false)
     const [visible, setVisible] = useState(false)
     return (
         <span
             onMouseEnter={(event) => setVisible(true)}
-            onMouseLeave={(event) => setVisible(false)}
+            onMouseLeave={(event) => {
+                if (open) {
+                    return
+                }
+                setVisible(false)
+            }}
         >
             {visible === false ? null : (
                 <MenuButton
@@ -32,6 +38,8 @@ export default function ExpressionRoot({
                         propertyName,
                         isLeft,
                     )}
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
                 >
                     <TextButton></TextButton>
                 </MenuButton>
