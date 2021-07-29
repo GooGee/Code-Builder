@@ -12,14 +12,12 @@ interface Props {
 
 export default function TypeRoot({ node, parent }: Props): ReactElement {
     return (
-        <span>
-            <MenuButton factory={TypeMenuFactory(parent, node)}>
-                {node === undefined ? (
-                    <HoverStar></HoverStar>
-                ) : (
-                    <TypeNode node={node}></TypeNode>
-                )}
-            </MenuButton>
-        </span>
+        <MenuButton factory={TypeMenuFactory(parent, node)}>
+            {node === undefined ? (
+                <HoverStar></HoverStar>
+            ) : (
+                <TypeNode node={node}></TypeNode>
+            )}
+        </MenuButton>
     )
 }
