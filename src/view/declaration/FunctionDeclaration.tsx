@@ -32,7 +32,8 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
                 list={node.parameters}
                 parent={node}
             ></ParameterDeclarationxx>
-            <Colon></Colon> <TypeRoot node={node.type} parent={node}></TypeRoot>
+            {node.type === undefined ? '' : <Colon></Colon>}{' '}
+            <TypeRoot node={node.type} parent={node}></TypeRoot>{' '}
             <Block node={node.body}></Block>
         </div>
     )
