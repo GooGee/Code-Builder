@@ -5,8 +5,9 @@
 
 .array-view .prefix:hover,
 .array-view .suffix:hover {
-    color: red;
+    color: #0c0;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .error {
