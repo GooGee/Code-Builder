@@ -68,6 +68,13 @@ function makeMenu(
     })
 }
 
+function makeElementAccessExpressionMenu(node: ts.Identifier) {
+    return MenuFactory.makeMenu('[]', () => {
+        const nnn = ts.factory.createElementAccessExpression(node, 0)
+        Transformer.replace(node, nnn)
+    })
+}
+
 export default function ObjectChildMenuFactory(
     node: ts.Identifier | ts.NumericLiteral | ts.StringLiteral,
 ) {
@@ -77,12 +84,24 @@ export default function ObjectChildMenuFactory(
         if (ts.isIdentifier(node)) {
             addCallMenu(menu, node)
         }
-        state.worker.checker
-            .getType(node)
-            .getProperties()
-            .forEach((item) => {
-                menu.list.push(makeMenu(item, node))
-            })
+
+        const type = state.worker.checker.getType(node)
+        if (ts.isIdentifier(node)) {
+            if (type.symbol) {
+                if (type.symbol.escapedName === 'Array') {
+                    menu.list.push(makeElementAccessExpressionMenu(node))
+                }
+            } else {
+                const ttt = type as any
+                if (ttt.intrinsicName === 'string') {
+                    menu.list.push(makeElementAccessExpressionMenu(node))
+                }
+            }
+        }
+
+        type.getProperties().forEach((item) => {
+            menu.list.push(makeMenu(item, node))
+        })
         return menu
     }
 }
