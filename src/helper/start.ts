@@ -30,7 +30,7 @@ export default function start() {
     const host = new Host(fs, options, Array.from(fileMap.keys()))
     const ls = ts.createLanguageService(host)
     // console.log(ls.getSemanticDiagnostics(file))
-    const checker = new Checker(ls.getProgram()!)
+    const checker = new Checker(ls)
     const worker = new Worker(checker, fs, host, ls)
     return new Vendor(worker, file)
 }
