@@ -6,6 +6,7 @@ import AsExpression from './AsExpression'
 import BinaryExpression from './BinaryExpression'
 import CallExpression from './CallExpression'
 import DeleteExpression from './DeleteExpression'
+import ElementAccessExpression from './ElementAccessExpression'
 import ExpressionWithTypeArguments from './ExpressionWithTypeArguments'
 import IdentifierExpression from './IdentifierExpression'
 import KeywordExpression from './KeywordExpression'
@@ -48,6 +49,13 @@ export default function Expression({ node }: Props): ReactElement | null {
 
         case ts.SyntaxKind.DeleteExpression:
             return <DeleteExpression node={node as any}></DeleteExpression>
+
+        case ts.SyntaxKind.ElementAccessExpression:
+            return (
+                <ElementAccessExpression
+                    node={node as any}
+                ></ElementAccessExpression>
+            )
 
         case ts.SyntaxKind.FalseKeyword:
         case ts.SyntaxKind.NullKeyword:
