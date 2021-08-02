@@ -7,16 +7,27 @@ import MenuFactory from './MenuFactory'
 function addCallMenu(menu: Menu, node: ts.Identifier) {
     const type = state.worker.checker.getType(node)
 
-    if (ts.isNewExpression(node.parent)) {
-        const list = type.getConstructSignatures()
-        list.forEach((item) => {
-            const text = item.declaration?.getText() ?? '()'
-            const mmm = MenuFactory.makeMenu(text, () => {
-                const nnn = ts.factory.createNewExpression(node, [], [])
-                Transformer.replace(node.parent, nnn)
+    const list = type.getConstructSignatures()
+    if (list.length) {
+        if (ts.isNewExpression(node.parent)) {
+            list.forEach((item) => {
+                const text = item.declaration?.getText() ?? '()'
+                const mmm = MenuFactory.makeMenu(text, () => {
+                    const nnn = ts.factory.createNewExpression(node, [], [])
+                    Transformer.replace(node.parent, nnn)
+                })
+                menu.list.push(mmm)
             })
-            menu.list.push(mmm)
-        })
+        } else {
+            list.forEach((item) => {
+                const text = item.declaration?.getText() ?? '()'
+                const mmm = MenuFactory.makeMenu(text, () => {
+                    const nnn = ts.factory.createNewExpression(node, [], [])
+                    Transformer.replace(node, nnn)
+                })
+                menu.list.push(mmm)
+            })
+        }
         return
     }
 

@@ -16,8 +16,7 @@ function makeClassMenu(
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
                 const node = ts.factory.createIdentifier(item)
-                const nnn = ts.factory.createNewExpression(node, [], [])
-                Transformer.transform(nnn, parent, propertyName, old)
+                Transformer.transform(node, parent, propertyName, old)
             }),
         )
     })
