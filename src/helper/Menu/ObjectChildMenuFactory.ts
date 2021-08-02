@@ -99,9 +99,11 @@ export default function ObjectChildMenuFactory(
             }
         }
 
-        type.getProperties().forEach((item) => {
-            menu.list.push(makeMenu(item, node))
-        })
+        type.getProperties()
+            .filter((item) => item.name[0] !== '_')
+            .forEach((item) => {
+                menu.list.push(makeMenu(item, node))
+            })
         return menu
     }
 }
