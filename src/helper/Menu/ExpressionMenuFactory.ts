@@ -1,27 +1,26 @@
 import ts from 'typescript'
 import CommonTypeList from '../../asset/CommonTypeList'
 import state from '../../state'
+import LiteralTransformer from '../Transformer/LiteralTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
-function makeNumericLiteral(
-    text: string,
+function makeClassMenu(
     parent: ts.Node,
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const node = ts.factory.createNumericLiteral(text)
-    Transformer.transform(node, parent, propertyName, old)
-}
-
-function makeStringLiteral(
-    text: string,
-    parent: ts.Node,
-    propertyName: string,
-    old?: ts.Expression,
-) {
-    const node = ts.factory.createStringLiteral(text)
-    Transformer.transform(node, parent, propertyName, old)
+    const menu = MenuFactory.makeMenu('Class')
+    CommonTypeList.forEach((item) => {
+        menu.list.push(
+            MenuFactory.makeMenu(item, () => {
+                const node = ts.factory.createIdentifier(item)
+                const nnn = ts.factory.createNewExpression(node, [], [])
+                Transformer.transform(nnn, parent, propertyName, old)
+            }),
+        )
+    })
+    return menu
 }
 
 function makeConstantMenu(
@@ -53,19 +52,43 @@ function makeConstantMenu(
         }),
         MenuFactory.makeMenu(
             '0',
-            makeNumericLiteral.bind(null, '0', parent, propertyName, old),
+            LiteralTransformer.makeNumericLiteral.bind(
+                null,
+                '0',
+                parent,
+                propertyName,
+                old,
+            ),
         ),
         MenuFactory.makeMenu(
             '1',
-            makeNumericLiteral.bind(null, '1', parent, propertyName, old),
+            LiteralTransformer.makeNumericLiteral.bind(
+                null,
+                '1',
+                parent,
+                propertyName,
+                old,
+            ),
         ),
         MenuFactory.makeMenu(
             '-1',
-            makeNumericLiteral.bind(null, '-1', parent, propertyName, old),
+            LiteralTransformer.makeNumericLiteral.bind(
+                null,
+                '-1',
+                parent,
+                propertyName,
+                old,
+            ),
         ),
         MenuFactory.makeMenu(
             '""',
-            makeStringLiteral.bind(null, '', parent, propertyName, old),
+            LiteralTransformer.makeStringLiteral.bind(
+                null,
+                '',
+                parent,
+                propertyName,
+                old,
+            ),
         ),
     )
     return menu
@@ -82,24 +105,6 @@ function makeVariableMenu(
             MenuFactory.makeMenu(item.name, () => {
                 const node = ts.factory.createIdentifier(item.name)
                 Transformer.transform(node, parent, propertyName, old)
-            }),
-        )
-    })
-    return menu
-}
-
-function makeClassMenu(
-    parent: ts.Node,
-    propertyName: string,
-    old?: ts.Expression,
-) {
-    const menu = MenuFactory.makeMenu('Class')
-    CommonTypeList.forEach((item) => {
-        menu.list.push(
-            MenuFactory.makeMenu(item, () => {
-                const node = ts.factory.createIdentifier(item)
-                const nnn = ts.factory.createNewExpression(node, [], [])
-                Transformer.transform(nnn, parent, propertyName, old)
             }),
         )
     })
@@ -148,7 +153,12 @@ export default function ExpressionMenuFactory(
                 alert('Invalid number')
                 return
             }
-            makeNumericLiteral(value, parent, propertyName, old)
+            LiteralTransformer.makeNumericLiteral(
+                value,
+                parent,
+                propertyName,
+                old,
+            )
         })
         menu.list.push(one)
 
@@ -157,7 +167,12 @@ export default function ExpressionMenuFactory(
             if (value === null) {
                 return
             }
-            makeStringLiteral(value, parent, propertyName, old)
+            LiteralTransformer.makeStringLiteral(
+                value,
+                parent,
+                propertyName,
+                old,
+            )
         })
         menu.list.push(two)
 
