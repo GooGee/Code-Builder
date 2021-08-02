@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import UniqueKey from '../../helper/UniqueKey'
 import TypeRoot from './TypeRoot'
