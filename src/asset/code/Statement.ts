@@ -21,6 +21,10 @@ list.forEach((item) => {
     return
 })
 
+function add(aaa: number, bbb: number) {
+    return aaa + bbb
+}
+
 if (!true) {
 } else {
 }
