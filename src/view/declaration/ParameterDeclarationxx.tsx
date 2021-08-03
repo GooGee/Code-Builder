@@ -26,7 +26,18 @@ export default function ParameterDeclarationxx({
     }
 
     if (list.length === 0) {
-        return null
+        return (
+            <span
+                onClick={(event) => {
+                    event.stopPropagation()
+                    setEditing(true)
+                }}
+                className="array-view"
+            >
+                <span className="prefix">(</span>
+                <span className="suffix">)</span>
+            </span>
+        )
     }
 
     const uk = UniqueKey()
@@ -50,7 +61,7 @@ export default function ParameterDeclarationxx({
                 .reduce((previousValue, currentValue): any => {
                     return [previousValue, ', ', currentValue]
                 })}
-            <span className="prefix">)</span>
+            <span className="suffix">)</span>
         </span>
     )
 }
