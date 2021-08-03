@@ -161,6 +161,10 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeFor()
                 BlockTransformer.addNode(parent, item, at)
             }),
+            MenuFactory.makeMenu('+ for of', () => {
+                const item = StatementFactory.makeForOf()
+                BlockTransformer.addNode(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ function', () => {
                 const text = InputTool.inputName()
                 if (text === null) {
