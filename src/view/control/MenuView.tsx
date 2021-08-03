@@ -64,7 +64,7 @@ export default function MenuView({
                         <SubMenu
                             key={uk()}
                             title={'* ' + item.title}
-                            className="cursor-pointer hover:bg-blue-200 py-2"
+                            className="cursor-pointer py-2"
                         >
                             {item.list.map((one) => makeItem(one))}
                         </SubMenu>
