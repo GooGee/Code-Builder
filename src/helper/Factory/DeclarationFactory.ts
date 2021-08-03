@@ -39,6 +39,19 @@ export function makeExtend() {
     return makeHeritage(ts.SyntaxKind.ExtendsKeyword)
 }
 
+export function makeFunction(name: string) {
+    return ts.factory.createFunctionDeclaration(
+        [],
+        [],
+        undefined,
+        name,
+        [],
+        [],
+        undefined,
+        ts.factory.createBlock([]),
+    )
+}
+
 function makeHeritage(
     token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword,
 ) {
