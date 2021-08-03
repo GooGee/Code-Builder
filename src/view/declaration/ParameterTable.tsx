@@ -62,7 +62,11 @@ export default function ParameterTable({
                             ></IdentifierDeclaration>
                         </td>
                         <td>
-                            <TypeRoot node={node.type} parent={node}></TypeRoot>
+                            <TypeRoot
+                                node={node.type}
+                                parent={node}
+                                visible={true}
+                            ></TypeRoot>
                         </td>
                         <td>
                             <ExpressionRoot
