@@ -137,11 +137,17 @@ export default function ExpressionMenuFactory(
     return () => {
         console.log('ExpressionMenuFactory')
 
+        const menu = MenuFactory.makeMenu('')
         if (isLeft) {
-            return makeVariableMenu(parent, propertyName, old)
+            menu.list.push(makeClassMenu(parent, propertyName, old))
+
+            menu.list.push(makeParameterMenu(parent, propertyName, old))
+
+            menu.list.push(makeVariableMenu(parent, propertyName, old))
+
+            return menu
         }
 
-        const menu = MenuFactory.makeMenu('')
         if (old !== undefined) {
             if (ts.isReturnStatement(old.parent)) {
                 MenuFactory.addDelete(menu, old)
