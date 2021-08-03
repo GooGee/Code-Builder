@@ -10,6 +10,7 @@ interface Props {
     node: ts.Expression | undefined
     parent: ts.Node
     propertyName?: string
+    visible?: boolean
 }
 
 export default function ExpressionRoot({
@@ -17,9 +18,10 @@ export default function ExpressionRoot({
     node,
     parent,
     propertyName,
+    visible = false,
 }: Props): ReactElement | null {
     const [open, setOpen] = useState(false)
-    const [visible, setVisible] = useState(false)
+    const [block, setVisible] = useState(visible)
     return (
         <span
             onMouseEnter={(event) => setVisible(true)}
@@ -27,10 +29,13 @@ export default function ExpressionRoot({
                 if (open) {
                     return
                 }
+                if (visible) {
+                    return
+                }
                 setVisible(false)
             }}
         >
-            {visible === false ? null : (
+            {block === false ? null : (
                 <MenuButton
                     factory={ExpressionMenuFactory(
                         parent,

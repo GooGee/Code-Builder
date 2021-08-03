@@ -47,6 +47,7 @@ export default function ArrayView({
                     <ExpressionRoot
                         node={item}
                         parent={item.parent}
+                        visible={true}
                     ></ExpressionRoot>
                 </div>
             ))}

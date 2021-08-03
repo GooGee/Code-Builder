@@ -73,6 +73,7 @@ export default function ParameterTable({
                                 node={node.initializer}
                                 parent={node}
                                 propertyName="initializer"
+                                visible={true}
                             ></ExpressionRoot>
                         </td>
                     </tr>
