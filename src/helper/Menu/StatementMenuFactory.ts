@@ -136,6 +136,7 @@ export default function StatementMenuFactory(
             MenuFactory.addSeparator(menu)
             if (ts.isVariableStatement(at)) {
                 menu.list.push(makeVariableDeclarationMenu(at.declarationList))
+                MenuFactory.addSeparator(menu)
             }
         }
 
