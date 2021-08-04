@@ -25,9 +25,7 @@ export default function Menuxx({ list }: Props): ReactElement {
         if (item.disabled) {
             className += ' text-gray'
         } else {
-            if (item.list.length === 0) {
-                className += ' hover:bg-blue-200'
-            }
+            className += ' hover:bg-blue-200'
         }
         return (
             <li
