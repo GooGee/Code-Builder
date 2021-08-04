@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import MenuButton from '../control/MenuButton'
+import MenuModal from '../control/MenuModal'
 import TextButton from '../control/TextButton'
 import Expression from './Expression'
 
@@ -36,7 +36,7 @@ export default function ExpressionRoot({
             }}
         >
             {block === false ? null : (
-                <MenuButton
+                <MenuModal
                     factory={ExpressionMenuFactory(
                         parent,
                         node,
@@ -47,7 +47,7 @@ export default function ExpressionRoot({
                     onOpen={() => setOpen(true)}
                 >
                     <TextButton></TextButton>
-                </MenuButton>
+                </MenuModal>
             )}
 
             {node === undefined ? null : <Expression node={node}></Expression>}
