@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import HoverStar from '../control/HoverStar'
-import MenuButton from '../control/MenuButton'
+import MenuModal from '../control/MenuModal'
 import TextButton from '../control/TextButton'
 import TypeNode from './TypeNode'
 
@@ -18,7 +18,7 @@ export default function TypeRoot({
     visible = false,
 }: Props): ReactElement {
     return (
-        <MenuButton factory={TypeMenuFactory(parent, node)}>
+        <MenuModal factory={TypeMenuFactory(parent, node)}>
             {node === undefined ? (
                 visible ? (
                     <TextButton></TextButton>
@@ -28,6 +28,6 @@ export default function TypeRoot({
             ) : (
                 <TypeNode node={node}></TypeNode>
             )}
-        </MenuButton>
+        </MenuModal>
     )
 }
