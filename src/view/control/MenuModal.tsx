@@ -64,13 +64,11 @@ export default function MenuModal({
             >
                 <span>{children ? children : <Button>{text}</Button>}</span>
             </span>
-            <ReactModal
-                isOpen={visible}
-                onRequestClose={closeModal}
-                style={makeStyle(left)}
-            >
-                <Menuxx closeModal={closeModal} list={list}></Menuxx>
-            </ReactModal>
+            <span onClick={closeModal}>
+                <ReactModal isOpen={visible} style={makeStyle(left)}>
+                    <Menuxx list={list}></Menuxx>
+                </ReactModal>
+            </span>
         </span>
     )
 }

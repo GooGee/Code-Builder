@@ -4,11 +4,10 @@ import Menu from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
 
 interface Props {
-    closeModal: () => void
     list: Menu[]
 }
 
-export default function Menuxx({ closeModal, list }: Props): ReactElement {
+export default function Menuxx({ list }: Props): ReactElement {
     const context = useContext(SourceFileContext)
     const [childxx, setChildxx] = useState([])
 
@@ -32,15 +31,15 @@ export default function Menuxx({ closeModal, list }: Props): ReactElement {
         }
         return (
             <li
-                onClick={() => {
+                onClick={(event) => {
                     if (item.disabled) {
                         return
                     }
                     if (item.list.length) {
+                        event.stopPropagation()
                         setChildxx(item.list as any)
                         return
                     }
-                    closeModal()
                     item.cb()
                     context.update!()
                 }}
@@ -59,9 +58,7 @@ export default function Menuxx({ closeModal, list }: Props): ReactElement {
                 {list.map((item) => makeItem(item))}
             </ul>
             <div className="inline-block submenu">
-                {childxx.length === 0 ? null : (
-                    <Menuxx closeModal={closeModal} list={childxx}></Menuxx>
-                )}
+                {childxx.length === 0 ? null : <Menuxx list={childxx}></Menuxx>}
             </div>
         </div>
     )
