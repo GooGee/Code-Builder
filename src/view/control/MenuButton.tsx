@@ -30,11 +30,7 @@ export default function MenuButton({
             closeOnDocumentClick
             position="right center"
         >
-            <MenuView
-                closeModal={closeModal}
-                factory={factory}
-                open={open}
-            ></MenuView>
+            <MenuView closeModal={closeModal} factory={factory}></MenuView>
         </Popup>
     )
 }
