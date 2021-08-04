@@ -28,3 +28,18 @@ table.no-border th,
 table.no-border td {
     border-width: 0;
 }
+
+.menu {
+    height: 100%;
+}
+
+.menu > ul {
+    height: 100%;
+    min-width: 222px;
+    vertical-align: top;
+}
+
+.menu > .submenu {
+    border-left: solid lightgray 1px;
+    height: 100%;
+}
