@@ -101,7 +101,14 @@ export function makeMethodSignature(name: string) {
 }
 
 export function makeParameter(name: string) {
-    return ts.factory.createParameterDeclaration([], [], undefined, name)
+    return ts.factory.createParameterDeclaration(
+        [],
+        [],
+        undefined,
+        name,
+        undefined,
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+    )
 }
 
 export function makeProperty(name: string) {
