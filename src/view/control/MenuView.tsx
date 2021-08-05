@@ -5,14 +5,10 @@ import MenuData from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
 
 interface Props {
-    closeModal: () => void
     factory: () => MenuData
 }
 
-export default function MenuView({
-    factory,
-    closeModal,
-}: Props): ReactElement | null {
+export default function MenuView({ factory }: Props): ReactElement {
     const context = useContext(SourceFileContext)
 
     const uk = UniqueKey()
@@ -26,7 +22,6 @@ export default function MenuView({
         return (
             <MenuItem
                 onClick={() => {
-                    closeModal()
                     item.cb()
                     context.update!()
                 }}

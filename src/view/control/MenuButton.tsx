@@ -16,12 +16,11 @@ export default function MenuButton({
     text = '*',
 }: Props): ReactElement {
     const [open, setOpen] = useState(false)
-    const closeModal = () => setOpen(false)
 
     return (
         <Popup
-            lockScroll={true}
-            onClose={closeModal}
+            arrow={false}
+            onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
@@ -30,7 +29,7 @@ export default function MenuButton({
             closeOnDocumentClick
             position="right center"
         >
-            <MenuView closeModal={closeModal} factory={factory}></MenuView>
+            <MenuView factory={factory}></MenuView>
         </Popup>
     )
 }
