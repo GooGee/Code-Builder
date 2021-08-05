@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
+import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import Button from '../control/Button'
+import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
 import ArrayView from './ArrayView'
 
@@ -18,25 +20,8 @@ export default function Expressionxx({
     suffix = ')',
 }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
-    function make(child?: ReactElement) {
-        return (
-            <span
-                onClick={(event) => {
-                    event.stopPropagation()
-                    setEditing(true)
-                }}
-                className="array-view"
-            >
-                <span className="prefix">{prefix}</span>
-                <span onClick={(event) => event.stopPropagation()}>
-                    {child}
-                </span>
-                <span className="suffix">{suffix}</span>
-            </span>
-        )
-    }
     if (list === undefined) {
-        return make()
+        return <span></span>
     }
 
     if (editing) {
@@ -59,15 +44,21 @@ export default function Expressionxx({
         )
     }
 
-    return make(
-        <span
-            onClick={(event) => {
-                event.stopPropagation()
-                setEditing(true)
-            }}
-            className="cursor-pointer"
-        >
-            {list.map((node) => node.getText()).join(', ')}
-        </span>,
+    return (
+        <span className="array-view">
+            <span
+                onClick={(event) => {
+                    event.stopPropagation()
+                    setEditing(true)
+                }}
+                className="cursor-pointer"
+            >
+                <span className="prefix">{prefix}</span>
+                {list.map((node) => node.getText()).join(', ')}
+            </span>
+            <MenuButton factory={ObjectChildMenuFactory(parent)}>
+                <span className="suffix">{suffix}</span>
+            </MenuButton>
+        </span>
     )
 }
