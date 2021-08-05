@@ -47,7 +47,7 @@ export function makeFor() {
     const condition = ts.factory.createBinaryExpression(
         variable.name as ts.Identifier,
         ts.SyntaxKind.LessThanToken,
-        ts.factory.createIdentifier('length'),
+        ts.factory.createNull(),
     )
     const incrementor = ts.factory.createBinaryExpression(
         variable.name as ts.Identifier,
