@@ -1,8 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
-import ParameterDeclaration from './ParameterDeclaration'
 import ParameterTable from './ParameterTable'
 
 interface Props {
@@ -40,7 +38,6 @@ export default function ParameterDeclarationxx({
         )
     }
 
-    const uk = UniqueKey()
     return (
         <span
             onClick={(event) => {
@@ -50,17 +47,9 @@ export default function ParameterDeclarationxx({
             className="array-view"
         >
             <span className="prefix">(</span>
-            {list
-                .map((item) => (
-                    <span key={uk()}>
-                        <ParameterDeclaration
-                            node={item}
-                        ></ParameterDeclaration>
-                    </span>
-                ))
-                .reduce((previousValue, currentValue): any => {
-                    return [previousValue, ', ', currentValue]
-                })}
+            <span className="cursor-pointer">
+                {list.map((node) => node.getText()).join(', ')}
+            </span>
             <span className="suffix">)</span>
         </span>
     )
