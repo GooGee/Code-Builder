@@ -102,15 +102,11 @@ export default function ArgumentTable({
                                     >
                                         -
                                     </Button>
-                                    {ts.isArrowFunction(list[index]) ? (
-                                        list[index].getText()
-                                    ) : (
-                                        <ExpressionRoot
-                                            node={list[index]}
-                                            parent={list[index].parent}
-                                            visible={true}
-                                        ></ExpressionRoot>
-                                    )}
+                                    <ExpressionRoot
+                                        node={list[index]}
+                                        parent={list[index].parent}
+                                        visible={true}
+                                    ></ExpressionRoot>
                                 </span>
                             ) : index === list.length ? (
                                 <Button
