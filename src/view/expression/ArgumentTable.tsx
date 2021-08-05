@@ -108,6 +108,7 @@ export default function ArgumentTable({
                                         <ExpressionRoot
                                             node={list[index]}
                                             parent={list[index].parent}
+                                            visible={true}
                                         ></ExpressionRoot>
                                     )}
                                 </span>
