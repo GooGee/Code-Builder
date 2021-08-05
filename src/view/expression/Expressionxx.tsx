@@ -1,10 +1,8 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
 import ArgumentTable from './ArgumentTable'
 import ArrayView from './ArrayView'
-import Expression from './Expression'
 
 interface Props {
     list: ts.NodeArray<ts.Expression>
@@ -61,17 +59,15 @@ export default function Expressionxx({
         )
     }
 
-    if (list.length === 0) {
-        return make()
-    }
-
-    const uk = UniqueKey()
-    const re = list
-        .map((node) => {
-            return <Expression key={uk()} node={node}></Expression>
-        })
-        .reduce((previousValue, currentValue): any => {
-            return [previousValue, ', ', currentValue]
-        })
-    return make(re)
+    return make(
+        <span
+            onClick={(event) => {
+                event.stopPropagation()
+                setEditing(true)
+            }}
+            className="cursor-pointer"
+        >
+            {list.map((node) => node.getText()).join(', ')}
+        </span>,
+    )
 }
