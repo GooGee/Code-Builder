@@ -59,7 +59,13 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
 
 function makeMenu(
     item: ts.Symbol,
-    node: ts.Identifier | ts.NumericLiteral | ts.StringLiteral,
+    node:
+        | ts.ArrayLiteralExpression
+        | ts.CallExpression
+        | ts.Identifier
+        | ts.NewExpression
+        | ts.NumericLiteral
+        | ts.StringLiteral,
 ) {
     return MenuFactory.makeMenu(item.name, () => {
         if (ts.isPropertyAccessExpression(node.parent)) {
@@ -87,17 +93,20 @@ function makeElementAccessExpressionMenu(node: ts.Identifier) {
 }
 
 export default function ObjectChildMenuFactory(
-    node: ts.Identifier | ts.NumericLiteral | ts.StringLiteral,
+    node:
+        | ts.ArrayLiteralExpression
+        | ts.CallExpression
+        | ts.Identifier
+        | ts.NewExpression
+        | ts.NumericLiteral
+        | ts.StringLiteral,
 ) {
     return () => {
         console.log('ObjectChildMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        if (ts.isIdentifier(node)) {
-            addCallMenu(menu, node)
-        }
-
         const type = state.worker.checker.getType(node)
         if (ts.isIdentifier(node)) {
+            addCallMenu(menu, node)
             if (type.symbol) {
                 if (type.symbol.escapedName === 'Array') {
                     menu.list.push(makeElementAccessExpressionMenu(node))
