@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import Button from '../control/Button'
+import HoverBold from '../control/HoverBold'
 import ParameterDeclaration from './ParameterDeclaration'
 import ParameterTable from './ParameterTable'
 
@@ -28,9 +29,8 @@ export default function ParameterDeclarationxx({
                 event.stopPropagation()
                 setEditing(true)
             }}
-            className="array-view"
         >
-            <span className="prefix">(</span>
+            <HoverBold>(</HoverBold>
             <span className="cursor-pointer">
                 {list.length === 0
                     ? null
@@ -44,7 +44,7 @@ export default function ParameterDeclarationxx({
                               return [previousValue, ', ', currentValue]
                           })}
             </span>
-            <span className="suffix">)</span>
+            <HoverBold>)</HoverBold>
         </span>
     )
 }

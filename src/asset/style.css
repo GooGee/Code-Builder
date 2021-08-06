@@ -3,16 +3,13 @@
     min-width: 222px;
 }
 
-.array-view .prefix:hover,
-.array-view .suffix:hover {
-    color: #0c0;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 0 4px;
-}
-
 .error {
     color: red;
+}
+
+.HoverBold:hover {
+    font-weight: bold;
+    padding: 0 4px;
 }
 
 .keyword {

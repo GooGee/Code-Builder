@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import Button from '../control/Button'
+import HoverBold from '../control/HoverBold'
 import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
 import ArrayBox from './ArrayBox'
@@ -41,7 +42,7 @@ export default function Expressionxx({
     }
 
     return (
-        <span className="array-view">
+        <span>
             <span
                 onClick={(event) => {
                     event.stopPropagation()
@@ -49,11 +50,11 @@ export default function Expressionxx({
                 }}
                 className="cursor-pointer"
             >
-                <span className="prefix">{prefix}</span>
+                <HoverBold>{prefix}</HoverBold>
                 {list.map((node) => node.getText()).join(', ')}
             </span>
             <MenuButton factory={ObjectChildMenuFactory(parent)}>
-                <span className="suffix">{suffix}</span>
+                <HoverBold>{suffix}</HoverBold>
             </MenuButton>
         </span>
     )
