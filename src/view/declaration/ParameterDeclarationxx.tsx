@@ -44,7 +44,6 @@ export default function ParameterDeclarationxx({
                 event.stopPropagation()
                 setEditing(true)
             }}
-            className="array-view"
         >
             <span className="prefix">(</span>
             <span className="cursor-pointer">
