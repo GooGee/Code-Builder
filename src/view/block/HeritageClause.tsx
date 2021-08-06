@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Keyword from '../text/Keyword'
-import TypeArrayView from '../type/TypeArrayView'
+import TypeArrayBox from '../type/TypeArrayBox'
 
 interface Props {
     node: ts.HeritageClause
@@ -11,7 +11,7 @@ export default function HeritageClause({ node }: Props): ReactElement {
     return (
         <div>
             <Keyword kind={node.token} suffix=" "></Keyword>
-            <TypeArrayView list={node.types} parent={node}></TypeArrayView>
+            <TypeArrayBox list={node.types} parent={node}></TypeArrayBox>
         </div>
     )
 }

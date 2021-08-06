@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import TypeArrayView from './TypeArrayView'
+import TypeArrayBox from './TypeArrayBox'
 
 interface Props {
     node: ts.UnionTypeNode
@@ -8,10 +8,10 @@ interface Props {
 
 export default function UnionType({ node }: Props): ReactElement {
     return (
-        <TypeArrayView
+        <TypeArrayBox
             list={node.types}
             parent={node}
             separator=" | "
-        ></TypeArrayView>
+        ></TypeArrayBox>
     )
 }

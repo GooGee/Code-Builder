@@ -14,7 +14,7 @@ interface Props {
     separator?: string
 }
 
-export default function TypeArrayView({
+export default function TypeArrayBox({
     list,
     parent,
     separator = ', ',
