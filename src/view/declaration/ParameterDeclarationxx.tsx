@@ -16,9 +16,7 @@ export default function ParameterDeclarationxx({
     if (editing) {
         return (
             <ParameterTable list={list} parent={parent}>
-                <Button onClick={() => setEditing(false)} color="red">
-                    x
-                </Button>
+                <Button onClick={() => setEditing(false)}>x</Button>
             </ParameterTable>
         )
     }

@@ -30,6 +30,7 @@ export default function ArrayView({
                             ExpressionTransformer.addNode(parent, item)
                             context.update!()
                         }}
+                        color="green"
                     >
                         +
                     </Button>
@@ -57,6 +58,7 @@ export default function ArrayView({
                         ExpressionTransformer.addNode(parent)
                         context.update!()
                     }}
+                    color="green"
                 >
                     +
                 </Button>

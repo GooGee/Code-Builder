@@ -28,18 +28,14 @@ export default function Expressionxx({
         if (ts.isArrayLiteralExpression(parent)) {
             return (
                 <ArrayView list={list} parent={parent}>
-                    <Button onClick={() => setEditing(false)} color="red">
-                        x
-                    </Button>
+                    <Button onClick={() => setEditing(false)}>x</Button>
                 </ArrayView>
             )
         }
 
         return (
             <ArgumentTable list={list} parent={parent}>
-                <Button onClick={() => setEditing(false)} color="red">
-                    x
-                </Button>
+                <Button onClick={() => setEditing(false)}>x</Button>
             </ArgumentTable>
         )
     }

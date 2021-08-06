@@ -28,9 +28,7 @@ export default function TypeArrayView({
                 onClick={(event) => event.stopPropagation()}
                 className="ml-11 p-2 border-gray-200 border rounded-md"
             >
-                <Button onClick={() => setEditing(false)} color="red">
-                    x
-                </Button>
+                <Button onClick={() => setEditing(false)}>x</Button>
                 {list.map((item) => (
                     <div key={uk()}>
                         <Button
@@ -38,6 +36,7 @@ export default function TypeArrayView({
                                 TypeNodeTransformer.addType(parent, item)
                                 context.update!()
                             }}
+                            color="green"
                         >
                             +
                         </Button>
@@ -61,6 +60,7 @@ export default function TypeArrayView({
                             TypeNodeTransformer.addType(parent)
                             context.update!()
                         }}
+                        color="green"
                     >
                         +
                     </Button>

@@ -41,6 +41,7 @@ export default function ParameterTable({
                                     ParameterTransformer.addNode(parent, node)
                                     context.update!()
                                 }}
+                                color="green"
                             >
                                 +
                             </Button>
@@ -87,6 +88,7 @@ export default function ParameterTable({
                                 ParameterTransformer.addNode(parent)
                                 context.update!()
                             }}
+                            color="green"
                         >
                             +
                         </Button>

@@ -117,6 +117,7 @@ export default function ArgumentTable({
                                         )
                                         context.update!()
                                     }}
+                                    color="green"
                                 >
                                     +
                                 </Button>
