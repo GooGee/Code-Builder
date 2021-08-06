@@ -20,7 +20,6 @@ export default function MenuButton({
 
     return (
         <Popup
-            lockScroll={true}
             onClose={closeModal}
             onOpen={() => setOpen(true)}
             open={open}

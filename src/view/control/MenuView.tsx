@@ -9,10 +9,7 @@ interface Props {
     factory: () => MenuData
 }
 
-export default function MenuView({
-    factory,
-    closeModal,
-}: Props): ReactElement | null {
+export default function MenuView({ factory, closeModal }: Props): ReactElement {
     const context = useContext(SourceFileContext)
 
     const uk = UniqueKey()
