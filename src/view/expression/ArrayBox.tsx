@@ -13,7 +13,7 @@ interface Props {
     parent: ts.ArrayLiteralExpression
 }
 
-export default function ArrayView({
+export default function ArrayBox({
     children,
     list,
     parent,

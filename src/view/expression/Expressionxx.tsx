@@ -4,7 +4,7 @@ import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import Button from '../control/Button'
 import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
-import ArrayView from './ArrayView'
+import ArrayBox from './ArrayBox'
 
 interface Props {
     list: ts.NodeArray<ts.Expression>
@@ -27,9 +27,9 @@ export default function Expressionxx({
     if (editing) {
         if (ts.isArrayLiteralExpression(parent)) {
             return (
-                <ArrayView list={list} parent={parent}>
+                <ArrayBox list={list} parent={parent}>
                     <Button onClick={() => setEditing(false)}>x</Button>
-                </ArrayView>
+                </ArrayBox>
             )
         }
 
