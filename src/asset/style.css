@@ -8,6 +8,7 @@
     color: #0c0;
     cursor: pointer;
     font-weight: bold;
+    padding: 0 4px;
 }
 
 .error {
