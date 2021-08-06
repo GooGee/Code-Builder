@@ -25,18 +25,18 @@ export default function ForStatement({ node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </span>
-            <div className="pl-11">
-                <div>
-                    <ExpressionRoot
-                        node={node.condition}
-                        parent={node}
-                        propertyName="condition"
-                    ></ExpressionRoot>
-                </div>
-                <div>
-                    <Assign node={node.incrementor as any}></Assign>
-                </div>
-            </div>
+            <br />
+            <span className="pl-11">
+                <ExpressionRoot
+                    node={node.condition}
+                    parent={node}
+                    propertyName="condition"
+                ></ExpressionRoot>
+            </span>
+            <br />
+            <span className="pl-11">
+                <Assign node={node.incrementor as any}></Assign>
+            </span>{' '}
             <Block node={node.statement as any}></Block>
         </span>
     )

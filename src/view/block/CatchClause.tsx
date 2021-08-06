@@ -11,12 +11,10 @@ interface Props {
 export default function CatchClause({ node }: Props): ReactElement {
     return (
         <span>
-            <div>
-                <Keyword kind={node.kind} suffix=" "></Keyword>
-                <IdentifierDeclaration
-                    node={node.variableDeclaration!.name as any}
-                ></IdentifierDeclaration>
-            </div>
+            <Keyword kind={node.kind} prefix=" " suffix=" "></Keyword>
+            <IdentifierDeclaration
+                node={node.variableDeclaration!.name as any}
+            ></IdentifierDeclaration>{' '}
             <Block node={node.block}></Block>
         </span>
     )

@@ -24,14 +24,15 @@ export default function ForInStatement({ node }: Props): ReactElement {
                     node={node.initializer as any}
                 ></VariableDeclarationList>
             </span>
-            <div className="pl-11">
+            <br />
+            <span className="pl-11">
                 <span className="keyword">in </span>
                 <ExpressionRoot
                     isLeft={true}
                     node={node.expression}
                     parent={node}
-                ></ExpressionRoot>
-            </div>
+                ></ExpressionRoot>{' '}
+            </span>
             <Block node={node.statement as any}></Block>
         </span>
     )

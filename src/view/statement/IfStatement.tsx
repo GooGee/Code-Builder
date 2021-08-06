@@ -24,8 +24,7 @@ export default function IfStatement({ node }: Props): ReactElement {
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
-            ></ExpressionRoot>
-            <br />
+            ></ExpressionRoot>{' '}
             <Block node={node.thenStatement as any}></Block>
             <PointerText
                 onClick={() => {

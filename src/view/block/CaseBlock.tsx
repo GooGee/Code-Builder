@@ -11,7 +11,7 @@ interface Props {
 export default function CaseBlock({ node }: Props): ReactElement {
     const uk = UniqueKey()
     return (
-        <div>
+        <span>
             {'{'}
             <div className="pl-11">
                 {node.clauses.map((clause) => {
@@ -26,6 +26,6 @@ export default function CaseBlock({ node }: Props): ReactElement {
                 })}
             </div>
             {'}'}
-        </div>
+        </span>
     )
 }

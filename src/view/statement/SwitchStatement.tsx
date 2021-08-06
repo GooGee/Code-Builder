@@ -21,7 +21,7 @@ export default function SwitchStatement({ node }: Props): ReactElement {
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
-            ></ExpressionRoot>
+            ></ExpressionRoot>{' '}
             <CaseBlock node={node.caseBlock}></CaseBlock>
         </span>
     )

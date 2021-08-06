@@ -21,8 +21,7 @@ export default function TryStatement({ node }: Props): ReactElement {
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuButton>
-            <br />
+            </MenuButton>{' '}
             <Block node={node.tryBlock}></Block>
             <CatchClause node={node.catchClause!}></CatchClause>
             <PointerText

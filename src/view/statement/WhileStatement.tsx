@@ -21,8 +21,7 @@ export default function WhileStatement({ node }: Props): ReactElement {
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
-            ></ExpressionRoot>
-            <br />
+            ></ExpressionRoot>{' '}
             <Block node={node.statement as any}></Block>
         </span>
     )
