@@ -15,7 +15,7 @@ interface Props {
         | ts.VariableDeclaration
 }
 
-export default function NameValue({ node }: Props): ReactElement {
+export default function NameTypeValue({ node }: Props): ReactElement {
     function getToken(nnn: ts.ParameterPropertyDeclaration) {
         if (nnn.questionToken) {
             return <Token kind={nnn.questionToken.kind}></Token>

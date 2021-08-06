@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Modifierxx from '../text/Modifierxx'
-import NameValue from './NameValue'
+import NameTypeValue from './NameTypeValue'
 
 interface Props {
     node: ts.PropertySignature
@@ -11,7 +11,7 @@ export default function PropertySignature({ node }: Props): ReactElement {
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <NameValue node={node}></NameValue>
+            <NameTypeValue node={node}></NameTypeValue>
         </div>
     )
 }

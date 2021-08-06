@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import NameValue from './NameValue'
+import NameTypeValue from './NameTypeValue'
 
 interface Props {
     node: ts.VariableDeclaration
@@ -9,5 +9,5 @@ interface Props {
 export default function VariableDeclaration({
     node,
 }: Props): ReactElement {
-    return <NameValue node={node}></NameValue>
+    return <NameTypeValue node={node}></NameTypeValue>
 }
