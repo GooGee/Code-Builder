@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import Button from '../control/Button'
+import ParameterDeclaration from './ParameterDeclaration'
 import ParameterTable from './ParameterTable'
 
 interface Props {
@@ -21,31 +22,27 @@ export default function ParameterDeclarationxx({
         )
     }
 
-    if (list.length === 0) {
-        return (
-            <span
-                onClick={(event) => {
-                    event.stopPropagation()
-                    setEditing(true)
-                }}
-                className="array-view"
-            >
-                <span className="prefix">(</span>
-                <span className="suffix">)</span>
-            </span>
-        )
-    }
-
     return (
         <span
             onClick={(event) => {
                 event.stopPropagation()
                 setEditing(true)
             }}
+            className="array-view"
         >
             <span className="prefix">(</span>
             <span className="cursor-pointer">
-                {list.map((node) => node.getText()).join(', ')}
+                {list.length === 0
+                    ? null
+                    : list
+                          .map((node) => (
+                              <ParameterDeclaration
+                                  node={node}
+                              ></ParameterDeclaration>
+                          ))
+                          .reduce((previousValue, currentValue): any => {
+                              return [previousValue, ', ', currentValue]
+                          })}
             </span>
             <span className="suffix">)</span>
         </span>
