@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import Popup from 'reactjs-popup'
 import Menu from '../../model/Menu'
 import Button from './Button'
-import MenuView from './MenuView'
+import MenuBox from './MenuBox'
 
 interface Props {
     children?: ReactElement
@@ -29,7 +29,7 @@ export default function MenuButton({
             closeOnDocumentClick
             position="right center"
         >
-            <MenuView closeModal={closeModal} factory={factory}></MenuView>
+            <MenuBox closeModal={closeModal} factory={factory}></MenuBox>
         </Popup>
     )
 }
