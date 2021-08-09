@@ -31,7 +31,9 @@ export default function ExpressionRootEdit({
                 <TextButton></TextButton>
             </MenuModal>
 
-            {node === undefined ? null : <Expression node={node}></Expression>}
+            {node === undefined ? null : (
+                <Expression editing={true} node={node}></Expression>
+            )}
         </span>
     )
 }

@@ -13,6 +13,7 @@ import KeywordExpression from './KeywordExpression'
 import LiteralExpression from './LiteralExpression'
 import NewExpression from './NewExpression'
 import ObjectLiteralExpression from './ObjectLiteralExpression'
+import ParenthesizedExpression from './ParenthesizedExpression'
 import PostfixUnaryExpression from './PostfixUnaryExpression'
 import PrefixUnaryExpression from './PrefixUnaryExpression'
 import PropertyAccessExpression from './PropertyAccessExpression'
@@ -99,6 +100,14 @@ export default function Expression({
                 <ObjectLiteralExpression
                     node={node as any}
                 ></ObjectLiteralExpression>
+            )
+
+        case ts.SyntaxKind.ParenthesizedExpression:
+            return (
+                <ParenthesizedExpression
+                    editing={editing}
+                    node={node as any}
+                ></ParenthesizedExpression>
             )
 
         case ts.SyntaxKind.PostfixUnaryExpression:
