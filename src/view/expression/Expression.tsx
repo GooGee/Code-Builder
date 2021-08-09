@@ -19,10 +19,14 @@ import PropertyAccessExpression from './PropertyAccessExpression'
 import TypeOfExpression from './TypeOfExpression'
 
 interface Props {
+    editing?: boolean
     node: ts.Expression
 }
 
-export default function Expression({ node }: Props): ReactElement | null {
+export default function Expression({
+    editing = false,
+    node,
+}: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
@@ -42,7 +46,12 @@ export default function Expression({ node }: Props): ReactElement | null {
             return <AsExpression node={node as any}></AsExpression>
 
         case ts.SyntaxKind.BinaryExpression:
-            return <BinaryExpression node={node as any}></BinaryExpression>
+            return (
+                <BinaryExpression
+                    editing={editing}
+                    node={node as any}
+                ></BinaryExpression>
+            )
 
         case ts.SyntaxKind.CallExpression:
             return <CallExpression node={node as any}></CallExpression>
