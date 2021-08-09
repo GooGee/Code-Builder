@@ -5,7 +5,7 @@ import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
-import ExpressionRoot from './ExpressionRoot'
+import ExpressionRootEdit from './ExpressionRootEdit'
 
 interface Props {
     children: ReactElement
@@ -45,11 +45,10 @@ export default function ArrayBox({
                     >
                         -
                     </Button>
-                    <ExpressionRoot
+                    <ExpressionRootEdit
                         node={item}
                         parent={item.parent}
-                        visible={true}
-                    ></ExpressionRoot>
+                    ></ExpressionRootEdit>
                 </div>
             ))}
             <div>

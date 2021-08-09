@@ -5,7 +5,7 @@ import Transformer from '../../helper/Transformer/Transformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
-import ExpressionRoot from '../expression/ExpressionRoot'
+import ExpressionRootEdit from '../expression/ExpressionRootEdit'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import TypeRoot from '../type/TypeRoot'
 
@@ -70,12 +70,11 @@ export default function ParameterTable({
                             ></TypeRoot>
                         </td>
                         <td>
-                            <ExpressionRoot
+                            <ExpressionRootEdit
                                 node={node.initializer}
                                 parent={node}
                                 propertyName="initializer"
-                                visible={true}
-                            ></ExpressionRoot>
+                            ></ExpressionRootEdit>
                         </td>
                     </tr>
                 ))}

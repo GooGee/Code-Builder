@@ -6,7 +6,7 @@ import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import Button from '../control/Button'
 import ArgumentType from './ArgumentType'
-import ExpressionRoot from './ExpressionRoot'
+import ExpressionRootEdit from './ExpressionRootEdit'
 
 interface Props {
     children: ReactElement
@@ -102,11 +102,10 @@ export default function ArgumentTable({
                                     >
                                         -
                                     </Button>
-                                    <ExpressionRoot
+                                    <ExpressionRootEdit
                                         node={list[index]}
                                         parent={list[index].parent}
-                                        visible={true}
-                                    ></ExpressionRoot>
+                                    ></ExpressionRootEdit>
                                 </span>
                             ) : index === list.length ? (
                                 <Button
