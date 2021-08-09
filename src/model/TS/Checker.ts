@@ -32,13 +32,9 @@ export default class Checker {
     }
 
     getVariableList(node: ts.Node) {
-        return this.checker
-            .getSymbolsInScope(node, ts.SymbolFlags.BlockScopedVariable)
-            .filter((item) => {
-                if (item.name === 'name') {
-                    return false
-                }
-                return true
-            })
+        return this.checker.getSymbolsInScope(
+            node,
+            ts.SymbolFlags.BlockScopedVariable,
+        )
     }
 }
