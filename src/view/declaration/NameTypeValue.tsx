@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
@@ -16,6 +16,8 @@ interface Props {
 }
 
 export default function NameTypeValue({ node }: Props): ReactElement {
+    const [editing, setEditing] = useState(false)
+
     function getToken(nnn: ts.ParameterPropertyDeclaration) {
         if (nnn.questionToken) {
             return <Token kind={nnn.questionToken.kind}></Token>
@@ -24,7 +26,10 @@ export default function NameTypeValue({ node }: Props): ReactElement {
     }
 
     return (
-        <span>
+        <span
+            onMouseEnter={(event) => setEditing(true)}
+            onMouseLeave={(event) => setEditing(false)}
+        >
             <IdentifierDeclaration
                 node={node.name as any}
             ></IdentifierDeclaration>
@@ -34,7 +39,11 @@ export default function NameTypeValue({ node }: Props): ReactElement {
                     <Colon></Colon>{' '}
                 </>
             )}
-            <TypeRoot node={node.type} parent={node}></TypeRoot>
+            <TypeRoot
+                editing={editing}
+                node={node.type}
+                parent={node}
+            ></TypeRoot>
             {node.initializer ? <Equal /> : null}
             <ExpressionRoot
                 node={node.initializer}

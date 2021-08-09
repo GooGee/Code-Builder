@@ -66,7 +66,7 @@ export default function ParameterTable({
                             <TypeRoot
                                 node={node.type}
                                 parent={node}
-                                visible={true}
+                                editing={true}
                             ></TypeRoot>
                         </td>
                         <td>

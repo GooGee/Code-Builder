@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default function FunctionDeclaration({ node }: Props): ReactElement {
+    const [editing, setEditing] = useState(false)
     return (
         <div>
             <MenuButton
@@ -28,12 +29,21 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
             <TypeParameterDeclarationxx
                 list={node.typeParameters}
             ></TypeParameterDeclarationxx>
-            <ParameterDeclarationxx
-                list={node.parameters}
-                parent={node}
-            ></ParameterDeclarationxx>
-            {node.type === undefined ? '' : <Colon></Colon>}{' '}
-            <TypeRoot node={node.type} parent={node}></TypeRoot>{' '}
+            <span
+                onMouseEnter={(event) => setEditing(true)}
+                onMouseLeave={(event) => setEditing(false)}
+            >
+                <ParameterDeclarationxx
+                    list={node.parameters}
+                    parent={node}
+                ></ParameterDeclarationxx>
+                {node.type === undefined ? '' : <Colon></Colon>}{' '}
+                <TypeRoot
+                    editing={editing}
+                    node={node.type}
+                    parent={node}
+                ></TypeRoot>{' '}
+            </span>
             <Block node={node.body}></Block>
         </div>
     )
