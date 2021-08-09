@@ -7,11 +7,6 @@
     color: red;
 }
 
-.HoverBold:hover {
-    font-weight: bold;
-    padding: 0 4px;
-}
-
 .keyword {
     color: dodgerblue;
 }

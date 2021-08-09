@@ -4,9 +4,9 @@ interface Props {
     children: string | ReactElement
 }
 
-export default function HoverBold({ children }: Props): ReactElement {
+export default function HoverButton({ children }: Props): ReactElement {
     return (
-        <span className="HoverBold cursor-pointer hover:text-green-500">
+        <span className="cursor-pointer hover:text-green-500">
             {children}
         </span>
     )

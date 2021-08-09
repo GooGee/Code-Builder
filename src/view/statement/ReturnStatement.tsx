@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
+import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import MenuModal from '../control/MenuModal'
 import ExpressionRoot from '../expression/ExpressionRoot'
@@ -23,7 +24,7 @@ export default function ReturnStatement({ node }: Props): ReactElement {
                 <MenuModal
                     factory={ExpressionMenuFactory(node, node.expression)}
                 >
-                    <span className="cursor-pointer px-2 py-1 mr-1">+</span>
+                    <HoverButton>+</HoverButton>
                 </MenuModal>
             ) : (
                 <ExpressionRoot

@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import Button from '../control/Button'
-import HoverBold from '../control/HoverBold'
+import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import ArgumentTable from './ArgumentTable'
 import ArrayBox from './ArrayBox'
@@ -50,11 +50,11 @@ export default function Expressionxx({
                 }}
                 className="cursor-pointer"
             >
-                <HoverBold>{prefix}</HoverBold>
+                <HoverButton>{prefix}</HoverButton>
                 {list.map((node) => node.getText()).join(', ')}
             </span>
             <MenuButton factory={ObjectChildMenuFactory(parent)}>
-                <HoverBold>{suffix}</HoverBold>
+                <HoverButton>{suffix}</HoverButton>
             </MenuButton>
         </span>
     )

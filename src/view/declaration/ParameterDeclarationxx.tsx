@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
-import HoverBold from '../control/HoverBold'
+import HoverButton from '../control/HoverButton'
 import ParameterDeclaration from './ParameterDeclaration'
 import ParameterTable from './ParameterTable'
 
@@ -32,7 +32,7 @@ export default function ParameterDeclarationxx({
                 setEditing(true)
             }}
         >
-            <HoverBold>(</HoverBold>
+            <HoverButton>(</HoverButton>
             <span className="cursor-pointer">
                 {list.length === 0
                     ? null
@@ -47,7 +47,7 @@ export default function ParameterDeclarationxx({
                               return [previousValue, ', ', currentValue]
                           })}
             </span>
-            <HoverBold>)</HoverBold>
+            <HoverButton>)</HoverButton>
         </span>
     )
 }
