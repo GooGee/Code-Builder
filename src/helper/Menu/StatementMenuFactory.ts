@@ -158,6 +158,14 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeDoWhile()
                 BlockTransformer.addNode(parent, item, at)
             }),
+            MenuFactory.makeMenu('+ enum', () => {
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeEnum(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ for', () => {
                 const item = StatementFactory.makeFor()
                 BlockTransformer.addNode(parent, item, at)
