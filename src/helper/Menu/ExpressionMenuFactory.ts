@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import CommonTypeList from '../../asset/CommonTypeList'
-import Finder from '../Finder'
+import ParameterFinder from '../Finder/ParameterFinder'
+import VariableFinder from '../Finder/VariableFinder'
 import LiteralTransformer from '../Transformer/LiteralTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -103,7 +104,7 @@ function makeParameterMenu(
     old?: ts.Expression,
 ) {
     const menu = MenuFactory.makeMenu('Parameter')
-    Finder.getParameterList(parent).forEach((item) => {
+    ParameterFinder.getParameterList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name.getText(), () => {
                 const node = ts.factory.createIdentifier(item.name.getText())
@@ -120,7 +121,7 @@ function makeVariableMenu(
     old?: ts.Expression,
 ) {
     const menu = MenuFactory.makeMenu('Variable')
-    Finder.getVariableList(parent).forEach((item) => {
+    VariableFinder.getVariableList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name.getText(), () => {
                 const node = ts.factory.createIdentifier(item.name.getText())
