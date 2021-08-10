@@ -28,7 +28,11 @@ export default function MethodSignature({ node }: Props): ReactElement {
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
-                    <TypeRoot node={node.type} parent={node}></TypeRoot>
+                    <TypeRoot
+                        node={node.type}
+                        parent={node}
+                        required={true}
+                    ></TypeRoot>
                 </>
             )}
         </div>

@@ -6,18 +6,20 @@ import TextButton from '../control/TextButton'
 import TypeNode from './TypeNode'
 
 interface Props {
+    editing?: boolean
     node?: ts.TypeNode
     parent: ts.Node
-    editing?: boolean
+    required?: boolean
 }
 
 export default function TypeRoot({
+    editing = false,
     node,
     parent,
-    editing = false,
+    required = false,
 }: Props): ReactElement {
     return (
-        <MenuModal factory={TypeMenuFactory(parent, node)}>
+        <MenuModal factory={TypeMenuFactory(parent, node, required)}>
             {node === undefined ? (
                 editing ? (
                     <TextButton></TextButton>

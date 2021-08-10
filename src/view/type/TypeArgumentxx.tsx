@@ -29,6 +29,7 @@ export default function TypeArgumentxx({
                         key={uk()}
                         node={node}
                         parent={node.parent}
+                        required={true}
                     ></TypeRoot>
                 ))
                 .reduce((previousValue, currentValue): any => {

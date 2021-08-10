@@ -116,14 +116,15 @@ export function ModuleChildMenuFactory(node: ts.EntityName) {
 export default function TypeMenuFactory(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
+    required = false,
 ) {
     return () => {
         console.log('TypeMenuFactory')
         const menu = MenuFactory.makeMenu('')
-        // if (node !== undefined) {
-        //     MenuFactory.addDelete(menu, node)
-        //     MenuFactory.addSeparator(menu)
-        // }
+        if (node !== undefined && required === false) {
+            MenuFactory.addDelete(menu, node)
+            MenuFactory.addSeparator(menu)
+        }
 
         menu.list.push(
             makeBasicTypeMenu(parent, node),
