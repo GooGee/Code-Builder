@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionRoot from '../expression/ExpressionRoot'
+import ExpressionRootEdit from '../expression/ExpressionRootEdit'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Equal from '../text/Equal'
@@ -45,11 +46,19 @@ export default function NameTypeValue({ node }: Props): ReactElement {
                 parent={node}
             ></TypeRoot>
             {node.initializer ? <Equal /> : null}
-            <ExpressionRoot
-                node={node.initializer}
-                parent={node}
-                propertyName="initializer"
-            ></ExpressionRoot>
+            {editing ? (
+                <ExpressionRootEdit
+                    node={node.initializer}
+                    parent={node}
+                    propertyName="initializer"
+                ></ExpressionRootEdit>
+            ) : (
+                <ExpressionRoot
+                    node={node.initializer}
+                    parent={node}
+                    propertyName="initializer"
+                ></ExpressionRoot>
+            )}
         </span>
     )
 }
