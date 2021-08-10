@@ -1,5 +1,6 @@
 import ts from 'typescript'
 import * as DeclarationFactory from '../Factory/DeclarationFactory'
+import InputTool from '../InputTool'
 import EnumTransformer from '../Transformer/EnumTransformer'
 import MenuFactory from './MenuFactory'
 
@@ -17,7 +18,11 @@ export default function EnumMenuFactory(
 
         menu.list.push(
             MenuFactory.makeMenu('+ member', () => {
-                const item = DeclarationFactory.makeEnumMember('MemberName')
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeEnumMember(text)
                 EnumTransformer.addNode(parent, item, at)
             }),
         )
