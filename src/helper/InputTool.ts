@@ -5,11 +5,13 @@ function inputName(message: string = 'Enter a name', value: string = '') {
     if (text === null) {
         return null
     }
-    if (StringTool.isValidIdentifier(text) === false) {
-        window.alert(text + ' is not a valid name!')
+
+    const name = text.trim()
+    if (StringTool.isValidIdentifier(name) === false) {
+        window.alert(name + ' is not a valid name!')
         return null
     }
-    return text
+    return name
 }
 
 const InputTool = {
