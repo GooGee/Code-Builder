@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
-import MenuButton from '../control/MenuButton'
+import MenuModal from '../control/MenuModal'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
 import Keyword from '../text/Keyword'
@@ -18,11 +18,11 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
     return (
         <div>
-            <MenuButton
+            <MenuModal
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuButton>
+            </MenuModal>
             <IdentifierDeclaration
                 node={node.name as any}
             ></IdentifierDeclaration>

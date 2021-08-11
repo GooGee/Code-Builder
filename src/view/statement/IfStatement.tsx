@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
-import MenuButton from '../control/MenuButton'
+import MenuModal from '../control/MenuModal'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 import PointerText from '../text/PointerText'
@@ -16,11 +16,11 @@ export default function IfStatement({ node }: Props): ReactElement {
     const [visible, setVisible] = useState(block.statements.length > 0)
     return (
         <span>
-            <MenuButton
+            <MenuModal
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuButton>
+            </MenuModal>
             <ExpressionRoot
                 node={node.expression}
                 parent={node}

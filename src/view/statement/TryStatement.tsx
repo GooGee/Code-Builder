@@ -3,7 +3,7 @@ import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
 import CatchClause from '../block/CatchClause'
-import MenuButton from '../control/MenuButton'
+import MenuModal from '../control/MenuModal'
 import Keyword from '../text/Keyword'
 import PointerText from '../text/PointerText'
 
@@ -17,11 +17,11 @@ export default function TryStatement({ node }: Props): ReactElement {
     )
     return (
         <span>
-            <MenuButton
+            <MenuModal
                 factory={StatementMenuFactory(node.parent as any, node)}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuButton>{' '}
+            </MenuModal>{' '}
             <Block node={node.tryBlock}></Block>
             <CatchClause node={node.catchClause!}></CatchClause>
             <PointerText
