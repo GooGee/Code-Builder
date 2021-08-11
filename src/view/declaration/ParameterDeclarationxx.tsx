@@ -32,7 +32,7 @@ export default function ParameterDeclarationxx({
                 setEditing(true)
             }}
         >
-            <HoverButton>(</HoverButton>
+            <HoverButton color="">(</HoverButton>
             <span className="cursor-pointer">
                 {list.length === 0
                     ? null
@@ -47,7 +47,7 @@ export default function ParameterDeclarationxx({
                               return [previousValue, ', ', currentValue]
                           })}
             </span>
-            <HoverButton>)</HoverButton>
+            <HoverButton color="">)</HoverButton>
         </span>
     )
 }

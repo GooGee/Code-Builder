@@ -50,11 +50,11 @@ export default function Expressionxx({
                 }}
                 className="cursor-pointer"
             >
-                <HoverButton>{prefix}</HoverButton>
+                <HoverButton color="">{prefix}</HoverButton>
                 {list.map((node) => node.getText()).join(', ')}
             </span>
             <MenuButton factory={ObjectChildMenuFactory(parent)}>
-                <HoverButton>{suffix}</HoverButton>
+                <HoverButton color="">{suffix}</HoverButton>
             </MenuButton>
         </span>
     )

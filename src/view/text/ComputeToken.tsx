@@ -12,7 +12,7 @@ interface Props {
 export default function ComputeToken({ token }: Props): ReactElement {
     return (
         <MenuModal factory={ComputeTokenMenuFactory(token)}>
-            <HoverButton>
+            <HoverButton color="">
                 <Token kind={token.kind}></Token>
             </HoverButton>
         </MenuModal>
