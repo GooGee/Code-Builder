@@ -11,25 +11,19 @@ interface Props {
 }
 
 export default function DoStatement({ node }: Props): ReactElement {
-    const prefix = (
-        <MenuButton factory={StatementMenuFactory(node.parent as any, node)}>
-            <Keyword kind={node.kind} suffix=" "></Keyword>
-        </MenuButton>
-    )
-    const suffix = (
-        <>
+    return (
+        <span>
+            <MenuButton
+                factory={StatementMenuFactory(node.parent as any, node)}
+            >
+                <Keyword kind={node.kind} suffix=" "></Keyword>
+            </MenuButton>
+            <Block node={node.statement as any}></Block>
             <span className="keyword"> while </span>
             <ExpressionRoot
                 node={node.expression}
                 parent={node}
             ></ExpressionRoot>
-        </>
-    )
-    return (
-        <Block
-            node={node.statement as any}
-            prefix={prefix}
-            suffix={suffix}
-        ></Block>
+        </span>
     )
 }

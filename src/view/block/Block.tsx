@@ -7,22 +7,15 @@ import Statementxx from '../statement/Statementxx'
 
 interface Props {
     node: ts.Block | undefined
-    prefix?: string | ReactElement
-    suffix?: string | ReactElement
 }
 
-export default function Block({
-    node,
-    prefix,
-    suffix,
-}: Props): ReactElement | null {
+export default function Block({ node }: Props): ReactElement | null {
     if (node === undefined) {
         return null
     }
 
     return (
         <span>
-            {prefix}
             {'{'}
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
@@ -33,7 +26,6 @@ export default function Block({
                 )}
             </div>
             {'}'}
-            {suffix}
         </span>
     )
 }
