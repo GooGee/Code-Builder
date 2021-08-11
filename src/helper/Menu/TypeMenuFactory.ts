@@ -3,9 +3,15 @@ import CommonTypeList from '../../asset/CommonTypeList'
 import KeywordTypeList from '../../asset/KeywordTypeList'
 import state from '../../state'
 import TypeArgumentFactory from '../Factory/TypeArgumentFactory'
+import Finder from '../Finder/Finder'
 import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
+
+interface ReferenceType {
+    name?: ts.Identifier
+    typeParameters?: ts.NodeArray<ts.TypeParameterDeclaration>
+}
 
 function getPropertyName(parent: ts.Node) {
     if (ts.isTypeParameterDeclaration(parent)) {
@@ -18,6 +24,15 @@ function getPropertyName(parent: ts.Node) {
     }
 
     return 'type'
+}
+
+function getTypeArgumentList(declaration: ReferenceType) {
+    if (declaration.typeParameters) {
+        return TypeArgumentFactory.makeTypeArgumentList(
+            declaration.typeParameters,
+        )
+    }
+    return []
 }
 
 function makeBasicTypeMenu(
@@ -49,6 +64,32 @@ function makeBasicTypeMenu(
     return menu
 }
 
+function makeClassTypeMenu(
+    parent: ts.Node,
+    node?: ts.TypeNode | ts.Identifier,
+) {
+    return makeTypeMenu('Class', Finder.getClassList(parent), parent, node)
+}
+
+function makeEnumTypeMenu(parent: ts.Node, node?: ts.TypeNode | ts.Identifier) {
+    const menu = MenuFactory.makeMenu('Enum')
+    Finder.getEnumList(parent).forEach((item) => {
+        const name = item.name.getText()
+        menu.list.push(
+            MenuFactory.makeMenu(name, () => {
+                const type = ts.factory.createTypeReferenceNode(name)
+                Transformer.transform(
+                    type,
+                    parent,
+                    getPropertyName(parent),
+                    node,
+                )
+            }),
+        )
+    })
+    return menu
+}
+
 function makeEcmas6ClassTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
@@ -66,19 +107,49 @@ function makeEcmas6ClassTypeMenu(
                     // console.log(found)
                     if (found.declarations.length) {
                         const declaration = found
-                            .declarations[0] as ts.SignatureDeclarationBase
+                            .declarations[0] as ReferenceType
                         // console.log(declaration)
-                        if (declaration.typeParameters) {
-                            list = TypeArgumentFactory.makeTypeArgumentList(
-                                declaration.typeParameters,
-                            )
-                        }
+                        list = getTypeArgumentList(declaration)
                     }
                 }
-                const type = ts.factory.createTypeReferenceNode(
-                    ts.factory.createIdentifier(item),
-                    list,
+                const type = ts.factory.createTypeReferenceNode(item, list)
+                Transformer.transform(
+                    type,
+                    parent,
+                    getPropertyName(parent),
+                    node,
                 )
+            }),
+        )
+    })
+    return menu
+}
+
+function makeInterfaceTypeMenu(
+    parent: ts.Node,
+    node?: ts.TypeNode | ts.Identifier,
+) {
+    return makeTypeMenu(
+        'Interface',
+        Finder.getInterfaceList(parent),
+        parent,
+        node,
+    )
+}
+
+function makeTypeMenu(
+    title: string,
+    list: ReferenceType[],
+    parent: ts.Node,
+    node?: ts.TypeNode | ts.Identifier,
+) {
+    const menu = MenuFactory.makeMenu(title)
+    list.forEach((item) => {
+        const name = item.name!.getText()
+        menu.list.push(
+            MenuFactory.makeMenu(name, () => {
+                const list = getTypeArgumentList(item)
+                const type = ts.factory.createTypeReferenceNode(name, list)
                 Transformer.transform(
                     type,
                     parent,
@@ -129,6 +200,9 @@ export default function TypeMenuFactory(
         menu.list.push(
             makeBasicTypeMenu(parent, node),
             makeEcmas6ClassTypeMenu(parent, node),
+            makeClassTypeMenu(parent, node),
+            makeEnumTypeMenu(parent, node),
+            makeInterfaceTypeMenu(parent, node),
         )
         return menu
     }
