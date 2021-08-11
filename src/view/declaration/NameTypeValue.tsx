@@ -9,11 +9,7 @@ import Token from '../text/Token'
 import TypeRoot from '../type/TypeRoot'
 
 interface Props {
-    node:
-        | ts.ParameterDeclaration
-        | ts.PropertyDeclaration
-        | ts.PropertySignature
-        | ts.VariableDeclaration
+    node: ts.PropertyDeclaration | ts.PropertySignature | ts.VariableDeclaration
 }
 
 export default function NameTypeValue({ node }: Props): ReactElement {
