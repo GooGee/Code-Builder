@@ -49,11 +49,11 @@ function makeBasicTypeMenu(
     return menu
 }
 
-function makeClassTypeMenu(
+function makeEcmas6ClassTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
-    const menu = MenuFactory.makeMenu('Class')
+    const menu = MenuFactory.makeMenu('ES6 Class')
     CommonTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
@@ -128,7 +128,7 @@ export default function TypeMenuFactory(
 
         menu.list.push(
             makeBasicTypeMenu(parent, node),
-            makeClassTypeMenu(parent, node),
+            makeEcmas6ClassTypeMenu(parent, node),
         )
         return menu
     }
