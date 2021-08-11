@@ -1,5 +1,6 @@
 import ts from 'typescript'
 import * as DeclarationFactory from '../Factory/DeclarationFactory'
+import InputTool from '../InputTool'
 import ClassTransformer from '../Transformer/ClassTransformer'
 import MenuFactory from './MenuFactory'
 
@@ -21,11 +22,21 @@ export default function ClassMenuFactory(
                 ClassTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ method', () => {
-                const item = DeclarationFactory.makeMethod('MethodName')
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+
+                const item = DeclarationFactory.makeMethod(text)
                 ClassTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ property', () => {
-                const item = DeclarationFactory.makeProperty('PropertyName')
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+
+                const item = DeclarationFactory.makeProperty(text)
                 ClassTransformer.addNode(parent, item, at)
             }),
         )
