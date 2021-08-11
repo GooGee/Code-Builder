@@ -18,8 +18,14 @@ export default function EnumMenuFactory(
 
             menu.list.push(
                 MenuFactory.makeMenu('Refactor', () => {
-                    const text = InputTool.inputName()
+                    const text = InputTool.inputName(
+                        undefined,
+                        at.name.getText(),
+                    )
                     if (text === null) {
+                        return
+                    }
+                    if (text === at.name.getText()) {
                         return
                     }
 
