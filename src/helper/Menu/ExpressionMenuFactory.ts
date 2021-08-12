@@ -6,23 +6,6 @@ import LiteralTransformer from '../Transformer/LiteralTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
-function makeClassMenu(
-    parent: ts.Node,
-    propertyName: string,
-    old?: ts.Expression,
-) {
-    const menu = MenuFactory.makeMenu('Class')
-    CommonTypeList.forEach((item) => {
-        menu.list.push(
-            MenuFactory.makeMenu(item, () => {
-                const node = ts.factory.createIdentifier(item)
-                Transformer.transform(node, parent, propertyName, old)
-            }),
-        )
-    })
-    return menu
-}
-
 function makeConstantMenu(
     parent: ts.Node,
     propertyName: string,
@@ -98,6 +81,23 @@ function makeConstantMenu(
     return menu
 }
 
+function makeEcmas6ClassMenu(
+    parent: ts.Node,
+    propertyName: string,
+    old?: ts.Expression,
+) {
+    const menu = MenuFactory.makeMenu('ES6 Class')
+    CommonTypeList.forEach((item) => {
+        menu.list.push(
+            MenuFactory.makeMenu(item, () => {
+                const node = ts.factory.createIdentifier(item)
+                Transformer.transform(node, parent, propertyName, old)
+            }),
+        )
+    })
+    return menu
+}
+
 function makeParameterMenu(
     parent: ts.Node,
     propertyName: string,
@@ -143,7 +143,7 @@ export default function ExpressionMenuFactory(
 
         const menu = MenuFactory.makeMenu('')
         if (isLeft) {
-            menu.list.push(makeClassMenu(parent, propertyName, old))
+            menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
             menu.list.push(makeParameterMenu(parent, propertyName, old))
 
@@ -205,9 +205,9 @@ export default function ExpressionMenuFactory(
 
         MenuFactory.addSeparator(menu)
 
-        menu.list.push(makeClassMenu(parent, propertyName, old))
-
         menu.list.push(makeConstantMenu(parent, propertyName, old))
+
+        menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
         menu.list.push(makeParameterMenu(parent, propertyName, old))
 
