@@ -8,7 +8,7 @@ import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
-interface ReferenceType {
+export interface ReferenceType {
     name?: ts.Identifier
     typeParameters?: ts.NodeArray<ts.TypeParameterDeclaration>
 }
@@ -64,13 +64,6 @@ function makeBasicTypeMenu(
     return menu
 }
 
-function makeClassTypeMenu(
-    parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
-) {
-    return makeTypeMenu('Class', Finder.getClassList(parent), parent, node)
-}
-
 function makeEnumTypeMenu(parent: ts.Node, node?: ts.TypeNode | ts.Identifier) {
     const menu = MenuFactory.makeMenu('Enum')
     Finder.getEnumList(parent).forEach((item) => {
@@ -123,18 +116,6 @@ function makeEcmas6ClassTypeMenu(
         )
     })
     return menu
-}
-
-function makeInterfaceTypeMenu(
-    parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
-) {
-    return makeTypeMenu(
-        'Interface',
-        Finder.getInterfaceList(parent),
-        parent,
-        node,
-    )
 }
 
 function makeTypeMenu(
@@ -197,12 +178,24 @@ export default function TypeMenuFactory(
             MenuFactory.addSeparator(menu)
         }
 
+        const classMenu = makeTypeMenu(
+            'Class',
+            Finder.getClassList(parent),
+            parent,
+            node,
+        )
+        const interfaceTypeMenu = makeTypeMenu(
+            'Interface',
+            Finder.getInterfaceList(parent),
+            parent,
+            node,
+        )
         menu.list.push(
             makeBasicTypeMenu(parent, node),
             makeEcmas6ClassTypeMenu(parent, node),
-            makeClassTypeMenu(parent, node),
+            classMenu,
             makeEnumTypeMenu(parent, node),
-            makeInterfaceTypeMenu(parent, node),
+            interfaceTypeMenu,
         )
         return menu
     }
