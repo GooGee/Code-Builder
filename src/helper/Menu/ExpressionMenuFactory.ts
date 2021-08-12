@@ -1,10 +1,12 @@
 import ts from 'typescript'
 import CommonTypeList from '../../asset/CommonTypeList'
+import Finder from '../Finder/Finder'
 import ParameterFinder from '../Finder/ParameterFinder'
 import VariableFinder from '../Finder/VariableFinder'
 import LiteralTransformer from '../Transformer/LiteralTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
+import { ReferenceType } from './TypeMenuFactory'
 
 function makeConstantMenu(
     parent: ts.Node,
@@ -115,6 +117,26 @@ function makeParameterMenu(
     return menu
 }
 
+function makeTypeMenu(
+    title: string,
+    list: ReferenceType[],
+    parent: ts.Node,
+    propertyName: string,
+    old?: ts.Expression,
+) {
+    const menu = MenuFactory.makeMenu(title)
+    list.forEach((item) => {
+        const name = item.name!.getText()
+        menu.list.push(
+            MenuFactory.makeMenu(name, () => {
+                const node = ts.factory.createIdentifier(name)
+                Transformer.transform(node, parent, propertyName, old)
+            }),
+        )
+    })
+    return menu
+}
+
 function makeVariableMenu(
     parent: ts.Node,
     propertyName: string,
@@ -206,6 +228,24 @@ export default function ExpressionMenuFactory(
         MenuFactory.addSeparator(menu)
 
         menu.list.push(makeConstantMenu(parent, propertyName, old))
+
+        const classMenu = makeTypeMenu(
+            'Class',
+            Finder.getClassList(parent),
+            parent,
+            propertyName,
+            old,
+        )
+        menu.list.push(classMenu)
+
+        const enumMenu = makeTypeMenu(
+            'Enum',
+            Finder.getEnumList(parent),
+            parent,
+            propertyName,
+            old,
+        )
+        menu.list.push(enumMenu)
 
         menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
