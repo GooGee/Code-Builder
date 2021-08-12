@@ -30,6 +30,16 @@ function getInterfaceList(node: ts.Node) {
     return list
 }
 
+function getTypeAliasList(node: ts.Node) {
+    const list = new Array<ts.TypeAliasDeclaration>()
+    Finder.traversal(node, (statement) => {
+        if (ts.isTypeAliasDeclaration(statement)) {
+            list.push(statement)
+        }
+    })
+    return list
+}
+
 function traversal(node: ts.Node, cb: CallBack) {
     if (ts.isSourceFile(node)) {
         node.statements.forEach(cb)
@@ -50,6 +60,7 @@ const Finder = {
     getClassList,
     getEnumList,
     getInterfaceList,
+    getTypeAliasList,
     traversal,
 }
 
