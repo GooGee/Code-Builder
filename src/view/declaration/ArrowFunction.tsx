@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Block from '../block/Block'
-import ParameterDeclarationxx from '../declaration/ParameterDeclarationxx'
+import ExpressionRoot from '../expression/ExpressionRoot'
 import Token from '../text/Token'
-import ExpressionRoot from './ExpressionRoot'
+import ParameterDeclarationxx from './ParameterDeclarationxx'
 
 interface Props {
     node: ts.ArrowFunction

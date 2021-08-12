@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
+import ArrowFunction from '../declaration/ArrowFunction'
 import ArrayLiteralExpression from './ArrayLiteralExpression'
-import ArrowFunction from './ArrowFunction'
 import AsExpression from './AsExpression'
 import BinaryExpression from './BinaryExpression'
 import CallExpression from './CallExpression'
