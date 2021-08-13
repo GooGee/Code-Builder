@@ -56,11 +56,13 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         <MethodDeclaration
                             key={uk()}
                             node={item}
+                            parent={node}
                         ></MethodDeclaration>
                     ) : ts.isPropertyDeclaration(item) ? (
                         <PropertyDeclaration
                             key={uk()}
                             node={item}
+                            parent={node}
                         ></PropertyDeclaration>
                     ) : null,
                 )}
