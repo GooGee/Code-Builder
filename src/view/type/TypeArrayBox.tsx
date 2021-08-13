@@ -42,6 +42,10 @@ export default function TypeArrayBox({
                         </Button>
                         <Button
                             onClick={() => {
+                                if (list.length === 1) {
+                                    window.alert('Cannot delete all types!')
+                                    return
+                                }
                                 if (window.confirm('Are you sure?')) {
                                     Transformer.replace(item, undefined)
                                     context.update!()
