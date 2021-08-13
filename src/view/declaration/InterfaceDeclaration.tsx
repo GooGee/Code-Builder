@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
@@ -19,21 +19,29 @@ interface Props {
 }
 
 export default function InterfaceDeclaration({ node }: Props): ReactElement {
+    const [editing, setEditing] = useState(false)
     const uk = UniqueKey()
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <MenuModal
-                factory={StatementMenuFactory(node.parent as any, node)}
-            >
+            <MenuModal factory={StatementMenuFactory(node.parent as any, node)}>
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuModal>
-            <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
-            <TypeParameterDeclarationxx
-                list={node.typeParameters}
-            ></TypeParameterDeclarationxx>
-            <Heritagexx list={node.heritageClauses} parent={node}></Heritagexx>
-            {' {'}
+            <span
+                onMouseEnter={(event) => setEditing(true)}
+                onMouseLeave={(event) => setEditing(false)}
+            >
+                <IdentifierDeclaration node={node.name}></IdentifierDeclaration>{' '}
+                <TypeParameterDeclarationxx
+                    list={node.typeParameters}
+                ></TypeParameterDeclarationxx>
+                <Heritagexx
+                    editing={editing}
+                    list={node.heritageClauses}
+                    parent={node}
+                ></Heritagexx>
+                {' {'}
+            </span>
             <div className="pl-11">
                 {node.members.map((item) =>
                     ts.isMethodSignature(item) ? (
