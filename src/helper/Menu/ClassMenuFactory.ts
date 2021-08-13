@@ -5,7 +5,7 @@ import ClassTransformer from '../Transformer/ClassTransformer'
 import MenuFactory from './MenuFactory'
 
 export default function ClassMenuFactory(
-    parent: ts.ClassDeclaration,
+    parent: ts.ClassLikeDeclaration,
     at?: ts.ClassElement,
 ) {
     return () => {
