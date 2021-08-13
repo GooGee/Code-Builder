@@ -186,6 +186,14 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeIf()
                 BlockTransformer.addNode(parent, item, at)
             }),
+            MenuFactory.makeMenu('+ interface', () => {
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeInterface(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ let', () => {
                 const text = InputTool.inputName()
                 if (text === null) {
