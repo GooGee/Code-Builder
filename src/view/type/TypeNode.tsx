@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import KeywordTypeList from '../../asset/KeywordTypeList'
-import ExpressionWithTypeArguments from '../expression/ExpressionWithTypeArguments'
 import ArrayType from './ArrayType'
+import ExpressionType from './ExpressionType'
 import KeywordType from './KeywordType'
 import LiteralType from './LiteralType'
 import TypeReference from './TypeReference'
@@ -18,11 +18,7 @@ export default function TypeNode({ node }: Props): ReactElement | null {
     }
 
     if (ts.isExpressionWithTypeArguments(node)) {
-        return (
-            <ExpressionWithTypeArguments
-                node={node}
-            ></ExpressionWithTypeArguments>
-        )
+        return <ExpressionType node={node}></ExpressionType>
     }
 
     if (ts.isLiteralTypeNode(node)) {
