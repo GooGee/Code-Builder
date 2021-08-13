@@ -7,23 +7,7 @@ function addNode(
     at?: ts.TypeElement,
 ) {
     const list = Transformer.insert<ts.TypeElement>(parent.members, item, at)
-    update(parent, list)
-}
-
-function update(
-    parent: ts.InterfaceDeclaration,
-    list: ts.NodeArray<ts.TypeElement>,
-) {
-    const to = ts.factory.updateInterfaceDeclaration(
-        parent,
-        parent.decorators,
-        parent.modifiers,
-        parent.name,
-        parent.typeParameters,
-        parent.heritageClauses,
-        list,
-    )
-    Transformer.replace(parent, to)
+    Transformer.setProperty(parent, list, 'members')
 }
 
 const InterfaceTransformer = {
