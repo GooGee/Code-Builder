@@ -48,11 +48,13 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                         <MethodSignature
                             key={uk()}
                             node={item}
+                            parent={node}
                         ></MethodSignature>
                     ) : ts.isPropertySignature(item) ? (
                         <PropertySignature
                             key={uk()}
                             node={item}
+                            parent={node}
                         ></PropertySignature>
                     ) : null,
                 )}
