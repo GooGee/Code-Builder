@@ -154,6 +154,14 @@ export default function StatementMenuFactory(
         addLoopMenu(menu, parent, at)
 
         menu.list.push(
+            MenuFactory.makeMenu('+ class', () => {
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeClass(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ do', () => {
                 const item = StatementFactory.makeDoWhile()
                 BlockTransformer.addNode(parent, item, at)
