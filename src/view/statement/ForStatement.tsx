@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
 import MenuModal from '../control/MenuModal'
 import VariableDeclarationList from '../declaration/VariableDeclarationList'
 import Assign from '../expression/Assign'
-import ExpressionRoot from '../expression/ExpressionRoot'
+import BinaryExpression from '../expression/BinaryExpression'
 import Keyword from '../text/Keyword'
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function ForStatement({ node }: Props): ReactElement {
+    const [editing, setEditing] = useState(false)
     return (
         <span>
             <span>
@@ -26,12 +27,15 @@ export default function ForStatement({ node }: Props): ReactElement {
                 ></VariableDeclarationList>
             </span>
             <br />
-            <span className="pl-11">
-                <ExpressionRoot
-                    node={node.condition}
-                    parent={node}
-                    propertyName="condition"
-                ></ExpressionRoot>
+            <span
+                onMouseEnter={(event) => setEditing(true)}
+                onMouseLeave={(event) => setEditing(false)}
+                className="pl-11"
+            >
+                <BinaryExpression
+                    editing={editing}
+                    node={node.condition as any}
+                ></BinaryExpression>
             </span>
             <br />
             <span className="pl-11">
