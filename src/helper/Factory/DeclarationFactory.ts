@@ -131,6 +131,13 @@ export function makePropertySignature(name: string) {
     )
 }
 
+export function makeTypeAlias(name: string) {
+    const skt = ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+    const ukt = ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
+    const ut = ts.factory.createUnionTypeNode([skt, ukt])
+    return ts.factory.createTypeAliasDeclaration([], [], name, [], ut)
+}
+
 export function makeVariable(name: string) {
     return ts.factory.createVariableDeclaration(
         name,
