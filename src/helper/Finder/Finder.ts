@@ -2,58 +2,70 @@ import ts from 'typescript'
 
 function getClassList(node: ts.Node) {
     const list = new Array<ts.ClassDeclaration>()
-    Finder.traversal(node, (statement) => {
+    traversal(node, node, (statement) => {
         if (ts.isClassDeclaration(statement)) {
             list.push(statement)
         }
+        return true
     })
     return list
 }
 
 function getEnumList(node: ts.Node) {
     const list = new Array<ts.EnumDeclaration>()
-    Finder.traversal(node, (statement) => {
+    traversal(node, node, (statement) => {
         if (ts.isEnumDeclaration(statement)) {
             list.push(statement)
         }
+        return true
     })
     return list
 }
 
 function getInterfaceList(node: ts.Node) {
     const list = new Array<ts.InterfaceDeclaration>()
-    Finder.traversal(node, (statement) => {
+    traversal(node, node, (statement) => {
         if (ts.isInterfaceDeclaration(statement)) {
             list.push(statement)
         }
+        return true
     })
     return list
 }
 
 function getTypeAliasList(node: ts.Node) {
     const list = new Array<ts.TypeAliasDeclaration>()
-    Finder.traversal(node, (statement) => {
+    traversal(node, node, (statement) => {
         if (ts.isTypeAliasDeclaration(statement)) {
             list.push(statement)
         }
+        return true
     })
     return list
 }
 
-function traversal(node: ts.Node, cb: CallBack) {
+function traversal(node: ts.Node, child: ts.Node, cb: CallBack) {
     if (ts.isSourceFile(node)) {
-        node.statements.forEach(cb)
+        search(node.statements)
         return
     }
-    traversal(node.parent, cb)
+    traversal(node.parent, node, cb)
     if (ts.isBlock(node)) {
-        node.statements.forEach(cb)
-        return
+        search(node.statements)
+    }
+
+    function search(statements: ts.NodeArray<ts.Statement>) {
+        statements.every((statement) => {
+            if (Object.is(statement, child)) {
+                return false
+            }
+            return cb(statement)
+        })
     }
 }
 
 interface CallBack {
-    (node: ts.Node): void
+    (node: ts.Node): boolean
 }
 
 const Finder = {
