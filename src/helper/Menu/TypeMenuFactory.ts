@@ -184,9 +184,15 @@ export default function TypeMenuFactory(
             parent,
             node,
         )
-        const interfaceTypeMenu = makeTypeMenu(
+        const interfaceMenu = makeTypeMenu(
             'Interface',
             Finder.getInterfaceList(parent),
+            parent,
+            node,
+        )
+        const typeAliasMenu = makeTypeMenu(
+            'TypeAlias',
+            Finder.getTypeAliasList(parent),
             parent,
             node,
         )
@@ -195,7 +201,8 @@ export default function TypeMenuFactory(
             makeEcmas6ClassTypeMenu(parent, node),
             classMenu,
             makeEnumTypeMenu(parent, node),
-            interfaceTypeMenu,
+            interfaceMenu,
+            typeAliasMenu,
         )
         return menu
     }
