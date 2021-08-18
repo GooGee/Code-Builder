@@ -14,9 +14,7 @@ interface Props {
 export default function TypeAliasDeclaration({ node }: Props): ReactElement {
     return (
         <span>
-            <MenuModal
-                factory={StatementMenuFactory(node.parent as any, node)}
-            >
+            <MenuModal factory={StatementMenuFactory(node.parent as any, node)}>
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuModal>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>

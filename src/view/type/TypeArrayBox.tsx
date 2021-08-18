@@ -55,7 +55,11 @@ export default function TypeArrayBox({
                         >
                             -
                         </Button>
-                        <TypeRoot node={item} parent={item.parent}></TypeRoot>
+                        <TypeRoot
+                            node={item}
+                            parent={item.parent}
+                            required={true}
+                        ></TypeRoot>
                     </div>
                 ))}
                 <div>
