@@ -31,10 +31,6 @@ function makeConstantMenu(
             const node = ts.factory.createIdentifier('undefined')
             Transformer.transform(node, parent, propertyName, old)
         }),
-        MenuFactory.makeMenu('this', () => {
-            const node = ts.factory.createThis()
-            Transformer.transform(node, parent, propertyName, old)
-        }),
         MenuFactory.makeMenu(
             '0',
             LiteralTransformer.makeNumericLiteral.bind(
@@ -143,6 +139,12 @@ function makeVariableMenu(
     old?: ts.Expression,
 ) {
     const menu = MenuFactory.makeMenu('Variable')
+    menu.list.push(
+        MenuFactory.makeMenu('this', () => {
+            const node = ts.factory.createThis()
+            Transformer.transform(node, parent, propertyName, old)
+        }),
+    )
     VariableFinder.getVariableList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name.getText(), () => {
