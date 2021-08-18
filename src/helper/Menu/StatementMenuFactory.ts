@@ -218,12 +218,20 @@ export default function StatementMenuFactory(
             //     const item = StatementFactory.makeSwitch()
             //     BlockTransformer.addNode(parent, item, at)
             // }),
+            MenuFactory.makeMenu('+ throw', () => {
+                const item = StatementFactory.makeThrow()
+                BlockTransformer.addNode(parent, item, at)
+            }),
             MenuFactory.makeMenu('+ try', () => {
                 const item = StatementFactory.makeTry()
                 BlockTransformer.addNode(parent, item, at)
             }),
-            MenuFactory.makeMenu('+ throw', () => {
-                const item = StatementFactory.makeThrow()
+            MenuFactory.makeMenu('+ type', () => {
+                const text = InputTool.inputName()
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeTypeAlias(text)
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ while', () => {
