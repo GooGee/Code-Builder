@@ -8,8 +8,7 @@ function inputName(message: string = 'Enter a name', value: string = '') {
 
     const name = text.trim()
     if (StringTool.isValidIdentifier(name) === false) {
-        window.alert(name + ' is not a valid name!')
-        return null
+        throw new Error(name + ' is not a valid name!')
     }
     return name
 }

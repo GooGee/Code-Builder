@@ -7,17 +7,25 @@ function addNode(
     parent: ts.SignatureDeclarationBase,
     at?: ts.ParameterDeclaration,
 ) {
-    const text = InputTool.inputName()
-    if (text === null) {
-        return
+    try {
+        const text = InputTool.inputName()
+        if (text === null) {
+            return
+        }
+        const node = makeParameter(text)
+        const list = Transformer.insert<ts.ParameterDeclaration>(
+            parent.parameters,
+            node,
+            at,
+        )
+        Transformer.setProperty(parent, list, 'parameters')
+    } catch (error) {
+        if (error.message) {
+            window.alert(error.message)
+        } else {
+            window.alert(error)
+        }
     }
-    const node = makeParameter(text)
-    const list = Transformer.insert<ts.ParameterDeclaration>(
-        parent.parameters,
-        node,
-        at,
-    )
-    Transformer.setProperty(parent, list, 'parameters')
 }
 
 const ParameterTransformer = { addNode }
