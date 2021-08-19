@@ -13,10 +13,12 @@ export default function TypeParameterDeclaration({
     return (
         <span>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
-            {node.constraint ? (
-                <span className="keyword"> extends </span>
-            ) : null}
-            <TypeRoot node={node.constraint} parent={node}></TypeRoot>
+            <span className="keyword"> extends </span>
+            <TypeRoot
+                editing={true}
+                node={node.constraint}
+                parent={node}
+            ></TypeRoot>
         </span>
     )
 }
