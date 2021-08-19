@@ -15,31 +15,31 @@ interface Props {
 }
 
 export default function FunctionDeclaration({ node }: Props): ReactElement {
-    const [editing, setEditing] = useState(false)
+    const [hovering, setHovering] = useState(false)
     return (
         <div>
-            <MenuModal
-                factory={StatementMenuFactory(node.parent as any, node)}
-            >
+            <MenuModal factory={StatementMenuFactory(node.parent as any, node)}>
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </MenuModal>
-            <IdentifierDeclaration
-                node={node.name as any}
-            ></IdentifierDeclaration>
-            <TypeParameterDeclarationxx
-                list={node.typeParameters}
-            ></TypeParameterDeclarationxx>
             <span
-                onMouseEnter={(event) => setEditing(true)}
-                onMouseLeave={(event) => setEditing(false)}
+                onMouseEnter={(event) => setHovering(true)}
+                onMouseLeave={(event) => setHovering(false)}
             >
+                <IdentifierDeclaration
+                    node={node.name as any}
+                ></IdentifierDeclaration>
+                <TypeParameterDeclarationxx
+                    hovering={hovering}
+                    list={node.typeParameters}
+                    parent={node}
+                ></TypeParameterDeclarationxx>
                 <ParameterDeclarationxx
                     list={node.parameters}
                     parent={node}
                 ></ParameterDeclarationxx>
                 {node.type === undefined ? '' : <Colon></Colon>}{' '}
                 <TypeRoot
-                    editing={editing}
+                    editing={hovering}
                     node={node.type}
                     parent={node}
                 ></TypeRoot>{' '}

@@ -33,7 +33,9 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
             >
                 <IdentifierDeclaration node={node.name}></IdentifierDeclaration>{' '}
                 <TypeParameterDeclarationxx
+                    hovering={editing}
                     list={node.typeParameters}
+                    parent={node}
                 ></TypeParameterDeclarationxx>
                 <Heritagexx
                     editing={editing}

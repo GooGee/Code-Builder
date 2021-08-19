@@ -36,7 +36,9 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                     node={node.name!}
                 ></IdentifierDeclaration>{' '}
                 <TypeParameterDeclarationxx
+                    hovering={editing}
                     list={node.typeParameters}
+                    parent={node}
                 ></TypeParameterDeclarationxx>
                 <Heritagexx
                     editing={editing}

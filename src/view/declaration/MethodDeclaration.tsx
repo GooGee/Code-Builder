@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import Block from '../block/Block'
@@ -20,22 +20,32 @@ export default function MethodDeclaration({
     node,
     parent,
 }: Props): ReactElement {
+    const [hovering, setHovering] = useState(false)
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>
-            <MenuButton factory={ClassMenuFactory(parent, node)}>
-                <HoverButton> m </HoverButton>
-            </MenuButton>
-            <IdentifierDeclaration
-                node={node.name as any}
-            ></IdentifierDeclaration>
-            <TypeParameterDeclarationxx
-                list={node.typeParameters}
-            ></TypeParameterDeclarationxx>
-            <ParameterDeclarationxx
-                list={node.parameters}
-                parent={node}
-            ></ParameterDeclarationxx>
+            <span
+                onMouseEnter={(event) => setHovering(true)}
+                onMouseLeave={(event) => setHovering(false)}
+            >
+                {hovering ? (
+                    <MenuButton factory={ClassMenuFactory(parent, node)}>
+                        <HoverButton> m </HoverButton>
+                    </MenuButton>
+                ) : null}
+                <IdentifierDeclaration
+                    node={node.name as any}
+                ></IdentifierDeclaration>
+                <TypeParameterDeclarationxx
+                    hovering={hovering}
+                    list={node.typeParameters}
+                    parent={node}
+                ></TypeParameterDeclarationxx>
+                <ParameterDeclarationxx
+                    list={node.parameters}
+                    parent={node}
+                ></ParameterDeclarationxx>
+            </span>
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
