@@ -3,6 +3,7 @@ import * as DeclarationFactory from '../Factory/DeclarationFactory'
 import InputTool from '../InputTool'
 import EnumTransformer from '../Transformer/EnumTransformer'
 import Transformer from '../Transformer/Transformer'
+import { makeName } from './ClassMenuFactory'
 import MenuFactory from './MenuFactory'
 
 export default function EnumMenuFactory(
@@ -18,19 +19,27 @@ export default function EnumMenuFactory(
 
             menu.list.push(
                 MenuFactory.makeMenu('Refactor', () => {
-                    const text = InputTool.inputName(
-                        undefined,
-                        at.name.getText(),
-                    )
-                    if (text === null) {
-                        return
-                    }
-                    if (text === at.name.getText()) {
-                        return
-                    }
+                    try {
+                        const text = InputTool.inputName(
+                            undefined,
+                            at.name.getText(),
+                        )
+                        if (text === null) {
+                            return
+                        }
+                        if (text === at.name.getText()) {
+                            return
+                        }
 
-                    const item = ts.factory.createIdentifier(text)
-                    Transformer.replace(at.name, item)
+                        const item = ts.factory.createIdentifier(text)
+                        Transformer.replace(at.name, item)
+                    } catch (error) {
+                        if (error.message) {
+                            window.alert(error.message)
+                        } else {
+                            window.alert(error)
+                        }
+                    }
                 }),
             )
             MenuFactory.addSeparator(menu)
@@ -38,7 +47,7 @@ export default function EnumMenuFactory(
 
         menu.list.push(
             MenuFactory.makeMenu('+ member', () => {
-                const text = InputTool.inputName()
+                const text = makeName(parent.members)
                 if (text === null) {
                     return
                 }
