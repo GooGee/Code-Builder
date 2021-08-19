@@ -114,6 +114,48 @@ function makeVariableDeclarationMenu(node: ts.VariableDeclarationList) {
     return menu
 }
 
+function makeName(statementxx: ts.NodeArray<ts.Statement>, name?: string) {
+    try {
+        const text = InputTool.inputName(undefined, name)
+        if (text === null) {
+            return null
+        }
+
+        const found = statementxx.find((statement) => {
+            if (
+                ts.isClassDeclaration(statement) ||
+                ts.isEnumDeclaration(statement) ||
+                ts.isFunctionDeclaration(statement) ||
+                ts.isInterfaceDeclaration(statement) ||
+                ts.isTypeAliasDeclaration(statement)
+            ) {
+                return statement.name?.getText() === text
+            }
+            if (ts.isVariableStatement(statement)) {
+                const found = statement.declarationList.declarations.find(
+                    (item) => item.name.getText() === text,
+                )
+                if (found) {
+                    return true
+                }
+            }
+            return false
+        })
+        if (found) {
+            window.alert(text + ' already exists!')
+            return null
+        }
+        return text
+    } catch (error) {
+        if (error.message) {
+            window.alert(error.message)
+        } else {
+            window.alert(error)
+        }
+        return null
+    }
+}
+
 export function VariableDeclarationMenuFactory(
     node: ts.VariableDeclarationList,
 ) {
@@ -140,6 +182,43 @@ export default function StatementMenuFactory(
             }
         }
 
+        if (ts.isSourceFile(parent)) {
+            menu.list.push(
+                MenuFactory.makeMenu('+ class', () => {
+                    const text = makeName(parent.statements)
+                    if (text === null) {
+                        return
+                    }
+                    const item = DeclarationFactory.makeClass(text)
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+                MenuFactory.makeMenu('+ enum', () => {
+                    const text = makeName(parent.statements)
+                    if (text === null) {
+                        return
+                    }
+                    const item = DeclarationFactory.makeEnum(text)
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+                MenuFactory.makeMenu('+ function', () => {
+                    const text = makeName(parent.statements)
+                    if (text === null) {
+                        return
+                    }
+                    const item = DeclarationFactory.makeFunction(text)
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+                MenuFactory.makeMenu('+ interface', () => {
+                    const text = makeName(parent.statements)
+                    if (text === null) {
+                        return
+                    }
+                    const item = DeclarationFactory.makeInterface(text)
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+            )
+        }
+
         menu.list.push(
             MenuFactory.makeMenu('+ Assign', () => {
                 const item = StatementFactory.makeAssignStatement()
@@ -154,24 +233,8 @@ export default function StatementMenuFactory(
         addLoopMenu(menu, parent, at)
 
         menu.list.push(
-            MenuFactory.makeMenu('+ class', () => {
-                const text = InputTool.inputName()
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeClass(text)
-                BlockTransformer.addNode(parent, item, at)
-            }),
             MenuFactory.makeMenu('+ do', () => {
                 const item = StatementFactory.makeDoWhile()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ enum', () => {
-                const text = InputTool.inputName()
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeEnum(text)
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ for', () => {
@@ -182,28 +245,12 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeForOf()
                 BlockTransformer.addNode(parent, item, at)
             }),
-            MenuFactory.makeMenu('+ function', () => {
-                const text = InputTool.inputName()
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeFunction(text)
-                BlockTransformer.addNode(parent, item, at)
-            }),
             MenuFactory.makeMenu('+ if', () => {
                 const item = StatementFactory.makeIf()
                 BlockTransformer.addNode(parent, item, at)
             }),
-            MenuFactory.makeMenu('+ interface', () => {
-                const text = InputTool.inputName()
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeInterface(text)
-                BlockTransformer.addNode(parent, item, at)
-            }),
             MenuFactory.makeMenu('+ let', () => {
-                const text = InputTool.inputName()
+                const text = makeName(parent.statements)
                 if (text === null) {
                     return
                 }
@@ -227,7 +274,7 @@ export default function StatementMenuFactory(
                 BlockTransformer.addNode(parent, item, at)
             }),
             MenuFactory.makeMenu('+ type', () => {
-                const text = InputTool.inputName()
+                const text = makeName(parent.statements)
                 if (text === null) {
                     return
                 }
