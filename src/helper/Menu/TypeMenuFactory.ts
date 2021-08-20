@@ -83,7 +83,7 @@ function makeEnumTypeMenu(parent: ts.Node, node?: ts.TypeNode | ts.Identifier) {
     return menu
 }
 
-function makeEcmas6ClassTypeMenu(
+export function makeEcmas6ClassTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
@@ -118,7 +118,7 @@ function makeEcmas6ClassTypeMenu(
     return menu
 }
 
-function makeTypeMenu(
+export function makeTypeMenu(
     title: string,
     list: ReferenceType[],
     parent: ts.Node,
