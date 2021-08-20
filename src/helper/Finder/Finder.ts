@@ -44,6 +44,25 @@ function getTypeAliasList(node: ts.Node) {
     return list
 }
 
+function isLoop(node: ts.Node) {
+    if (ts.isDoStatement(node)) {
+        return true
+    }
+    if (ts.isForInStatement(node)) {
+        return true
+    }
+    if (ts.isForOfStatement(node)) {
+        return true
+    }
+    if (ts.isForStatement(node)) {
+        return true
+    }
+    if (ts.isWhileStatement(node)) {
+        return true
+    }
+    return false
+}
+
 function traversal(node: ts.Node, child: ts.Node, cb: CallBack) {
     if (ts.isSourceFile(node)) {
         search(node.statements)
@@ -73,6 +92,7 @@ const Finder = {
     getEnumList,
     getInterfaceList,
     getTypeAliasList,
+    isLoop,
     traversal,
 }
 
