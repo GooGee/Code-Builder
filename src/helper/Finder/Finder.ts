@@ -68,14 +68,17 @@ function traversal(node: ts.Node, child: ts.Node, cb: CallBack) {
         search(node.statements)
         return
     }
+
     traversal(node.parent, node, cb)
+
     if (ts.isBlock(node)) {
         search(node.statements)
     }
 
-    function search(statements: ts.NodeArray<ts.Statement>) {
-        statements.every((statement) => {
-            if (Object.is(statement, child)) {
+    function search(statements: ts.NodeArray<ts.Node>) {
+        const position = statements.indexOf(child)
+        statements.every((statement, index) => {
+            if (index > position) {
                 return false
             }
             return cb(statement)
