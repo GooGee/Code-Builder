@@ -2,9 +2,10 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
 import MenuButton from '../control/MenuButton'
+import TextButton from '../control/TextButton'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import ExpressionRootEdit from '../expression/ExpressionRootEdit'
-import Identifier from '../text/Identifier'
+import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 
 interface Props {
     node: ts.EnumMember
@@ -17,9 +18,14 @@ export default function EnumMember({ node }: Props): ReactElement {
             onMouseEnter={(event) => setEditing(true)}
             onMouseLeave={(event) => setEditing(false)}
         >
-            <MenuButton factory={EnumMenuFactory(node.parent, node)}>
-                <Identifier node={node.name as any}></Identifier>
-            </MenuButton>
+            {editing ? (
+                <MenuButton factory={EnumMenuFactory(node.parent, node)}>
+                    <TextButton></TextButton>
+                </MenuButton>
+            ) : null}
+            <IdentifierDeclaration
+                node={node.name as any}
+            ></IdentifierDeclaration>
             {node.initializer ? ' = ' : ''}
             {editing ? (
                 <ExpressionRootEdit
