@@ -4,6 +4,7 @@ import KeywordTypeList from '../../asset/KeywordTypeList'
 import state from '../../state'
 import TypeArgumentFactory from '../Factory/TypeArgumentFactory'
 import Finder from '../Finder/Finder'
+import TypeParameterFinder from '../Finder/TypeParameterFinder'
 import KeywordText from '../KeywordText'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
@@ -196,6 +197,13 @@ export default function TypeMenuFactory(
             parent,
             node,
         )
+        const typeParameterMenu = makeTypeMenu(
+            'TypeParameter',
+            TypeParameterFinder.getTypeParameterList(parent),
+            parent,
+            node,
+        )
+
         menu.list.push(
             makeBasicTypeMenu(parent, node),
             makeEcmas6ClassTypeMenu(parent, node),
@@ -203,6 +211,7 @@ export default function TypeMenuFactory(
             makeEnumTypeMenu(parent, node),
             interfaceMenu,
             typeAliasMenu,
+            typeParameterMenu,
         )
         return menu
     }
