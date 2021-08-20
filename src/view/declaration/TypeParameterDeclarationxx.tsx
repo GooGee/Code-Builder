@@ -37,7 +37,7 @@ export default function TypeParameterDeclarationxx({
                     setEditing(true)
                 }}
             >
-                <HoverButton>
+                <HoverButton color="">
                     <span>
                         &lt;
                         {list
