@@ -223,18 +223,30 @@ export default function StatementMenuFactory(
                 const item = StatementFactory.makeVariableStatement(text)
                 BlockTransformer.addNode(parent, item, at)
             }),
-            MenuFactory.makeMenu('+ return', () => {
-                const item = StatementFactory.makeReturn()
-                BlockTransformer.addNode(parent, item, at)
-            }),
             // MenuFactory.makeMenu('+ switch', () => {
             //     const item = StatementFactory.makeSwitch()
             //     BlockTransformer.addNode(parent, item, at)
             // }),
-            MenuFactory.makeMenu('+ throw', () => {
-                const item = StatementFactory.makeThrow()
-                BlockTransformer.addNode(parent, item, at)
-            }),
+        )
+
+        if (Finder.inFunction(parent)) {
+            menu.list.push(
+                MenuFactory.makeMenu('+ return', () => {
+                    const item = StatementFactory.makeReturn()
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+            )
+        }
+        if (ts.isBlock(parent)) {
+            menu.list.push(
+                MenuFactory.makeMenu('+ throw', () => {
+                    const item = StatementFactory.makeThrow()
+                    BlockTransformer.addNode(parent, item, at)
+                }),
+            )
+        }
+
+        menu.list.push(
             MenuFactory.makeMenu('+ try', () => {
                 const item = StatementFactory.makeTry()
                 BlockTransformer.addNode(parent, item, at)
