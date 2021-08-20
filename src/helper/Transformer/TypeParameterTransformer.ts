@@ -8,7 +8,8 @@ function addNode(
         | ts.InterfaceDeclaration
         | ts.FunctionDeclaration
         | ts.MethodDeclaration
-        | ts.MethodSignature,
+        | ts.MethodSignature
+        | ts.TypeAliasDeclaration,
     at?: ts.TypeParameterDeclaration,
 ) {
     try {

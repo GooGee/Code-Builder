@@ -13,6 +13,7 @@ interface Props {
         | ts.FunctionDeclaration
         | ts.MethodDeclaration
         | ts.MethodSignature
+        | ts.TypeAliasDeclaration
 }
 
 export default function TypeParameterDeclarationxx({
