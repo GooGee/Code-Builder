@@ -2,6 +2,7 @@ import ts from 'typescript'
 import Menu from '../../model/Menu'
 import * as DeclarationFactory from '../Factory/DeclarationFactory'
 import * as StatementFactory from '../Factory/StatementFactory'
+import Finder from '../Finder/Finder'
 import InputTool from '../InputTool'
 import BlockTransformer from '../Transformer/BlockTransformer'
 import Transformer from '../Transformer/Transformer'
@@ -39,10 +40,10 @@ function inLoop(node: ts.Node): boolean {
     if (node.parent === undefined) {
         return false
     }
-    if (isFunction(node.parent)) {
+    if (ts.isFunctionLike(node.parent)) {
         return false
     }
-    if (isFor(node.parent)) {
+    if (Finder.isLoop(node.parent)) {
         return true
     }
     return inLoop(node.parent)
@@ -52,48 +53,13 @@ function inSwitch(node: ts.Node): boolean {
     if (node.parent === undefined) {
         return false
     }
-    if (isFunction(node.parent)) {
+    if (ts.isFunctionLike(node.parent)) {
         return false
     }
     if (ts.isSwitchStatement(node.parent)) {
         return true
     }
     return inSwitch(node.parent)
-}
-
-function isFor(node: ts.Node) {
-    if (ts.isDoStatement(node)) {
-        return true
-    }
-    if (ts.isForInStatement(node)) {
-        return true
-    }
-    if (ts.isForOfStatement(node)) {
-        return true
-    }
-    if (ts.isForStatement(node)) {
-        return true
-    }
-    if (ts.isWhileStatement(node)) {
-        return true
-    }
-    return false
-}
-
-function isFunction(node: ts.Node) {
-    if (ts.isArrowFunction(node)) {
-        return true
-    }
-    if (ts.isFunctionDeclaration(node)) {
-        return true
-    }
-    if (ts.isFunctionExpression(node)) {
-        return true
-    }
-    if (ts.isMethodDeclaration(node)) {
-        return true
-    }
-    return false
 }
 
 function makeVariableDeclarationMenu(node: ts.VariableDeclarationList) {
