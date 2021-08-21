@@ -14,7 +14,12 @@ export default function Literal({ node }: Props): ReactElement {
         const diagnostic = context.state?.worker.diagnosticMap.get(
             node.getStart(),
         )
-        return <ErrorTip text={text} diagnostic={diagnostic!}></ErrorTip>
+        return (
+            <span className="literal cursor-pointer">
+                {text}
+                <ErrorTip diagnostic={diagnostic!}></ErrorTip>
+            </span>
+        )
     }
     return <span className="literal cursor-pointer">{text}</span>
 }

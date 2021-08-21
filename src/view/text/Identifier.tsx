@@ -13,7 +13,12 @@ export default function Identifier({ node }: Props): ReactElement {
         const diagnostic = context.state?.worker.diagnosticMap.get(
             node.getStart(),
         )
-        return <ErrorTip text={node.text} diagnostic={diagnostic!}></ErrorTip>
+        return (
+            <span className="identifier cursor-pointer">
+                {node.text}
+                <ErrorTip diagnostic={diagnostic!}></ErrorTip>
+            </span>
+        )
     }
     return <span className="identifier cursor-pointer">{node.text}</span>
 }

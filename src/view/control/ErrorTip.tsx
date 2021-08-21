@@ -3,14 +3,17 @@ import Popup from 'reactjs-popup'
 import ts from 'typescript'
 
 interface Props {
-    text: string
+    text?: string
     diagnostic: ts.Diagnostic
 }
 
-export default function ErrorTip({ text, diagnostic }: Props): ReactElement {
+export default function ErrorTip({
+    text = 'X',
+    diagnostic,
+}: Props): ReactElement {
     return (
         <Popup
-            trigger={<span className="error cursor-pointer">{text}</span>}
+            trigger={<span className="error cursor-pointer"> {text} </span>}
             closeOnDocumentClick
             position="bottom left"
         >
