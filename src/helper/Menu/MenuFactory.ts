@@ -23,14 +23,20 @@ function makeMenu(
     cb: CallBack = nothing,
     disabled = false,
     isDivider = false,
+    isParent = false,
 ) {
-    return new Menu(title, cb, disabled, isDivider)
+    return new Menu(title, cb, disabled, isDivider, isParent)
+}
+
+function makeParentMenu(title: string) {
+    return makeMenu(title, undefined, false, false, true)
 }
 
 const MenuFactory = {
     addDelete,
     addSeparator,
     makeMenu,
+    makeParentMenu,
     nothing,
 }
 

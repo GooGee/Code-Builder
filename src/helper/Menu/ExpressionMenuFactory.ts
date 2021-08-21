@@ -13,7 +13,7 @@ function makeConstantMenu(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu('Constant')
+    const menu = MenuFactory.makeParentMenu('Constant')
     menu.list.push(
         MenuFactory.makeMenu('false', () => {
             const node = ts.factory.createFalse()
@@ -84,7 +84,7 @@ function makeEcmas6ClassMenu(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu('ES6 Class')
+    const menu = MenuFactory.makeParentMenu('ES6 Class')
     CommonTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
@@ -101,7 +101,7 @@ function makeParameterMenu(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu('Parameter')
+    const menu = MenuFactory.makeParentMenu('Parameter')
     ParameterFinder.getParameterList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name.getText(), () => {
@@ -120,7 +120,7 @@ function makeTypeMenu(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu(title)
+    const menu = MenuFactory.makeParentMenu(title)
     list.forEach((item) => {
         const name = item.name!.getText()
         menu.list.push(
@@ -138,7 +138,7 @@ function makeVariableMenu(
     propertyName: string,
     old?: ts.Expression,
 ) {
-    const menu = MenuFactory.makeMenu('Variable')
+    const menu = MenuFactory.makeParentMenu('Variable')
     if (Finder.inFunction(parent)) {
         menu.list.push(
             MenuFactory.makeMenu('this', () => {

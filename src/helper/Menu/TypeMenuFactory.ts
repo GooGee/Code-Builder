@@ -40,7 +40,7 @@ function makeBasicTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
-    const menu = MenuFactory.makeMenu('Basic')
+    const menu = MenuFactory.makeParentMenu('Basic')
     KeywordTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(KeywordText(item)!, () => {
@@ -66,7 +66,7 @@ function makeBasicTypeMenu(
 }
 
 function makeEnumTypeMenu(parent: ts.Node, node?: ts.TypeNode | ts.Identifier) {
-    const menu = MenuFactory.makeMenu('Enum')
+    const menu = MenuFactory.makeParentMenu('Enum')
     Finder.getEnumList(parent).forEach((item) => {
         const name = item.name.getText()
         menu.list.push(
@@ -88,7 +88,7 @@ export function makeEcmas6ClassTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
-    const menu = MenuFactory.makeMenu('ES6 Class')
+    const menu = MenuFactory.makeParentMenu('ES6 Class')
     CommonTypeList.forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item, () => {
@@ -125,7 +125,7 @@ export function makeTypeMenu(
     parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
-    const menu = MenuFactory.makeMenu(title)
+    const menu = MenuFactory.makeParentMenu(title)
     list.forEach((item) => {
         const name = item.name!.getText()
         menu.list.push(
