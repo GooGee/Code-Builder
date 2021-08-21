@@ -17,6 +17,7 @@ import ParenthesizedExpression from './ParenthesizedExpression'
 import PostfixUnaryExpression from './PostfixUnaryExpression'
 import PrefixUnaryExpression from './PrefixUnaryExpression'
 import PropertyAccessExpression from './PropertyAccessExpression'
+import ThisExpression from './ThisExpression'
 import TypeOfExpression from './TypeOfExpression'
 
 interface Props {
@@ -67,10 +68,12 @@ export default function Expression({
                 ></ElementAccessExpression>
             )
 
+        case ts.SyntaxKind.ThisKeyword:
+            return <ThisExpression node={node as any}></ThisExpression>
+
         case ts.SyntaxKind.FalseKeyword:
         case ts.SyntaxKind.NullKeyword:
         case ts.SyntaxKind.SuperKeyword:
-        case ts.SyntaxKind.ThisKeyword:
         case ts.SyntaxKind.TrueKeyword:
         case ts.SyntaxKind.UndefinedKeyword:
         case ts.SyntaxKind.VoidKeyword:

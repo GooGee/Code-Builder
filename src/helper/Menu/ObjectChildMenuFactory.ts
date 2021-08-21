@@ -65,7 +65,8 @@ function makeMenu(
         | ts.Identifier
         | ts.NewExpression
         | ts.NumericLiteral
-        | ts.StringLiteral,
+        | ts.StringLiteral
+        | ts.ThisExpression,
 ) {
     return MenuFactory.makeMenu(item.name, () => {
         if (ts.isPropertyAccessExpression(node.parent)) {
@@ -99,7 +100,8 @@ export default function ObjectChildMenuFactory(
         | ts.Identifier
         | ts.NewExpression
         | ts.NumericLiteral
-        | ts.StringLiteral,
+        | ts.StringLiteral
+        | ts.ThisExpression,
 ) {
     return () => {
         console.log('ObjectChildMenuFactory')
