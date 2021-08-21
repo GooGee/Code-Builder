@@ -31,19 +31,11 @@ export default function Assign({ node }: Props): ReactElement {
                 ></ExpressionRoot>
             )}{' '}
             <AssignToken token={node.operatorToken}></AssignToken>{' '}
-            {editing ? (
-                <ExpressionRootEdit
-                    node={node.right}
-                    parent={node}
-                    propertyName="right"
-                ></ExpressionRootEdit>
-            ) : (
-                <ExpressionRoot
-                    node={node.right}
-                    parent={node}
-                    propertyName="right"
-                ></ExpressionRoot>
-            )}
+            <ExpressionRoot
+                node={node.right}
+                parent={node}
+                propertyName="right"
+            ></ExpressionRoot>
         </span>
     )
 }
