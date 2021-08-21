@@ -22,6 +22,17 @@ function getEnumList(node: ts.Node) {
     return list
 }
 
+function getFunctionList(node: ts.Node) {
+    const list = new Array<ts.FunctionDeclaration>()
+    traversal(node, node, (statement) => {
+        if (ts.isFunctionDeclaration(statement)) {
+            list.push(statement)
+        }
+        return true
+    })
+    return list
+}
+
 function getInterfaceList(node: ts.Node) {
     const list = new Array<ts.InterfaceDeclaration>()
     traversal(node, node, (statement) => {
@@ -105,6 +116,7 @@ interface CallBack {
 const Finder = {
     getClassList,
     getEnumList,
+    getFunctionList,
     getInterfaceList,
     getTypeAliasList,
     inFunction,
