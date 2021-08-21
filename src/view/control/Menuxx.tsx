@@ -22,10 +22,14 @@ export default function Menuxx({ list }: Props): ReactElement {
         }
 
         let className = 'cursor-pointer p-2'
-        if (item.disabled) {
-            className += ' text-gray'
+        if (item.isParent && item.empty) {
+            className += ' text-gray-300'
         } else {
-            className += ' hover:bg-blue-200'
+            if (item.disabled) {
+                className += ' text-gray-300'
+            } else {
+                className += ' hover:bg-blue-200'
+            }
         }
         return (
             <li
@@ -33,7 +37,7 @@ export default function Menuxx({ list }: Props): ReactElement {
                     if (item.disabled) {
                         return
                     }
-                    if (item.list.length) {
+                    if (item.isParent) {
                         event.stopPropagation()
                         setChildxx(item.list as any)
                         return
@@ -44,7 +48,7 @@ export default function Menuxx({ list }: Props): ReactElement {
                 className={className}
                 key={uk()}
             >
-                {item.list.length ? '* ' : ''}
+                {item.isParent ? '* ' : ''}
                 {item.title}
             </li>
         )
