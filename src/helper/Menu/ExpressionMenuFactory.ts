@@ -171,6 +171,15 @@ export default function ExpressionMenuFactory(
         if (isLeft) {
             menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
+            const functionMenu = makeTypeMenu(
+                'Function',
+                Finder.getFunctionList(parent),
+                parent,
+                propertyName,
+                old,
+            )
+            menu.list.push(functionMenu)
+    
             menu.list.push(makeParameterMenu(parent, propertyName, old))
 
             menu.list.push(makeVariableMenu(parent, propertyName, old))
@@ -250,6 +259,15 @@ export default function ExpressionMenuFactory(
             old,
         )
         menu.list.push(enumMenu)
+
+        const functionMenu = makeTypeMenu(
+            'Function',
+            Finder.getFunctionList(parent),
+            parent,
+            propertyName,
+            old,
+        )
+        menu.list.push(functionMenu)
 
         menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
