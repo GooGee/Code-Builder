@@ -11,7 +11,11 @@ export default function ArrayType({ node }: Props): ReactElement {
         <span>
             <span className="identifier cursor-pointer">Array</span>
             &lt;
-            <TypeRoot node={node.elementType} parent={node}></TypeRoot>
+            <TypeRoot
+                node={node.elementType}
+                parent={node}
+                required={true}
+            ></TypeRoot>
             &gt;
         </span>
     )
