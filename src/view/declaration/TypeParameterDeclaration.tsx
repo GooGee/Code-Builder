@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import TypeParameterMenuFactory from '../../helper/Menu/TypeParameterMenuFactory'
-import MenuModal from '../control/MenuModal'
 import TextButton from '../control/TextButton'
+import TypeParameterMenu from '../control/TypeParameterMenu'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import TypeNode from '../type/TypeNode'
 
@@ -17,13 +17,17 @@ export default function TypeParameterDeclaration({
         <span>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             <span className="keyword"> extends </span>
-            <MenuModal factory={TypeParameterMenuFactory(node, node.constraint)}>
+            <TypeParameterMenu
+                factory={TypeParameterMenuFactory}
+                node={node.constraint}
+                parent={node}
+            >
                 {node.constraint === undefined ? (
                     <TextButton></TextButton>
                 ) : (
                     <TypeNode node={node.constraint}></TypeNode>
                 )}
-            </MenuModal>
+            </TypeParameterMenu>
         </span>
     )
 }
