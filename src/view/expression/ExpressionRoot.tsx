@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import MenuModal from '../control/MenuModal'
+import ExpressionMenu from '../control/ExpressionMenu'
 import TextButton from '../control/TextButton'
 import Expression from './Expression'
 
@@ -18,31 +18,22 @@ export default function ExpressionRoot({
     parent,
     propertyName,
 }: Props): ReactElement | null {
-    const [open, setOpen] = useState(false)
     const [visible, setVisible] = useState(false)
     return (
         <span
             onMouseEnter={(event) => setVisible(true)}
-            onMouseLeave={(event) => {
-                if (open) {
-                    return
-                }
-                setVisible(false)
-            }}
+            onMouseLeave={(event) => setVisible(false)}
         >
             {visible === false ? null : (
-                <MenuModal
-                    factory={ExpressionMenuFactory(
-                        parent,
-                        node,
-                        propertyName,
-                        isLeft,
-                    )}
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
+                <ExpressionMenu
+                    factory={ExpressionMenuFactory}
+                    node={node}
+                    parent={parent}
+                    propertyName={propertyName}
+                    isLeft={isLeft}
                 >
                     <TextButton></TextButton>
-                </MenuModal>
+                </ExpressionMenu>
             )}
 
             {node === undefined ? null : (

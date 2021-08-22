@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ExpressionMenuFactory from '../../helper/Menu/ExpressionMenuFactory'
-import MenuModal from '../control/MenuModal'
+import ExpressionMenu from '../control/ExpressionMenu'
 import TextButton from '../control/TextButton'
 import Expression from './Expression'
 
@@ -20,16 +20,15 @@ export default function ExpressionRootEdit({
 }: Props): ReactElement {
     return (
         <span>
-            <MenuModal
-                factory={ExpressionMenuFactory(
-                    parent,
-                    node,
-                    propertyName,
-                    isLeft,
-                )}
+            <ExpressionMenu
+                factory={ExpressionMenuFactory}
+                node={node}
+                parent={parent}
+                propertyName={propertyName}
+                isLeft={isLeft}
             >
                 <TextButton></TextButton>
-            </MenuModal>
+            </ExpressionMenu>
 
             {node === undefined ? null : (
                 <Expression editing={true} node={node}></Expression>
