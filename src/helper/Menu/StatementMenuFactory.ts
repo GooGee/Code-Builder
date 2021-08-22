@@ -136,135 +136,133 @@ export default function StatementMenuFactory(
     parent: ts.Block | ts.SourceFile,
     at?: ts.Statement,
 ) {
-    return () => {
-        console.log('StatementMenuFactory')
-        const menu = MenuFactory.makeMenu('')
-        if (at !== undefined) {
-            MenuFactory.addDelete(menu, at)
+    console.log('StatementMenuFactory')
+    const menu = MenuFactory.makeMenu('')
+    if (at !== undefined) {
+        MenuFactory.addDelete(menu, at)
+        MenuFactory.addSeparator(menu)
+        if (ts.isVariableStatement(at)) {
+            menu.list.push(makeVariableDeclarationMenu(at.declarationList))
             MenuFactory.addSeparator(menu)
-            if (ts.isVariableStatement(at)) {
-                menu.list.push(makeVariableDeclarationMenu(at.declarationList))
-                MenuFactory.addSeparator(menu)
-            }
         }
-
-        if (ts.isSourceFile(parent)) {
-            menu.list.push(
-                MenuFactory.makeMenu('+ class', () => {
-                    const text = makeName(parent.statements)
-                    if (text === null) {
-                        return
-                    }
-                    const item = DeclarationFactory.makeClass(text)
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-                MenuFactory.makeMenu('+ enum', () => {
-                    const text = makeName(parent.statements)
-                    if (text === null) {
-                        return
-                    }
-                    const item = DeclarationFactory.makeEnum(text)
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-                MenuFactory.makeMenu('+ function', () => {
-                    const text = makeName(parent.statements)
-                    if (text === null) {
-                        return
-                    }
-                    const item = DeclarationFactory.makeFunction(text)
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-                MenuFactory.makeMenu('+ interface', () => {
-                    const text = makeName(parent.statements)
-                    if (text === null) {
-                        return
-                    }
-                    const item = DeclarationFactory.makeInterface(text)
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-            )
-        }
-
-        menu.list.push(
-            MenuFactory.makeMenu('+ Assign', () => {
-                const item = StatementFactory.makeAssignStatement()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ Call', () => {
-                const item = StatementFactory.makeAccessStatement()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-        )
-
-        addLoopMenu(menu, parent, at)
-
-        menu.list.push(
-            MenuFactory.makeMenu('+ do', () => {
-                const item = StatementFactory.makeDoWhile()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ for', () => {
-                const item = StatementFactory.makeFor()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ for of', () => {
-                const item = StatementFactory.makeForOf()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ if', () => {
-                const item = StatementFactory.makeIf()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ let', () => {
-                const text = makeName(parent.statements)
-                if (text === null) {
-                    return
-                }
-                const item = StatementFactory.makeVariableStatement(text)
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            // MenuFactory.makeMenu('+ switch', () => {
-            //     const item = StatementFactory.makeSwitch()
-            //     BlockTransformer.addNode(parent, item, at)
-            // }),
-        )
-
-        if (Finder.inFunction(parent)) {
-            menu.list.push(
-                MenuFactory.makeMenu('+ return', () => {
-                    const item = StatementFactory.makeReturn()
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-            )
-        }
-        if (ts.isBlock(parent)) {
-            menu.list.push(
-                MenuFactory.makeMenu('+ throw', () => {
-                    const item = StatementFactory.makeThrow()
-                    BlockTransformer.addNode(parent, item, at)
-                }),
-            )
-        }
-
-        menu.list.push(
-            MenuFactory.makeMenu('+ try', () => {
-                const item = StatementFactory.makeTry()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ type', () => {
-                const text = makeName(parent.statements)
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeTypeAlias(text)
-                BlockTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ while', () => {
-                const item = StatementFactory.makeWhile()
-                BlockTransformer.addNode(parent, item, at)
-            }),
-        )
-
-        return menu
     }
+
+    if (ts.isSourceFile(parent)) {
+        menu.list.push(
+            MenuFactory.makeMenu('+ class', () => {
+                const text = makeName(parent.statements)
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeClass(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
+            MenuFactory.makeMenu('+ enum', () => {
+                const text = makeName(parent.statements)
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeEnum(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
+            MenuFactory.makeMenu('+ function', () => {
+                const text = makeName(parent.statements)
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeFunction(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
+            MenuFactory.makeMenu('+ interface', () => {
+                const text = makeName(parent.statements)
+                if (text === null) {
+                    return
+                }
+                const item = DeclarationFactory.makeInterface(text)
+                BlockTransformer.addNode(parent, item, at)
+            }),
+        )
+    }
+
+    menu.list.push(
+        MenuFactory.makeMenu('+ Assign', () => {
+            const item = StatementFactory.makeAssignStatement()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ Call', () => {
+            const item = StatementFactory.makeAccessStatement()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+    )
+
+    addLoopMenu(menu, parent, at)
+
+    menu.list.push(
+        MenuFactory.makeMenu('+ do', () => {
+            const item = StatementFactory.makeDoWhile()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ for', () => {
+            const item = StatementFactory.makeFor()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ for of', () => {
+            const item = StatementFactory.makeForOf()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ if', () => {
+            const item = StatementFactory.makeIf()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ let', () => {
+            const text = makeName(parent.statements)
+            if (text === null) {
+                return
+            }
+            const item = StatementFactory.makeVariableStatement(text)
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        // MenuFactory.makeMenu('+ switch', () => {
+        //     const item = StatementFactory.makeSwitch()
+        //     BlockTransformer.addNode(parent, item, at)
+        // }),
+    )
+
+    if (Finder.inFunction(parent)) {
+        menu.list.push(
+            MenuFactory.makeMenu('+ return', () => {
+                const item = StatementFactory.makeReturn()
+                BlockTransformer.addNode(parent, item, at)
+            }),
+        )
+    }
+    if (ts.isBlock(parent)) {
+        menu.list.push(
+            MenuFactory.makeMenu('+ throw', () => {
+                const item = StatementFactory.makeThrow()
+                BlockTransformer.addNode(parent, item, at)
+            }),
+        )
+    }
+
+    menu.list.push(
+        MenuFactory.makeMenu('+ try', () => {
+            const item = StatementFactory.makeTry()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ type', () => {
+            const text = makeName(parent.statements)
+            if (text === null) {
+                return
+            }
+            const item = DeclarationFactory.makeTypeAlias(text)
+            BlockTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ while', () => {
+            const item = StatementFactory.makeWhile()
+            BlockTransformer.addNode(parent, item, at)
+        }),
+    )
+
+    return menu
 }
