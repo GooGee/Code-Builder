@@ -164,101 +164,11 @@ export default function ExpressionMenuFactory(
     propertyName: string = 'expression',
     isLeft: boolean = false,
 ) {
-    return () => {
-        console.log('ExpressionMenuFactory')
+    console.log('ExpressionMenuFactory')
 
-        const menu = MenuFactory.makeMenu('')
-        if (isLeft) {
-            menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
-
-            const functionMenu = makeTypeMenu(
-                'Function',
-                Finder.getFunctionList(parent),
-                parent,
-                propertyName,
-                old,
-            )
-            menu.list.push(functionMenu)
-    
-            menu.list.push(makeParameterMenu(parent, propertyName, old))
-
-            menu.list.push(makeVariableMenu(parent, propertyName, old))
-
-            return menu
-        }
-
-        if (old !== undefined) {
-            if (ts.isReturnStatement(old.parent)) {
-                MenuFactory.addDelete(menu, old)
-                MenuFactory.addSeparator(menu)
-            }
-        }
-
-        if (old !== undefined) {
-            const one = MenuFactory.makeMenu('Compute', () => {
-                const node = ts.factory.createBinaryExpression(
-                    old,
-                    ts.SyntaxKind.EqualsEqualsEqualsToken,
-                    ts.factory.createNull(),
-                )
-                Transformer.replace(old, node)
-            })
-            menu.list.push(one)
-        }
-
-        const one = MenuFactory.makeMenu('Enter a Number', () => {
-            const value = prompt('Enter a Number')
-            if (value === null) {
-                return
-            }
-            if (isNaN(parseFloat(value))) {
-                alert('Invalid number')
-                return
-            }
-            LiteralTransformer.makeNumericLiteral(
-                value,
-                parent,
-                propertyName,
-                old,
-            )
-        })
-        menu.list.push(one)
-
-        const two = MenuFactory.makeMenu('Enter a String', () => {
-            const value = prompt('Enter a String')
-            if (value === null) {
-                return
-            }
-            LiteralTransformer.makeStringLiteral(
-                value,
-                parent,
-                propertyName,
-                old,
-            )
-        })
-        menu.list.push(two)
-
-        MenuFactory.addSeparator(menu)
-
-        menu.list.push(makeConstantMenu(parent, propertyName, old))
-
-        const classMenu = makeTypeMenu(
-            'Class',
-            Finder.getClassList(parent),
-            parent,
-            propertyName,
-            old,
-        )
-        menu.list.push(classMenu)
-
-        const enumMenu = makeTypeMenu(
-            'Enum',
-            Finder.getEnumList(parent),
-            parent,
-            propertyName,
-            old,
-        )
-        menu.list.push(enumMenu)
+    const menu = MenuFactory.makeMenu('')
+    if (isLeft) {
+        menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
 
         const functionMenu = makeTypeMenu(
             'Function',
@@ -269,12 +179,90 @@ export default function ExpressionMenuFactory(
         )
         menu.list.push(functionMenu)
 
-        menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
-
         menu.list.push(makeParameterMenu(parent, propertyName, old))
 
         menu.list.push(makeVariableMenu(parent, propertyName, old))
 
         return menu
     }
+
+    if (old !== undefined) {
+        if (ts.isReturnStatement(old.parent)) {
+            MenuFactory.addDelete(menu, old)
+            MenuFactory.addSeparator(menu)
+        }
+    }
+
+    if (old !== undefined) {
+        const one = MenuFactory.makeMenu('Compute', () => {
+            const node = ts.factory.createBinaryExpression(
+                old,
+                ts.SyntaxKind.EqualsEqualsEqualsToken,
+                ts.factory.createNull(),
+            )
+            Transformer.replace(old, node)
+        })
+        menu.list.push(one)
+    }
+
+    const one = MenuFactory.makeMenu('Enter a Number', () => {
+        const value = prompt('Enter a Number')
+        if (value === null) {
+            return
+        }
+        if (isNaN(parseFloat(value))) {
+            alert('Invalid number')
+            return
+        }
+        LiteralTransformer.makeNumericLiteral(value, parent, propertyName, old)
+    })
+    menu.list.push(one)
+
+    const two = MenuFactory.makeMenu('Enter a String', () => {
+        const value = prompt('Enter a String')
+        if (value === null) {
+            return
+        }
+        LiteralTransformer.makeStringLiteral(value, parent, propertyName, old)
+    })
+    menu.list.push(two)
+
+    MenuFactory.addSeparator(menu)
+
+    menu.list.push(makeConstantMenu(parent, propertyName, old))
+
+    const classMenu = makeTypeMenu(
+        'Class',
+        Finder.getClassList(parent),
+        parent,
+        propertyName,
+        old,
+    )
+    menu.list.push(classMenu)
+
+    const enumMenu = makeTypeMenu(
+        'Enum',
+        Finder.getEnumList(parent),
+        parent,
+        propertyName,
+        old,
+    )
+    menu.list.push(enumMenu)
+
+    const functionMenu = makeTypeMenu(
+        'Function',
+        Finder.getFunctionList(parent),
+        parent,
+        propertyName,
+        old,
+    )
+    menu.list.push(functionMenu)
+
+    menu.list.push(makeEcmas6ClassMenu(parent, propertyName, old))
+
+    menu.list.push(makeParameterMenu(parent, propertyName, old))
+
+    menu.list.push(makeVariableMenu(parent, propertyName, old))
+
+    return menu
 }
