@@ -22,10 +22,8 @@ const AssignTokenList = [
 ]
 
 export function AssignTokenMenuFactory(token: ts.BinaryOperatorToken) {
-    return () => {
-        console.log('AssignTokenMenuFactory')
-        return makeAllMenu(token, AssignTokenList)
-    }
+    console.log('AssignTokenMenuFactory')
+    return makeAllMenu(token, AssignTokenList)
 }
 
 const ComputeTokenList = [
@@ -57,10 +55,8 @@ const ComputeTokenList = [
 ]
 
 export function ComputeTokenMenuFactory(token: ts.BinaryOperatorToken) {
-    return () => {
-        console.log('ComputeTokenMenuFactory')
-        return makeAllMenu(token, ComputeTokenList)
-    }
+    console.log('ComputeTokenMenuFactory')
+    return makeAllMenu(token, ComputeTokenList)
 }
 
 export function makeMenu(parent: ts.BinaryExpression, kind: ts.SyntaxKind) {
