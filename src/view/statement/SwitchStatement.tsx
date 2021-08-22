@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import CaseBlock from '../block/CaseBlock'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
 
@@ -13,11 +13,13 @@ interface Props {
 export default function SwitchStatement({ node }: Props): ReactElement {
     return (
         <span>
-            <MenuModal
-                factory={StatementMenuFactory(node.parent as any, node)}
+            <StatementMenu
+                factory={StatementMenuFactory}
+                node={node}
+                parent={node.parent as any}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuModal>
+            </StatementMenu>
             <ExpressionRoot
                 node={node.expression}
                 parent={node}

@@ -5,7 +5,7 @@ import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import UniqueKey from '../../helper/UniqueKey'
 import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
@@ -20,11 +20,13 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <MenuModal
-                factory={StatementMenuFactory(node.parent as any, node)}
+            <StatementMenu
+                factory={StatementMenuFactory}
+                node={node}
+                parent={node.parent as any}
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuModal>
+            </StatementMenu>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             {' {'}
             <div className="pl-11">

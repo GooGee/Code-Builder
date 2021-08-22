@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import HoverButton from '../control/HoverButton'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import Statementxx from '../statement/Statementxx'
 
 interface Props {
@@ -20,9 +20,9 @@ export default function Block({ node }: Props): ReactElement | null {
             <div onClick={(event) => event.stopPropagation()} className="pl-11">
                 <Statementxx list={node.statements}></Statementxx>
                 {node.statements.length > 0 ? null : (
-                    <MenuModal factory={StatementMenuFactory(node)}>
+                    <StatementMenu factory={StatementMenuFactory} parent={node}>
                         <HoverButton>+</HoverButton>
-                    </MenuModal>
+                    </StatementMenu>
                 )}
             </div>
             {'}'}

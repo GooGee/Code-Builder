@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Equal from '../text/Equal'
 import Keyword from '../text/Keyword'
@@ -16,9 +16,13 @@ export default function TypeAliasDeclaration({ node }: Props): ReactElement {
     const [hovering, setHovering] = useState(false)
     return (
         <span>
-            <MenuModal factory={StatementMenuFactory(node.parent as any, node)}>
+            <StatementMenu
+                factory={StatementMenuFactory}
+                node={node}
+                parent={node.parent as any}
+            >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
-            </MenuModal>
+            </StatementMenu>
             <span
                 onMouseEnter={(event) => setHovering(true)}
                 onMouseLeave={(event) => setHovering(false)}

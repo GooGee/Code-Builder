@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import VariableDeclarationList from '../declaration/VariableDeclarationList'
 import Assign from '../expression/Assign'
 import BinaryExpression from '../expression/BinaryExpression'
@@ -17,11 +17,13 @@ export default function ForStatement({ node }: Props): ReactElement {
     return (
         <span>
             <span>
-                <MenuModal
-                    factory={StatementMenuFactory(node.parent as any, node)}
-                >
-                    <Keyword kind={node.kind} suffix=" "></Keyword>
-                </MenuModal>
+            <StatementMenu
+                factory={StatementMenuFactory}
+                node={node}
+                parent={node.parent as any}
+            >
+                <Keyword kind={node.kind} suffix=" "></Keyword>
+            </StatementMenu>
                 <VariableDeclarationList
                     node={node.initializer as any}
                 ></VariableDeclarationList>

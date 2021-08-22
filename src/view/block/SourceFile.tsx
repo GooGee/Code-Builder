@@ -3,7 +3,7 @@ import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Vendor from '../../model/Vendor'
 import SourceFileContext, { ContextData } from '../context/SourceFileContext'
 import HoverButton from '../control/HoverButton'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import Statementxx from '../statement/Statementxx'
 
 interface Props {
@@ -12,10 +12,8 @@ interface Props {
 
 export default function SourceFile({ state }: Props): ReactElement | null {
     const [ast, setSourceFile] = useState(state.sf)
-    const [key, setKey] = useState('key')
     function update() {
         setSourceFile(state.sf)
-        setKey('key' + Date().toString())
     }
     const data = new ContextData(state, update)
     return (
@@ -24,10 +22,10 @@ export default function SourceFile({ state }: Props): ReactElement | null {
                 {ast.statements.length === 0 ? null : (
                     <Statementxx list={ast.statements}></Statementxx>
                 )}
-                <div key={key}>
-                    <MenuModal factory={StatementMenuFactory(ast)}>
+                <div>
+                    <StatementMenu factory={StatementMenuFactory} parent={ast}>
                         <HoverButton>+</HoverButton>
-                    </MenuModal>
+                    </StatementMenu>
                 </div>
             </div>
         </SourceFileContext.Provider>

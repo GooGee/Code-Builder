@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import MenuModal from '../control/MenuModal'
+import StatementMenu from '../control/StatementMenu'
 import Keyword from '../text/Keyword'
 
 interface Props {
@@ -10,8 +10,12 @@ interface Props {
 
 export default function KeywordStatement({ node }: Props): ReactElement {
     return (
-        <MenuModal factory={StatementMenuFactory(node.parent as any, node)}>
+        <StatementMenu
+            factory={StatementMenuFactory}
+            node={node}
+            parent={node.parent as any}
+        >
             <Keyword kind={node.kind} suffix=" "></Keyword>
-        </MenuModal>
+        </StatementMenu>
     )
 }
