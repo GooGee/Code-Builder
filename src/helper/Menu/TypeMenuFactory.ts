@@ -171,48 +171,46 @@ export default function TypeMenuFactory(
     node?: ts.TypeNode | ts.Identifier,
     required = false,
 ) {
-    return () => {
-        console.log('TypeMenuFactory')
-        const menu = MenuFactory.makeMenu('')
-        if (node !== undefined && required === false) {
-            MenuFactory.addDelete(menu, node)
-            MenuFactory.addSeparator(menu)
-        }
-
-        const classMenu = makeTypeMenu(
-            'Class',
-            Finder.getClassList(parent),
-            parent,
-            node,
-        )
-        const interfaceMenu = makeTypeMenu(
-            'Interface',
-            Finder.getInterfaceList(parent),
-            parent,
-            node,
-        )
-        const typeAliasMenu = makeTypeMenu(
-            'TypeAlias',
-            Finder.getTypeAliasList(parent),
-            parent,
-            node,
-        )
-        const typeParameterMenu = makeTypeMenu(
-            'TypeParameter',
-            TypeParameterFinder.getTypeParameterList(parent),
-            parent,
-            node,
-        )
-
-        menu.list.push(
-            makeBasicTypeMenu(parent, node),
-            makeEcmas6ClassTypeMenu(parent, node),
-            classMenu,
-            makeEnumTypeMenu(parent, node),
-            interfaceMenu,
-            typeAliasMenu,
-            typeParameterMenu,
-        )
-        return menu
+    console.log('TypeMenuFactory')
+    const menu = MenuFactory.makeMenu('')
+    if (node !== undefined && required === false) {
+        MenuFactory.addDelete(menu, node)
+        MenuFactory.addSeparator(menu)
     }
+
+    const classMenu = makeTypeMenu(
+        'Class',
+        Finder.getClassList(parent),
+        parent,
+        node,
+    )
+    const interfaceMenu = makeTypeMenu(
+        'Interface',
+        Finder.getInterfaceList(parent),
+        parent,
+        node,
+    )
+    const typeAliasMenu = makeTypeMenu(
+        'TypeAlias',
+        Finder.getTypeAliasList(parent),
+        parent,
+        node,
+    )
+    const typeParameterMenu = makeTypeMenu(
+        'TypeParameter',
+        TypeParameterFinder.getTypeParameterList(parent),
+        parent,
+        node,
+    )
+
+    menu.list.push(
+        makeBasicTypeMenu(parent, node),
+        makeEcmas6ClassTypeMenu(parent, node),
+        classMenu,
+        makeEnumTypeMenu(parent, node),
+        interfaceMenu,
+        typeAliasMenu,
+        typeParameterMenu,
+    )
+    return menu
 }
