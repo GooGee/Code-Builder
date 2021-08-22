@@ -4,7 +4,6 @@ import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import StatementMenu from '../control/StatementMenu'
 import Assign from '../expression/Assign'
 import ExpressionRoot from '../expression/ExpressionRoot'
-import PointerText from '../text/PointerText'
 
 interface Props {
     node: ts.ExpressionStatement
@@ -19,7 +18,7 @@ export default function ExpressionStatement({ node }: Props): ReactElement {
                     node={node}
                     parent={node.parent as any}
                 >
-                    <PointerText>assign </PointerText>
+                    <span className="keyword cursor-pointer">assign </span>
                 </StatementMenu>
                 <Assign node={node.expression}></Assign>
             </span>
@@ -33,7 +32,7 @@ export default function ExpressionStatement({ node }: Props): ReactElement {
                 node={node}
                 parent={node.parent as any}
             >
-                <PointerText>call </PointerText>
+                <span className="keyword cursor-pointer">call </span>
             </StatementMenu>
             <ExpressionRoot
                 isLeft={true}

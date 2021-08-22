@@ -5,7 +5,6 @@ import Block from '../block/Block'
 import CatchClause from '../block/CatchClause'
 import StatementMenu from '../control/StatementMenu'
 import Keyword from '../text/Keyword'
-import PointerText from '../text/PointerText'
 
 interface Props {
     node: ts.TryStatement
@@ -26,16 +25,17 @@ export default function TryStatement({ node }: Props): ReactElement {
             </StatementMenu>{' '}
             <Block node={node.tryBlock}></Block>
             <CatchClause node={node.catchClause!}></CatchClause>
-            <PointerText
+            <span
                 onClick={() => {
                     if (node.finallyBlock!.statements.length) {
                         return
                     }
                     setVisible(!visible)
                 }}
+                className="keyword cursor-pointer"
             >
                 {' finally '}
-            </PointerText>
+            </span>
             {visible === false ? (
                 '{}'
             ) : (

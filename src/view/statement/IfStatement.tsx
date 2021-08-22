@@ -5,7 +5,6 @@ import Block from '../block/Block'
 import StatementMenu from '../control/StatementMenu'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
-import PointerText from '../text/PointerText'
 
 interface Props {
     node: ts.IfStatement
@@ -28,16 +27,17 @@ export default function IfStatement({ node }: Props): ReactElement {
                 parent={node}
             ></ExpressionRoot>{' '}
             <Block node={node.thenStatement as any}></Block>
-            <PointerText
+            <span
                 onClick={() => {
                     if (block.statements.length) {
                         return
                     }
                     setVisible(!visible)
                 }}
+                className="keyword cursor-pointer"
             >
                 {' else '}
-            </PointerText>
+            </span>
             {visible === false ? (
                 '{}'
             ) : (
