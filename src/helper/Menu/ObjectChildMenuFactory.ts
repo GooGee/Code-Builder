@@ -4,34 +4,52 @@ import state from '../../state'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
-function addCallMenu(menu: Menu, node: ts.Identifier) {
+function addCallNewMenu(menu: Menu, node: ts.Identifier) {
     const type = state.worker.checker.getType(node)
 
     const csxx = type.getConstructSignatures()
     if (csxx.length) {
         if (ts.isNewExpression(node.parent)) {
-            csxx.forEach((item) => {
-                const text = item.declaration?.getText() ?? '()'
-                const mmm = MenuFactory.makeMenu(text, () => {
-                    const nnn = ts.factory.createNewExpression(node, [], [])
-                    Transformer.replace(node.parent, nnn)
-                })
-                menu.list.push(mmm)
-            })
+            addNewMenu(csxx, menu, node, node.parent)
         } else {
-            csxx.forEach((item) => {
-                const text = item.declaration?.getText() ?? '()'
-                const mmm = MenuFactory.makeMenu(text, () => {
-                    const nnn = ts.factory.createNewExpression(node, [], [])
-                    Transformer.replace(node, nnn)
-                })
-                menu.list.push(mmm)
-            })
+            addNewMenu(csxx, menu, node, node)
         }
         return
     }
 
     makeCallMenu(menu, type.getCallSignatures(), node.parent, node)
+}
+
+function addCallMenu(
+    csxx: readonly ts.Signature[],
+    menu: Menu,
+    node: ts.Identifier | ts.PropertyAccessExpression,
+    replace: ts.Node,
+) {
+    csxx.forEach((item) => {
+        const text = item.declaration?.getText() ?? '()'
+        const mmm = MenuFactory.makeMenu(text, () => {
+            const nnn = ts.factory.createCallExpression(node, [], [])
+            Transformer.replace(replace, nnn)
+        })
+        menu.list.push(mmm)
+    })
+}
+
+function addNewMenu(
+    csxx: readonly ts.Signature[],
+    menu: Menu,
+    node: ts.Identifier,
+    replace: ts.Node,
+) {
+    csxx.forEach((item) => {
+        const text = item.declaration?.getText() ?? '()'
+        const mmm = MenuFactory.makeMenu(text, () => {
+            const nnn = ts.factory.createNewExpression(node, [], [])
+            Transformer.replace(replace, nnn)
+        })
+        menu.list.push(mmm)
+    })
 }
 
 function makeCallMenu(
@@ -46,25 +64,11 @@ function makeCallMenu(
     }
 
     if (ts.isCallExpression(parent)) {
-        list.forEach((item) => {
-            const text = item.declaration?.getText() ?? '()'
-            const mmm = MenuFactory.makeMenu(text, () => {
-                const nnn = ts.factory.createCallExpression(node, [], [])
-                Transformer.replace(parent, nnn)
-            })
-            menu.list.push(mmm)
-        })
+        addCallMenu(list, menu, node, parent)
         return
     }
 
-    list.forEach((item) => {
-        const text = item.declaration?.getText() ?? '()'
-        const mmm = MenuFactory.makeMenu(text, () => {
-            const nnn = ts.factory.createCallExpression(node, [], [])
-            Transformer.replace(node, nnn)
-        })
-        menu.list.push(mmm)
-    })
+    addCallMenu(list, menu, node, node)
 }
 
 function makeMenu(item: ts.Symbol, node: ObjectType) {
@@ -107,7 +111,7 @@ export default function ObjectChildMenuFactory(node: ObjectType) {
     const menu = MenuFactory.makeMenu('')
     const type = state.worker.checker.getType(node)
     if (ts.isIdentifier(node)) {
-        addCallMenu(menu, node)
+        addCallNewMenu(menu, node)
         if (type.symbol) {
             if (type.symbol.escapedName === 'Array') {
                 menu.list.push(makeElementAccessExpressionMenu(node))
