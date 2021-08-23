@@ -31,29 +31,21 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
         return
     }
 
-    const parent = node.parent
-    const list = type.getCallSignatures()
+    makeCallMenu(menu, type.getCallSignatures(), node.parent, node)
+}
+
+function makeCallMenu(
+    menu: Menu,
+    list: readonly ts.Signature[],
+    parent: ts.Node,
+    node: ts.Identifier | ts.PropertyAccessExpression,
+) {
     if (ts.isPropertyAccessExpression(parent)) {
-        if (ts.isCallExpression(parent.parent)) {
-            list.forEach((item) => {
-                const text = item.declaration?.getText() ?? '()'
-                const mmm = MenuFactory.makeMenu(text, () => {
-                    const nnn = ts.factory.createCallExpression(parent, [], [])
-                    Transformer.replace(parent.parent, nnn)
-                })
-                menu.list.push(mmm)
-            })
-        } else {
-            list.forEach((item) => {
-                const text = item.declaration?.getText() ?? '()'
-                const mmm = MenuFactory.makeMenu(text, () => {
-                    const nnn = ts.factory.createCallExpression(parent, [], [])
-                    Transformer.replace(parent, nnn)
-                })
-                menu.list.push(mmm)
-            })
-        }
-    } else if (ts.isCallExpression(parent)) {
+        makeCallMenu(menu, list, parent.parent, parent)
+        return
+    }
+
+    if (ts.isCallExpression(parent)) {
         list.forEach((item) => {
             const text = item.declaration?.getText() ?? '()'
             const mmm = MenuFactory.makeMenu(text, () => {
@@ -62,16 +54,17 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
             })
             menu.list.push(mmm)
         })
-    } else {
-        list.forEach((item) => {
-            const text = item.declaration?.getText() ?? '()'
-            const mmm = MenuFactory.makeMenu(text, () => {
-                const nnn = ts.factory.createCallExpression(node, [], [])
-                Transformer.replace(node, nnn)
-            })
-            menu.list.push(mmm)
-        })
+        return
     }
+
+    list.forEach((item) => {
+        const text = item.declaration?.getText() ?? '()'
+        const mmm = MenuFactory.makeMenu(text, () => {
+            const nnn = ts.factory.createCallExpression(node, [], [])
+            Transformer.replace(node, nnn)
+        })
+        menu.list.push(mmm)
+    })
 }
 
 function makeMenu(item: ts.Symbol, node: ObjectType) {
