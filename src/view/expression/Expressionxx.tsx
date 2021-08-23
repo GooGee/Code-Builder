@@ -3,7 +3,7 @@ import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import Button from '../control/Button'
 import HoverButton from '../control/HoverButton'
-import MenuButton from '../control/MenuButton'
+import ObjectChildMenu from '../control/ObjectChildMenu'
 import ArgumentTable from './ArgumentTable'
 import ArrayBox from './ArrayBox'
 
@@ -53,9 +53,9 @@ export default function Expressionxx({
                 <HoverButton color="">{prefix}</HoverButton>
                 {list.map((node) => node.getText()).join(', ')}
             </span>
-            <MenuButton factory={ObjectChildMenuFactory(parent)}>
+            <ObjectChildMenu factory={ObjectChildMenuFactory} node={parent}>
                 <HoverButton color="">{suffix}</HoverButton>
-            </MenuButton>
+            </ObjectChildMenu>
         </span>
     )
 }

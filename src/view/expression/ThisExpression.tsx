@@ -3,7 +3,7 @@ import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
 import SourceFileContext from '../context/SourceFileContext'
 import ErrorTip from '../control/ErrorTip'
-import MenuButton from '../control/MenuButton'
+import ObjectChildMenu from '../control/ObjectChildMenu'
 import Keyword from '../text/Keyword'
 
 interface Props {
@@ -18,9 +18,9 @@ export default function ThisExpression({ node }: Props): ReactElement {
         )
         return (
             <span>
-                <MenuButton factory={ObjectChildMenuFactory(node)}>
+                <ObjectChildMenu factory={ObjectChildMenuFactory} node={node}>
                     <Keyword kind={node.kind as any}></Keyword>
-                </MenuButton>
+                </ObjectChildMenu>
 
                 <span className="identifier cursor-pointer">
                     <ErrorTip diagnostic={diagnostic!}></ErrorTip>
@@ -29,8 +29,8 @@ export default function ThisExpression({ node }: Props): ReactElement {
         )
     }
     return (
-        <MenuButton factory={ObjectChildMenuFactory(node)}>
+        <ObjectChildMenu factory={ObjectChildMenuFactory} node={node}>
             <Keyword kind={node.kind as any}></Keyword>
-        </MenuButton>
+        </ObjectChildMenu>
     )
 }

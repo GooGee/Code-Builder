@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
-import MenuButton from '../control/MenuButton'
+import ObjectChildMenu from '../control/ObjectChildMenu'
 import Literal from '../text/Literal'
 
 interface Props {
@@ -10,8 +10,8 @@ interface Props {
 
 export default function LiteralExpression({ node }: Props): ReactElement {
     return (
-        <MenuButton factory={ObjectChildMenuFactory(node)}>
+        <ObjectChildMenu factory={ObjectChildMenuFactory} node={node}>
             <Literal node={node}></Literal>
-        </MenuButton>
+        </ObjectChildMenu>
     )
 }
