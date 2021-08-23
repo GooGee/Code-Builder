@@ -4,7 +4,7 @@ import MenuFactory from './MenuFactory'
 import { makeEcmas6ClassTypeMenu, makeTypeMenu } from './TypeMenuFactory'
 
 export default function TypeParameterMenuFactory(
-    parent: ts.Node,
+    parent: ts.TypeParameterDeclaration,
     node?: ts.TypeNode | ts.Identifier,
 ) {
     console.log('TypeParameterMenuFactory')

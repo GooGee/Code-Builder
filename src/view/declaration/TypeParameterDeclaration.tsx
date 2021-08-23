@@ -1,8 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import TypeParameterMenuFactory from '../../helper/Menu/TypeParameterMenuFactory'
+import Menu from '../../model/Menu'
+import Menuxx from '../control/Menuxx'
+import ModalDialog from '../control/ModalDialog'
 import TextButton from '../control/TextButton'
-import TypeParameterMenu from '../control/TypeParameterMenu'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import TypeNode from '../type/TypeNode'
 
@@ -13,21 +15,27 @@ interface Props {
 export default function TypeParameterDeclaration({
     node,
 }: Props): ReactElement {
+    const [list, setList] = useState<Menu[]>([])
     return (
         <span>
             <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
             <span className="keyword"> extends </span>
-            <TypeParameterMenu
-                factory={TypeParameterMenuFactory}
-                node={node.constraint}
-                parent={node}
+            <ModalDialog
+                onOpen={() =>
+                    setList(
+                        TypeParameterMenuFactory(node, node.constraint).list,
+                    )
+                }
+                trigger={
+                    node.constraint === undefined ? (
+                        <TextButton></TextButton>
+                    ) : (
+                        <TypeNode node={node.constraint}></TypeNode>
+                    )
+                }
             >
-                {node.constraint === undefined ? (
-                    <TextButton></TextButton>
-                ) : (
-                    <TypeNode node={node.constraint}></TypeNode>
-                )}
-            </TypeParameterMenu>
+                <Menuxx list={list}></Menuxx>
+            </ModalDialog>
         </span>
     )
 }
