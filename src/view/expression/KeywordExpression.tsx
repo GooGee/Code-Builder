@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
-import KeywordText from '../../helper/KeywordText'
 import SourceFileContext from '../context/SourceFileContext'
 import ErrorTip from '../control/ErrorTip'
 import Keyword from '../text/Keyword'
@@ -15,11 +14,13 @@ export default function KeywordExpression({ node }: Props): ReactElement {
         const diagnostic = context.state?.worker.diagnosticMap.get(
             node.getStart(),
         )
-        const text = ts.tokenToString(node.kind) ?? KeywordText(node.kind)
-        if (text === undefined) {
-            throw new Error(`Keyword not found: ${ts.SyntaxKind[node.kind]}`)
-        }
-        return <ErrorTip text={text} diagnostic={diagnostic!}></ErrorTip>
+        return (
+            <span>
+                <Keyword kind={node.kind as any}></Keyword>
+                <ErrorTip diagnostic={diagnostic!}></ErrorTip>
+            </span>
+        )
     }
+    // console.log(ts.SyntaxKind[node.kind])
     return <Keyword kind={node.kind as any}></Keyword>
 }
