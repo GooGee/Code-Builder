@@ -110,29 +110,27 @@ export type ObjectType =
     | ts.ThisExpression
 
 export default function ObjectChildMenuFactory(node: ObjectType) {
-    return () => {
-        console.log('ObjectChildMenuFactory')
-        const menu = MenuFactory.makeMenu('')
-        const type = state.worker.checker.getType(node)
-        if (ts.isIdentifier(node)) {
-            addCallMenu(menu, node)
-            if (type.symbol) {
-                if (type.symbol.escapedName === 'Array') {
-                    menu.list.push(makeElementAccessExpressionMenu(node))
-                }
-            } else {
-                const ttt = type as any
-                if (ttt.intrinsicName === 'string') {
-                    menu.list.push(makeElementAccessExpressionMenu(node))
-                }
+    console.log('ObjectChildMenuFactory')
+    const menu = MenuFactory.makeMenu('')
+    const type = state.worker.checker.getType(node)
+    if (ts.isIdentifier(node)) {
+        addCallMenu(menu, node)
+        if (type.symbol) {
+            if (type.symbol.escapedName === 'Array') {
+                menu.list.push(makeElementAccessExpressionMenu(node))
+            }
+        } else {
+            const ttt = type as any
+            if (ttt.intrinsicName === 'string') {
+                menu.list.push(makeElementAccessExpressionMenu(node))
             }
         }
-
-        type.getProperties()
-            .filter((item) => item.name[0] !== '_')
-            .forEach((item) => {
-                menu.list.push(makeMenu(item, node))
-            })
-        return menu
     }
+
+    type.getProperties()
+        .filter((item) => item.name[0] !== '_')
+        .forEach((item) => {
+            menu.list.push(makeMenu(item, node))
+        })
+    return menu
 }
