@@ -74,17 +74,7 @@ function addCallMenu(menu: Menu, node: ts.Identifier) {
     }
 }
 
-function makeMenu(
-    item: ts.Symbol,
-    node:
-        | ts.ArrayLiteralExpression
-        | ts.CallExpression
-        | ts.Identifier
-        | ts.NewExpression
-        | ts.NumericLiteral
-        | ts.StringLiteral
-        | ts.ThisExpression,
-) {
+function makeMenu(item: ts.Symbol, node: ObjectType) {
     return MenuFactory.makeMenu(item.name, () => {
         if (ts.isPropertyAccessExpression(node.parent)) {
             const type = ts.factory.createPropertyAccessExpression(
@@ -110,16 +100,16 @@ function makeElementAccessExpressionMenu(node: ts.Identifier) {
     })
 }
 
-export default function ObjectChildMenuFactory(
-    node:
-        | ts.ArrayLiteralExpression
-        | ts.CallExpression
-        | ts.Identifier
-        | ts.NewExpression
-        | ts.NumericLiteral
-        | ts.StringLiteral
-        | ts.ThisExpression,
-) {
+export type ObjectType =
+    | ts.ArrayLiteralExpression
+    | ts.CallExpression
+    | ts.Identifier
+    | ts.NewExpression
+    | ts.NumericLiteral
+    | ts.StringLiteral
+    | ts.ThisExpression
+
+export default function ObjectChildMenuFactory(node: ObjectType) {
     return () => {
         console.log('ObjectChildMenuFactory')
         const menu = MenuFactory.makeMenu('')
