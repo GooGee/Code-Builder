@@ -2,12 +2,12 @@ import ts from 'typescript'
 import { makeVariable } from './DeclarationFactory'
 
 export function makeAccessStatement() {
-    return ts.factory.createExpressionStatement(ts.factory.createThis())
+    return ts.factory.createExpressionStatement(ts.factory.createNull())
 }
 
 export function makeAssignStatement() {
     const expression = ts.factory.createBinaryExpression(
-        ts.factory.createIdentifier('variable'),
+        ts.factory.createNull(),
         ts.SyntaxKind.EqualsToken,
         ts.factory.createNull(),
     )
@@ -70,7 +70,7 @@ export function makeForIn() {
     )
     return ts.factory.createForInStatement(
         vdl,
-        ts.factory.createIdentifier('object'),
+        ts.factory.createNull(),
         ts.factory.createBlock([]),
     )
 }
@@ -84,7 +84,7 @@ export function makeForOf() {
     return ts.factory.createForOfStatement(
         undefined,
         vdl,
-        ts.factory.createIdentifier('list'),
+        ts.factory.createNull(),
         ts.factory.createBlock([]),
     )
 }
@@ -114,7 +114,7 @@ export function makeThrow() {
         ts.factory.createNewExpression(
             ts.factory.createIdentifier('Error'),
             undefined,
-            [ts.factory.createStringLiteral('Error')],
+            [],
         ),
     )
 }
