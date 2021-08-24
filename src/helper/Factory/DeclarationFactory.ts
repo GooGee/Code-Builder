@@ -55,8 +55,6 @@ export function makeFunction(name: string) {
 function makeHeritage(
     token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword,
 ) {
-    // const expression = makeExpressionWithTypeArguments(ts.factory.createIdentifier('Array'))
-    // const list: Array<ts.ExpressionWithTypeArguments> = [expression]
     return ts.factory.createHeritageClause(token, [])
 }
 
