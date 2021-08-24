@@ -17,19 +17,21 @@ export default function PropertyDeclaration({
 }: Props): ReactElement {
     const [hovering, setHovering] = useState(false)
     return (
-        <div>
-            <Modifierxx list={node.modifiers}></Modifierxx>
-            <span
-                onMouseEnter={(event) => setHovering(true)}
-                onMouseLeave={(event) => setHovering(false)}
-            >
-                {hovering ? (
-                    <MenuButton factory={() => ClassMenuFactory(parent, node)}>
-                        <HoverButton> p </HoverButton>
-                    </MenuButton>
-                ) : null}
-                <NameTypeValue node={node}></NameTypeValue>
-            </span>
+        <div
+            onMouseEnter={(event) => setHovering(true)}
+            onMouseLeave={(event) => setHovering(false)}
+        >
+            {hovering ? (
+                <MenuButton factory={() => ClassMenuFactory(parent, node)}>
+                    <HoverButton> p </HoverButton>
+                </MenuButton>
+            ) : null}
+            {node.modifiers === undefined ? null : (
+                <span>
+                    <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+                </span>
+            )}
+            <NameTypeValue node={node}></NameTypeValue>
         </div>
     )
 }

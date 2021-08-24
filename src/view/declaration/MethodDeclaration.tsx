@@ -23,7 +23,6 @@ export default function MethodDeclaration({
     const [hovering, setHovering] = useState(false)
     return (
         <div>
-            <Modifierxx list={node.modifiers}></Modifierxx>
             <span
                 onMouseEnter={(event) => setHovering(true)}
                 onMouseLeave={(event) => setHovering(false)}
@@ -33,6 +32,11 @@ export default function MethodDeclaration({
                         <HoverButton> m </HoverButton>
                     </MenuButton>
                 ) : null}
+                {node.modifiers === undefined ? null : (
+                    <span>
+                        <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+                    </span>
+                )}
                 <IdentifierDeclaration
                     node={node.name as any}
                 ></IdentifierDeclaration>
