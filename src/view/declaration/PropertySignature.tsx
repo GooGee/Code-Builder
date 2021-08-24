@@ -24,7 +24,7 @@ export default function PropertySignature({
                 onMouseLeave={(event) => setHovering(false)}
             >
                 {hovering ? (
-                    <MenuButton factory={InterfaceMenuFactory(parent, node)}>
+                    <MenuButton factory={() => InterfaceMenuFactory(parent, node)}>
                         <HoverButton> p </HoverButton>
                     </MenuButton>
                 ) : null}

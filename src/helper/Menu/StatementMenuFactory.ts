@@ -125,11 +125,9 @@ function makeName(statementxx: ts.NodeArray<ts.Statement>, name?: string) {
 export function VariableDeclarationMenuFactory(
     node: ts.VariableDeclarationList,
 ) {
-    return () => {
-        const menu = MenuFactory.makeMenu('')
-        menu.list.push(makeVariableDeclarationMenu(node))
-        return menu
-    }
+    const menu = MenuFactory.makeMenu('')
+    menu.list.push(makeVariableDeclarationMenu(node))
+    return menu
 }
 
 export default function StatementMenuFactory(

@@ -12,7 +12,7 @@ interface Props {
 export default function DefaultClause({ node }: Props): ReactElement {
     return (
         <span>
-            <MenuButton factory={CaseMenuFactory(node.parent, node as any)}>
+            <MenuButton factory={() => CaseMenuFactory(node.parent, node as any)}>
                 <Keyword kind={node.kind}></Keyword>
             </MenuButton>
             <div className="pl-11">

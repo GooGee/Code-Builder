@@ -24,7 +24,7 @@ export default function PropertyDeclaration({
                 onMouseLeave={(event) => setHovering(false)}
             >
                 {hovering ? (
-                    <MenuButton factory={ClassMenuFactory(parent, node)}>
+                    <MenuButton factory={() => ClassMenuFactory(parent, node)}>
                         <HoverButton> p </HoverButton>
                     </MenuButton>
                 ) : null}

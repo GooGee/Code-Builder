@@ -64,7 +64,7 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                         ></PropertySignature>
                     ) : null,
                 )}
-                <MenuButton factory={InterfaceMenuFactory(node)}>
+                <MenuButton factory={() => InterfaceMenuFactory(node)}>
                     <HoverButton>+</HoverButton>
                 </MenuButton>
             </div>

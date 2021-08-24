@@ -20,7 +20,7 @@ export default function Heritagexx({
     if (editing) {
         if (list === undefined || list.length === 0) {
             return (
-                <MenuButton factory={HeritageClauseMenuFactory(parent)}>
+                <MenuButton factory={() => HeritageClauseMenuFactory(parent)}>
                     <HoverButton>+</HoverButton>
                 </MenuButton>
             )

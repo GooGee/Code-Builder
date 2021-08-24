@@ -19,7 +19,7 @@ export default function EnumMember({ node }: Props): ReactElement {
             onMouseLeave={(event) => setEditing(false)}
         >
             {editing ? (
-                <MenuButton factory={EnumMenuFactory(node.parent, node)}>
+                <MenuButton factory={() => EnumMenuFactory(node.parent, node)}>
                     <TextButton></TextButton>
                 </MenuButton>
             ) : null}

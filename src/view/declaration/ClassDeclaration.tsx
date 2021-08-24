@@ -72,7 +72,7 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                         ></PropertyDeclaration>
                     ) : null,
                 )}
-                <MenuButton factory={ClassMenuFactory(node)}>
+                <MenuButton factory={() => ClassMenuFactory(node)}>
                     <HoverButton>+</HoverButton>
                 </MenuButton>
             </div>

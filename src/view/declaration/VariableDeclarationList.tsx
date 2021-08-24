@@ -12,7 +12,7 @@ interface Props {
 export default function VariableDeclarationList({ node }: Props): ReactElement {
     return (
         <span>
-            <MenuButton factory={VariableDeclarationMenuFactory(node)}>
+            <MenuButton factory={() => VariableDeclarationMenuFactory(node)}>
                 <VariableFlag flags={node.flags} suffix=" "></VariableFlag>
             </MenuButton>
             <VariableDeclarationxx

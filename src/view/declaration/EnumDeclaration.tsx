@@ -34,7 +34,7 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
                     <EnumMember key={uk()} node={member}></EnumMember>
                 ))}
 
-                <MenuButton factory={EnumMenuFactory(node)}>
+                <MenuButton factory={() => EnumMenuFactory(node)}>
                     <HoverButton>+</HoverButton>
                 </MenuButton>
             </div>

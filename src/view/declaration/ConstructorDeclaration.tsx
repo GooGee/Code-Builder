@@ -15,7 +15,7 @@ export default function ConstructorDeclaration({ node }: Props): ReactElement {
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-            <MenuButton factory={ClassMenuFactory(node.parent, node)}>
+            <MenuButton factory={() => ClassMenuFactory(node.parent, node)}>
                 <Keyword kind={node.kind}></Keyword>
             </MenuButton>
             <ParameterDeclarationxx

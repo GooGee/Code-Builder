@@ -34,43 +34,41 @@ export default function ClassMenuFactory(
     parent: ts.ClassLikeDeclaration,
     at?: ts.ClassElement,
 ) {
-    return () => {
-        console.log('ClassMenuFactory')
-        const menu = MenuFactory.makeMenu('')
-        if (at !== undefined) {
-            MenuFactory.addDelete(menu, at)
-            MenuFactory.addSeparator(menu)
-        }
-
-        menu.list.push(
-            MenuFactory.makeMenu('+ constructor', () => {
-                const found = parent.members.find((item) =>
-                    ts.isConstructorDeclaration(item),
-                )
-                if (found) {
-                    window.alert('constructor already exists!')
-                    return
-                }
-                const item = DeclarationFactory.makeConstructor()
-                ClassTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ method', () => {
-                const text = makeName(parent.members)
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeMethod(text)
-                ClassTransformer.addNode(parent, item, at)
-            }),
-            MenuFactory.makeMenu('+ property', () => {
-                const text = makeName(parent.members)
-                if (text === null) {
-                    return
-                }
-                const item = DeclarationFactory.makeProperty(text)
-                ClassTransformer.addNode(parent, item, at)
-            }),
-        )
-        return menu
+    console.log('ClassMenuFactory')
+    const menu = MenuFactory.makeMenu('')
+    if (at !== undefined) {
+        MenuFactory.addDelete(menu, at)
+        MenuFactory.addSeparator(menu)
     }
+
+    menu.list.push(
+        MenuFactory.makeMenu('+ constructor', () => {
+            const found = parent.members.find((item) =>
+                ts.isConstructorDeclaration(item),
+            )
+            if (found) {
+                window.alert('constructor already exists!')
+                return
+            }
+            const item = DeclarationFactory.makeConstructor()
+            ClassTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ method', () => {
+            const text = makeName(parent.members)
+            if (text === null) {
+                return
+            }
+            const item = DeclarationFactory.makeMethod(text)
+            ClassTransformer.addNode(parent, item, at)
+        }),
+        MenuFactory.makeMenu('+ property', () => {
+            const text = makeName(parent.members)
+            if (text === null) {
+                return
+            }
+            const item = DeclarationFactory.makeProperty(text)
+            ClassTransformer.addNode(parent, item, at)
+        }),
+    )
+    return menu
 }

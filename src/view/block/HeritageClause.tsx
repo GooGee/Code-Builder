@@ -29,7 +29,7 @@ export default function HeritageClause({ node }: Props): ReactElement {
 
     return (
         <div>
-            <MenuButton factory={HeritageClauseMenuFactory(node.parent, node)}>
+            <MenuButton factory={() => HeritageClauseMenuFactory(node.parent, node)}>
                 <Keyword kind={node.token} suffix=" "></Keyword>
             </MenuButton>
             {getTypes()}

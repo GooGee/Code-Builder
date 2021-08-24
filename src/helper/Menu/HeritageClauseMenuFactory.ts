@@ -68,24 +68,22 @@ export default function HeritageClauseMenuFactory(
     parent: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
     at?: ts.HeritageClause,
 ) {
-    return () => {
-        console.log('HeritageClauseMenuFactory')
-        const menu = MenuFactory.makeMenu('')
+    console.log('HeritageClauseMenuFactory')
+    const menu = MenuFactory.makeMenu('')
 
-        if (at !== undefined) {
-            MenuFactory.addDelete(menu, at)
-            MenuFactory.addSeparator(menu)
-        }
+    if (at !== undefined) {
+        MenuFactory.addDelete(menu, at)
+        MenuFactory.addSeparator(menu)
+    }
 
-        if (ts.isInterfaceDeclaration(parent)) {
-            if (parent.heritageClauses) {
-                return menu
-            }
-            menu.list.push(makeExtendsMenu(parent))
+    if (ts.isInterfaceDeclaration(parent)) {
+        if (parent.heritageClauses) {
             return menu
         }
-
-        makeClassHeritageClause(menu, parent)
+        menu.list.push(makeExtendsMenu(parent))
         return menu
     }
+
+    makeClassHeritageClause(menu, parent)
+    return menu
 }

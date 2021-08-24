@@ -25,7 +25,7 @@ export default function MethodSignature({ node, parent }: Props): ReactElement {
                 onMouseLeave={(event) => setHovering(false)}
             >
                 {hovering ? (
-                    <MenuButton factory={InterfaceMenuFactory(parent, node)}>
+                    <MenuButton factory={() => InterfaceMenuFactory(parent, node)}>
                         <HoverButton> m </HoverButton>
                     </MenuButton>
                 ) : null}
