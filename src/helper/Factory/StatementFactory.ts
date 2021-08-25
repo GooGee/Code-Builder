@@ -5,11 +5,15 @@ export function makeAccessStatement() {
     return ts.factory.createExpressionStatement(ts.factory.createNull())
 }
 
-export function makeAssignStatement() {
+export function makeAssignStatement(
+    left?: ts.Expression,
+    operator?: ts.BinaryOperatorToken,
+    right?: ts.Expression,
+) {
     const expression = ts.factory.createBinaryExpression(
-        ts.factory.createNull(),
-        ts.SyntaxKind.EqualsToken,
-        ts.factory.createNull(),
+        left ?? ts.factory.createNull(),
+        operator ?? ts.SyntaxKind.EqualsToken,
+        right ?? ts.factory.createNull(),
     )
     return ts.factory.createExpressionStatement(expression)
 }
