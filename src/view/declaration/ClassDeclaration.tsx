@@ -10,6 +10,7 @@ import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 import ConstructorDeclaration from './ConstructorDeclaration'
+import GetAccessorDeclaration from './GetAccessorDeclaration'
 import Heritagexx from './Heritagexx'
 import MethodDeclaration from './MethodDeclaration'
 import PropertyDeclaration from './PropertyDeclaration'
@@ -58,6 +59,12 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                             key={uk()}
                             node={item}
                         ></ConstructorDeclaration>
+                    ) : ts.isGetAccessorDeclaration(item) ? (
+                        <GetAccessorDeclaration
+                            key={uk()}
+                            node={item}
+                            parent={node}
+                        ></GetAccessorDeclaration>
                     ) : ts.isMethodDeclaration(item) ? (
                         <MethodDeclaration
                             key={uk()}
