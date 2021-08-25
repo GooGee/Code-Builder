@@ -1,4 +1,16 @@
 import ts from 'typescript'
+import { makeAssignStatement } from './StatementFactory'
+
+function getPrivateName(name: string) {
+    return '_' + name
+}
+
+function getPropertyExpression(name: string) {
+    return ts.factory.createPropertyAccessExpression(
+        ts.factory.createThis(),
+        getPrivateName(name),
+    )
+}
 
 export function makeArrowFunction(
     typeParameters: readonly ts.TypeParameterDeclaration[],
@@ -53,14 +65,25 @@ export function makeFunction(name: string) {
 }
 
 export function makeGet(name: string) {
+    const statement = ts.factory.createReturnStatement(
+        getPropertyExpression(name),
+    )
     return ts.factory.createGetAccessorDeclaration(
         [],
         [],
         name,
         [],
         undefined,
-        ts.factory.createBlock([ts.factory.createReturnStatement()]),
+        ts.factory.createBlock([statement]),
     )
+}
+
+export function makeGetSet(name: string) {
+    const modifier = ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)
+    const property = makeProperty(getPrivateName(name), [modifier])
+    const get = makeGet(name)
+    const set = makeSet(name)
+    return [property, get, set]
 }
 
 function makeHeritage(
@@ -120,10 +143,10 @@ export function makeParameter(name: string) {
     )
 }
 
-export function makeProperty(name: string) {
+export function makeProperty(name: string, modifiers?: readonly ts.Modifier[]) {
     return ts.factory.createPropertyDeclaration(
         [],
-        [],
+        modifiers,
         name,
         undefined,
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
@@ -137,6 +160,23 @@ export function makePropertySignature(name: string) {
         name,
         undefined,
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+    )
+}
+
+export function makeSet(name: string) {
+    const value = 'value'
+    const parameter = makeParameter(value)
+    const statement = makeAssignStatement(
+        getPropertyExpression(name),
+        undefined,
+        ts.factory.createIdentifier(value),
+    )
+    return ts.factory.createSetAccessorDeclaration(
+        [],
+        [],
+        name,
+        [parameter],
+        ts.factory.createBlock([statement]),
     )
 }
 
