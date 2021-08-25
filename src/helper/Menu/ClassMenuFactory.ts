@@ -124,6 +124,16 @@ export default function ClassMenuFactory(
             const item = DeclarationFactory.makeGet(text)
             ClassTransformer.addNode(parent, item, at)
         }),
+        MenuFactory.makeMenu('+ get set', () => {
+            const text = makeName(parent.members)
+            if (text === null) {
+                return
+            }
+            const property = DeclarationFactory.makeProperty('_' + text)
+            const get = DeclarationFactory.makeGet(text)
+            const set = DeclarationFactory.makeSet(text)
+            ClassTransformer.addNodeList(parent, [property, get, set], at)
+        }),
         MenuFactory.makeMenu('+ method', () => {
             const text = makeName(parent.members)
             if (text === null) {
