@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import Block from '../block/Block'
-import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import IdentifierDeclaration from '../expression/IdentifierDeclaration'
 import Colon from '../text/Colon'
+import Keyword from '../text/Keyword'
 import Modifierxx from '../text/Modifierxx'
 import TypeRoot from '../type/TypeRoot'
 
@@ -18,27 +18,19 @@ export default function GetAccessorDeclaration({
     node,
     parent,
 }: Props): ReactElement {
-    const [hovering, setHovering] = useState(false)
     return (
         <div>
-            <span
-                onMouseEnter={(event) => setHovering(true)}
-                onMouseLeave={(event) => setHovering(false)}
-            >
-                {hovering ? (
-                    <MenuButton factory={() => ClassMenuFactory(parent, node)}>
-                        <HoverButton> g </HoverButton>
-                    </MenuButton>
-                ) : null}
-                {node.modifiers === undefined ? null : (
-                    <span>
-                        <Modifierxx list={node.modifiers}></Modifierxx>{' '}
-                    </span>
-                )}
-                <IdentifierDeclaration
-                    node={node.name as any}
-                ></IdentifierDeclaration>
-            </span>
+            <MenuButton factory={() => ClassMenuFactory(parent, node)}>
+                <Keyword kind={node.kind} suffix=" "></Keyword>
+            </MenuButton>
+            {node.modifiers === undefined ? null : (
+                <span>
+                    <Modifierxx list={node.modifiers}></Modifierxx>{' '}
+                </span>
+            )}
+            <IdentifierDeclaration
+                node={node.name as any}
+            ></IdentifierDeclaration>
             {node.type === undefined ? null : (
                 <>
                     <Colon></Colon>{' '}
