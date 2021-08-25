@@ -12,6 +12,21 @@ function insert<T extends ts.Node>(nodexx: ts.NodeArray<T>, node: T, at?: T) {
     return ts.factory.createNodeArray(list)
 }
 
+function insertMany<T extends ts.Node>(
+    nodexx: ts.NodeArray<T>,
+    nnn: T[],
+    at?: T,
+) {
+    const list = Array.from(nodexx.values())
+    if (at === undefined) {
+        list.push(...nnn)
+    } else {
+        const index = nodexx.indexOf(at)
+        list.splice(index, 0, ...nnn)
+    }
+    return ts.factory.createNodeArray(list)
+}
+
 function replace(from: ts.Node, to: ts.Node | undefined) {
     run((context) => {
         const visitor = (node: ts.Node): any => {
@@ -74,6 +89,7 @@ function transform(
 
 const Transformer = {
     insert,
+    insertMany,
     replace,
     run,
     setProperty,
