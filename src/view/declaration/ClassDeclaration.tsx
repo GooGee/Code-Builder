@@ -14,6 +14,7 @@ import GetAccessorDeclaration from './GetAccessorDeclaration'
 import Heritagexx from './Heritagexx'
 import MethodDeclaration from './MethodDeclaration'
 import PropertyDeclaration from './PropertyDeclaration'
+import SetAccessorDeclaration from './SetAccessorDeclaration'
 import TypeParameterDeclarationxx from './TypeParameterDeclarationxx'
 
 interface Props {
@@ -77,6 +78,12 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                             node={item}
                             parent={node}
                         ></PropertyDeclaration>
+                    ) : ts.isSetAccessorDeclaration(item) ? (
+                        <SetAccessorDeclaration
+                            key={uk()}
+                            node={item}
+                            parent={node}
+                        ></SetAccessorDeclaration>
                     ) : null,
                 )}
                 <MenuButton factory={() => ClassMenuFactory(node)}>
