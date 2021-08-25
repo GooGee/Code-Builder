@@ -52,6 +52,17 @@ export function makeFunction(name: string) {
     )
 }
 
+export function makeGet(name: string) {
+    return ts.factory.createGetAccessorDeclaration(
+        [],
+        [],
+        name,
+        [],
+        undefined,
+        ts.factory.createBlock([ts.factory.createReturnStatement()]),
+    )
+}
+
 function makeHeritage(
     token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword,
 ) {
