@@ -79,8 +79,11 @@ export function makeGet(name: string) {
 }
 
 export function makeGetSet(name: string) {
-    const modifier = ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)
-    const property = makeProperty(getPrivateName(name), [modifier])
+    const property = makeProperty(
+        getPrivateName(name),
+        ts.SyntaxKind.PrivateKeyword,
+    )
+    console.log(property)
     const get = makeGet(name)
     const set = makeSet(name)
     return [property, get, set]
@@ -143,10 +146,15 @@ export function makeParameter(name: string) {
     )
 }
 
-export function makeProperty(name: string, modifiers?: readonly ts.Modifier[]) {
+export function makeProperty(name: string, kind?: ts.ModifierSyntaxKind) {
+    const modifierxx: ts.Modifier[] = []
+    if (kind) {
+        const modifier = ts.factory.createModifier(kind)
+        modifierxx.push(modifier)
+    }
     return ts.factory.createPropertyDeclaration(
         [],
-        modifiers,
+        modifierxx,
         name,
         undefined,
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
