@@ -1,25 +1,16 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
-import SourceFileContext from '../context/SourceFileContext'
-import ErrorTip from '../control/ErrorTip'
+import Diagnostic from '../control/Diagnostic'
 
 interface Props {
     node: ts.NumericLiteral | ts.StringLiteral
 }
 
 export default function Literal({ node }: Props): ReactElement {
-    const context = useContext(SourceFileContext)
     const text = ts.isStringLiteral(node) ? `"${node.text}"` : node.text
-    if (context.state?.worker.diagnosticMap.has(node.getStart())) {
-        const diagnostic = context.state?.worker.diagnosticMap.get(
-            node.getStart(),
-        )
-        return (
-            <span className="literal cursor-pointer">
-                {text}
-                <ErrorTip diagnostic={diagnostic!}></ErrorTip>
-            </span>
-        )
-    }
-    return <span className="literal cursor-pointer">{text}</span>
+    return (
+        <Diagnostic node={node}>
+            <span className="literal cursor-pointer">{text}</span>
+        </Diagnostic>
+    )
 }
