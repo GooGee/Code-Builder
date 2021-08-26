@@ -1,19 +1,15 @@
 import { createContext } from 'react'
 import Vendor from '../../model/Vendor'
 
-interface Update {
-    (): void
-}
-
 export class ContextData {
     constructor(
         readonly state: Vendor | undefined,
-        readonly update: Update | undefined,
+        readonly update: () => void,
     ) {}
 }
 
 const SourceFileContext = createContext<ContextData>(
-    new ContextData(undefined, undefined),
+    new ContextData(undefined, () => {}),
 )
 
 export default SourceFileContext

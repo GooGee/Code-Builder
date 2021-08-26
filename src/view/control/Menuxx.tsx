@@ -43,7 +43,7 @@ export default function Menuxx({ list }: Props): ReactElement {
                         return
                     }
                     item.cb()
-                    context.update!()
+                    context.update()
                 }}
                 className={className}
                 key={uk()}

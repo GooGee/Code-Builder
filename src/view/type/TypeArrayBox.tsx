@@ -34,7 +34,7 @@ export default function TypeArrayBox({
                         <Button
                             onClick={() => {
                                 TypeNodeTransformer.addType(parent, item)
-                                context.update!()
+                                context.update()
                             }}
                             color="green"
                         >
@@ -48,7 +48,7 @@ export default function TypeArrayBox({
                                 }
                                 if (window.confirm('Are you sure?')) {
                                     Transformer.replace(item, undefined)
-                                    context.update!()
+                                    context.update()
                                 }
                             }}
                             color="red"
@@ -66,7 +66,7 @@ export default function TypeArrayBox({
                     <Button
                         onClick={() => {
                             TypeNodeTransformer.addType(parent)
-                            context.update!()
+                            context.update()
                         }}
                         color="green"
                     >

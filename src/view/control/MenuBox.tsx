@@ -25,7 +25,7 @@ export default function MenuBox({ factory, closeModal }: Props): ReactElement {
                 onClick={() => {
                     closeModal()
                     item.cb()
-                    context.update!()
+                    context.update()
                 }}
                 className="cursor-pointer hover:bg-blue-200 p-2"
                 disabled={item.disabled}

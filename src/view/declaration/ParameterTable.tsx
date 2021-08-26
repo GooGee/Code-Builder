@@ -39,7 +39,7 @@ export default function ParameterTable({
                             <Button
                                 onClick={() => {
                                     ParameterTransformer.addNode(parent, node)
-                                    context.update!()
+                                    context.update()
                                 }}
                                 color="green"
                             >
@@ -49,7 +49,7 @@ export default function ParameterTable({
                                 onClick={() => {
                                     if (window.confirm('Are you sure?')) {
                                         Transformer.replace(node, undefined)
-                                        context.update!()
+                                        context.update()
                                     }
                                 }}
                                 color="red"
@@ -85,7 +85,7 @@ export default function ParameterTable({
                         <Button
                             onClick={() => {
                                 ParameterTransformer.addNode(parent)
-                                context.update!()
+                                context.update()
                             }}
                             color="green"
                         >

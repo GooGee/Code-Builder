@@ -36,7 +36,7 @@ export default function TypeParameterBox({
                           <Button
                               onClick={() => {
                                   TypeParameterTransformer.addNode(parent, item)
-                                  context.update!()
+                                  context.update()
                               }}
                               color="green"
                           >
@@ -46,7 +46,7 @@ export default function TypeParameterBox({
                               onClick={() => {
                                   if (window.confirm('Are you sure?')) {
                                       Transformer.replace(item, undefined)
-                                      context.update!()
+                                      context.update()
                                   }
                               }}
                               color="red"
@@ -62,7 +62,7 @@ export default function TypeParameterBox({
                 <Button
                     onClick={() => {
                         TypeParameterTransformer.addNode(parent)
-                        context.update!()
+                        context.update()
                     }}
                     color="green"
                 >

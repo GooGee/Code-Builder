@@ -28,7 +28,7 @@ export default function ArrayBox({
                     <Button
                         onClick={() => {
                             ExpressionTransformer.addNode(parent, item)
-                            context.update!()
+                            context.update()
                         }}
                         color="green"
                     >
@@ -38,7 +38,7 @@ export default function ArrayBox({
                         onClick={() => {
                             if (window.confirm('Are you sure?')) {
                                 Transformer.replace(item, undefined)
-                                context.update!()
+                                context.update()
                             }
                         }}
                         color="red"
@@ -55,7 +55,7 @@ export default function ArrayBox({
                 <Button
                     onClick={() => {
                         ExpressionTransformer.addNode(parent)
-                        context.update!()
+                        context.update()
                     }}
                     color="green"
                 >

@@ -19,7 +19,7 @@ export default function IdentifierDeclaration({ node }: Props): ReactElement {
                 }
                 try {
                     refactor(node, value)
-                    context.update!()
+                    context.update()
                 } catch (error) {
                     alert(error.message)
                 }

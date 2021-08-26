@@ -95,7 +95,7 @@ export default function ArgumentTable({
                                                     list[index],
                                                     undefined,
                                                 )
-                                                context.update!()
+                                                context.update()
                                             }
                                         }}
                                         color="red"
@@ -114,7 +114,7 @@ export default function ArgumentTable({
                                             parent,
                                             item.valueDeclaration as ts.ParameterDeclaration,
                                         )
-                                        context.update!()
+                                        context.update()
                                     }}
                                     color="green"
                                 >
