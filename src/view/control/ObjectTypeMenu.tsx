@@ -17,7 +17,7 @@ interface Props {
     text?: string
 }
 
-export default function TypeParameterMenu({
+export default function ObjectTypeMenu({
     children,
     factory,
     node,
