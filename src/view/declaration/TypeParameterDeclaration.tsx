@@ -21,6 +21,7 @@ export default function TypeParameterDeclaration({
                 factory={ObjectTypeMenuFactory}
                 node={node.constraint}
                 parent={node}
+                required={false}
             >
                 {node.constraint === undefined ? (
                     <TextButton></TextButton>

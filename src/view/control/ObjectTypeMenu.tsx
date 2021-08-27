@@ -6,7 +6,11 @@ import Menuxx from './Menuxx'
 import ModalDialog from './ModalDialog'
 
 interface Factory {
-    (parent: ts.Node, node?: ts.TypeNode | ts.Identifier): Menu
+    (
+        parent: ts.Node,
+        node?: ts.TypeNode | ts.Identifier,
+        required?: boolean,
+    ): Menu
 }
 
 interface Props {
@@ -14,6 +18,7 @@ interface Props {
     factory: Factory
     node?: ts.TypeNode | ts.Identifier
     parent: ts.Node
+    required: boolean
     text?: string
 }
 
@@ -22,12 +27,13 @@ export default function ObjectTypeMenu({
     factory,
     node,
     parent,
+    required,
     text = '*',
 }: Props): ReactElement {
     const [list, setList] = useState<Menu[]>([])
     return (
         <ModalDialog
-            onOpen={() => setList(factory(parent, node).list)}
+            onOpen={() => setList(factory(parent, node, required).list)}
             trigger={children ? children : <Button>{text}</Button>}
         >
             <Menuxx list={list}></Menuxx>
