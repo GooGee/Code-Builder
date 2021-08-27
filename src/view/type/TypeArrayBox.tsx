@@ -1,12 +1,14 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import ts from 'typescript'
+import ObjectTypeMenuFactory from '../../helper/Menu/ObjectTypeMenuFactory'
 import Transformer from '../../helper/Transformer/Transformer'
 import TypeNodeTransformer from '../../helper/Transformer/TypeNodeTransformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
+import ObjectTypeMenu from '../control/ObjectTypeMenu'
+import TypeNode from './TypeNode'
 import TypeNodexx from './TypeNodexx'
-import TypeRoot from './TypeRoot'
 
 interface Props {
     list: ts.NodeArray<ts.TypeNode>
@@ -55,11 +57,14 @@ export default function TypeArrayBox({
                         >
                             -
                         </Button>
-                        <TypeRoot
+                        <ObjectTypeMenu
+                            factory={ObjectTypeMenuFactory}
                             node={item}
                             parent={item.parent}
                             required={true}
-                        ></TypeRoot>
+                        >
+                            <TypeNode node={item}></TypeNode>
+                        </ObjectTypeMenu>
                     </div>
                 ))}
                 <div>
