@@ -3,11 +3,11 @@ import Finder from '../Finder/Finder'
 import MenuFactory from './MenuFactory'
 import { makeEcmas6ClassTypeMenu, makeTypeMenu } from './TypeMenuFactory'
 
-export default function TypeParameterMenuFactory(
-    parent: ts.TypeParameterDeclaration,
+export default function ObjectTypeMenuFactory(
+    parent: ts.Node,
     node?: ts.TypeNode | ts.Identifier,
 ) {
-    console.log('TypeParameterMenuFactory')
+    console.log('ObjectTypeMenu')
     const menu = MenuFactory.makeMenu('')
     if (node !== undefined) {
         MenuFactory.addDelete(menu, node)
