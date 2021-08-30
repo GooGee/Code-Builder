@@ -55,6 +55,18 @@ function getTypeAliasList(node: ts.Node) {
     return list
 }
 
+function inClass(node: ts.Node): boolean {
+    if (ts.isSourceFile(node)) {
+        return false
+    }
+
+    if (ts.isClassLike(node)) {
+        return true
+    }
+
+    return inClass(node.parent)
+}
+
 function inFunction(node: ts.Node): boolean {
     if (ts.isSourceFile(node)) {
         return false
@@ -119,6 +131,7 @@ const Finder = {
     getFunctionList,
     getInterfaceList,
     getTypeAliasList,
+    inClass,
     inFunction,
     isLoop,
     traversal,
