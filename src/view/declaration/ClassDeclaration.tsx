@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import UniqueKey from '../../helper/UniqueKey'
 import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import StatementMenu from '../control/StatementMenu'
@@ -23,7 +22,6 @@ interface Props {
 
 export default function ClassDeclaration({ node }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
-    const uk = UniqueKey()
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -57,30 +55,30 @@ export default function ClassDeclaration({ node }: Props): ReactElement {
                 {node.members.map((item) =>
                     ts.isConstructorDeclaration(item) ? (
                         <ConstructorDeclaration
-                            key={uk()}
+                            key="constructor"
                             node={item}
                         ></ConstructorDeclaration>
                     ) : ts.isGetAccessorDeclaration(item) ? (
                         <GetAccessorDeclaration
-                            key={uk()}
+                            key={'get' + item.name.getText()}
                             node={item}
                             parent={node}
                         ></GetAccessorDeclaration>
                     ) : ts.isMethodDeclaration(item) ? (
                         <MethodDeclaration
-                            key={uk()}
+                            key={item.name.getText()}
                             node={item}
                             parent={node}
                         ></MethodDeclaration>
                     ) : ts.isPropertyDeclaration(item) ? (
                         <PropertyDeclaration
-                            key={uk()}
+                            key={item.name.getText()}
                             node={item}
                             parent={node}
                         ></PropertyDeclaration>
                     ) : ts.isSetAccessorDeclaration(item) ? (
                         <SetAccessorDeclaration
-                            key={uk()}
+                            key={'set' + item.name.getText()}
                             node={item}
                             parent={node}
                         ></SetAccessorDeclaration>

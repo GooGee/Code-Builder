@@ -2,7 +2,6 @@ import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
 import Transformer from '../../helper/Transformer/Transformer'
 import TypeParameterTransformer from '../../helper/Transformer/TypeParameterTransformer'
-import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
 import TypeParameterDeclaration from './TypeParameterDeclaration'
@@ -25,14 +24,13 @@ export default function TypeParameterBox({
     parent,
 }: Props): ReactElement {
     const context = useContext(SourceFileContext)
-    const uk = UniqueKey()
     return (
         <div className="ml-11 p-2 border-gray-200 border rounded-md">
             {children}
             {list === undefined
                 ? null
                 : list.map((item) => (
-                      <div key={uk()}>
+                      <div key={item.name.getText()}>
                           <Button
                               onClick={() => {
                                   TypeParameterTransformer.addNode(parent, item)

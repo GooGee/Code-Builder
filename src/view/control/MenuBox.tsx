@@ -1,6 +1,5 @@
 import Menu, { MenuItem, Divider } from 'rc-menu'
 import React, { ReactElement, useContext } from 'react'
-import UniqueKey from '../../helper/UniqueKey'
 import MenuData from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
 
@@ -12,11 +11,10 @@ interface Props {
 export default function MenuBox({ factory, closeModal }: Props): ReactElement {
     const context = useContext(SourceFileContext)
 
-    const uk = UniqueKey()
     function makeItem(item: MenuData) {
         if (item.isDivider) {
             return (
-                <Divider key={uk()} className="bg-gray-300 px-2 h-px"></Divider>
+                <Divider key="----" className="bg-gray-300 px-2 h-px"></Divider>
             )
         }
 
@@ -29,7 +27,7 @@ export default function MenuBox({ factory, closeModal }: Props): ReactElement {
                 }}
                 className="cursor-pointer hover:bg-blue-200 p-2"
                 disabled={item.disabled}
-                key={uk()}
+                key={item.title}
             >
                 {item.title}
             </MenuItem>

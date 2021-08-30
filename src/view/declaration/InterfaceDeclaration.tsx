@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import UniqueKey from '../../helper/UniqueKey'
 import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import StatementMenu from '../control/StatementMenu'
@@ -20,7 +19,6 @@ interface Props {
 
 export default function InterfaceDeclaration({ node }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
-    const uk = UniqueKey()
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -52,13 +50,13 @@ export default function InterfaceDeclaration({ node }: Props): ReactElement {
                 {node.members.map((item) =>
                     ts.isMethodSignature(item) ? (
                         <MethodSignature
-                            key={uk()}
+                            key={item.name.getText()}
                             node={item}
                             parent={node}
                         ></MethodSignature>
                     ) : ts.isPropertySignature(item) ? (
                         <PropertySignature
-                            key={uk()}
+                            key={item.name.getText()}
                             node={item}
                             parent={node}
                         ></PropertySignature>

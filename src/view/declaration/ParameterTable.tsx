@@ -2,7 +2,6 @@ import React, { ReactElement, useContext } from 'react'
 import ts from 'typescript'
 import ParameterTransformer from '../../helper/Transformer/ParameterTransformer'
 import Transformer from '../../helper/Transformer/Transformer'
-import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
 import ExpressionRootEdit from '../expression/ExpressionRootEdit'
@@ -21,7 +20,6 @@ export default function ParameterTable({
     parent,
 }: Props): ReactElement {
     const context = useContext(SourceFileContext)
-    const uk = UniqueKey()
     return (
         <table className="ml-11 table">
             <thead>
@@ -34,7 +32,7 @@ export default function ParameterTable({
             </thead>
             <tbody>
                 {list.map((node) => (
-                    <tr key={uk()}>
+                    <tr key={node.name.getText()}>
                         <td>
                             <Button
                                 onClick={() => {

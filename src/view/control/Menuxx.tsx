@@ -1,5 +1,4 @@
 import React, { ReactElement, useContext, useState } from 'react'
-import UniqueKey from '../../helper/UniqueKey'
 import Menu from '../../model/Menu'
 import SourceFileContext from '../context/SourceFileContext'
 
@@ -15,10 +14,9 @@ export default function Menuxx({ list }: Props): ReactElement {
         return <div className="text-gray-500 p-2">empty</div>
     }
 
-    const uk = UniqueKey()
     function makeItem(item: Menu) {
         if (item.isDivider) {
-            return <li key={uk()} className="bg-gray-300 px-2 h-px"></li>
+            return <li key="----" className="bg-gray-300 px-2 h-px"></li>
         }
 
         let className = 'cursor-pointer p-2'
@@ -46,7 +44,7 @@ export default function Menuxx({ list }: Props): ReactElement {
                     context.update()
                 }}
                 className={className}
-                key={uk()}
+                key={item.title}
             >
                 {item.isParent ? '* ' : ''}
                 {item.title}

@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import EnumMenuFactory from '../../helper/Menu/EnumMenuFactory'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
-import UniqueKey from '../../helper/UniqueKey'
 import HoverButton from '../control/HoverButton'
 import MenuButton from '../control/MenuButton'
 import StatementMenu from '../control/StatementMenu'
@@ -16,7 +15,6 @@ interface Props {
 }
 
 export default function EnumDeclaration({ node }: Props): ReactElement {
-    const uk = UniqueKey()
     return (
         <div>
             <Modifierxx list={node.modifiers}></Modifierxx>{' '}
@@ -31,7 +29,10 @@ export default function EnumDeclaration({ node }: Props): ReactElement {
             {' {'}
             <div className="pl-11">
                 {node.members.map((member) => (
-                    <EnumMember key={uk()} node={member}></EnumMember>
+                    <EnumMember
+                        key={member.name.getText()}
+                        node={member}
+                    ></EnumMember>
                 ))}
 
                 <MenuButton factory={() => EnumMenuFactory(node)}>

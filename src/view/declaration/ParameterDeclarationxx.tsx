@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
-import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
 import HoverButton from '../control/HoverButton'
 import ParameterDeclaration from './ParameterDeclaration'
@@ -24,7 +23,6 @@ export default function ParameterDeclarationxx({
         )
     }
 
-    const uk = UniqueKey()
     return (
         <span
             onClick={(event) => {
@@ -39,7 +37,7 @@ export default function ParameterDeclarationxx({
                     : list
                           .map((node) => (
                               <ParameterDeclaration
-                                  key={uk()}
+                                  key={node.name.getText()}
                                   node={node}
                               ></ParameterDeclaration>
                           ))
