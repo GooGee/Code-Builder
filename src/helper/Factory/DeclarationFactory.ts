@@ -83,7 +83,6 @@ export function makeGetSet(name: string) {
         getPrivateName(name),
         ts.SyntaxKind.PrivateKeyword,
     )
-    console.log(property)
     const get = makeGet(name)
     const set = makeSet(name)
     return [property, get, set]
