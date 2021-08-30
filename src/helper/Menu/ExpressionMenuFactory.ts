@@ -147,6 +147,14 @@ function makeVariableMenu(
             }),
         )
     }
+    if (Finder.inClass(parent)) {
+        menu.list.push(
+            MenuFactory.makeMenu('super', () => {
+                const node = ts.factory.createSuper()
+                Transformer.transform(node, parent, propertyName, old)
+            }),
+        )
+    }
     VariableFinder.getVariableList(parent).forEach((item) => {
         menu.list.push(
             MenuFactory.makeMenu(item.name.getText(), () => {
