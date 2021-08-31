@@ -134,14 +134,14 @@ export function makeMethodSignature(name: string) {
     )
 }
 
-export function makeParameter(name: string) {
+export function makeParameter(name: string, type?: ts.TypeNode) {
     return ts.factory.createParameterDeclaration(
         [],
         [],
         undefined,
         name,
         undefined,
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        type,
     )
 }
 
@@ -172,7 +172,10 @@ export function makePropertySignature(name: string) {
 
 export function makeSet(name: string) {
     const value = 'value'
-    const parameter = makeParameter(value)
+    const parameter = makeParameter(
+        value,
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+    )
     const statement = makeAssignStatement(
         getPropertyExpression(name),
         undefined,

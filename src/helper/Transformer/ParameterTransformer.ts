@@ -12,7 +12,10 @@ function addNode(
         if (text === null) {
             return
         }
-        const node = makeParameter(text)
+        const node = makeParameter(
+            text,
+            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        )
         const list = Transformer.insert<ts.ParameterDeclaration>(
             parent.parameters,
             node,
