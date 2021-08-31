@@ -21,12 +21,12 @@ function addCallNewMenu(menu: Menu, node: ts.Identifier) {
 }
 
 function addCallMenu(
-    csxx: readonly ts.Signature[],
+    list: readonly ts.Signature[],
     menu: Menu,
     node: ts.Identifier | ts.PropertyAccessExpression,
     replace: ts.Node,
 ) {
-    csxx.forEach((item) => {
+    list.forEach((item) => {
         const text = item.declaration?.getText() ?? '()'
         const mmm = MenuFactory.makeMenu(text, () => {
             const nnn = ts.factory.createCallExpression(node, [], [])
@@ -37,12 +37,12 @@ function addCallMenu(
 }
 
 function addNewMenu(
-    csxx: readonly ts.Signature[],
+    list: readonly ts.Signature[],
     menu: Menu,
     node: ts.Identifier,
     replace: ts.Node,
 ) {
-    csxx.forEach((item) => {
+    list.forEach((item) => {
         const text = item.declaration?.getText() ?? '()'
         const mmm = MenuFactory.makeMenu(text, () => {
             const nnn = ts.factory.createNewExpression(node, [], [])
