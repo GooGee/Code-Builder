@@ -1,11 +1,13 @@
 import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import ObjectChildMenuFactory from '../../helper/Menu/ObjectChildMenuFactory'
+import UniqueKey from '../../helper/UniqueKey'
 import Button from '../control/Button'
 import HoverButton from '../control/HoverButton'
 import ObjectChildMenu from '../control/ObjectChildMenu'
 import ArgumentTable from './ArgumentTable'
 import ArrayBox from './ArrayBox'
+import Expression from './Expression'
 
 interface Props {
     list: ts.NodeArray<ts.Expression>
@@ -41,6 +43,7 @@ export default function Expressionxx({
         )
     }
 
+    const uk = UniqueKey()
     return (
         <span>
             <span
@@ -51,7 +54,9 @@ export default function Expressionxx({
                 className="cursor-pointer"
             >
                 <HoverButton color="">{prefix}</HoverButton>
-                {list.map((node) => node.getText()).join(', ')}
+                {list.map((node) => (
+                    <Expression key={uk()} node={node}></Expression>
+                ))}
             </span>
             <ObjectChildMenu factory={ObjectChildMenuFactory} node={parent}>
                 <HoverButton color="">{suffix}</HoverButton>
