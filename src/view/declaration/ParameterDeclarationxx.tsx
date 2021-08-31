@@ -18,7 +18,14 @@ export default function ParameterDeclarationxx({
     if (editing) {
         return (
             <ParameterTable list={list} parent={parent}>
-                <Button onClick={() => setEditing(false)}>x</Button>
+                <Button
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        setEditing(false)
+                    }}
+                >
+                    x
+                </Button>
             </ParameterTable>
         )
     }
