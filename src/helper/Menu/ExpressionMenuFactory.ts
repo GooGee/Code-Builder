@@ -6,6 +6,7 @@ import VariableFinder from '../Finder/VariableFinder'
 import LiteralTransformer from '../Transformer/LiteralTransformer'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
+import { isComputeToken } from './TokenMenuFactory'
 import { ReferenceType } from './TypeMenuFactory'
 
 function makeConstantMenu(
@@ -195,7 +196,21 @@ export default function ExpressionMenuFactory(
     }
 
     if (old !== undefined) {
-        if (ts.isReturnStatement(old.parent)) {
+        const parent = old.parent
+        if (
+            ts.isBinaryExpression(parent) &&
+            isComputeToken(parent.operatorToken.kind)
+        ) {
+            const mm = MenuFactory.makeMenu('Delete', () => {
+                if (Object.is(parent.left, old)) {
+                    Transformer.replace(parent, parent.right)
+                } else {
+                    Transformer.replace(parent, parent.left)
+                }
+            })
+            menu.list.push(mm)
+            MenuFactory.addSeparator(menu)
+        } else if (ts.isReturnStatement(old.parent)) {
             MenuFactory.addDelete(menu, old)
             MenuFactory.addSeparator(menu)
         }
