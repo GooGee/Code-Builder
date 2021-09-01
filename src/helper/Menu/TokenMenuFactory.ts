@@ -59,6 +59,10 @@ export function ComputeTokenMenuFactory(token: ts.BinaryOperatorToken) {
     return makeAllMenu(token, ComputeTokenList)
 }
 
+export function isComputeToken(token: ts.SyntaxKind) {
+    return ComputeTokenList.includes(token)
+}
+
 export function makeMenu(parent: ts.BinaryExpression, kind: ts.SyntaxKind) {
     const text = ts.tokenToString(kind) ?? ''
     const menu = MenuFactory.makeMenu(text, () => {
