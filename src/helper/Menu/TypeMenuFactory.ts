@@ -144,6 +144,21 @@ export function makeTypeMenu(
     return menu
 }
 
+function makeUnionTypeMenu(node: ts.TypeNode) {
+    const menu = MenuFactory.makeMenu('Union Type', () => {
+        if (ts.isUnionTypeNode(node)) {
+            return
+        }
+
+        const type = ts.factory.createKeywordTypeNode(
+            ts.SyntaxKind.StringKeyword,
+        )
+        const union = ts.factory.createUnionTypeNode([node, type])
+        Transformer.replace(node, union)
+    })
+    return menu
+}
+
 export function ModuleChildMenuFactory(node: ts.EntityName) {
     return () => {
         console.log('ModuleChildMenuFactory')
@@ -168,13 +183,17 @@ export function ModuleChildMenuFactory(node: ts.EntityName) {
 
 export default function TypeMenuFactory(
     parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
+    node?: ts.TypeNode,
     required = false,
 ) {
     console.log('TypeMenuFactory')
     const menu = MenuFactory.makeMenu('')
-    if (node !== undefined && required === false) {
-        MenuFactory.addDelete(menu, node)
+    if (node !== undefined) {
+        if (required === false) {
+            MenuFactory.addDelete(menu, node)
+            MenuFactory.addSeparator(menu)
+        }
+        menu.list.push(makeUnionTypeMenu(node))
         MenuFactory.addSeparator(menu)
     }
 
