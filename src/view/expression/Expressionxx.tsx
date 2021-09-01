@@ -54,9 +54,15 @@ export default function Expressionxx({
                 className="cursor-pointer"
             >
                 <HoverButton color="">{prefix}</HoverButton>
-                {list.map((node) => (
-                    <Expression key={uk()} node={node}></Expression>
-                ))}
+                {list.length === 0
+                    ? null
+                    : list
+                          .map((node) => (
+                              <Expression key={uk()} node={node}></Expression>
+                          ))
+                          .reduce((previousValue, currentValue): any => {
+                              return [previousValue, ', ', currentValue]
+                          })}
             </span>
             <ObjectChildMenu factory={ObjectChildMenuFactory} node={parent}>
                 <HoverButton color="">{suffix}</HoverButton>
