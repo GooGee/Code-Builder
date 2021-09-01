@@ -8,7 +8,7 @@ import ModalDialog from './ModalDialog'
 interface Factory {
     (
         parent: ts.Node,
-        node?: ts.TypeNode | ts.Identifier,
+        node?: ts.TypeNode,
         required?: boolean,
     ): Menu
 }
@@ -16,7 +16,7 @@ interface Factory {
 interface Props {
     children?: ReactElement
     factory: Factory
-    node?: ts.TypeNode | ts.Identifier
+    node?: ts.TypeNode
     parent: ts.Node
     required: boolean
     text?: string

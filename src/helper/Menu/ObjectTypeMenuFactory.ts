@@ -5,7 +5,7 @@ import { makeEcmas6ClassTypeMenu, makeTypeMenu } from './TypeMenuFactory'
 
 export default function ObjectTypeMenuFactory(
     parent: ts.Node,
-    node?: ts.TypeNode | ts.Identifier,
+    node?: ts.TypeNode,
     required = false,
 ) {
     console.log('ObjectTypeMenu')
