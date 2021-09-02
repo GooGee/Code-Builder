@@ -10,6 +10,7 @@ interface Factory {
         parent: ts.Node,
         node?: ts.TypeNode,
         required?: boolean,
+        onlyObjectType?: boolean,
     ): Menu
 }
 
@@ -19,6 +20,7 @@ interface Props {
     node?: ts.TypeNode
     parent: ts.Node
     required?: boolean
+    onlyObjectType?: boolean
     text?: string
 }
 
@@ -28,12 +30,15 @@ export default function TypeMenu({
     node,
     parent,
     required,
+    onlyObjectType,
     text = '*',
 }: Props): ReactElement {
     const [list, setList] = useState<Menu[]>([])
     return (
         <ModalDialog
-            onOpen={() => setList(factory(parent, node, required).list)}
+            onOpen={() =>
+                setList(factory(parent, node, required, onlyObjectType).list)
+            }
             trigger={children ? children : <Button>{text}</Button>}
         >
             <Menuxx list={list}></Menuxx>

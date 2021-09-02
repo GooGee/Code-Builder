@@ -185,6 +185,7 @@ export default function TypeMenuFactory(
     parent: ts.Node,
     node?: ts.TypeNode,
     required = false,
+    onlyObjectType = false,
 ) {
     console.log('TypeMenuFactory')
     const menu = MenuFactory.makeMenu('')
@@ -193,8 +194,10 @@ export default function TypeMenuFactory(
             MenuFactory.addDelete(menu, node)
             MenuFactory.addSeparator(menu)
         }
-        menu.list.push(makeUnionTypeMenu(node))
-        MenuFactory.addSeparator(menu)
+        if (onlyObjectType === false) {
+            menu.list.push(makeUnionTypeMenu(node))
+            MenuFactory.addSeparator(menu)
+        }
     }
 
     const classMenu = makeTypeMenu(
@@ -209,6 +212,16 @@ export default function TypeMenuFactory(
         parent,
         node,
     )
+
+    if (onlyObjectType) {
+        menu.list.push(
+            makeEcmas6ClassTypeMenu(parent, node),
+            classMenu,
+            interfaceMenu,
+        )
+        return menu
+    }
+
     const typeAliasMenu = makeTypeMenu(
         'TypeAlias',
         Finder.getTypeAliasList(parent),
