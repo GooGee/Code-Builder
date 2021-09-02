@@ -13,7 +13,9 @@ function findParameter(node: ts.Node, list: Array<ts.ParameterDeclaration>) {
 function getParameterList(node: ts.Node) {
     const list = new Array<ts.ParameterDeclaration>()
     findParameter(node, list)
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 const ParameterFinder = {

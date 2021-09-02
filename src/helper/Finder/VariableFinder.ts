@@ -64,7 +64,9 @@ function findVariable(
 function getVariableList(node: ts.Node) {
     const list = new Array<ts.VariableDeclaration>()
     findVariable(node, node, list)
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 const VariableFinder = {

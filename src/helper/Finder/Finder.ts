@@ -8,7 +8,17 @@ function getClassList(node: ts.Node) {
         }
         return true
     })
-    return list
+    return list.sort((aaa, bbb) => {
+        const aname = aaa.name?.text
+        const bname = bbb.name?.text
+        if (aname === undefined) {
+            return -1
+        }
+        if (bname === undefined) {
+            return 1
+        }
+        return aname.localeCompare(bname)
+    })
 }
 
 function getEnumList(node: ts.Node) {
@@ -19,7 +29,9 @@ function getEnumList(node: ts.Node) {
         }
         return true
     })
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 function getFunctionList(node: ts.Node) {
@@ -30,7 +42,17 @@ function getFunctionList(node: ts.Node) {
         }
         return true
     })
-    return list
+    return list.sort((aaa, bbb) => {
+        const aname = aaa.name?.text
+        const bname = bbb.name?.text
+        if (aname === undefined) {
+            return -1
+        }
+        if (bname === undefined) {
+            return 1
+        }
+        return aname.localeCompare(bname)
+    })
 }
 
 function getInterfaceList(node: ts.Node) {
@@ -41,7 +63,9 @@ function getInterfaceList(node: ts.Node) {
         }
         return true
     })
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 function getTypeAliasList(node: ts.Node) {
@@ -52,7 +76,9 @@ function getTypeAliasList(node: ts.Node) {
         }
         return true
     })
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 function inClass(node: ts.Node): boolean {

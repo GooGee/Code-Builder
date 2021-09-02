@@ -3,7 +3,9 @@ import ts from 'typescript'
 function getTypeParameterList(node: ts.Node) {
     const list = new Array<ts.TypeParameterDeclaration>()
     traversal(node, list)
-    return list
+    return list.sort((aaa, bbb) =>
+        aaa.name.getText().localeCompare(bbb.name.getText()),
+    )
 }
 
 function traversal(node: ts.Node, list: ts.TypeParameterDeclaration[]) {

@@ -126,6 +126,7 @@ export default function ObjectChildMenuFactory(node: ObjectType) {
 
     type.getProperties()
         .filter((item) => item.name[0] !== '_')
+        .sort((aaa, bbb) => aaa.name.localeCompare(bbb.name))
         .forEach((item) => {
             menu.list.push(makeMenu(item, node))
         })
