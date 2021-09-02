@@ -1,12 +1,12 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import ts from 'typescript'
-import ObjectTypeMenuFactory from '../../helper/Menu/ObjectTypeMenuFactory'
+import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import Transformer from '../../helper/Transformer/Transformer'
 import TypeNodeTransformer from '../../helper/Transformer/TypeNodeTransformer'
 import UniqueKey from '../../helper/UniqueKey'
 import SourceFileContext from '../context/SourceFileContext'
 import Button from '../control/Button'
-import ObjectTypeMenu from '../control/ObjectTypeMenu'
+import TypeMenu from '../control/TypeMenu'
 import TypeNode from './TypeNode'
 import TypeNodexx from './TypeNodexx'
 
@@ -57,14 +57,14 @@ export default function TypeArrayBox({
                         >
                             -
                         </Button>
-                        <ObjectTypeMenu
-                            factory={ObjectTypeMenuFactory}
+                        <TypeMenu
+                            factory={TypeMenuFactory}
                             node={item}
                             parent={item.parent}
                             required={true}
                         >
                             <TypeNode node={item}></TypeNode>
-                        </ObjectTypeMenu>
+                        </TypeMenu>
                     </div>
                 ))}
                 <div>

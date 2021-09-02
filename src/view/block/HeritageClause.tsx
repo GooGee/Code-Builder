@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import HeritageClauseMenuFactory from '../../helper/Menu/HeritageClauseMenuFactory'
-import ObjectTypeMenuFactory from '../../helper/Menu/ObjectTypeMenuFactory'
+import TypeMenuFactory from '../../helper/Menu/TypeMenuFactory'
 import MenuButton from '../control/MenuButton'
-import ObjectTypeMenu from '../control/ObjectTypeMenu'
+import TypeMenu from '../control/TypeMenu'
 import Keyword from '../text/Keyword'
 import TypeArrayBox from '../type/TypeArrayBox'
 import TypeNode from '../type/TypeNode'
@@ -18,14 +18,15 @@ export default function HeritageClause({ node }: Props): ReactElement {
         if (ts.isClassLike(parent)) {
             if (node.token === ts.SyntaxKind.ExtendsKeyword) {
                 return (
-                    <ObjectTypeMenu
-                        factory={ObjectTypeMenuFactory}
+                    <TypeMenu
+                        factory={TypeMenuFactory}
                         node={node.types[0]}
                         parent={parent}
                         required={true}
+                        onlyObjectType={true}
                     >
                         <TypeNode node={node.types[0]}></TypeNode>
-                    </ObjectTypeMenu>
+                    </TypeMenu>
                 )
             }
         }
