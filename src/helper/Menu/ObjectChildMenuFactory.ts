@@ -27,9 +27,19 @@ function addCallMenu(
     replace: ts.Node,
 ) {
     list.forEach((item) => {
-        const text = item.declaration?.getText() ?? '()'
+        let text = '()'
+        let typeArgumentxx: ts.TypeNode[] = []
+        if (item.declaration) {
+            if (ts.isFunctionLike(item.declaration)) {
+                text = getSignatureDeclarationText(item.declaration)
+            }
+        }
         const mmm = MenuFactory.makeMenu(text, () => {
-            const nnn = ts.factory.createCallExpression(node, [], [])
+            const nnn = ts.factory.createCallExpression(
+                node,
+                typeArgumentxx,
+                [],
+            )
             Transformer.replace(replace, nnn)
         })
         menu.list.push(mmm)
@@ -50,6 +60,27 @@ function addNewMenu(
         })
         menu.list.push(mmm)
     })
+}
+
+function getSignatureDeclarationText(declaration: ts.SignatureDeclaration) {
+    const list = [declaration.name?.getText() ?? '']
+    if (declaration.typeParameters) {
+        if (declaration.typeParameters.length) {
+            const text = declaration.typeParameters
+                .map((item) => item.getText())
+                .join(', ')
+            list.push(`<${text}>`)
+        }
+    }
+    if (declaration.parameters) {
+        if (declaration.parameters.length) {
+            const text = declaration.parameters
+                .map((item) => item.getText())
+                .join(', ')
+            list.push(`(${text})`)
+        }
+    }
+    return list.join('')
 }
 
 function makeCallMenu(
