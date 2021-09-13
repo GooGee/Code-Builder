@@ -1,8 +1,9 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
 import CatchClause from '../block/CatchClause'
+import EmptyBlock from '../block/EmptyBlock'
 import StatementMenu from '../control/StatementMenu'
 import Keyword from '../text/Keyword'
 
@@ -11,9 +12,6 @@ interface Props {
 }
 
 export default function TryStatement({ node }: Props): ReactElement {
-    const [visible, setVisible] = useState(
-        node.finallyBlock!.statements.length > 0,
-    )
     return (
         <span>
             <StatementMenu
@@ -25,22 +23,7 @@ export default function TryStatement({ node }: Props): ReactElement {
             </StatementMenu>{' '}
             <Block node={node.tryBlock}></Block>
             <CatchClause node={node.catchClause!}></CatchClause>
-            <span
-                onClick={() => {
-                    if (node.finallyBlock!.statements.length) {
-                        return
-                    }
-                    setVisible(!visible)
-                }}
-                className="keyword cursor-pointer"
-            >
-                {' finally '}
-            </span>
-            {visible === false ? (
-                '{}'
-            ) : (
-                <Block node={node.finallyBlock}></Block>
-            )}
+            <EmptyBlock text=" finally " node={node.finallyBlock!}></EmptyBlock>
         </span>
     )
 }
