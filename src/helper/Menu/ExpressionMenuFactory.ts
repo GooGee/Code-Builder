@@ -80,6 +80,20 @@ function makeConstantMenu(
     return menu
 }
 
+function makeDeleteMenu(parent: ts.BinaryExpression, old: ts.Expression) {
+    return MenuFactory.makeMenu('Delete', () => {
+        let keep = parent.left
+        if (Object.is(parent.left, old)) {
+            keep = parent.right
+        }
+        if (ts.isParenthesizedExpression(parent.parent)) {
+            Transformer.replace(parent.parent, keep)
+        } else {
+            Transformer.replace(parent, keep)
+        }
+    })
+}
+
 function makeEcmas6ClassMenu(
     parent: ts.Node,
     propertyName: string,
@@ -201,14 +215,7 @@ export default function ExpressionMenuFactory(
             ts.isBinaryExpression(parent) &&
             isComputeToken(parent.operatorToken.kind)
         ) {
-            const mm = MenuFactory.makeMenu('Delete', () => {
-                if (Object.is(parent.left, old)) {
-                    Transformer.replace(parent, parent.right)
-                } else {
-                    Transformer.replace(parent, parent.left)
-                }
-            })
-            menu.list.push(mm)
+            menu.list.push(makeDeleteMenu(parent, old))
             MenuFactory.addSeparator(menu)
         } else if (ts.isReturnStatement(old.parent)) {
             MenuFactory.addDelete(menu, old)
