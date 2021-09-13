@@ -1,7 +1,8 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import StatementMenuFactory from '../../helper/Menu/StatementMenuFactory'
 import Block from '../block/Block'
+import EmptyBlock from '../block/EmptyBlock'
 import StatementMenu from '../control/StatementMenu'
 import ExpressionRoot from '../expression/ExpressionRoot'
 import Keyword from '../text/Keyword'
@@ -11,8 +12,6 @@ interface Props {
 }
 
 export default function IfStatement({ node }: Props): ReactElement {
-    const block = node.elseStatement as ts.Block
-    const [visible, setVisible] = useState(block.statements.length > 0)
     return (
         <span>
             <StatementMenu
@@ -27,22 +26,10 @@ export default function IfStatement({ node }: Props): ReactElement {
                 parent={node}
             ></ExpressionRoot>{' '}
             <Block node={node.thenStatement as any}></Block>
-            <span
-                onClick={() => {
-                    if (block.statements.length) {
-                        return
-                    }
-                    setVisible(!visible)
-                }}
-                className="keyword cursor-pointer"
-            >
-                {' else '}
-            </span>
-            {visible === false ? (
-                '{}'
-            ) : (
-                <Block node={node.elseStatement as any}></Block>
-            )}
+            <EmptyBlock
+                text=" else "
+                node={node.elseStatement as any}
+            ></EmptyBlock>
         </span>
     )
 }
