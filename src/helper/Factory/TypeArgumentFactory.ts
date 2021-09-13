@@ -2,7 +2,7 @@ import ts from 'typescript'
 
 function makeTypeArgument(node: ts.TypeParameterDeclaration) {
     if (node.constraint) {
-        // todo
+        return node.constraint
     }
     return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
 }

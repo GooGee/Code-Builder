@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import Menu from '../../model/Menu'
 import state from '../../state'
+import TypeArgumentFactory from '../Factory/TypeArgumentFactory'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
@@ -32,6 +33,11 @@ function addCallMenu(
         if (item.declaration) {
             if (ts.isFunctionLike(item.declaration)) {
                 text = getSignatureDeclarationText(item.declaration)
+                if (item.declaration.typeParameters) {
+                    typeArgumentxx = TypeArgumentFactory.makeTypeArgumentList(
+                        item.declaration.typeParameters,
+                    )
+                }
             }
         }
         const mmm = MenuFactory.makeMenu(text, () => {
