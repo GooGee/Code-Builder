@@ -28,11 +28,11 @@ export default function TypeAliasDeclaration({ node }: Props): ReactElement {
                 onMouseLeave={(event) => setHovering(false)}
             >
                 <IdentifierDeclaration node={node.name}></IdentifierDeclaration>
-                <TypeParameterDeclarationxx
+                {/* <TypeParameterDeclarationxx
                     hovering={hovering}
                     list={node.typeParameters}
                     parent={node}
-                ></TypeParameterDeclarationxx>
+                ></TypeParameterDeclarationxx> */}
             </span>
             <Equal></Equal>
             <TypeRoot node={node.type} parent={node}></TypeRoot>
