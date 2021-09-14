@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import ts from 'typescript'
 import Block from './Block'
 
@@ -8,16 +8,13 @@ interface Props {
 }
 
 export default function EmptyBlock({ text, node }: Props): ReactElement {
-    const css = 'cursor-pointer'
     const [visible, setVisible] = useState(node.statements.length > 0)
-    const [gray, setGray] = useState(css)
-    useEffect(() => {
-        if (visible) {
-            setGray(css + ' keyword')
-        } else {
-            setGray(css + ' text-gray-300')
-        }
-    }, [visible])
+    let css = 'cursor-pointer'
+    if (visible) {
+        css += ' keyword'
+    } else {
+        css += ' text-gray-300'
+    }
     return (
         <span>
             <span
@@ -27,7 +24,7 @@ export default function EmptyBlock({ text, node }: Props): ReactElement {
                     }
                     setVisible(!visible)
                 }}
-                className={gray}
+                className={css}
             >
                 {text}
             </span>
