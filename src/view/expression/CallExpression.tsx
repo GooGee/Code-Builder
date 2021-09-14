@@ -23,7 +23,7 @@ export default function CallExpression({ node }: Props): ReactElement {
 
         if (editing) {
             return (
-                <TypeArgumentTable list={node.typeArguments}>
+                <TypeArgumentTable list={node.typeArguments} parent={node}>
                     <Button onClick={() => setEditing(false)}>x</Button>
                 </TypeArgumentTable>
             )
