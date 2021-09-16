@@ -55,7 +55,12 @@ export default function ModalDialog({
             >
                 {trigger}
             </span>
-            <ReactModal isOpen={visible} style={style}>
+            <ReactModal
+                isOpen={visible}
+                onAfterOpen={() => (document.body.style.overflow = 'hidden')}
+                onAfterClose={() => (document.body.style.overflow = 'unset')}
+                style={style}
+            >
                 {children}
             </ReactModal>
         </span>
