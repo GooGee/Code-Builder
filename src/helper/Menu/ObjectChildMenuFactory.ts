@@ -28,16 +28,11 @@ function addCallMenu(
     replace: ts.Node,
 ) {
     list.forEach((item) => {
+        const typeArgumentxx = getTypeArgumentList(item.declaration)
         let text = '()'
-        let typeArgumentxx: ts.TypeNode[] = []
         if (item.declaration) {
             if (ts.isFunctionLike(item.declaration)) {
                 text = getSignatureDeclarationText(item.declaration)
-                if (item.declaration.typeParameters) {
-                    typeArgumentxx = TypeArgumentFactory.makeTypeArgumentList(
-                        item.declaration.typeParameters,
-                    )
-                }
             }
         }
         const mmm = MenuFactory.makeMenu(text, () => {
@@ -59,9 +54,10 @@ function addNewMenu(
     replace: ts.Node,
 ) {
     list.forEach((item) => {
+        const typeArgumentxx = getTypeArgumentList(item.declaration)
         const text = item.declaration?.getText() ?? '()'
         const mmm = MenuFactory.makeMenu(text, () => {
-            const nnn = ts.factory.createNewExpression(node, [], [])
+            const nnn = ts.factory.createNewExpression(node, typeArgumentxx, [])
             Transformer.replace(replace, nnn)
         })
         menu.list.push(mmm)
@@ -87,6 +83,24 @@ function getSignatureDeclarationText(declaration: ts.SignatureDeclaration) {
         }
     }
     return list.join('')
+}
+
+function getTypeArgumentList(
+    declaration?: ts.SignatureDeclaration | ts.JSDocSignature,
+): ts.TypeNode[] {
+    if (declaration === undefined) {
+        return []
+    }
+
+    if (ts.isFunctionLike(declaration)) {
+        if (declaration.typeParameters) {
+            return TypeArgumentFactory.makeTypeArgumentList(
+                declaration.typeParameters,
+            )
+        }
+    }
+
+    return []
 }
 
 function makeCallMenu(
