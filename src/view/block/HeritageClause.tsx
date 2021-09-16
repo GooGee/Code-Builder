@@ -30,7 +30,13 @@ export default function HeritageClause({ node }: Props): ReactElement {
                 )
             }
         }
-        return <TypeArrayBox list={node.types} parent={node}></TypeArrayBox>
+        return (
+            <TypeArrayBox
+                list={node.types}
+                parent={node}
+                onlyObjectType={true}
+            ></TypeArrayBox>
+        )
     }
 
     return (

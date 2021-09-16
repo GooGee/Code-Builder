@@ -14,12 +14,14 @@ interface Props {
     list: ts.NodeArray<ts.TypeNode>
     parent: ts.HeritageClause | ts.UnionTypeNode
     separator?: string
+    onlyObjectType?: boolean
 }
 
 export default function TypeArrayBox({
     list,
     parent,
     separator = ', ',
+    onlyObjectType = false,
 }: Props): ReactElement {
     const context = useContext(SourceFileContext)
     const [editing, setEditing] = useState(false)
@@ -62,6 +64,7 @@ export default function TypeArrayBox({
                             node={item}
                             parent={item.parent}
                             required={true}
+                            onlyObjectType={onlyObjectType}
                         >
                             <TypeNode node={item}></TypeNode>
                         </TypeMenu>
