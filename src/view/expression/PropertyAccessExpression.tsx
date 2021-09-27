@@ -2,22 +2,21 @@ import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import Dot from '../text/Dot'
 import Expression from './Expression'
-import IdentifierExpression from './IdentifierExpression'
 
 interface Props {
     node: ts.PropertyAccessExpression
+    root: ts.Expression
 }
 
 export default function PropertyAccessExpression({
     node,
+    root,
 }: Props): ReactElement {
     return (
         <span>
-            <Expression node={node.expression}></Expression>
+            <Expression node={node.expression} root={root}></Expression>
             <Dot></Dot>
-            <IdentifierExpression
-                node={node.name as any}
-            ></IdentifierExpression>
+            <Expression node={node.name as any} root={root}></Expression>
         </span>
     )
 }
