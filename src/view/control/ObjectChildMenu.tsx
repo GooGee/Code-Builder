@@ -7,13 +7,14 @@ import Menuxx from './Menuxx'
 import ModalDialog from './ModalDialog'
 
 interface Factory {
-    (node: ObjectType): Menu
+    (node: ObjectType, root: ts.Expression): Menu
 }
 
 interface Props {
     children?: ReactElement
     factory: Factory
     node: ObjectType
+    root: ts.Expression
     text?: string
 }
 
@@ -21,12 +22,13 @@ export default function ObjectChildMenu({
     children,
     factory,
     node,
+    root,
     text = '*',
 }: Props): ReactElement {
     const [list, setList] = useState<Menu[]>([])
     return (
         <ModalDialog
-            onOpen={() => setList(factory(node).list)}
+            onOpen={() => setList(factory(node, root).list)}
             trigger={children ? children : <Button>{text}</Button>}
         >
             <Menuxx list={list}></Menuxx>
