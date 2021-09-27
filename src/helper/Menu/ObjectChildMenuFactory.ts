@@ -5,6 +5,34 @@ import TypeArgumentFactory from '../Factory/TypeArgumentFactory'
 import Transformer from '../Transformer/Transformer'
 import MenuFactory from './MenuFactory'
 
+function addDeleteMenu(menu: Menu, node: ObjectType, root: ts.Expression) {
+    if (ts.isArrayLiteralExpression(node)) {
+        return
+    }
+    if (ts.isLiteralExpression(node)) {
+        return
+    }
+    if (node.kind === ts.SyntaxKind.ThisKeyword) {
+        return
+    }
+
+    const parent = node.parent
+    if (ts.isPropertyAccessExpression(parent)) {
+        if (Object.is(parent.expression, node)) {
+            return
+        }
+        menu.list.push(
+            MenuFactory.makeMenu('Delete', () => {
+                if (window.confirm('Are you sure?')) {
+                    Transformer.replace(root, parent.expression)
+                }
+            }),
+        )
+        MenuFactory.addSeparator(menu)
+        return
+    }
+}
+
 function addCallNewMenu(menu: Menu, node: ts.Identifier) {
     const type = state.worker.checker.getType(node)
 
@@ -157,9 +185,14 @@ export type ObjectType =
     | ts.StringLiteral
     | ts.ThisExpression
 
-export default function ObjectChildMenuFactory(node: ObjectType) {
+export default function ObjectChildMenuFactory(
+    node: ObjectType,
+    root: ts.Expression,
+) {
     console.log('ObjectChildMenuFactory')
     const menu = MenuFactory.makeMenu('')
+    addDeleteMenu(menu, node, root)
+
     const type = state.worker.checker.getType(node)
     if (ts.isIdentifier(node)) {
         addCallNewMenu(menu, node)
