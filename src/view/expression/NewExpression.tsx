@@ -5,13 +5,14 @@ import CallExpression from './CallExpression'
 
 interface Props {
     node: ts.NewExpression
+    root: ts.Expression
 }
 
-export default function NewExpression({ node }: Props): ReactElement {
+export default function NewExpression({ node, root }: Props): ReactElement {
     return (
         <>
             <Keyword kind={node.kind} suffix=" "></Keyword>
-            <CallExpression node={node}></CallExpression>
+            <CallExpression node={node} root={root}></CallExpression>
         </>
     )
 }

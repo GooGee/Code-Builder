@@ -6,11 +6,19 @@ import Identifier from '../text/Identifier'
 
 interface Props {
     node: ts.Identifier
+    root: ts.Expression
 }
 
-export default function IdentifierExpression({ node }: Props): ReactElement {
+export default function IdentifierExpression({
+    node,
+    root,
+}: Props): ReactElement {
     return (
-        <ObjectChildMenu factory={ObjectChildMenuFactory} node={node}>
+        <ObjectChildMenu
+            factory={ObjectChildMenuFactory}
+            node={node}
+            root={root}
+        >
             <Identifier node={node}></Identifier>
         </ObjectChildMenu>
     )

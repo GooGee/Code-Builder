@@ -31,7 +31,7 @@ export default function ExpressionRootEdit({
             </ExpressionMenu>
 
             {node === undefined ? null : (
-                <Expression editing={true} node={node}></Expression>
+                <Expression editing={true} node={node} root={node}></Expression>
             )}
         </span>
     )

@@ -12,6 +12,7 @@ import Expression from './Expression'
 interface Props {
     list: ts.NodeArray<ts.Expression>
     parent: ts.ArrayLiteralExpression | ts.CallExpression | ts.NewExpression
+    root: ts.Expression
     prefix?: string
     suffix?: string
 }
@@ -19,6 +20,7 @@ interface Props {
 export default function Expressionxx({
     list,
     parent,
+    root,
     prefix = '(',
     suffix = ')',
 }: Props): ReactElement {
@@ -58,13 +60,21 @@ export default function Expressionxx({
                     ? null
                     : list
                           .map((node) => (
-                              <Expression key={uk()} node={node}></Expression>
+                              <Expression
+                                  key={uk()}
+                                  node={node}
+                                  root={node}
+                              ></Expression>
                           ))
                           .reduce((previousValue, currentValue): any => {
                               return [previousValue, ', ', currentValue]
                           })}
             </span>
-            <ObjectChildMenu factory={ObjectChildMenuFactory} node={parent}>
+            <ObjectChildMenu
+                factory={ObjectChildMenuFactory}
+                node={parent}
+                root={root}
+            >
                 <HoverButton color="">{suffix}</HoverButton>
             </ObjectChildMenu>
         </span>

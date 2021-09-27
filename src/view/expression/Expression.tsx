@@ -23,11 +23,13 @@ import TypeOfExpression from './TypeOfExpression'
 interface Props {
     editing?: boolean
     node: ts.Expression
+    root: ts.Expression
 }
 
 export default function Expression({
     editing = false,
     node,
+    root,
 }: Props): ReactElement | null {
     if (node === undefined) {
         return null
@@ -56,7 +58,9 @@ export default function Expression({
             )
 
         case ts.SyntaxKind.CallExpression:
-            return <CallExpression node={node as any}></CallExpression>
+            return (
+                <CallExpression node={node as any} root={root}></CallExpression>
+            )
 
         case ts.SyntaxKind.DeleteExpression:
             return <DeleteExpression node={node as any}></DeleteExpression>
@@ -65,6 +69,7 @@ export default function Expression({
             return (
                 <ElementAccessExpression
                     node={node as any}
+                    root={root}
                 ></ElementAccessExpression>
             )
 
@@ -83,16 +88,22 @@ export default function Expression({
             return (
                 <ExpressionWithTypeArguments
                     node={node as any}
+                    root={root}
                 ></ExpressionWithTypeArguments>
             )
 
         case ts.SyntaxKind.Identifier:
             return (
-                <IdentifierExpression node={node as any}></IdentifierExpression>
+                <IdentifierExpression
+                    node={node as any}
+                    root={root}
+                ></IdentifierExpression>
             )
 
         case ts.SyntaxKind.NewExpression:
-            return <NewExpression node={node as any}></NewExpression>
+            return (
+                <NewExpression node={node as any} root={root}></NewExpression>
+            )
 
         case ts.SyntaxKind.NumericLiteral:
         case ts.SyntaxKind.StringLiteral:
@@ -110,6 +121,7 @@ export default function Expression({
                 <ParenthesizedExpression
                     editing={editing}
                     node={node as any}
+                    root={root}
                 ></ParenthesizedExpression>
             )
 
@@ -131,6 +143,7 @@ export default function Expression({
             return (
                 <PropertyAccessExpression
                     node={node as any}
+                    root={root}
                 ></PropertyAccessExpression>
             )
 

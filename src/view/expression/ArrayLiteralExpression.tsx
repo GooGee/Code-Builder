@@ -11,6 +11,7 @@ export default function ArrayLiteralExpression({ node }: Props): ReactElement {
         <Expressionxx
             list={node.elements}
             parent={node}
+            root={node}
             prefix="["
             suffix="]"
         ></Expressionxx>

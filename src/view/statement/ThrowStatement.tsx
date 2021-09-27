@@ -19,7 +19,10 @@ export default function ThrowStatement({ node }: Props): ReactElement {
             >
                 <Keyword kind={node.kind} suffix=" "></Keyword>
             </StatementMenu>
-            <NewExpression node={node.expression as any}></NewExpression>
+            <NewExpression
+                node={node.expression as any}
+                root={node.expression}
+            ></NewExpression>
         </span>
     )
 }

@@ -8,9 +8,10 @@ import Expressionxx from './Expressionxx'
 
 interface Props {
     node: ts.CallExpression | ts.NewExpression
+    root: ts.Expression
 }
 
-export default function CallExpression({ node }: Props): ReactElement {
+export default function CallExpression({ node, root }: Props): ReactElement {
     const [editing, setEditing] = useState(false)
 
     function view() {
@@ -45,9 +46,13 @@ export default function CallExpression({ node }: Props): ReactElement {
 
     return (
         <span>
-            <Expression node={node.expression}></Expression>
+            <Expression node={node.expression} root={root}></Expression>
             {view()}
-            <Expressionxx list={node.arguments!} parent={node}></Expressionxx>
+            <Expressionxx
+                list={node.arguments!}
+                parent={node}
+                root={root}
+            ></Expressionxx>
         </span>
     )
 }

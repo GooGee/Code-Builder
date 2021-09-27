@@ -37,7 +37,11 @@ export default function ExpressionRoot({
             )}
 
             {node === undefined ? null : (
-                <Expression editing={visible} node={node}></Expression>
+                <Expression
+                    editing={visible}
+                    node={node}
+                    root={node}
+                ></Expression>
             )}
         </span>
     )

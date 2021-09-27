@@ -12,7 +12,11 @@ interface Props {
 export default function ThisExpression({ node }: Props): ReactElement {
     return (
         <Diagnostic node={node}>
-            <ObjectChildMenu factory={ObjectChildMenuFactory} node={node}>
+            <ObjectChildMenu
+                factory={ObjectChildMenuFactory}
+                node={node}
+                root={node}
+            >
                 <Keyword kind={node.kind as any}></Keyword>
             </ObjectChildMenu>
         </Diagnostic>

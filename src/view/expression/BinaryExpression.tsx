@@ -33,9 +33,9 @@ export default function BinaryExpression({
 
     return (
         <span>
-            <Expression node={node.left}></Expression>{' '}
+            <Expression node={node.left} root={node.left}></Expression>{' '}
             <ComputeToken token={node.operatorToken}></ComputeToken>{' '}
-            <Expression node={node.right}></Expression>
+            <Expression node={node.right} root={node.right}></Expression>
         </span>
     )
 }
