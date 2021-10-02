@@ -214,7 +214,7 @@ export default function ObjectChildMenuFactory(
     }
 
     type.getProperties()
-        .filter((item) => item.name[0] !== '_')
+        .filter((item) => !(item.name[0] === '_' && item.name[1] === '_'))
         .sort((aaa, bbb) => aaa.name.localeCompare(bbb.name))
         .forEach((item) => {
             menu.list.push(makeMenu(item, node))
