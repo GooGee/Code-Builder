@@ -31,12 +31,12 @@ export default function FunctionDeclaration({ node }: Props): ReactElement {
             >
                 <IdentifierDeclaration
                     node={node.name as any}
-                ></IdentifierDeclaration>
+                ></IdentifierDeclaration>{' '}
                 <TypeParameterDeclarationxx
                     hovering={hovering}
                     list={node.typeParameters}
                     parent={node}
-                ></TypeParameterDeclarationxx>
+                ></TypeParameterDeclarationxx>{' '}
                 <ParameterDeclarationxx
                     list={node.parameters}
                     parent={node}
