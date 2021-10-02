@@ -102,15 +102,20 @@ function getSignatureDeclarationText(declaration: ts.SignatureDeclaration) {
             list.push(`<${text}>`)
         }
     }
+    let noParameter = true
     if (declaration.parameters) {
         if (declaration.parameters.length) {
+            noParameter = false
             const text = declaration.parameters
                 .map((item) => item.getText())
                 .join(', ')
             list.push(`(${text})`)
         }
     }
-    return list.join('')
+    if (noParameter) {
+        list.push('( )')
+    }
+    return list.join(' ')
 }
 
 function getTypeArgumentList(
