@@ -5,6 +5,7 @@ import ArrayType from './ArrayType'
 import ExpressionType from './ExpressionType'
 import KeywordType from './KeywordType'
 import LiteralType from './LiteralType'
+import ParenthesizedType from './ParenthesizedType'
 import TypeReference from './TypeReference'
 import UnionType from './UnionType'
 
@@ -23,6 +24,10 @@ export default function TypeNode({ node }: Props): ReactElement | null {
 
     if (ts.isLiteralTypeNode(node)) {
         return <LiteralType node={node}></LiteralType>
+    }
+
+    if (ts.isParenthesizedTypeNode(node)) {
+        return <ParenthesizedType node={node}></ParenthesizedType>
     }
 
     if (ts.isTypeReferenceNode(node)) {
