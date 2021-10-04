@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import InterfaceMenuFactory from '../../helper/Menu/InterfaceMenuFactory'
 import HoverButton from '../control/HoverButton'
@@ -15,21 +15,13 @@ export default function PropertySignature({
     node,
     parent,
 }: Props): ReactElement {
-    const [hovering, setHovering] = useState(false)
     return (
-        <div>
+        <div className="hover-bg">
+            <MenuButton factory={() => InterfaceMenuFactory(parent, node)}>
+                <HoverButton> p </HoverButton>
+            </MenuButton>
             <Modifierxx list={node.modifiers}></Modifierxx>
-            <span
-                onMouseEnter={(event) => setHovering(true)}
-                onMouseLeave={(event) => setHovering(false)}
-            >
-                {hovering ? (
-                    <MenuButton factory={() => InterfaceMenuFactory(parent, node)}>
-                        <HoverButton> p </HoverButton>
-                    </MenuButton>
-                ) : null}
-                <NameTypeValue node={node}></NameTypeValue>
-            </span>
+            <NameTypeValue node={node}></NameTypeValue>
         </div>
     )
 }

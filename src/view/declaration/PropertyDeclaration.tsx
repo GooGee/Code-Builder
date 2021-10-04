@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import ts from 'typescript'
 import ClassMenuFactory from '../../helper/Menu/ClassMenuFactory'
 import HoverButton from '../control/HoverButton'
@@ -15,17 +15,11 @@ export default function PropertyDeclaration({
     node,
     parent,
 }: Props): ReactElement {
-    const [hovering, setHovering] = useState(false)
     return (
-        <div
-            onMouseEnter={(event) => setHovering(true)}
-            onMouseLeave={(event) => setHovering(false)}
-        >
-            {hovering ? (
-                <MenuButton factory={() => ClassMenuFactory(parent, node)}>
-                    <HoverButton> p </HoverButton>
-                </MenuButton>
-            ) : null}
+        <div className="hover-bg">
+            <MenuButton factory={() => ClassMenuFactory(parent, node)}>
+                <HoverButton> p </HoverButton>
+            </MenuButton>
             {node.modifiers === undefined ? null : (
                 <span>
                     <Modifierxx list={node.modifiers}></Modifierxx>{' '}
