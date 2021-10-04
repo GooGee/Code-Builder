@@ -7,6 +7,15 @@
     color: red;
 }
 
+.hover-bg .hover-button {
+    display: none;
+}
+
+.hover-bg:hover .hover-button {
+    display: inline-block;
+    padding: 0 4px;
+}
+
 .keyword {
     color: dodgerblue;
 }

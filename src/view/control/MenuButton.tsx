@@ -24,7 +24,9 @@ export default function MenuButton({
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
-                <span>{children ? children : <Button>{text}</Button>}</span>
+                <span className="hover-button">
+                    {children ? children : <Button>{text}</Button>}
+                </span>
             }
             closeOnDocumentClick
             position="right center"
