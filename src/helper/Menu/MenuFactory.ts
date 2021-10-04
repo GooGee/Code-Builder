@@ -4,11 +4,11 @@ import Transformer from '../Transformer/Transformer'
 
 const nothing = () => {}
 
-function addDelete(menu: Menu, node: ts.Node) {
+function addDelete(menu: Menu, from: ts.Node, to?: ts.Node) {
     menu.list.push(
         makeMenu('Delete', () => {
             if (window.confirm('Are you sure?')) {
-                Transformer.replace(node, undefined)
+                Transformer.replace(from, to)
             }
         }),
     )

@@ -27,7 +27,7 @@ function insertMany<T extends ts.Node>(
     return ts.factory.createNodeArray(list)
 }
 
-function replace(from: ts.Node, to: ts.Node | undefined) {
+function replace(from: ts.Node, to?: ts.Node) {
     run((context) => {
         const visitor = (node: ts.Node): any => {
             if (Object.is(node, from)) {

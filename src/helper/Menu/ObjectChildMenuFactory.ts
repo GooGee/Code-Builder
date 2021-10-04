@@ -21,13 +21,7 @@ function addDeleteMenu(menu: Menu, node: ObjectType, root: ts.Expression) {
         if (Object.is(parent.expression, node)) {
             return
         }
-        menu.list.push(
-            MenuFactory.makeMenu('Delete', () => {
-                if (window.confirm('Are you sure?')) {
-                    Transformer.replace(root, parent.expression)
-                }
-            }),
-        )
+        MenuFactory.addDelete(menu, root, parent.expression)
         MenuFactory.addSeparator(menu)
         return
     }
