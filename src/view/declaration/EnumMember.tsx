@@ -26,7 +26,7 @@ export default function EnumMember({ node }: Props): ReactElement {
             <IdentifierDeclaration
                 node={node.name as any}
             ></IdentifierDeclaration>
-            {node.initializer ? ' = ' : ''}
+            {node.initializer || editing ? ' =' : ''}
             {editing ? (
                 <ExpressionRootEdit
                     node={node.initializer}
