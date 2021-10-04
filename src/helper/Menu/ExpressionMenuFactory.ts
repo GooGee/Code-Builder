@@ -82,14 +82,16 @@ function makeConstantMenu(
 
 function makeDeleteMenu(parent: ts.BinaryExpression, old: ts.Expression) {
     return MenuFactory.makeMenu('Delete', () => {
-        let keep = parent.left
-        if (Object.is(parent.left, old)) {
-            keep = parent.right
-        }
-        if (ts.isParenthesizedExpression(parent.parent)) {
-            Transformer.replace(parent.parent, keep)
-        } else {
-            Transformer.replace(parent, keep)
+        if (window.confirm('Are you sure?')) {
+            let keep = parent.left
+            if (Object.is(parent.left, old)) {
+                keep = parent.right
+            }
+            if (ts.isParenthesizedExpression(parent.parent)) {
+                Transformer.replace(parent.parent, keep)
+            } else {
+                Transformer.replace(parent, keep)
+            }
         }
     })
 }
