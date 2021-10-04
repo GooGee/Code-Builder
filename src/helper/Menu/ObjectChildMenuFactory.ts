@@ -175,7 +175,7 @@ function makeMenu(item: ts.Symbol, node: ObjectType) {
 }
 
 function makeElementAccessExpressionMenu(node: ts.Identifier) {
-    return MenuFactory.makeMenu('[]', () => {
+    return MenuFactory.makeMenu('[ ]', () => {
         const nnn = ts.factory.createElementAccessExpression(node, 0)
         Transformer.replace(node, nnn)
     })

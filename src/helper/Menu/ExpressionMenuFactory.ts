@@ -72,7 +72,7 @@ function makeConstantMenu(
                 old,
             ),
         ),
-        MenuFactory.makeMenu('[]', () => {
+        MenuFactory.makeMenu('[ ]', () => {
             const node = ts.factory.createArrayLiteralExpression()
             Transformer.transform(node, parent, propertyName, old)
         }),
