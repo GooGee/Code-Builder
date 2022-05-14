@@ -1,15 +1,23 @@
 # Code Builder
 
-Visual programming with TypeScript [demo](https://googee.github.io/Code-Builder-Page/index.html)
+Visual programming with TypeScript
 
 Once I wondered how cool it would be if I can do visual programming in modern language.\
 And after years of coding in TypeScript, I become more attached to it.\
 So I built this.
 
-![coding](image/code.gif)
+## Screenshot
+
+`for of`
+
+![for of](image/code.gif)
+
+`forEach`
+
+![forEach](image/code2.gif)
 
 
-### Setup
+## Setup
 
 ```bash
 # install dependencies
