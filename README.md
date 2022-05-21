@@ -8,13 +8,13 @@ So I built this.
 
 ## Screenshot
 
-`for of`
-
-![for of](image/code.gif)
-
 `forEach`
 
 ![forEach](image/code2.gif)
+
+`for of`
+
+![for of](image/code.gif)
 
 
 ## Setup
