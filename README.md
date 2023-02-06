@@ -2,17 +2,18 @@
 
 Visual programming with TypeScript
 
-Once I wondered how cool it would be if I can do visual programming in modern language.\
+Once I wondered how cool it would be if I could do visual programming in modern language.\
 And after years of coding in TypeScript, I become more attached to it.\
-So I built this.
+So I give it a try.
+
 
 ## Screenshot
 
-`forEach`
+### forEach
 
 ![forEach](image/code2.gif)
 
-`for of`
+### for of
 
 ![for of](image/code.gif)
 
